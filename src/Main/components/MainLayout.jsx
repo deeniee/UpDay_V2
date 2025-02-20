@@ -5,12 +5,11 @@ import PopularChallenges from './PopularChallenges';
 import OngoingChallenges from './OngoingChallenges';
 import UserInfo from './UserInfo';
 import ButtonIcon from '../images/button.svg';
-import SpoonIcon from '../../assets/images/common/spoon.svg';
-import DustIcon from '../../assets/images/common/dust.svg';
-import LampIcon from '../../assets/images/common/Lamp.svg';
-import HeartIcon from '../../assets/images/common/heart.svg';
+import SpoonIcon from '../../assets/images/spoon.svg';
+import DustIcon from '../../assets/images/dust.svg';
+import LampIcon from '../../assets/images/Lamp.svg';
+import HeartIcon from '../../assets/images/heart.svg';
 import MainFlower from '../images/main_logo.svg';
-import MbFlower from '../images/mb_flower.svg';
 import ChallengeIcon from '../images/challenge-2.svg';
 import { userChallengeList } from '../../data/userChallengeData';
 
@@ -54,8 +53,7 @@ const MainLayout = () => {
             return [];
         }
         return userChallengeList.filter((challenge) => challenge.clgDoing);
-     }, [isLoggedIn]);
-    
+    }, [isLoggedIn]);
 
     const sortedChallenges = useMemo(() => {
         return Array.isArray(userChallengeList)
@@ -99,8 +97,8 @@ const MainLayout = () => {
             </Helmet>
             <div className='h-[1143px] md:h-[796px] w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto flex flex-col md:flex-row md:gap-[4%]'>
                 {/* 왼쪽 콘텐츠 */}
-                <div className='relative w-full h-[796px] md:w-[48%] flex flex-col items-center'>
-                    <div className='w-full md:h-full flex flex-col gap-44 md:justify-between z-20'>
+                <section className='relative w-full h-[796px] md:w-[48%] flex flex-col items-center'>
+                    <div className='w-full md:h-full flex flex-col gap-4 md:justify-between z-20'>
                         <UserInfo
                             userName={userName}
                             challengeDays={challengeDays}
@@ -114,15 +112,11 @@ const MainLayout = () => {
                     <img
                         src={MainFlower}
                         alt='웹 메인 로고'
-                        className='hidden md:flex md:absolute w-[95%] bottom-80 right-0 '
+                        className='absolute w-[60%] top-15 right-0'
                     />
-                    <img
-                        src={MbFlower}
-                        alt='모바일 메인 로고'
-                        className='absolute w-[150px] top-12 right-12 md:hidden'
-                    />
-                </div>
-                <div className='h-[796px] w-full md:w-[48%] flex flex-col gap-60 md:gap-10 -mt-64 md:m-0 '>
+                </section>
+                <div>
+                    {/* className='h-[796px] w-full md:w-[48%] flex flex-col gap-60 md:gap-10 -mt-64 md:m-0 '> */}
                     <PopularChallenges challenges={sortedChallenges} />
                     <div>
                         <div className='relative mt-1 mb-12 md:mt-0 md:mb-4'>

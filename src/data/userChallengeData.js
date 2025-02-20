@@ -1,7 +1,7 @@
-import diet from '../assets/images/common/spoon.svg';
-import study from '../assets/images/common/Lamp.svg';
-import exercise from '../assets/images/common/dust.svg';
-import habit from '../assets/images/common/heart.svg';
+import diet from '../assets/images/spoon.svg';
+import study from '../assets/images/Lamp.svg';
+import exercise from '../assets/images/dust.svg';
+import habit from '../assets/images/heart.svg';
 
 export const CATEGORY_IMAGES = {
     식단: diet,
