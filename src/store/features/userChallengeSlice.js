@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userChallengeList } from '../../data/userChallengeData';
 import { getChallenges } from '../../utils/localStorage';
+import OngoingChallenges from '../../Main/components/OngoingChallenges';
 
 // 초기 챌린지 리스트 가져오기 (없으면 기본값 저장)
 const getInitialList = () => {
@@ -28,6 +29,9 @@ const userChallengeSlice = createSlice({
         myPosts: [], // 테스트계정이 작성한 챌린지 목록
         joinedChallenges: getInitialJoinedChallenges().filter(
             (challenge) => challenge.clgJoin
+        ),
+        ongoingChallenges: getInitialJoinedChallenges().filter(
+            (challenge) => challenge.clgJoin && challenge.clgDoing
         ),
         selectedChallenge: null, // 현재 선택된 챌린지
         list: getInitialList(), // 초기 데이터,

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const DesktopNav = ({ loggedInUser, handleLogout }) => {
     return (
-        <nav className='hidden md:block h-full text-[20px] font-medium'>
+        <nav className='hidden md:flex items-center h-full text-sm font-medium'>
             <ul className='flex gap-10'>
                 <li>
                     <Link to='/main' className='hover:font-black'>

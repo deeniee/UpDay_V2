@@ -20,7 +20,7 @@ const MobileNav = ({
                             <IoClose className='text-4xl font-bold text-neutral-900' />
                         </button>
                         <nav>
-                            <ul className='text-2xl space-y-10 font-medium'>
+                            <ul className='text-xl space-y-10 font-medium'>
                                 <li className='text-center'>
                                     <Link
                                         to='/main'

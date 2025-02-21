@@ -1,16 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import PopularChallenges from './PopularChallenges';
 import OngoingChallenges from './OngoingChallenges';
+import ChallengeCategory from './ChallengeCategory';
 import UserInfo from './UserInfo';
-import ButtonIcon from '../images/button.svg';
-import SpoonIcon from '../../assets/images/spoon.svg';
-import DustIcon from '../../assets/images/dust.svg';
-import LampIcon from '../../assets/images/Lamp.svg';
-import HeartIcon from '../../assets/images/heart.svg';
-import MainFlower from '../images/main_logo.svg';
-import ChallengeIcon from '../images/challenge-2.svg';
 import { userChallengeList } from '../../data/userChallengeData';
 
 const MainLayout = () => {
@@ -63,102 +56,25 @@ const MainLayout = () => {
             : [];
     }, []);
 
-    const categories = [
-        {
-            name: '식단',
-            color: 'bg-mint-200',
-            icon: SpoonIcon,
-            path: '/challengelist/category/식단',
-        },
-        {
-            name: '학습',
-            color: 'bg-yellow-200',
-            icon: LampIcon,
-            path: '/challengelist/category/학습',
-        },
-        {
-            name: '운동',
-            color: 'bg-purple-200',
-            icon: DustIcon,
-            path: '/challengelist/category/운동',
-        },
-        {
-            name: '습관',
-            color: 'bg-pink-200',
-            icon: HeartIcon,
-            path: '/challengelist/category/습관',
-        },
-    ];
-
     return (
         <>
             <Helmet>
                 <title>홈 - UpDay</title>
             </Helmet>
-            <div className='h-[1143px] md:h-[796px] w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto flex flex-col md:flex-row md:gap-[4%]'>
-                {/* 왼쪽 콘텐츠 */}
-                <section className='relative w-full h-[796px] md:w-[48%] flex flex-col items-center'>
-                    <div className='w-full md:h-full flex flex-col gap-4 md:justify-between z-20'>
-                        <UserInfo
-                            userName={userName}
-                            challengeDays={challengeDays}
-                        />
-                        <OngoingChallenges
-                            userChallengeData={filteredChallenges}
-                            isLoggedIn={isLoggedIn}
-                        />
-                    </div>
-
-                    <img
-                        src={MainFlower}
-                        alt='웹 메인 로고'
-                        className='absolute w-[60%] top-15 right-0'
+            <div className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto md:mt-4 flex flex-col gap-6 md:block md:space-y-6'>
+                {/* 유저 콘텐츠 */}
+                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
+                    <UserInfo
+                        userName={userName}
+                        challengeDays={challengeDays}
                     />
+                    <OngoingChallenges isLoggedIn={isLoggedIn} />
                 </section>
-                <div>
-                    {/* className='h-[796px] w-full md:w-[48%] flex flex-col gap-60 md:gap-10 -mt-64 md:m-0 '> */}
+
+                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
                     <PopularChallenges challenges={sortedChallenges} />
-                    <div>
-                        <div className='relative mt-1 mb-12 md:mt-0 md:mb-4'>
-                            <img
-                                src={ChallengeIcon}
-                                alt='챌린지 아이콘'
-                                className='hidden md:block w-[180px]'
-                            />
-                            <h2 className='absolute z-20 font-bold text-lg md:text-xl md:text-neutral-100 mb-6 md:top-[6px] md:left-[28px]'>
-                                챌린지 카테고리
-                            </h2>
-                        </div>
-                        <div className='grid grid-cols-2 gap-4'>
-                            {categories.map((category, index) => (
-                                <Link
-                                    key={index}
-                                    to={category.path}
-                                    className={`card p-4 ${category.color} relative flex justify-between items-center`}
-                                    style={{ height: '196.5px' }}
-                                >
-                                    <div className='h-[100%] flex flex-col justify-between items-between`'>
-                                        <span className='text-2xl font-semibold whitespace-nowrap'>
-                                            {category.name}
-                                        </span>
-                                        <img
-                                            src={ButtonIcon}
-                                            alt='Button'
-                                            className='w-8 h-8'
-                                        />
-                                    </div>
-                                    <div className='absolute h-full right-0 object-contain flex items-center'>
-                                        <img
-                                            src={category.icon}
-                                            alt={`${category.name} icon`}
-                                            className='mr-4 pt-2 h-[65%]'
-                                        />
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                    <ChallengeCategory />
+                </section>
             </div>
         </>
     );
