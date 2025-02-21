@@ -86,7 +86,7 @@ export default function UserChallengeList({ filteredChallenges }) {
                     sortedChallenges.map((challenge, index) => (
                         <li
                             key={challenge.id}
-                            className='flex flex-1 gap-x-1 md:gap-x-1.5 h-15 py-3 md:py-4 border-b border-neutral-300 items-center cursor-pointer'
+                            className={`flex flex-1 gap-x-1 md:gap-x-1.5 h-15 py-3 md:py-4 items-center cursor-pointer border-b border-neutral-300 ${index === sortedChallenges.length - 1 ? 'border-none' : ''}`}
                         >
                             <div className='flex flex-row justify-center w-[8%] text-[10px] md:text-xs text-neutral-500'>
                                 {clgNum(index)}

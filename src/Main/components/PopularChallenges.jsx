@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import ChallengeIcon from '../images/challenge-2.svg';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const PopularChallenges = ({ challenges }) => {
     const [currentChallenges, setCurrentChallenges] = useState([]);
     const [challengeIndex, setChallengeIndex] = useState(0);
+    const allClgList = useSelector((state) => state.myClgList.list) || [];
+    const [highlightIndex, setHighlightIndex] = useState(0);
 
     useEffect(() => {
-        if (challenges && challenges.length > 0) {
-            const sortedChallenges = [...challenges].sort(
+        if (allClgList && allClgList.length > 0) {
+            const sortedChallenges = [...allClgList].sort(
                 (a, b) => b.postClicked - a.postClicked
             );
-            setCurrentChallenges(sortedChallenges.slice(0, 9));
+            setCurrentChallenges(sortedChallenges.slice(0, 5));
         }
     }, [challenges]);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setChallengeIndex(
-                (prevIndex) => (prevIndex + 1) % currentChallenges.length
-            );
-        }, 3000);
+            setHighlightIndex((prev) => (prev + 1) % 5); // 0~4 순환
+        }, 2000); // 2초마다 변경
 
         return () => clearInterval(interval);
-    }, [currentChallenges.length]);
+    }, []);
 
     const handlePrevChallenge = () => {
         setChallengeIndex(
@@ -38,64 +39,73 @@ const PopularChallenges = ({ challenges }) => {
             (prevIndex) => (prevIndex + 1) % currentChallenges.length
         );
     };
+    // 챌린지 카테고리별 뱃지 클래스
+    const badgeClasses = {
+        식단: 'budge-meal',
+        학습: 'budge-study',
+        운동: 'budge-sport',
+        습관: 'budge-habit',
+    };
+    const getBadgeClass = (category) => badgeClasses[category] || '';
 
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='w-full'>
-            <div className='relative mb-4 -mt-10 md:mt-4'>
+        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+            <div className='relative'>
                 <img
                     src={ChallengeIcon}
                     alt='챌린지 아이콘'
-                    className='hidden md:block w-[180px]'
+                    className='w-[120px] md:w-[140px]'
                 />
-                <h2 className='md:absolute md:top-[6px] md:left-[24px] z-20 font-bold text-lg md:text-xl md:text-neutral-100 md:mb-6'>
+                <h2 className='absolute top-1.5 left-5 md:left-6 z-20 title text-neutral-100'>
                     인기 있는 챌린지
                 </h2>
             </div>
 
-            <div className='relative z-10 flex gap-4 md:flex-col snap-mandatory scrollbar-hide md:top-[0] md:mt-0 justify-center md:justify-start '>
-                {[0, 1, 2].map((offset) => {
-                    const index =
-                        (challengeIndex + offset) % currentChallenges.length;
+            <ul className='w-full flex flex-col gap-2 justify-center'>
+                {[0, 1, 2, 3, 4].map((offset) => {
+                    const index = offset; // 1~5번 위치 고정
                     const challenge = currentChallenges[index];
-                    const isHighlighted = offset === 0;
+                    const isHighlighted = highlightIndex === offset;
+
                     return (
-                        <div
+                        <li
                             key={index}
-                            className={`bg-white p-4 rounded-xl md:text-lg font-semibold transition-all duration-500 ease-in-out 
-                                ${isHighlighted ? 'opacity-100 scale-105' : 'opacity-50 scale-100'} 
-                                w-[95%] md:w-full shrink-0 snap-center
-                                relative flex items-center justify-between 
-                                ${offset !== 0 ? 'hidden md:flex' : ''}`}
+                            className={`card w-full px-4 py-2 flex items-center justify-between transition-all duration-500 ease-in-out
+                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-50 scale-95'} ${offset !== 0 ? 'flex' : ''}`}
                         >
-                            <button
-                                onClick={handlePrevChallenge}
-                                className='absolute z-20 left-2 md:hidden'
-                            >
-                                <IoIosArrowBack size={18} />
-                            </button>
-                            <div className='w-full px-8'>
-                                <div className='overflow-hidden text-ellipsis whitespace-nowrap'>
-                                    <span className='mr-2 font-bold'>
-                                        {index + 1}.
-                                    </span>
-                                    {challenge.title}
+                            <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
+                                <span className='w-4 main-text'>
+                                    {index + 1}.
+                                </span>
+                                <div
+                                    className={`${getBadgeClass(challenge.category)}`}
+                                >
+                                    {challenge.category}
                                 </div>
-                                <div className='text-sm text-gray-600'>
-                                    {challenge.description}
+                                <span className='main-text overflow-hidden text-ellipsis whitespace-nowrap'>
+                                    {challenge.title}
+                                </span>
+                            </div>
+                            <div className='sub-text flex items-end gap-2 text-neutral-700 whitespace-nowrap ml-2'>
+                                <div className='flex gap-0.5'>
+                                    조회
+                                    <span className='font-semibold ml-1'>
+                                        {challenge.postClicked}
+                                    </span>
+                                </div>
+                                <div className='flex gap-0.5'>
+                                    참여
+                                    <span className='font-semibold ml-1'>
+                                        {challenge.postClicked}
+                                    </span>
                                 </div>
                             </div>
-                            <button
-                                onClick={handleNextChallenge}
-                                className='absolute z-20 right-2 md:hidden'
-                            >
-                                <IoIosArrowForward size={18} />
-                            </button>
-                        </div>
+                        </li>
                     );
                 })}
-            </div>
+            </ul>
         </div>
     );
 };

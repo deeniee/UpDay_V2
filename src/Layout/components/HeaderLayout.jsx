@@ -52,18 +52,14 @@ const HeaderLayout = () => {
 
     return (
         <div
-            className={`w-full h-[80px] fixed top-0 bg-blue-100 no-scroll ${
+            className={`w-full h-12 fixed top-0 bg-blue-100 ${
                 isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-10'
             }`}
         >
-            <header className='flex justify-between items-center w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto py-[20px]'>
+            <header className='flex justify-between items-center w-[90%] md:w-[80%] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}
                 <Link to='main'>
-                    <img
-                        alt='logo'
-                        src='/upday_logo.svg'
-                        className='h-[40px]'
-                    />
+                    <img alt='logo' src='/upday_logo.svg' className='h-8' />
                 </Link>
 
                 {/* 데스크톱 메뉴 */}

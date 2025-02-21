@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import MainChallenge from './MainChallenge';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
     IoIosArrowDropleftCircle,
     IoIosArrowDroprightCircle,
 } from 'react-icons/io';
 import { HiFire } from 'react-icons/hi2';
-import { FaSquareCheck, FaPenToSquare } from 'react-icons/fa6';
+import { FaCheck, FaPen } from 'react-icons/fa6';
+import {
+    setMyPosts,
+    toggleClgState,
+    setSelectedChallenge,
+} from '../../store/features/userChallengeSlice';
 
-const OngoingChallenges = ({ userChallengeData, isLoggedIn }) => {
+const OngoingChallenges = ({ isLoggedIn }) => {
     const navigate = useNavigate();
     const [startIndex, setStartIndex] = useState(0);
     const challengesPerPage = 4;
+    const ongoingChallenges =
+        useSelector((state) => state.myClgList.ongoingChallenges) || [];
 
     const calculateDaysPassed = (joinDate) => {
         const start = new Date(joinDate);
@@ -21,16 +28,13 @@ const OngoingChallenges = ({ userChallengeData, isLoggedIn }) => {
         return diffDays;
     };
 
-    const filteredChallenges = userChallengeData
-        .filter(
-            (challenge) =>
-                challenge.clgJoin === true && challenge.clgDoing === true
-        )
-        .sort((a, b) => {
-            const daysA = calculateDaysPassed(a.joinDate);
-            const daysB = calculateDaysPassed(b.joinDate);
-            return daysA - daysB; // 숫자가 작은 순서대로 정렬
-        });
+    const filteredChallenges = ongoingChallenges
+        ? [...ongoingChallenges].sort((a, b) => {
+              const daysA = calculateDaysPassed(a.joinDate);
+              const daysB = calculateDaysPassed(b.joinDate);
+              return daysA - daysB; // 날짜 기준 오름차순 정렬
+          })
+        : [];
 
     const handleLeftClick = () => {
         setStartIndex((prev) =>
@@ -46,13 +50,34 @@ const OngoingChallenges = ({ userChallengeData, isLoggedIn }) => {
         );
     };
 
-    return (
-        <div>
-            <div className='w-full flex justify-between items-center p-4 rounded-t-3xl text-neutral-100 bg-neutral-800'>
-                <h2 className='font-bold text-lg md:text-xl'>
-                    도전 중인 챌린지
-                </h2>
-                <div className='flex gap-3'>
+    const dispatch = useDispatch();
+
+    // 챌린지 상태 변경 핸들러
+    const handleToggle = (id, type) => {
+        dispatch(toggleClgState({ id, type }));
+    };
+
+    // 챌린지 카테고리별 뱃지 클래스
+    const badgeClasses = {
+        식단: 'budge-meal',
+        학습: 'budge-study',
+        운동: 'budge-sport',
+        습관: 'budge-habit',
+    };
+    const getBadgeClass = (category) => badgeClasses[category] || '';
+
+    // 챌린지 상태 클래스
+    const getClgTitleClass = (doing, done) =>
+        !doing && done
+            ? 'line-through'
+            : !doing && !done
+              ? 'line-through text-neutral-500'
+              : '';
+    const getClgDoingClass = (doing) => (doing ? 'check-on' : 'check-off');
+    const getClgNoteClass = (done) => (done ? 'note-on' : 'note-off');
+
+    {
+        /* <div className='flex gap-3'>
                     <IoIosArrowDropleftCircle
                         direction='left'
                         onClick={handleLeftClick}
@@ -63,48 +88,63 @@ const OngoingChallenges = ({ userChallengeData, isLoggedIn }) => {
                         onClick={handleRightClick}
                         className='text-3xl md:text-4xl'
                     />
-                </div>
-            </div>
+                </div> */
+    }
+
+    return (
+        <div className='w-full h-full md:w-[48%]'>
+            <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl text-neutral-100 bg-neutral-800'>
+                도전 중인 챌린지 ({filteredChallenges.length})
+            </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <>
-                        <ul className='w-full grid gird-flow-col grid-rows-3 bg-neutral-100 rounded-b-3xl'>
-                            {[...Array(3)].map((_, index) => {
-                                const challenge =
-                                    filteredChallenges[startIndex + index];
-                                return (
-                                    <li
-                                        key={index}
-                                        className={`w-full h-24 border-b border-neutral-500 flex p-2 ${index === 3 - 1 ? 'border-none' : ''}`}
-                                    >
-                                        {challenge ? (
-                                            <div className='flex w-full h-full'>
-                                                <div className='w-[80%] h-full flex flex-col justify-evenly items-start'>
-                                                    <div className='flex items-end gap-1 text-xs md:text-sm text-neutral-700 whitespace-nowrap'>
-                                                        <HiFire className='text-lg text-orange-400' />
-                                                        <span>도전</span>
-                                                        <span>
-                                                            {calculateDaysPassed(
-                                                                challenge.joinDate
-                                                            )}
-                                                            일 째
-                                                        </span>
+                    <ul className='w-full h-[168px] md:h-48 flex flex-col rounded-b-2xl md:rounded-b-3xl overflow-auto scrollbar-none'>
+                        {filteredChallenges.map((challenge, index) => {
+                            return (
+                                <li
+                                    key={index}
+                                    className={`w-full bg-neutral-100 flex justify-between px-4 border-b ${index === filteredChallenges.length - 1 ? 'border-neutral-300/0' : 'border-neutral-300'}`}
+                                >
+                                    {challenge ? (
+                                        <>
+                                            <div className='w-full h-14 md:h-16 flex flex-col justify-evenly items-start overflow-hidden'>
+                                                <div className='w-full flex items-center gap-1 text-neutral-700 whitespace-nowrap'>
+                                                    <div
+                                                        className={`${getBadgeClass(challenge.category)}`}
+                                                    >
+                                                        {challenge.category}
                                                     </div>
-                                                    <span className='text-lg font-semibold text-gray-700 truncate w-[80%]'>
-                                                        {challenge.title}
+                                                    <span className='sub-text'>
+                                                        {calculateDaysPassed(
+                                                            challenge.joinDate
+                                                        )}
+                                                        일 째
                                                     </span>
                                                 </div>
-                                                <div className='w-[20%] h-full flex justify-end items-center gap-4 text-2xl'>
-                                                    <FaSquareCheck />
-                                                    <FaPenToSquare />
-                                                </div>
+
+                                                <span className='main-text w-full overflow-hidden text-ellipsis whitespace-nowrap'>
+                                                    {challenge.title}
+                                                </span>
                                             </div>
-                                        ) : null}
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </>
+
+                                            <button
+                                                className={`flex justify-center items-center note-on`}
+                                                onClick={(e) =>
+                                                    handleToggle(
+                                                        challenge.id,
+                                                        'done',
+                                                        e
+                                                    )
+                                                }
+                                            >
+                                                <FaPen text-sm />
+                                            </button>
+                                        </>
+                                    ) : null}
+                                </li>
+                            );
+                        })}
+                    </ul>
                 ) : (
                     <div className='text-center text-gray-500 py-6 font-semibold md:min-h-[250px] md:bg-neutral-100 md:rounded-b-3xl bg-neutral-100 rounded-xl'>
                         진행 중인 챌린지가 없습니다.
