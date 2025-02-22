@@ -92,22 +92,22 @@ const OngoingChallenges = ({ isLoggedIn }) => {
     }
 
     return (
-        <div className='w-full h-full md:w-[48%]'>
+        <div className='w-full h-[200px] md:w-[48vw] md:h-[42vh] md:min-h-[320px]'>
             <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl text-neutral-100 bg-neutral-800'>
                 도전 중인 챌린지 ({filteredChallenges.length})
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-[168px] md:h-48 flex flex-col rounded-b-2xl md:rounded-b-3xl overflow-auto scrollbar-none'>
+                    <ul className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col rounded-b-2xl md:rounded-b-3xl overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`w-full bg-neutral-100 flex justify-between px-4 border-b ${index === filteredChallenges.length - 1 ? 'border-neutral-300/0' : 'border-neutral-300'}`}
+                                    className={`w-full min-h-[56px] md:h-[7.8vh] bg-neutral-100 flex justify-between px-4 border-b ${index === filteredChallenges.length - 1 ? 'border-neutral-300/0' : 'border-neutral-300'}`}
                                 >
                                     {challenge ? (
                                         <>
-                                            <div className='w-full h-14 md:h-16 flex flex-col justify-evenly items-start overflow-hidden'>
+                                            <div className='w-full flex flex-col justify-evenly items-start overflow-hidden'>
                                                 <div className='w-full flex items-center gap-1 text-neutral-700 whitespace-nowrap'>
                                                     <div
                                                         className={`${getBadgeClass(challenge.category)}`}

@@ -35,7 +35,7 @@ export default function ChallengeCategory() {
         },
     ];
     return (
-        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+        <div className='relative w-full md:w-[48vw] flex flex-col space-y-2'>
             <div className='relative'>
                 <img
                     src={ChallengeIcon}
@@ -46,28 +46,28 @@ export default function ChallengeCategory() {
                     카테고리별 챌린지
                 </h2>
             </div>
-            <div className='grid grid-cols-4 md:grid-cols-2 gap-2 md:gap-4'>
+            <div className='grid grid-cols-4 md:grid-cols-2 gap-2'>
                 {categories.map((category, index) => (
                     <Link
                         key={index}
                         to={category.path}
-                        className={`relative h-32 md:h-24 p-4 flex justify-between items-center card ${category.color}`}
+                        className={`relative w-full h-32 md:h-[14.1vh] md:min-h-[101.5px] flex justify-between items-center card ${category.color}`}
                     >
-                        <div className='h-full flex flex-col justify-between items-between`'>
+                        <div className=' w-full h-full p-3 md:p-4 flex justify-between items-between`'>
                             <span className='main-text font-semibold whitespace-nowrap'>
                                 {category.name}
                             </span>
                             <img
                                 src={ButtonIcon}
                                 alt='Button'
-                                className='w-[20px] h-[20px] md:w-6 md:h-6'
+                                className='w-4 h-4 md:w-5 md:h-5'
                             />
                         </div>
-                        <div className='absolute h-full right-0 object-contain flex items-center'>
+                        <div className='absolute w-full h-full flex justify-center items-end pb-3 md:pb-4'>
                             <img
                                 src={category.icon}
                                 alt={`${category.name} icon`}
-                                className='mr-4 h-[45%] md:h-[80%]'
+                                className='object-contain h-[68%] '
                             />
                         </div>
                     </Link>

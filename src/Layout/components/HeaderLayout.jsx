@@ -56,7 +56,7 @@ const HeaderLayout = () => {
                 isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-10'
             }`}
         >
-            <header className='flex justify-between items-center w-[90%] md:w-[80%] md:max-w-[1344px] h-full mx-auto'>
+            <header className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}
                 <Link to='main'>
                     <img alt='logo' src='/upday_logo.svg' className='h-8' />

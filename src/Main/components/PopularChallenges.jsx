@@ -51,7 +51,7 @@ const PopularChallenges = ({ challenges }) => {
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+        <div className='relative w-full md:w-[48vw] flex flex-col space-y-2'>
             <div className='relative'>
                 <img
                     src={ChallengeIcon}
@@ -72,11 +72,11 @@ const PopularChallenges = ({ challenges }) => {
                     return (
                         <li
                             key={index}
-                            className={`card w-full px-4 py-2 flex items-center justify-between transition-all duration-500 ease-in-out
-                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-50 scale-95'} ${offset !== 0 ? 'flex' : ''}`}
+                            className={`card w-full h-10 md:h-[5vh] md:min-h-[36px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
+                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-50 scale-95'}`}
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
-                                <span className='w-4 main-text'>
+                                <span className='w-[2vw] main-text'>
                                     {index + 1}.
                                 </span>
                                 <div
