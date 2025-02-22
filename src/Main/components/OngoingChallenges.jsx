@@ -92,22 +92,27 @@ const OngoingChallenges = ({ isLoggedIn }) => {
     }
 
     return (
-        <div className='w-full h-full md:w-[48%]'>
+        <div className='w-full h-[200px] md:w-[48vw] md:h-[42vh] md:min-h-[320px]'>
             <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl text-neutral-100 bg-neutral-800'>
                 도전 중인 챌린지 ({filteredChallenges.length})
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-[168px] md:h-48 flex flex-col rounded-b-2xl md:rounded-b-3xl overflow-auto scrollbar-none'>
+                    <ul className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col rounded-b-2xl md:rounded-b-3xl bg-neutral-100 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`w-full bg-neutral-100 flex justify-between px-4 border-b ${index === filteredChallenges.length - 1 ? 'border-neutral-300/0' : 'border-neutral-300'}`}
+                                    className={`w-full min-h-[56px] md:h-[7.8vh] bg-neutral-100 flex justify-between px-4 border-b border-neutral-300 ${
+                                        filteredChallenges.length >= 5 &&
+                                        index === filteredChallenges.length - 1
+                                            ? 'border-neutral-300/0'
+                                            : 'border-neutral-300'
+                                    }`}
                                 >
                                     {challenge ? (
                                         <>
-                                            <div className='w-full h-14 md:h-16 flex flex-col justify-evenly items-start overflow-hidden'>
+                                            <div className='w-full flex flex-col justify-evenly items-start overflow-hidden'>
                                                 <div className='w-full flex items-center gap-1 text-neutral-700 whitespace-nowrap'>
                                                     <div
                                                         className={`${getBadgeClass(challenge.category)}`}
@@ -144,14 +149,21 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                                 </li>
                             );
                         })}
+                        {/* ✅ 챌린지 개수가 5개 미만일 때 메시지 표시 */}
+                        {filteredChallenges.length > 0 &&
+                            filteredChallenges.length < 5 && (
+                                <div className='w-full min-h-[56px] md:h-[7.8vh] flex justify-center items-center main-text text-neutral-500'>
+                                    챌린지를 더 추가해보세요!
+                                </div>
+                            )}
                     </ul>
                 ) : (
-                    <div className='text-center text-gray-500 py-6 font-semibold md:min-h-[250px] md:bg-neutral-100 md:rounded-b-3xl bg-neutral-100 rounded-xl'>
+                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center  card rounded-t-none  main-text text-neutral-500'>
                         진행 중인 챌린지가 없습니다.
                     </div>
                 )
             ) : (
-                <div className='w-full h-[100px] md:h-[240px] card md:rounded-t-none flex md:flex-col items-center justify-between p-5 md:p-6 md:pt-20'>
+                <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-between items-center card rounded-t-none pt-12 pb-6 md:pt-20 md:pb-10'>
                     <h2 className='text-sm md:text-base font-semibold text-neutral-700 ml-[3%]'>
                         로그인이 필요한 기능입니다.
                     </h2>

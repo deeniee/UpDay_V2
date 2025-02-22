@@ -10,9 +10,9 @@ const Footer = () => {
 
     return (
         <footer
-            className={`w-full h-12 ${isFooterHidden ? 'hidden md:block' : ''}`}
+            className={`w-full h-12 my-2 ${isFooterHidden ? 'hidden md:block' : ''}`}
         >
-            <div className='flex justify-between items-center w-[80%] max-w-[1344px] mx-auto'>
+            <div className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}
 
                 <img alt='logo' src='/upday_logo.svg' className='h-8' />
