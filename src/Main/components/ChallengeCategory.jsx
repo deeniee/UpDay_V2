@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ButtonIcon from '../images/button.svg';
 import SpoonIcon from '../../assets/images/spoon.svg';
 import DustIcon from '../../assets/images/dust.svg';
-import LampIcon from '../../assets/images/Lamp.svg';
+import LampIcon from '../../assets/images/buld.svg';
 import HeartIcon from '../../assets/images/heart.svg';
 import ChallengeIcon from '../images/challenge-2.svg';
 

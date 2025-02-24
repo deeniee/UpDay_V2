@@ -1,5 +1,5 @@
 import diet from '../assets/images/spoon.svg';
-import study from '../assets/images/Lamp.svg';
+import study from '../assets/images/buld.svg';
 import exercise from '../assets/images/dust.svg';
 import habit from '../assets/images/heart.svg';
 
