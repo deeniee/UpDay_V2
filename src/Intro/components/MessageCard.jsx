@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SpeechBubble({ text, position }) {
+function MessageCard({ text, position }) {
     return (
         <div
             className={`relative w-[70%] h-auto bg-neutral-100 rounded-2xl p-3 shadow-sm ${position === 'right' ? 'ml-auto' : ''}`}
@@ -10,4 +10,4 @@ function SpeechBubble({ text, position }) {
     );
 }
 
-export default SpeechBubble;
+export default MessageCard;
