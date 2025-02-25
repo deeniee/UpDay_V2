@@ -1,7 +1,5 @@
 import React from 'react';
 
-import FadeInSection from './FadeInSection';
-
 import Element01 from '../../assets/images/bg_element01.svg';
 import Element02 from '../../assets/images/bg_element02.svg';
 import Element03 from '../../assets/images/bg_element03.svg';
