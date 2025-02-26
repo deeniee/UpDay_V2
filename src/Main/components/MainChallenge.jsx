@@ -146,9 +146,8 @@ const MainChallenge = ({ userChallengeData, isLoggedIn }) => {
                                                             challenge.joinDate
                                                         )}
                                                     </span>
-														일 째
-                                                    </span>
-                                                    
+                                                    일 째
+                                                </span>
                                             </>
                                         ) : null}
                                     </li>

@@ -1,23 +1,23 @@
 import React from 'react';
-import MainFlower from '../images/main_logo.svg';
+import UserInfoIllustBg from './UserInfoIllustBg';
 
 const UserInfo = ({ userName, challengeDays }) => {
     return (
         <div className='relative w-full h-[160px] md:w-[48vw] md:h-[42vh] md:min-h-[320px] flex gap-4 md:justify-between'>
-            <div className='w-full h-full mt-12 md:-mt-16 text-left flex flex-col justify-center gap-0'>
-                <div className='text-base md:text-lg font-medium space-x-1 pl-16'>
+            <div className='w-full h-full text-left flex flex-col justify-end gap-2'>
+                <div className='text-base md:text-lg font-medium space-x-1'>
                     <span className='text-lg md:text-xl font-bold'>
                         {userName ? `${userName}` : '게스트'}
                     </span>
                     <span className='text-sm md:text-base'>
-                        님, 안녕하세요!
+                        {userName ? `님, 안녕하세요!` : '님, 반가워요!'}
                     </span>
                 </div>
-                <div className='flex items-end md:-mt-3 text-neutral-700 text-sm md:text-base'>
+                <div className='flex items-center text-neutral-700 text-sm md:text-base'>
                     <img
                         alt='logo'
-                        src='/upday_logo_color.svg'
-                        className='h-[48px] md:h-[54px] object-contain'
+                        src='/upday_logo_illust.svg'
+                        className='h-[1.5rem] md:h-[2rem] object-contain'
                     />
 
                     {userName ? (
@@ -35,11 +35,7 @@ const UserInfo = ({ userName, challengeDays }) => {
                     )}
                 </div>
             </div>
-            {/* <img
-                src={MainFlower}
-                alt='웹 메인 로고'
-                className='absolute w-auto h-full md:w-[96%] top-0 right-0 -z-10'
-            /> */}
+            <UserInfoIllustBg />
         </div>
     );
 };

@@ -1,17 +1,18 @@
 import React from 'react';
-import IllustBg2 from './IllustBg2';
+
 import FadeInSection from './FadeInSection';
+import IllustBg2 from './IllustBg2';
 
 export default function IntroSection2() {
     return (
-        <section className='relative w-full h-screen snap-start'>
+        <section className='relative w-full h-full snap-start'>
             <FadeInSection className='absolute w-full h-full flex flex-col gap-6 md:gap-8 justify-center items-center z-10'>
                 <div className='text-base md:text-lg font-bold space-y-1 md:space-y-2 animate-slide-up -mt-12 md:flex md:gap-2 md:items-end'>
                     <div className='flex items-center gap-0.5 md:gap-1'>
                         <img
                             alt='logo'
                             src='/upday_logo.svg'
-                            className='h-5 md:h-6'
+                            className='h-4 md:h-5'
                         />
                         <p>는 서로의 도전 목표를 공유하며</p>
                     </div>
@@ -28,7 +29,7 @@ export default function IntroSection2() {
                 </div>
             </FadeInSection>
 
-            <IllustBg2 className='w-full h-full inset-0' />
+            <IllustBg2 />
         </section>
     );
 }
