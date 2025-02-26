@@ -12,11 +12,11 @@ const IntroLayout = () => {
             <Helmet>
                 <title>서비스 소개 - UpDay</title>
             </Helmet>
-            <main className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto h-full scrollbar-none snap-y snap-mandatory'>
+            <main className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto h-full scrollbar-none snap-y snap-mandatory -mt-12'>
                 <IntroSection1 />
                 <IntroSection2 />
                 <IntroSection3 />
-                <IntroSection4 />
+                {/* <IntroSection4 /> */}
             </main>
         </>
     );

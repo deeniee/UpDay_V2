@@ -17,7 +17,7 @@ const UserInfo = ({ userName, challengeDays }) => {
                     <img
                         alt='logo'
                         src='/upday_logo_color.svg'
-                        className='h-[54px] object-contain'
+                        className='h-[48px] md:h-[54px] object-contain'
                     />
 
                     {userName ? (
