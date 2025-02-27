@@ -44,10 +44,10 @@ export default function UserChallengeList({ filteredChallenges }) {
 
     // 챌린지 카테고리별 뱃지 클래스
     const badgeClasses = {
-        식단: 'budge-meal',
-        학습: 'budge-study',
-        운동: 'budge-sport',
         습관: 'budge-habit',
+        건강: 'budge-health',
+        학습: 'budge-study',
+        기타: 'budge-etc',
     };
     const getBadgeClass = (category) => badgeClasses[category] || '';
 

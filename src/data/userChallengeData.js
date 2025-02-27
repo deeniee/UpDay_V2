@@ -1,13 +1,13 @@
-import diet from '../assets/images/spoon.svg';
-import study from '../assets/images/buld.svg';
-import exercise from '../assets/images/dust.svg';
-import habit from '../assets/images/heart.svg';
+import PicHabit from '../assets/images/pic_habit.svg';
+import PicHealth from '../assets/images/pic_health.svg';
+import PicStudy from '../assets/images/pic_study.svg';
+import PicEtc from '../assets/images/pic_etc.svg';
 
 export const CATEGORY_IMAGES = {
-    식단: diet,
-    학습: study,
-    운동: exercise,
-    습관: habit,
+    습관: PicHabit,
+    건강: PicHealth,
+    학습: PicStudy,
+    기타: PicEtc,
     default: '',
 };
 
@@ -15,7 +15,7 @@ export const userChallengeList = [
     {
         id: 1,
         authorId: 'healthylife@kakao.com',
-        category: '식단',
+        category: '건강',
         duration: '3개월',
         title: '아침 굶지 않기',
         content:
@@ -71,7 +71,7 @@ export const userChallengeList = [
     {
         id: 4,
         authorId: 'noyasik@kakao.com',
-        category: '식단',
+        category: '건강',
         duration: '3개월',
         title: '야식 먹지 않기',
         content:
@@ -90,7 +90,7 @@ export const userChallengeList = [
     {
         id: 5,
         authorId: 'corecore@gmail.com',
-        category: '운동',
+        category: '건강',
         duration: '6개월',
         title: '하루 30초 플랭크 챌린지',
         content:
@@ -144,7 +144,7 @@ export const userChallengeList = [
     {
         id: 8,
         authorId: 'healthylife@kakao.com',
-        category: '운동',
+        category: '건강',
         duration: '1개월',
         title: '30일 팔굽혀펴기 챌린지',
         content:
@@ -162,7 +162,7 @@ export const userChallengeList = [
     {
         id: 9,
         authorId: 'veggie123@kakao.com',
-        category: '식단',
+        category: '건강',
         duration: '3개월',
         title: '인스턴트 대신 신선한 음식 먹기',
         content:
@@ -180,7 +180,7 @@ export const userChallengeList = [
     {
         id: 10,
         authorId: 'vloger@naver.com',
-        category: '습관',
+        category: '기타',
         duration: '3개월',
         title: '블로그 글 쓰기',
         content:
@@ -216,7 +216,7 @@ export const userChallengeList = [
     {
         id: 12,
         authorId: 'test01@naver.com',
-        category: '운동',
+        category: '건강',
         duration: '1개월',
         title: '점심 먹고 30분 이상 산책 하기',
         content:
@@ -234,7 +234,7 @@ export const userChallengeList = [
     {
         id: 13,
         authorId: 'detoxic@kakao.com',
-        category: '습관',
+        category: '기타',
         duration: '1개월',
         title: '주말마다 디지털 디톡스하기',
         content:
@@ -270,7 +270,7 @@ export const userChallengeList = [
     {
         id: 15,
         authorId: 'sugarlover@kakao.com',
-        category: '식단',
+        category: '건강',
         duration: '3개월',
         title: '설탕 없는 하루 보내기',
         content:
@@ -289,7 +289,7 @@ export const userChallengeList = [
     {
         id: 16,
         authorId: 'luluralra@naver.com',
-        category: '운동',
+        category: '건강',
         duration: '6개월',
         title: '매일 10분 스트레칭',
         content:
@@ -307,7 +307,7 @@ export const userChallengeList = [
     {
         id: 17,
         authorId: '5000won@naver.com',
-        category: '습관',
+        category: '기타',
         duration: '1개월',
         title: '한 달 동안 불필요한 소비 줄이기 챌린지',
         content:
@@ -362,7 +362,7 @@ export const userChallengeList = [
     {
         id: 20,
         authorId: 'peacefulm2nd@gmail.com',
-        category: '운동',
+        category: '건강',
         duration: '3개월',
         title: '출퇴근길 한 정거장 먼저 내려 걷기',
         content:
@@ -380,7 +380,7 @@ export const userChallengeList = [
     {
         id: 21,
         authorId: 'test01@naver.com',
-        category: '식단',
+        category: '기타',
         duration: '3개월',
         title: '배달음식 먹지 않기',
         content:
@@ -417,7 +417,7 @@ export const userChallengeList = [
     {
         id: 23,
         authorId: 'vloger@naver.com',
-        category: '운동',
+        category: '건강',
         duration: '6개월',
         title: '엘레베이터 대신 계단 챌린지',
         content:
@@ -453,7 +453,7 @@ export const userChallengeList = [
     {
         id: 25,
         authorId: 'walking10000@gmail.com',
-        category: '운동',
+        category: '건강',
         duration: '2개월',
         title: '하루 10,000보 걷기',
         content:
@@ -471,7 +471,7 @@ export const userChallengeList = [
     {
         id: 26,
         authorId: 'veggie123@kakao.com',
-        category: '식단',
+        category: '건강',
         duration: '3개월',
         title: '하루 한 끼 채식 도전',
         content:

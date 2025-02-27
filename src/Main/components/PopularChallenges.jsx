@@ -41,10 +41,10 @@ const PopularChallenges = ({ challenges }) => {
     };
     // 챌린지 카테고리별 뱃지 클래스
     const badgeClasses = {
-        식단: 'budge-meal',
-        학습: 'budge-study',
-        운동: 'budge-sport',
         습관: 'budge-habit',
+        건강: 'budge-health',
+        학습: 'budge-study',
+        기타: 'budge-etc',
     };
     const getBadgeClass = (category) => badgeClasses[category] || '';
 
@@ -52,16 +52,7 @@ const PopularChallenges = ({ challenges }) => {
 
     return (
         <div className='relative w-full md:w-[48vw] flex flex-col space-y-2'>
-            <div className='relative'>
-                <img
-                    src={ChallengeIcon}
-                    alt='챌린지 아이콘'
-                    className='w-[120px] md:w-[140px]'
-                />
-                <h2 className='absolute top-1.5 left-5 md:left-6 z-20 title text-neutral-100'>
-                    인기 있는 챌린지
-                </h2>
-            </div>
+            <h2 className='title pl-4 md:pl-0'>인기 있는 챌린지</h2>
 
             <ul className='w-full flex flex-col gap-2 justify-center'>
                 {[0, 1, 2, 3, 4].map((offset) => {
@@ -73,7 +64,7 @@ const PopularChallenges = ({ challenges }) => {
                         <li
                             key={index}
                             className={`card w-full h-10 md:h-[5vh] md:min-h-[36px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
-                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-50 scale-95'}`}
+                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
                                 <span className='w-[2vw] main-text'>

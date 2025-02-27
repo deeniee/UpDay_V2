@@ -58,17 +58,40 @@ module.exports = {
                     400: '#bd96d9',
                 },
                 neutral: {
-                    100: '#ffffff',
-                    200: '#f7f7f7',
-                    300: '#d3d3d3',
-                    400: '#a6a6a6',
-                    500: '#7a7a7a',
-                    600: '#686868',
-                    700: '#555555',
-                    800: '#363636',
+                    100: '#FFFFFF',
+                    200: '#F8F5F7',
+                    300: '#EAE5E8',
+                    400: '#C5BDC3',
+                    500: '#92868E',
+                    600: '#5F4F5A',
+                    700: '#2C1725',
+                    800: '#160C13',
                     900: '#121212',
                 },
-                
+                main: {
+                    100: '#F9F7FF',
+                    200: '#D1C8F9',
+                    300: '#AA99F2',
+                    400: '#7066B5',
+                    500: '#3D377F',
+                },
+                point: {
+                    100: '#F5FCFC',
+                    200: '#BBE8ED',
+                    300: '#5AC7D5',
+                    400: '#2D8FA3',
+                    500: '#005772',
+                },
+                negative: {
+                    400: '#C95B72',
+                    500: '#AB354E',
+                },
+                category: {
+                    habit: '#C1D1FF',
+                    health: '#E3D9ED',
+                    study: '#FED2D2',
+                    etc: '#F4D9EB',
+                },
             },
             animation: {
                 'slide-up': 'slide-Up 0.8s ease-out forwards',
@@ -76,13 +99,13 @@ module.exports = {
             },
             keyframes: {
                 slideUp: {
-                    '0%': { 
+                    '0%': {
                         transform: 'translateY(20px)',
-                        opacity: '0', 
+                        opacity: '0',
                     },
-                    '100%': { 
+                    '100%': {
                         transform: 'translateY(0)',
-                        opacity: '1', 
+                        opacity: '1',
                     },
                 },
             },
