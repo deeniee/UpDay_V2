@@ -1,10 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { joinChallenge, setSelectedChallenge } from '../../store/features/challengeSlice';
+import {
+    joinChallenge,
+    setSelectedChallenge,
+} from '../../store/features/challengeSlice';
 import { CATEGORY_IMAGES } from '../../data/userChallengeData';
 import LoginRequiredModal from '../../common/components/LoginRequiredModal';
 import useModal from '../../common/hooks/useModal';
+import IconHabit from '../../assets/images/icon_habit.svg';
+import IconHealth from '../../assets/images/icon_health.svg';
+import IconStudy from '../../assets/images/icon_study.svg';
+import IconEtc from '../../assets/images/icon_etc.svg';
 
 const ChallengeCard = ({ cardData }) => {
     // cardData 구조분해할당
@@ -40,9 +47,9 @@ const ChallengeCard = ({ cardData }) => {
 
     // 내가 작성한 글이 아니고, 로그인한 유저가 있는 경우에만 참여 가능
     // const canJoin = loggedInUser && loggedInUser !== authorId && currentUser;
-	// 로그인한 유저인지 확인
-	const isLoggedIn = loggedInUser && currentUser;
-	const isAuthor = loggedInUser === authorId;
+    // 로그인한 유저인지 확인
+    const isLoggedIn = loggedInUser && currentUser;
+    const isAuthor = loggedInUser === authorId;
 
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
@@ -74,47 +81,33 @@ const ChallengeCard = ({ cardData }) => {
     const getCategoryImage = (category) => {
         return CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
     };
+    // 챌린지 카테고리별 아이콘
+    const badgeIcons = {
+        습관: IconHabit,
+        건강: IconHealth,
+        학습: IconStudy,
+        기타: IconEtc,
+    };
+    const getBadgeIcon = (category) => badgeIcons[category] || '';
 
     return (
-        <div className='p-4 max-md:p-3 rounded-2xl bg-white' onClick={handleCardClick}>
+        <div
+            className='p-4 max-md:p-3 rounded-2xl bg-white'
+            onClick={handleCardClick}
+        >
             {/* 카테고리 & 기간 */}
-            <div className='mb-4'>
-                <span
-                    className='px-6 max-md:px-2 py-[6px] max-md:py-1 rounded-xl max-md:rounded-lg max-md:text-xs'
-                    style={{
-                        backgroundColor:
-                            category === '식단'
-                                ? '#c5ebe6'
-                                : category === '학습'
-                                  ? '#fef2c8'
-                                  : category === '운동'
-                                    ? '#e3e3f4'
-                                    : category === '습관'
-                                      ? '#ffdee7'
-                                      : '#FBDCC3',
-                    }}
-                >
-                    {category}
-                </span>
-                <span className='ml-4 max-md:ml-2 max-md:text-xs'>{duration}</span>
+            <div className='flex items-center gap-1 mb-4'>
+                <img
+                    alt='icon'
+                    src={`${getBadgeIcon(category)}`}
+                    className='w-4 md:w-6'
+                />
+                <span className='main-text budge'>{category}</span>
+                <span className='main-text'>{duration}</span>
             </div>
 
             {/* 기본 제공 이미지 */}
-            <div
-                className='h-72 max-md:h-36 mb-4 p-[16px] rounded-2xl overflow-hidden'
-                style={{
-                    backgroundColor:
-                        category === '식단'
-                            ? '#e6f4f2'
-                            : category === '학습'
-                              ? '#fff9e6'
-                              : category === '운동'
-                                ? '#f2f2ff'
-                                : category === '습관'
-                                  ? '#fff1f5'
-                                  : '#FBDCC3',
-                }}
-            >
+            <div className='h-72 max-md:h-36 mb-4 p-[16px] rounded-2xl bg-neutral-300 overflow-hidden'>
                 <img
                     src={getCategoryImage(cardData.category)}
                     className='h-full mx-auto'
@@ -124,7 +117,9 @@ const ChallengeCard = ({ cardData }) => {
 
             {/* 챌린지 제목 & 내용 */}
             <div className='mb-4'>
-                <p className='h-auto mb-1 text-xl max-md:text-sm font-semibold line-clamp-1'>{title}</p>
+                <p className='h-auto mb-1 text-xl max-md:text-sm font-semibold line-clamp-1'>
+                    {title}
+                </p>
                 <p className='h-auto text-sm font-light max-md:text-xs line-clamp-2'>
                     {content}
                 </p>
@@ -140,7 +135,9 @@ const ChallengeCard = ({ cardData }) => {
                             className='w-full h-full object-cover'
                         />
                     </div>
-                    <p className='ml-2 max-md:ml-1 text-sm max-md:text-xs font-light'>{nickname}</p>
+                    <p className='ml-2 max-md:ml-1 text-sm max-md:text-xs font-light'>
+                        {nickname}
+                    </p>
                 </div>
 
                 {/* 버튼 */}
@@ -154,15 +151,15 @@ const ChallengeCard = ({ cardData }) => {
                         {clgJoin ? '참여중' : '참여하기'}
                     </button>
                 )} */}
-				{isLoggedIn && (
-    <button
-        type='button'
-        className='btn btn-primary w-[40%] max-md:text-xs'
-        onClick={handleJoin}
-    >
-        {isAuthor || clgJoin ? '참여중' : '참여하기'}
-    </button>
-)}
+                {isLoggedIn && (
+                    <button
+                        type='button'
+                        className={`btn w-[40%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                        onClick={handleJoin}
+                    >
+                        {isAuthor || clgJoin ? '참여 중' : '참여하기'}
+                    </button>
+                )}
                 <LoginRequiredModal
                     isOpen={isModalOpen}
                     onClose={closeModal}

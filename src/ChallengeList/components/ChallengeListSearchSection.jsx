@@ -4,28 +4,31 @@ import { getChallenges } from '../../utils/localStorage';
 import { BsSearch } from 'react-icons/bs';
 
 const btnList = [
-    { title: '전체', color: '#121212' },
-    { title: '식단', color: '#c5ebe6' },
-    { title: '학습', color: '#fef2c8' },
-    { title: '운동', color: '#e3e3f4' },
-    { title: '습관', color: '#ffdee7' },
+    { title: '전체', color: '#2C1725' },
+    { title: '습관', color: '#DFD9DD' },
+    { title: '건강', color: '#C5BDC3' },
+    { title: '학습', color: '#92868E' },
+    { title: '기타', color: '#5F4F5A' },
 ];
 
-const ChallengeListSearchSection = ({ setSelectedCategory, setSearchResults }) => {
+const ChallengeListSearchSection = ({
+    setSelectedCategory,
+    setSearchResults,
+}) => {
     const navigate = useNavigate();
-	const {category} = useParams();
-	
-	// 초기 상태를 url 파라미터 값으로 설정
+    const { category } = useParams();
+
+    // 초기 상태를 url 파라미터 값으로 설정
     const [activeCategory, setActiveCategory] = useState(category || '전체');
     const [searchTerm, setSearchTerm] = useState('');
 
-	// url에서 카테고리가 변경될 때마다 상태 업데이트  
-	useEffect(() => {
-		if(category){
-			setActiveCategory(category);
-			setSelectedCategory(category);
-		}
-	}, [category, setSelectedCategory])
+    // url에서 카테고리가 변경될 때마다 상태 업데이트
+    useEffect(() => {
+        if (category) {
+            setActiveCategory(category);
+            setSelectedCategory(category);
+        }
+    }, [category, setSelectedCategory]);
 
     const handleCategoryClick = (category) => {
         setActiveCategory(category);
@@ -65,25 +68,20 @@ const ChallengeListSearchSection = ({ setSelectedCategory, setSearchResults }) =
         }
     };
 
+    const getCategoryStyle = (category) =>
+        category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
+
     return (
         <section className='flex max-md:flex-wrap justify-between mb-6'>
             <ul className='flex max-md:w-full max-md:justify-between max-md:mb-4'>
                 {btnList.map((ele, idx) => (
-                    <li className='pr-4 max-md:pr-0 max-md:w-[18%]' key={idx}>
+                    <li
+                        className='pr-2 md:pr-3 max-md:pr-0 max-md:w-[18%]'
+                        key={idx}
+                    >
                         <button
                             onClick={() => handleCategoryClick(ele.title)}
-                            style={{
-                                border: `2px solid ${ele.color}`,
-                                backgroundColor:
-                                    activeCategory === ele.title
-                                        ? ele.color
-                                        : 'white',
-                                color:
-                                    activeCategory === ele.title
-                                        ? 'white'
-                                        : 'black',
-                            }}
-                            className='btn max-md:w-full px-6 max-md:px-0 py-[10px] max-md:py-1 whitespace-nowrap'
+                            className={`w-full md:px-8 whitespace-nowrap ${getCategoryStyle(ele.title)}`}
                         >
                             {ele.title}
                         </button>
@@ -97,13 +95,13 @@ const ChallengeListSearchSection = ({ setSelectedCategory, setSearchResults }) =
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder='검색어를 입력하시오'
-                    className='input-field text-xs/6 md:text-sm/7'
+                    className='input-field'
                 />
                 <button
                     className='absolute right-0.5 md:right-1 w-8 h-8'
                     onClick={handleSearch}
                 >
-                    <BsSearch className='text-blue-900 size-4 md:size-5' />
+                    <BsSearch className='text-main-500 size-4 md:size-5' />
                 </button>
             </div>
         </section>

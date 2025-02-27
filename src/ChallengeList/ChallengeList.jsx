@@ -21,7 +21,8 @@ const ChallengeList = () => {
             <ChallengeListLayout />
             <Outlet />
             <button
-                className='flex items-center justify-center fixed bottom-[10%] right-[10%] w-[6.125rem] max-md:w-[3.5rem]  h-[6.125rem] max-md:h-[3.5rem] text-7xl max-md:text-3xl text-neutral-100 rounded-full bg-blue-500'
+                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-300
+                fixed bottom-[10%] right-[10%] w-14 md:w-16 h-14 md:h-16 text-4xl md:text-5xl'
                 onClick={handleCreateClick}
             >
                 <FaPlus />

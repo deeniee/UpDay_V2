@@ -52,7 +52,7 @@ const HeaderLayout = () => {
 
     return (
         <div
-            className={`w-full h-12 fixed top-0 bg-blue-100 ${
+            className={`w-full h-12 fixed top-0 bg-main-100 ${
                 isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-10'
             }`}
         >

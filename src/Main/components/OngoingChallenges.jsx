@@ -93,7 +93,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
 
     return (
         <div className='w-full h-[200px] md:w-[48vw] md:h-[42vh] md:min-h-[320px]'>
-            <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl text-neutral-100 bg-neutral-800'>
+            <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl bg-point-200'>
                 도전 중인 챌린지 ({filteredChallenges.length})
             </h2>
             {isLoggedIn ? (
