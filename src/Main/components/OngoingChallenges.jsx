@@ -92,18 +92,18 @@ const OngoingChallenges = ({ isLoggedIn }) => {
     }
 
     return (
-        <div className='w-full h-[200px] md:w-[48vw] md:h-[42vh] md:min-h-[320px]'>
-            <h2 className='title w-full h-8 md:h-10 flex items-center p-4 rounded-t-2xl bg-point-200'>
+        <div className='w-full h-[200px] md:w-[48%] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
+            <h2 className='title w-full h-8 md:h-10 flex items-center p-3 md:p-4 rounded-t-[18px] md:rounded-t-2xl bg-point-200'>
                 도전 중인 챌린지 ({filteredChallenges.length})
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col rounded-b-2xl md:rounded-b-3xl bg-neutral-100 overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-[166px] md:h-[38.5vh] md:min-h-[280px] md:max-h-[500px] flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`w-full min-h-[56px] md:h-[7.8vh] bg-neutral-100 flex justify-between px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full min-h-[56px] md:h-[20.1%] md:max-h-[101px] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'

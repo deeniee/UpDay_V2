@@ -3,7 +3,7 @@ import UserInfoIllustBg from './UserInfoIllustBg';
 
 const UserInfo = ({ userName, challengeDays }) => {
     return (
-        <div className='relative w-full h-[160px] md:w-[48vw] md:h-[42vh] md:min-h-[320px] flex gap-4 md:justify-between'>
+        <div className='relative w-full h-[120px] md:w-[48%] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] flex gap-4 md:justify-between'>
             <div className='w-full h-full text-left flex flex-col justify-end md:justify-center gap-2'>
                 <div className='space-x-1'>
                     <span className='text-xl md:text-2xl font-bold'>
@@ -23,7 +23,7 @@ const UserInfo = ({ userName, challengeDays }) => {
                     {userName ? (
                         <div className='w-full md:h-full flex items-end pl-2 whitespace-nowrap'>
                             와
-                            <span className='font-semibold text-point-400 pl-2'>
+                            <span className='font-semibold text-point-500 pl-2'>
                                 {challengeDays}
                             </span>
                             일 째 도전 중입니다.

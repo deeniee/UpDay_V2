@@ -72,16 +72,13 @@ const ChallengeListSearchSection = ({
         category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
 
     return (
-        <section className='flex max-md:flex-wrap justify-between mb-6'>
-            <ul className='flex max-md:w-full max-md:justify-between max-md:mb-4'>
+        <section className='flex flex-col md:flex-row justify-between mb-3 md:mb-4'>
+            <ul className='flex justify-between mb-3 md:mb-0'>
                 {btnList.map((ele, idx) => (
-                    <li
-                        className='pr-2 md:pr-3 max-md:pr-0 max-md:w-[18%]'
-                        key={idx}
-                    >
+                    <li className='w-[18%] md:w-full md:pr-4' key={idx}>
                         <button
                             onClick={() => handleCategoryClick(ele.title)}
-                            className={`w-full md:px-8 whitespace-nowrap ${getCategoryStyle(ele.title)}`}
+                            className={`w-full md:px-[30px] whitespace-nowrap ${getCategoryStyle(ele.title)}`}
                         >
                             {ele.title}
                         </button>
@@ -94,14 +91,14 @@ const ChallengeListSearchSection = ({
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder='검색어를 입력하시오'
-                    className='input-field'
+                    placeholder='검색어를 입력하세요 :)'
+                    className='input-field focus:placeholder-transparent'
                 />
                 <button
                     className='absolute right-0.5 md:right-1 w-8 h-8'
                     onClick={handleSearch}
                 >
-                    <BsSearch className='text-main-500 size-4 md:size-5' />
+                    <BsSearch className='text-main-600 size-4 md:size-5' />
                 </button>
             </div>
         </section>

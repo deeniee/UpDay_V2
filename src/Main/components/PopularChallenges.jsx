@@ -51,8 +51,8 @@ const PopularChallenges = ({ challenges }) => {
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='relative w-full md:w-[48vw] flex flex-col space-y-2'>
-            <h2 className='title pl-4 md:pl-0'>인기 있는 챌린지</h2>
+        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+            <h2 className='title pl-3 md:pl-0'>인기 있는 챌린지</h2>
 
             <ul className='w-full flex flex-col gap-2 justify-center'>
                 {[0, 1, 2, 3, 4].map((offset) => {
@@ -63,11 +63,11 @@ const PopularChallenges = ({ challenges }) => {
                     return (
                         <li
                             key={index}
-                            className={`card w-full h-10 md:h-[5vh] md:min-h-[36px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
+                            className={`card w-full h-10 md:h-[5.2vh] md:min-h-[px] md:max-h-[78px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
                                 ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
-                                <span className='w-[2vw] main-text'>
+                                <span className='w-[5%] main-text'>
                                     {index + 1}.
                                 </span>
                                 <div

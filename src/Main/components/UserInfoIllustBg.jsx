@@ -10,22 +10,22 @@ import BgElement8 from '../../assets/images/pic_bg8.svg';
 
 export default function UserInfoIllustBg() {
     return (
-        <div className='absolute w-full h-full '>
+        <div className='absolute w-full h-full -z-10 '>
             <div className='absolute left-[12%] top-[10%] md:left-[0%] md:top-[15%] flex items-end'>
                 <img
                     src={BgElement7}
                     alt='reddotsflower'
-                    className='h-10 md:h-14'
+                    className='h-7 md:h-14'
                 />
                 <img
                     src={BgElement2}
                     alt='pinkrock2'
-                    className='h-8 md:h-12 mb-2.5'
+                    className='h-6 md:h-12 mb-2.5'
                 />
                 <img
                     src={BgElement4}
                     alt='pinkflower'
-                    className='h-12 md:h-16 -ml-8'
+                    className='h-8 md:h-16 -ml-8'
                 />
             </div>
 
@@ -33,34 +33,34 @@ export default function UserInfoIllustBg() {
                 <img
                     src={BgElement4}
                     alt='pinkflower'
-                    className='h-8 md:h-12 mb-1.5'
+                    className='h-6 md:h-12 mb-1.5'
                 />
                 <img
                     src={BgElement5}
                     alt='blueflower'
-                    className='h-16 md:h-20'
+                    className='h-10 md:h-20'
                 />
                 <img
                     src={BgElement6}
                     alt='triangleflower'
-                    className='h-12 md:h-16 ml-8'
+                    className='h-8 md:h-16 ml-8'
                 />
             </div>
-            <div className='absolute right-[0%] bottom-[4%] md:bottom-[0%] flex items-end'>
+            <div className='absolute right-[0%] bottom-[16%] md:bottom-[0%] flex items-end'>
                 <img
                     src={BgElement6}
                     alt='triangleflower'
-                    className='h-10 md:h-14 m-1'
+                    className='h-7 md:h-14 m-1'
                 />
                 <img
                     src={BgElement1}
                     alt='pinkrock1'
-                    className='h-12 md:h-16 -mr-8 pb-1'
+                    className='h-8 md:h-16 -mr-8 pb-1'
                 />
                 <img
                     src={BgElement3}
                     alt='purplerock'
-                    className='h-8 md:h-12'
+                    className='h-6 md:h-12'
                 />
             </div>
         </div>

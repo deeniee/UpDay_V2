@@ -32,16 +32,16 @@
     }
 
     .btn {
-        @apply border p-2 text-xs md:text-sm font-bold rounded-xl md:rounded-[14px] transition;
+        @apply border p-2 flex justify-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
     }
     .btn-primary {
-        @apply border-main-400 bg-main-400 text-neutral-100 hover:border-main-500 hover:bg-main-500;
+        @apply border-main-500 bg-main-500 text-neutral-100 hover:border-main-600 hover:bg-main-600;
     }
     .btn-secondary {
-        @apply border-main-400 bg-neutral-100 text-main-400 hover:border-main-500 hover:bg-main-500 hover:text-neutral-100;
+        @apply border-main-300 bg-main-300 text-neutral-100 hover:border-main-600 hover:bg-main-600 hover:text-neutral-100;
     }
     .btn-point {
-        @apply border-point-400 bg-point-500 text-neutral-100 hover:border-point-400 hover:bg-point-400;
+        @apply border-point-500 bg-point-500 text-neutral-100 hover:border-point-600 hover:bg-point-600;
     }
     .btn-negative {
         @apply border-neutral-300 bg-neutral-300 text-main-500 hover:border-red-400 hover:bg-red-400 hover:text-neutral-100;
@@ -73,14 +73,14 @@
     }
 
     .card {
-        @apply rounded-[22px] md:rounded-2xl bg-neutral-100;
+        @apply rounded-[18px] md:rounded-2xl bg-neutral-100;
     }
 
     .input-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-300;
+        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
     }
     .textarea-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-300;
+        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
     }
 
     .tap-onclick {

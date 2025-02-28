@@ -81,6 +81,7 @@ const ChallengeCard = ({ cardData }) => {
     const getCategoryImage = (category) => {
         return CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
     };
+
     // 챌린지 카테고리별 아이콘
     const badgeIcons = {
         습관: IconHabit,
@@ -92,56 +93,47 @@ const ChallengeCard = ({ cardData }) => {
 
     return (
         <div
-            className='p-4 max-md:p-3 rounded-2xl bg-white'
+            className='card p-3 md:p-4 flex flex-col gap-3 md:gap-4'
             onClick={handleCardClick}
         >
             {/* 카테고리 & 기간 */}
-            <div className='flex items-center gap-1 mb-4'>
-                <img
-                    alt='icon'
-                    src={`${getBadgeIcon(category)}`}
-                    className='w-4 md:w-6'
-                />
+            <div className='flex items-center gap-1'>
+                <div className='w-4 md:w-6 h-4 md:h-6'>
+                    <img alt='icon' src={getBadgeIcon(category)} />
+                </div>
                 <span className='main-text budge'>{category}</span>
-                <span className='main-text'>{duration}</span>
+                <span className='main-text whitespace-nowrap'>{duration}</span>
             </div>
 
             {/* 기본 제공 이미지 */}
-            <div className='h-72 max-md:h-36 mb-4 p-[16px] rounded-2xl bg-neutral-300 overflow-hidden'>
+            <div className='h-32 md:h-36 card bg-neutral-300 flex justify-center items-center'>
                 <img
                     src={getCategoryImage(cardData.category)}
-                    className='h-full mx-auto'
+                    className='h-[70%] overflow-hidden'
                     alt={`${cardData.category} 챌린지`}
                 />
             </div>
 
             {/* 챌린지 제목 & 내용 */}
-            <div className='mb-4'>
-                <p className='h-auto mb-1 text-xl max-md:text-sm font-semibold line-clamp-1'>
+            <div className='flex flex-col gap-1'>
+                <p className='h-auto main-text font-semibold line-clamp-1'>
                     {title}
                 </p>
-                <p className='h-auto text-sm font-light max-md:text-xs line-clamp-2'>
-                    {content}
-                </p>
+                <p className='h-auto sub-text line-clamp-2'>{content}</p>
             </div>
 
             {/* 유저 닉네임 & 사진 */}
-            <div className='flex justify-between'>
-                <div className='flex justify-between items-center'>
-                    <div className='w-8 max-md:w-6 h-8 max-md:h-6 rounded-full overflow-hidden'>
-                        <img
-                            src={userImg}
-                            alt={`${nickname} 사진`}
-                            className='w-full h-full object-cover'
-                        />
-                    </div>
-                    <p className='ml-2 max-md:ml-1 text-sm max-md:text-xs font-light'>
-                        {nickname}
-                    </p>
-                </div>
+            <div className='flex justify-start items-center'>
+                <img
+                    src={userImg}
+                    alt={`${nickname} 사진`}
+                    className='w-4 md:w-6 h-4 md:h-6 rounded-full'
+                />
+                <p className='ml-2 sub-text'>{nickname}</p>
+            </div>
 
-                {/* 버튼 */}
-                {/* {canJoin && (
+            {/* 버튼 */}
+            {/* {canJoin && (
                     <button
                         type='button'
                         className='btn btn-primary w-[40%] max-md:text-xs'
@@ -151,22 +143,23 @@ const ChallengeCard = ({ cardData }) => {
                         {clgJoin ? '참여중' : '참여하기'}
                     </button>
                 )} */}
+            <div className='flex justify-center'>
                 {isLoggedIn && (
                     <button
                         type='button'
-                        className={`btn w-[40%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                        className={`btn w-[60%]  ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
                         onClick={handleJoin}
                     >
                         {isAuthor || clgJoin ? '참여 중' : '참여하기'}
                     </button>
                 )}
-                <LoginRequiredModal
-                    isOpen={isModalOpen}
-                    onClose={closeModal}
-                    onNavigate={handleNavigateToLogin}
-                    stopPropagation={true}
-                />
             </div>
+            <LoginRequiredModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onNavigate={handleNavigateToLogin}
+                stopPropagation={true}
+            />
         </div>
     );
 };

@@ -61,9 +61,9 @@ const MainLayout = () => {
             <Helmet>
                 <title>홈 - UpDay</title>
             </Helmet>
-            <div className='w-[90vw] md:w-[80vw] md:max-w-[1344px] mx-auto md:my-[2vh] flex flex-col gap-6 md:block md:space-y-[4vh]'>
+            <div className='w-[90vw] md:w-[80vw] md:max-w-[1344px] mx-auto md:mt-[2vh] flex flex-col gap-6 md:gap-[4vh]'>
                 {/* 유저 콘텐츠 */}
-                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[2vw]'>
+                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
                     <UserInfo
                         userName={userName}
                         challengeDays={challengeDays}
@@ -71,7 +71,7 @@ const MainLayout = () => {
                     <OngoingChallenges isLoggedIn={isLoggedIn} />
                 </section>
 
-                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[2vw]'>
+                <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
                     <PopularChallenges challenges={sortedChallenges} />
                     <ChallengeCategory />
                 </section>
