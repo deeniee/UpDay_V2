@@ -30,14 +30,14 @@ export default function ChallengeCategory() {
         },
     ];
     return (
-        <div className='relative w-full md:w-[48vw] flex flex-col space-y-2 pb-4 md:pb-0'>
-            <h2 className='title pl-4 md:pl-0'>카테고리별 챌린지</h2>
-            <div className='grid grid-cols-4 md:grid-cols-2 gap-2'>
+        <div className='relative w-full md:max-h-[410px] md:w-[48%] flex flex-col space-y-2 pb-4 md:pb-0'>
+            <h2 className='title pl-3 md:pl-0'>카테고리별 챌린지</h2>
+            <div className='h-full grid grid-cols-4 md:grid-cols-2 gap-4'>
                 {categories.map((category, index) => (
                     <Link
                         key={index}
                         to={category.path}
-                        className={`relative w-full h-32 md:h-[14.1vh] md:min-h-[101.5px] flex justify-between items-center card ${category.color}`}
+                        className={`relative w-full h-32 md:h-full md:min-h-[101.5px] flex justify-between items-center card ${category.color}`}
                     >
                         <div className=' w-full h-full p-3 md:p-4 flex justify-between items-between`'>
                             <span className='main-text font-semibold whitespace-nowrap'>
@@ -53,7 +53,7 @@ export default function ChallengeCategory() {
                             <img
                                 src={category.icon}
                                 alt={`${category.name} icon`}
-                                className='object-contain h-[68%] '
+                                className='object-contain h-[68%]'
                             />
                         </div>
                     </Link>

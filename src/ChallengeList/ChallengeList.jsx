@@ -21,7 +21,7 @@ const ChallengeList = () => {
             <ChallengeListLayout />
             <Outlet />
             <button
-                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-300
+                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400
                 fixed bottom-[10%] right-[10%] w-14 md:w-16 h-14 md:h-16 text-4xl md:text-5xl'
                 onClick={handleCreateClick}
             >

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ChallengeIcon from '../images/challenge-2.svg';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import IconHabit from '../../assets/images/icon_habit.svg';
+import IconHealth from '../../assets/images/icon_health.svg';
+import IconStudy from '../../assets/images/icon_study.svg';
+import IconEtc from '../../assets/images/icon_etc.svg';
 
 const PopularChallenges = ({ challenges }) => {
     const [currentChallenges, setCurrentChallenges] = useState([]);
@@ -41,20 +45,29 @@ const PopularChallenges = ({ challenges }) => {
     };
     // 챌린지 카테고리별 뱃지 클래스
     const badgeClasses = {
-        습관: 'budge-habit',
-        건강: 'budge-health',
-        학습: 'budge-study',
-        기타: 'budge-etc',
+        습관: 'badge-habit',
+        건강: 'badge-health',
+        학습: 'badge-study',
+        기타: 'badge-etc',
     };
     const getBadgeClass = (category) => badgeClasses[category] || '';
+
+    // 챌린지 카테고리별 아이콘
+    const badgeIcons = {
+        습관: IconHabit,
+        건강: IconHealth,
+        학습: IconStudy,
+        기타: IconEtc,
+    };
+    const getBadgeIcon = (category) => badgeIcons[category] || '';
 
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='relative w-full md:w-[48vw] flex flex-col space-y-2'>
-            <h2 className='title pl-4 md:pl-0'>인기 있는 챌린지</h2>
+        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+            <h2 className='title pl-3 md:pl-0'>인기 있는 챌린지</h2>
 
-            <ul className='w-full flex flex-col gap-2 justify-center'>
+            <ul className='w-full h-full md:max-h-[386px] flex flex-col gap-2'>
                 {[0, 1, 2, 3, 4].map((offset) => {
                     const index = offset; // 1~5번 위치 고정
                     const challenge = currentChallenges[index];
@@ -63,19 +76,27 @@ const PopularChallenges = ({ challenges }) => {
                     return (
                         <li
                             key={index}
-                            className={`card w-full h-10 md:h-[5vh] md:min-h-[36px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
+                            className={`card w-full h-10 md:h-[5.4vh] md:min-h-[37px] md:max-h-[69px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
                                 ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
-                                <span className='w-[2vw] main-text'>
+                                <span className='w-[4%] main-text'>
                                     {index + 1}.
                                 </span>
-                                <div
-                                    className={`${getBadgeClass(challenge.category)}`}
-                                >
-                                    {challenge.category}
+                                <div className='flex items-center gap-1'>
+                                    <div className='w-4 md:w-6 h-4 md:h-6'>
+                                        <img
+                                            alt='icon'
+                                            src={getBadgeIcon(
+                                                challenge.category
+                                            )}
+                                        />
+                                    </div>
+                                    <span className='main-text badge'>
+                                        {challenge.category}
+                                    </span>
                                 </div>
-                                <span className='main-text overflow-hidden text-ellipsis whitespace-nowrap'>
+                                <span className='main-text flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
                                     {challenge.title}
                                 </span>
                             </div>
