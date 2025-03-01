@@ -101,7 +101,7 @@ const ChallengeCard = ({ cardData }) => {
                 <div className='w-4 md:w-6 h-4 md:h-6'>
                     <img alt='icon' src={getBadgeIcon(category)} />
                 </div>
-                <span className='main-text budge'>{category}</span>
+                <span className='main-text badge'>{category}</span>
                 <span className='main-text whitespace-nowrap'>{duration}</span>
             </div>
 
@@ -119,7 +119,7 @@ const ChallengeCard = ({ cardData }) => {
                 <p className='h-auto main-text font-semibold line-clamp-1'>
                     {title}
                 </p>
-                <p className='h-auto sub-text line-clamp-2'>{content}</p>
+                <p className='h-6 md:h-8 sub-text line-clamp-2'>{content}</p>
             </div>
 
             {/* 유저 닉네임 & 사진 */}
@@ -147,7 +147,7 @@ const ChallengeCard = ({ cardData }) => {
                 {isLoggedIn && (
                     <button
                         type='button'
-                        className={`btn w-[60%]  ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                        className={`btn w-[60%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
                         onClick={handleJoin}
                     >
                         {isAuthor || clgJoin ? '참여 중' : '참여하기'}

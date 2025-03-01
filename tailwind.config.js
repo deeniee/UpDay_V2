@@ -89,8 +89,8 @@ module.exports = {
                     500: '#AB354E',
                 },
                 category: {
-                    habit: '#C1D1FF',
-                    health: '#E3D9ED',
+                    habit: '#E3D9ED',
+                    health: '#C1D1FF',
                     study: '#FED2D2',
                     etc: '#F4D9EB',
                 },

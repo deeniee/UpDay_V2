@@ -12,6 +12,10 @@ import {
     toggleClgState,
     setSelectedChallenge,
 } from '../../store/features/userChallengeSlice';
+import IconHabit from '../../assets/images/icon_habit.svg';
+import IconHealth from '../../assets/images/icon_health.svg';
+import IconStudy from '../../assets/images/icon_study.svg';
+import IconEtc from '../../assets/images/icon_etc.svg';
 
 const OngoingChallenges = ({ isLoggedIn }) => {
     const navigate = useNavigate();
@@ -59,22 +63,31 @@ const OngoingChallenges = ({ isLoggedIn }) => {
 
     // 챌린지 카테고리별 뱃지 클래스
     const badgeClasses = {
-        식단: 'budge-meal',
-        학습: 'budge-study',
-        운동: 'budge-sport',
-        습관: 'budge-habit',
+        습관: 'badge-habit',
+        건강: 'badge-health',
+        학습: 'badge-study',
+        기타: 'badge-etc',
     };
     const getBadgeClass = (category) => badgeClasses[category] || '';
 
-    // 챌린지 상태 클래스
-    const getClgTitleClass = (doing, done) =>
-        !doing && done
-            ? 'line-through'
-            : !doing && !done
-              ? 'line-through text-neutral-500'
-              : '';
-    const getClgDoingClass = (doing) => (doing ? 'check-on' : 'check-off');
-    const getClgNoteClass = (done) => (done ? 'note-on' : 'note-off');
+    // 챌린지 카테고리별 아이콘
+    const badgeIcons = {
+        습관: IconHabit,
+        건강: IconHealth,
+        학습: IconStudy,
+        기타: IconEtc,
+    };
+    const getBadgeIcon = (category) => badgeIcons[category] || '';
+
+    // // 챌린지 상태 클래스
+    // const getClgTitleClass = (doing, done) =>
+    //     !doing && done
+    //         ? 'line-through'
+    //         : !doing && !done
+    //           ? 'line-through text-neutral-500'
+    //           : '';
+    // const getClgDoingClass = (doing) => (doing ? 'check-on' : 'check-off');
+    // const getClgNoteClass = (done) => (done ? 'note-on' : 'note-off');
 
     {
         /* <div className='flex gap-3'>
@@ -114,12 +127,20 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                                         <>
                                             <div className='w-full flex flex-col justify-evenly items-start overflow-hidden'>
                                                 <div className='w-full flex items-center gap-1 text-neutral-700 whitespace-nowrap'>
-                                                    <div
-                                                        className={`${getBadgeClass(challenge.category)}`}
-                                                    >
-                                                        {challenge.category}
+                                                    <div className='flex items-center gap-1'>
+                                                        <div className='w-4 md:w-6 h-4 md:h-6'>
+                                                            <img
+                                                                alt='icon'
+                                                                src={getBadgeIcon(
+                                                                    challenge.category
+                                                                )}
+                                                            />
+                                                        </div>
+                                                        <span className='main-text badge'>
+                                                            {challenge.category}
+                                                        </span>
                                                     </div>
-                                                    <span className='sub-text'>
+                                                    <span className='sub-text text-main-500 font-semibold'>
                                                         {calculateDaysPassed(
                                                             challenge.joinDate
                                                         )}
