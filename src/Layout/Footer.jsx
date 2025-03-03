@@ -10,7 +10,7 @@ const Footer = () => {
 
     return (
         <footer
-            className={`w-full h-12 my-2 ${isFooterHidden ? 'hidden md:block' : ''}`}
+            className={`w-full h-12 my-2 ${isFooterHidden ? 'hidden' : ''}`}
         >
             <div className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}

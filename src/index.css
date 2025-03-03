@@ -31,8 +31,12 @@
         @apply text-[8px]/3 md:text-[10px]/4;
     }
 
+    .defalut-size {
+        @apply w-[90vw] md:w-[80vw] md:max-w-[1344px] md:h-[79vh] md:min-h-[606px] md:max-h-[1010px] md:justify-between mx-auto md:mt-[2vh] flex gap-6 md:gap-0;
+    }
+
     .btn {
-        @apply border p-2 flex justify-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
+        @apply border p-1.5 flex justify-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
     }
     .btn-primary {
         @apply border-main-500 bg-main-500 text-neutral-100 hover:border-main-600 hover:bg-main-600;
@@ -44,7 +48,7 @@
         @apply border-point-500 bg-point-500 text-neutral-100 hover:border-point-600 hover:bg-point-600;
     }
     .btn-negative {
-        @apply border-neutral-300 bg-neutral-300 text-main-500 hover:border-red-400 hover:bg-red-400 hover:text-neutral-100;
+        @apply border-neutral-300 bg-neutral-300 text-main-500 hover:border-red-300 hover:bg-red-300 hover:text-neutral-100;
     }
     .btn-neutral-1 {
         @apply border-neutral-600 bg-neutral-600 text-neutral-100 hover:border-neutral-700 hover:bg-neutral-700;
@@ -77,17 +81,17 @@
     }
 
     .input-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
+        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
     }
     .textarea-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 p-2 pl-4 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
+        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400;
     }
 
     .tap-onclick {
-        @apply w-[104px] h-[38px] md:h-[40px] rounded-t-xl bg-blue-400 text-sm font-semibold text-neutral-100 transition active:bg-blue-500 hover:bg-blue-500;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-neutral-600 text-neutral-100 transition active:bg-neutral-700 hover:bg-neutral-700;
     }
     .tap-default {
-        @apply w-[104px] h-[38px] md:h-[40px] rounded-t-xl bg-blue-300 text-sm font-semibold text-neutral-100 transition active:bg-blue-500 hover:bg-blue-500;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-neutral-400 text-neutral-100 transition active:bg-neutral-700 hover:bg-neutral-700;
     }
 
     .doing-on {

@@ -56,10 +56,8 @@ export default function UserReport() {
     if (!isTestAccount) {
         return (
             <div className='relative flex flex-col gap-2'>
-                <h1 className='text-xl md:text-2xl font-semibold'>
-                    업데이 리포트
-                </h1>
-                <div className='card flex flex-row gap-2 p-6 w-full h-[172px] md:h-[296px] justify-evenly items-center'>
+                <h1 className='title'>업데이 리포트</h1>
+                <div className='card flex flex-row gap-2 p-6 w-full h-full md:h-[296px] justify-evenly items-center'>
                     <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
                         <p className='text-sm md:text-base font-semibold'>
                             진행 중
@@ -99,34 +97,26 @@ export default function UserReport() {
     }
 
     return (
-        <div className='flex flex-col gap-2 w-full'>
-            <h1 className='text-xl md:text-2xl font-semibold'>업데이 리포트</h1>
-            <div className='card flex flex-row gap-2 p-6 w-full h-[172px] md:h-[296px] justify-evenly items-center'>
+        <div className='flex flex-col gap-2 w-full h-full md:h-[32vh] md:min-h-[264px]'>
+            <h1 className='title'>업데이 리포트</h1>
+            <div className='card flex flex-row gap-2 p-6 w-full h-full justify-evenly items-center'>
                 <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                    <p className='text-sm md:text-base font-semibold'>
-                        진행 중
-                    </p>
-                    <HiFire className='text-4xl md:text-6xl text-orange-400' />
-                    <p className='text-sm md:text-base font-bold'>
-                        {numClgDoing}
-                    </p>
+                    <p className='main-text font-semibold'>진행 중</p>
+                    <HiFire className='text-4xl md:text-6xl text-main-600' />
+                    <p className='main-text font-semibold'>{numClgDoing}</p>
                 </div>
                 <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                    <p className='text-sm md:text-base font-semibold'>완료</p>
-                    <HiDocumentCheck className='text-4xl md:text-6xl text-green-400' />
-                    <p className='text-sm md:text-base font-bold'>
-                        {numClgDone}
-                    </p>
+                    <p className='main-text font-semibold'>완료</p>
+                    <HiDocumentCheck className='text-4xl md:text-6xl text-main-600' />
+                    <p className='main-text font-semibold'>{numClgDone}</p>
                 </div>
                 <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                    <p className='text-sm md:text-base font-semibold'>
-                        목표 달성율
-                    </p>
+                    <p className='main-text font-semibold'>목표 달성율</p>
                     <div className='relative flex justify-center'>
-                        <HiMiniTrophy className='text-4xl md:text-6xl text-yellow-400' />
+                        <HiMiniTrophy className='text-4xl md:text-6xl text-main-600' />
                         <FaStar className='absolute text-neutral-100 text-xs top-1 md:text-lg md:top-2' />
                     </div>
-                    <p className='text-sm md:text-base font-bold'>
+                    <p className='main-text font-semibold'>
                         {achievementRate}%
                     </p>
                 </div>

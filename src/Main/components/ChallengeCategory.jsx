@@ -30,7 +30,7 @@ export default function ChallengeCategory() {
         },
     ];
     return (
-        <div className='relative w-full md:max-h-[410px] md:w-[48%] flex flex-col space-y-2 pb-4 md:pb-0'>
+        <div className='relative w-full flex flex-col space-y-2 pb-4 md:pb-0'>
             <h2 className='title pl-3 md:pl-0'>카테고리별 챌린지</h2>
             <div className='h-full grid grid-cols-4 md:grid-cols-2 gap-4'>
                 {categories.map((category, index) => (

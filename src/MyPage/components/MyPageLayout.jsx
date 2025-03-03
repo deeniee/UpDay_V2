@@ -5,6 +5,7 @@ import MyPageNonLogin from './MyPageNonLogin';
 import UserProfile from './UserProfileSection';
 import UserReport from './UserReportSection';
 import TabSwitcher from './TabSwitcher';
+import PersonalInfo from './PersonalInfoSection';
 import ModalForLogin from '../../common/ModalForLogin';
 
 const MyPageLayout = () => {
@@ -31,7 +32,7 @@ const MyPageLayout = () => {
     }, [checkUserLogin]);
 
     return (
-        <main className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto flex flex-col md:flex-row gap-4 justify-between'>
+        <main className='defalut-size flex-col md:flex-row gap-4 md:gap-0'>
             <Helmet>
                 <title>마이페이지 - UpDay</title>
             </Helmet>
@@ -39,11 +40,12 @@ const MyPageLayout = () => {
                 <MyPageNonLogin />
             ) : (
                 <>
-                    <section className='flex flex-col w-full md:w-[48%] gap-4 md:gap-6'>
+                    <section className='flex flex-col w-full gap-4 md:w-[48%] md:gap-0 md:justify-between'>
                         <UserProfile />
                         <UserReport />
                     </section>
                     <TabSwitcher />
+                    {/* <PersonalInfo /> */}
                 </>
             )}
             <ModalForLogin

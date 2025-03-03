@@ -1,10 +1,5 @@
 import React from 'react';
 
-import CharacterLamp from '../../assets/images/buld.svg';
-import CharacterDust from '../../assets/images/dust.svg';
-import CharacterHeart from '../../assets/images/heart.svg';
-import CharacterSpoon from '../../assets/images/spoon.svg';
-
 import IllustBg1 from './IllustBg1';
 
 export default function IntroSection1() {

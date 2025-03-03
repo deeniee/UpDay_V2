@@ -29,7 +29,7 @@ const LoginRequiredModal = ({
                 </h2>
                 <button
                     onClick={onNavigate}
-                    className='btn btn-key px-4 py-2 text-sm md:text-base'
+                    className='btn btn-point w-auto mx-auto px-3 md:px-4'
                 >
                     로그인하러 가기
                 </button>
