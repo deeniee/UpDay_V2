@@ -25,7 +25,9 @@ const UserProfile = () => {
             if (usersData) {
                 try {
                     const users = JSON.parse(usersData);
-                    const foundUser = users.find(user => user.email === loggedInUserEmail);
+                    const foundUser = users.find(
+                        (user) => user.email === loggedInUserEmail
+                    );
 
                     if (foundUser) {
                         setLoggedInUser(foundUser);
@@ -47,55 +49,61 @@ const UserProfile = () => {
         return null;
     }
 
-
     return (
-        <div className='flex flex-col gap-2'>
-            <h1 className='text-xl md:text-2xl font-semibold'>내 프로필</h1>
-            <div className='card flex flex-col gap-3 md:gap-6 p-[24px] md:p-[36px]'>
+        <div className='flex flex-col gap-2 md:h-[40vh] md:min-h-[px]'>
+            <h1 className='title'>내 프로필</h1>
+            <div className='card h-full flex flex-col gap-3 md:gap-4 p-4 md:p-6'>
                 <div className='flex flex-row items-center'>
-                    <div className='inline-block w-[42%] max-w-[180px] md:w-[50%] md:max-w-[200px] aspect-square mr-[10%]'>
+                    <div className='inline-block w-[35%] max-w-[122px] md:w-[60%] md:max-w-[180px] aspect-square mr-[5%] md:br-[10%]'>
                         {loggedInUser.profileImage ? (
                             <img
                                 alt='프로필 이미지'
                                 src={loggedInUser.profileImage}
-                                className='w-full h-full object-cover rounded-full ring-2 ring-neutral-300 overflow-hidden'
+                                className='w-full h-full object-cover rounded-full ring-1 ring-neutral-400 overflow-hidden'
                             />
                         ) : (
                             <img
                                 alt='기본 프로필 이미지'
-                                src={defaultImages[Math.floor(Math.random() * defaultImages.length)]}
-                                className='w-full h-full object-cover rounded-full ring-2 ring-neutral-300 overflow-hidden'
+                                src={
+                                    defaultImages[
+                                        Math.floor(
+                                            Math.random() * defaultImages.length
+                                        )
+                                    ]
+                                }
+                                className='w-full h-full object-cover rounded-full ring-1 ring-neutral-400 overflow-hidden'
                             />
                         )}
-
-
                     </div>
-                    <div className='flex flex-col h-[200px] justify-evenly'>
-                        <div className='flex flex-col gap-2'>
-                            <p className='text-xl md:text-2xl font-semibold'>
-                                {loggedInUser.nickname || '닉네임 없음'}
-                            </p>
-                            <p className='text-xs md:text-sm font-normal text-neutral-500'>
-                                {loggedInUser.email || '이메일 없음'}
-                            </p>
+                    <div className='w-full h-full flex flex-col items-start gap-4'>
+                        <div className='flex gap-6 md:gap-2 md:flex-col md:h-28'>
+                            <div className='flex flex-col gap-1 md:gap-2'>
+                                <p className='title'>
+                                    {loggedInUser.nickname || '닉네임 없음'}
+                                </p>
+                                <p className='main-text text-neutral-500'>
+                                    {loggedInUser.email || '이메일 없음'}
+                                </p>
+                            </div>
+                            <div className='flex flex-col gap-2 md:gap-3'>
+                                <p className='main-text font-semibold'>
+                                    <span className='text-point-500'>
+                                        {daysSinceSignup}
+                                    </span>
+                                    일 째 업데이 중
+                                </p>
+                                <p className='main-text text-neutral-500'>
+                                    {loggedInUser.signupDate ||
+                                        '가입일 정보 없음'}
+                                </p>
+                            </div>
                         </div>
-                        <div className='flex flex-col gap-2'>
-                            <p className='text-xs md:text-sm font-semibold'>
-                                <span className='text-blue-500'>
-                                    {daysSinceSignup}
-                                </span>
-                                일 째 업데이 중
-                            </p>
-                            <p className='text-xs md:text-sm font-normal text-neutral-500'>
-                                {loggedInUser.signupDate || '가입일 정보 없음'}
-                            </p>
-                        </div>
+                        <p className='h-12 md:h-16 sub-text line-clamp-4'>
+                            {loggedInUser.about ||
+                                '아직 소개글을 작성하지 않았습니다. 프로필을 업데이트해보세요!'}
+                        </p>
                     </div>
                 </div>
-                <p className='text-xs md:text-sm h-[62px] md:h-[100px] overflow-hidden text-ellipsis whitespace-wrap'>
-                    {loggedInUser.about ||
-                        '아직 소개글을 작성하지 않았습니다. 프로필을 업데이트해보세요!'}
-                </p>
             </div>
         </div>
     );

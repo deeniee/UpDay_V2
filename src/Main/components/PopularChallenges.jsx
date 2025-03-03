@@ -64,10 +64,10 @@ const PopularChallenges = ({ challenges }) => {
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='relative w-full md:w-[48%] flex flex-col space-y-2'>
+        <div className='relative w-full flex flex-col space-y-2'>
             <h2 className='title pl-3 md:pl-0'>인기 있는 챌린지</h2>
 
-            <ul className='w-full h-full md:max-h-[386px] flex flex-col gap-2'>
+            <ul className='w-full h-full flex flex-col gap-2'>
                 {[0, 1, 2, 3, 4].map((offset) => {
                     const index = offset; // 1~5번 위치 고정
                     const challenge = currentChallenges[index];

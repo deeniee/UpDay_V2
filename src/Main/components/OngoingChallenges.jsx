@@ -105,18 +105,18 @@ const OngoingChallenges = ({ isLoggedIn }) => {
     }
 
     return (
-        <div className='w-full h-[200px] md:w-[48%] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
-            <h2 className='title w-full h-8 md:h-10 flex items-center p-3 md:p-4 rounded-t-[18px] md:rounded-t-2xl bg-point-200'>
+        <div className='relative w-full h-[200px] md:h-full'>
+            <h2 className='absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 rounded-t-[18px] md:rounded-t-2xl bg-point-200'>
                 도전 중인 챌린지 ({filteredChallenges.length})
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-[166px] md:h-[38.5vh] md:min-h-[280px] md:max-h-[500px] flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full min-h-[56px] md:h-[20.1%] md:max-h-[101px] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
@@ -184,13 +184,13 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                     </div>
                 )
             ) : (
-                <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-between items-center card rounded-t-none pt-12 pb-6 md:pt-20 md:pb-10'>
-                    <h2 className='text-sm md:text-base font-semibold text-neutral-700 ml-[3%]'>
+                <div className='w-full h-full pt-8 md:pt-10 flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 justify-around itmes-center'>
+                    <h2 className='main-text font-semibold text-center text-neutral-700 ml-[3%]'>
                         로그인이 필요한 기능입니다.
                     </h2>
                     <button
                         onClick={() => navigate('/login')}
-                        className='btn btn-key px-4 py-2 text-sm md:text-base '
+                        className='btn btn-point w-auto mx-auto px-3 md:px-4'
                     >
                         로그인하러 가기
                     </button>
