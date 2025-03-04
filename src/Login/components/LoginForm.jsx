@@ -8,60 +8,45 @@ const LoginForm = () => {
         useLogin();
 
     return (
-        <div className='flex items-center flex-col text-center'>
-            <div
-                className='text-base mt-[28px] mb-[20px]
-                md:text-lg md:mt-[3rem] md:mb-[2.5rem]'
-            >
-                로그인 방법을 선택하세요
-            </div>
+        <div className=' flex flex-col items-center text-center gap-8'>
             <form
                 onSubmit={handleSubmit}
-                className='flex items-center flex-col'
+                className=' w-full max-w-[288px] flex flex-col items-center gap-6 pt-6'
             >
                 <input
                     type='email'
                     placeholder='이메일'
-                    className='input-field w-[18rem] h-[2.8rem] mb-3 pl-3
-                    md:mb-4 md:pl-6 md:w-80'
+                    className='input-field main-text w-full h-10'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type='password'
                     placeholder='비밀번호'
-                    className='input-field w-[18rem] h-[2.8rem] mb-3 pl-3
-                    md:mb-4 md:pl-6 md:w-80'
+                    className='input-field main-text w-full h-10'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {error && <div className='text-red-400'>{error}</div>}
-                <button
-                    type='submit'
-                    className='btn btn-black w-[18rem] h-[2.8rem] mt-[3rem]
-                    md:w-[20rem] md:px-[136.5px]'
-                >
+                {error && <div className='main-text text-red-400'>{error}</div>}
+                <button type='submit' className='btn btn-primary w-full h-10'>
                     로그인
                 </button>
+                <button className='btn bg-yellow-300 border-yellow-300 w-full max-w-[288px] h-10'>
+                    카카오 로그인
+                </button>
             </form>
-            <div className='w-full max-w-[288px] pt-[1.5rem] pb-[1.5rem] md:max-w-none flex items-center justify-center text-gray-700 text-xs font-medium'>
-                <span className='flex-1 border-b border-neutral-800'></span>
-                <span className='mx-6 leading-none'>또는</span>
-                <span className='flex-1 border-b border-neutral-800'></span>
-            </div>
 
-            <img
-                src={pic3}
-                alt='카카오 로그인'
-                className='hidden md:block mb:my-9'
-            />
-            <img src={pic4} alt='카카오 로그인' className='block md:hidden' />
-            <Link
-                to='/signup'
-                className='text-neutral-700 text-base mt-[1.2rem] md:text-lg'
+            <div className='w-full max-w-[288px] flex items-center justify-center main-text'>
+                <span className='flex-1 border-b border-neutral-400'></span>
+                <span className='mx-6 leading-none'>또는</span>
+                <span className='flex-1 border-b border-neutral-400'></span>
+            </div>
+            <button
+                type='submit'
+                className='btn btn-neutral-1 w-full max-w-[288px] h-10'
             >
-                회원가입하기
-            </Link>
+                <Link to='/signup'>회원가입하기</Link>
+            </button>
         </div>
     );
 };

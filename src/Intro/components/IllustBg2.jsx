@@ -6,7 +6,6 @@ import Pic3 from '../../assets/images/pic_3.svg';
 import BgElement1 from '../../assets/images/pic_bg1.svg';
 import BgElement2 from '../../assets/images/pic_bg2.svg';
 import BgElement3 from '../../assets/images/pic_bg3.svg';
-import BgElement4 from '../../assets/images/pic_bg4.svg';
 import BgElement5 from '../../assets/images/pic_bg5.svg';
 import BgElement6 from '../../assets/images/pic_bg6.svg';
 import BgElement7 from '../../assets/images/pic_bg7.svg';

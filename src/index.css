@@ -36,7 +36,7 @@
     }
 
     .btn {
-        @apply border p-1.5 flex justify-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
+        @apply border p-1.5 flex justify-center items-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
     }
     .btn-primary {
         @apply border-main-500 bg-main-500 text-neutral-100 hover:border-main-600 hover:bg-main-600;

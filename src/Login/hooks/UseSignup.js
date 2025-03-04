@@ -18,45 +18,48 @@ const useSignup = () => {
 
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const validatePassword = (password) =>
-        password.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        password.length >= 8 &&
+        /[a-z]/.test(password) && // 소문자 포함
+        /[0-9]/.test(password) && // 숫자 포함
+        /[!@#$%^&*(),.?":{}|<>]/.test(password); // 특수문자 포함
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let newEmailError = '';
-        let newPwError = '';
-        let newPwConfirmError = '';
-        let newError = '';
+        setEmailError('');
+        setPwError('');
+        setPwConfirmError('');
+        setError('');
 
         if (!validateEmail(email)) {
-            newEmailError = '올바른 이메일 형식을 입력하세요.';
+            setEmailError('올바른 이메일 형식으로 입력하세요.');
+            return;
         }
 
         if (!validatePassword(password)) {
-            newPwError = '8자 이상이며 특수문자를 포함해야 합니다.';
+            setPwError(
+                '소문자, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.'
+            );
+            return;
         }
 
         if (password !== passwordConfirm) {
-            newPwConfirmError = '비밀번호가 일치하지 않습니다.';
+            setPwConfirmError('비밀번호가 일치하지 않습니다.');
+            return;
         }
 
         const users = JSON.parse(localStorage.getItem('users')) || [];
         if (users.some((user) => user.email === email)) {
-            newError = '이미 등록된 아이디입니다.';
+            setError('이미 등록된 아이디입니다.');
+            return;
         }
 
         if (clglist.some((challenge) => challenge.authorId === email)) {
-            newError = '이미 등록된 아이디입니다.';
+            setError('이미 등록된 아이디입니다.');
+            return;
         }
 
-        setEmailError(newEmailError);
-        setPwError(newPwError);
-        setPwConfirmError(newPwConfirmError);
-        setError(newError);
-
-        if (newEmailError || newPwError || newPwConfirmError || newError)
-            return;
-
+        // 모든 조건을 통과하면 회원가입 처리
         dispatch(setEmail(email));
         dispatch(setPassword(password));
 
