@@ -1,53 +1,71 @@
-import pic2 from '../img/Group 72.svg';
-import pic3 from '../img/Group 111.svg';
-import pic4 from '../img/Group 112.svg';
-import pic5 from '../img/Group 1.svg';
-import pic6 from '../img/Group 239.svg';
+import React from 'react';
+
+import BgElement1 from '../../assets/images/pic_bg1.svg';
+import BgElement2 from '../../assets/images/pic_bg2.svg';
+import BgElement3 from '../../assets/images/pic_bg3.svg';
+import BgElement4 from '../../assets/images/pic_bg4.svg';
+import BgElement5 from '../../assets/images/pic_bg5.svg';
+import BgElement6 from '../../assets/images/pic_bg6.svg';
+import BgElement7 from '../../assets/images/pic_bg7.svg';
 
 const LoginLayout = ({ children, title }) => {
     return (
-        <div className='w-[90%] mx-auto flex justify-center items-center relative h-[796px] md:w-[80%] md:max-w-[1344px]'>
-            <img
-                src={pic3}
-                alt='왼쪽 배경'
-                className='absolute top-0 left-0 w-auto h-auto hidden md:block '
-            />
-
-            <div
-                className='flex items-center flex-col shrink-0 text-center rounded-3xl z-10 relative bg-transparent 
-                md:bg-neutral-100 md:w-[48%] md:min-w-[28rem] md:h-[46rem] '
-            >
-                <div className='relative inline-block md:mt-[3.5rem]'>
+        <div className='relative defalut-size flex-col card h-[79vh] mt-[2vh] md:w-[48%] md:p-6'>
+            <div className='title flex justify-center items-center h-[10%]'>
+                <p className='z-10 text-main-600'>{title}</p>
+                <div className='absolute left-[6%] bottom-[6%] flex gap-2'>
                     <img
-                        src={pic2}
-                        alt='타이틀 배경'
-                        className='w-full h-auto hidden md:block'
+                        src={BgElement6}
+                        alt='triangleflower'
+                        className='h-14 md:h-16 mr-8'
                     />
                     <img
-                        src={pic5}
-                        alt='타이틀 배경'
-                        className='w-full h-auto block md:hidden '
+                        src={BgElement5}
+                        alt='blueflower'
+                        className='h-16 md:h-[72px] mt-4 z-10'
                     />
-                    <div
-                        className='absolute text-base top-1/2 left-1/2 text-2xl transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-medium text-neutral-100
-                        md:text-2xl '
-                    >
-                        {title}
-                    </div>
+                    <img
+                        src={BgElement7}
+                        alt='reddotsflower'
+                        className='h-10 md:h-12 -mt-4'
+                    />
+                    <img
+                        src={BgElement1}
+                        alt='pinkrock1'
+                        className='absolute left-8 md:left-6 bottom-2 md:bottom-4 h-10 md:h-12'
+                    />
                 </div>
-                {children}
-                <img
-                    src={pic6}
-                    alt='모바일 배경'
-                    className='shrink-0 mt-[2rem] block md:hidden'
-                />
+                <div className='absolute right-[12%] bottom-[6%] flex gap-4'>
+                    <img
+                        src={BgElement5}
+                        alt='blueflower'
+                        className='h-10 md:h-12 mt-4 mr-4'
+                    />
+                    <img
+                        src={BgElement4}
+                        alt='pinkflower'
+                        className='h-16 md:h-[72px] mb-4'
+                    />
+                    <img
+                        src={BgElement7}
+                        alt='reddotsflower'
+                        className='h-10 md:h-12 -mt-4'
+                    />
+                </div>
+                <div className='absolute right-[4%] bottom-[6%] flex'>
+                    <img
+                        src={BgElement3}
+                        alt='purplerock'
+                        className='h-6 md:h-8 mt-4 -mr-6 z-10 -scale-x-100'
+                    />
+                    <img
+                        src={BgElement2}
+                        alt='pinkrock2'
+                        className='h-8 md:h-10 -scale-x-100'
+                    />
+                </div>
             </div>
-
-            <img
-                src={pic4}
-                alt='오른쪽 배경'
-                className='absolute top-0 right-0 w-auto h-auto hidden md:block '
-            />
+            <div className='w-full h-[90%] z-20'>{children}</div>
         </div>
     );
 };

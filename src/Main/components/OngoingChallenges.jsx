@@ -111,7 +111,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card bg-neutral-100 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
@@ -184,7 +184,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                     </div>
                 )
             ) : (
-                <div className='w-full h-full pt-8 md:pt-10 flex flex-col rounded-b-[18px] md:rounded-b-2xl bg-neutral-100 justify-around itmes-center'>
+                <div className='w-full h-full pt-8 md:pt-10 flex flex-col card bg-neutral-100 justify-around itmes-center'>
                     <h2 className='main-text font-semibold text-center text-neutral-700 ml-[3%]'>
                         로그인이 필요한 기능입니다.
                     </h2>

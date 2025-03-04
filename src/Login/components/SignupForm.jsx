@@ -16,72 +16,69 @@ const SignupForm = () => {
     } = useSignup();
 
     return (
-        <div className='flex items-center flex-col text-center'>
-            <div className='text-lg mt-[3rem] mb-[2.5rem]'>
-                <form onSubmit={handleSubmit}>
-                    <div className='flex flex-col items-start gap-1 mb-3'>
-                        <label htmlFor='email' className='text-left'>
-                            이메일
-                        </label>
-                        <input
-                            type='email'
-                            placeholder='ㅇㅇㅇ@example.com'
-                            value={email}
-                            onChange={(e) => setEmailState(e.target.value)}
-                            className='input-field w-[18rem] h-[2.8rem] mb-3 pl-3
-                            md:w-80 md:mb-4 '
-                        />
-                        {emailError && (
-                            <div className='text-red-400'>{emailError}</div>
-                        )}
-                        {error && <div className='text-red-400'>{error}</div>}
-                    </div>
+        <div className='relative flex flex-col items-center w-full'>
+            <form
+                onSubmit={handleSubmit}
+                className='relative flex flex-col items-center gap-6 main-text w-full '
+            >
+                <div className='relative flex flex-col gap-1 w-full max-w-[288px]'>
+                    <label htmlFor='email'>이메일</label>
+                    <input
+                        type='email'
+                        placeholder='example@email.com'
+                        value={email}
+                        onChange={(e) => setEmailState(e.target.value)}
+                        className='input-field w-full h-10'
+                    />
+                    {emailError && (
+                        <div className='sub-text w-full text-center text-red-400 absolute top-[68px] left-0'>
+                            {emailError}
+                        </div>
+                    )}
+                    {error && (
+                        <div className='main-text text-red-400'>{error}</div>
+                    )}
+                </div>
+                <div className='relative flex flex-col gap-1 w-full max-w-[288px]'>
+                    <label htmlFor='password'>비밀번호</label>
+                    <input
+                        type='password'
+                        placeholder='영문, 숫자, 특수문자 포함 8자 이상'
+                        value={password}
+                        onChange={(e) => setPasswordState(e.target.value)}
+                        className='input-field w-full h-10'
+                    />
+                    {pwError && (
+                        <div className='sub-text w-full text-center text-red-400 absolute top-[68px] left-0'>
+                            {pwError}
+                        </div>
+                    )}
+                </div>
 
-                    <div className='flex flex-col items-start gap-2 mb-4'>
-                        <label htmlFor='password' className='text-left'>
-                            비밀번호
-                        </label>
-                        <input
-                            type='password'
-                            placeholder='8자 이상 특수문자 포함'
-                            value={password}
-                            onChange={(e) => setPasswordState(e.target.value)}
-                            className='input-field w-[18rem] h-[2.8rem] mb-3 pl-3
-                            md:w-80 md:mb-4 '
-                        />
-                        {pwError && (
-                            <div className='text-red-400'>{pwError}</div>
-                        )}
-                    </div>
-
-                    <div className='flex flex-col items-start gap-2 mb-4'>
-                        <label htmlFor='passwordConfirm' className=' text-left'>
-                            비밀번호 확인
-                        </label>
-                        <input
-                            type='password'
-                            placeholder='8자 이상 특수문자 포함'
-                            value={passwordConfirm}
-                            onChange={(e) =>
-                                setPasswordConfirmState(e.target.value)
-                            }
-                            className='input-field w-[18rem] h-[2.8rem] mb-3 pl-3
-                            md:w-80 md:mb-4 '
-                        />
-                        {pwConfirmError && (
-                            <div className='text-red-400'>{pwConfirmError}</div>
-                        )}
-                    </div>
-
-                    <button
-                        type='submit'
-                        className='btn btn-black w-[18rem] h-[2.8rem] mt-[2.5rem]
-                        md:w-[20rem] md:mt-[2.5rem] md:mb-[2.1258rem] '
-                    >
-                        회원가입
-                    </button>
-                </form>
-            </div>
+                <div className='relative flex flex-col gap-1 w-full max-w-[288px]'>
+                    <label htmlFor='passwordConfirm'>비밀번호 확인</label>
+                    <input
+                        type='password'
+                        placeholder='비밀번호를 한 번 더 입력하세요'
+                        value={passwordConfirm}
+                        onChange={(e) =>
+                            setPasswordConfirmState(e.target.value)
+                        }
+                        className='input-field w-full h-10'
+                    />
+                    {pwConfirmError && (
+                        <div className='sub-text w-full text-center text-red-400 absolute top-[68px] left-0'>
+                            {pwConfirmError}
+                        </div>
+                    )}
+                </div>
+                <button
+                    type='submit'
+                    className='btn btn-neutral-1 w-full max-w-[288px] h-10 mt-[80px] md:mt-[70px]'
+                >
+                    다음
+                </button>
+            </form>
         </div>
     );
 };
