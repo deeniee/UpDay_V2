@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     email: '',
     password: '',
-    nickname: '',
-    profileImage: '',
+    userNickname: '',
+    userImg: '',
 };
 
 const userSlice = createSlice({
@@ -17,22 +17,22 @@ const userSlice = createSlice({
         setPassword: (state, action) => {
             state.password = action.payload;
         },
-        setNickname: (state, action) => {
-            state.nickname = action.payload;
+        setUserNickname: (state, action) => {
+            state.userNickname = action.payload;
         },
-        setProfileImage: (state, action) => {
-            state.profileImage = action.payload;
+        setUserImg: (state, action) => {
+            state.userImg = action.payload;
         },
         setUser: (state, action) => {
             state.email = action.payload.email;
             state.password = action.payload.password;
-            state.nickname = action.payload.nickname;
-            state.profileImage = action.payload.profileImage;
+            state.userNickname = action.payload.userNickname;
+            state.userImg = action.payload.userImg;
         },
     },
 });
 
-export const { setEmail, setPassword, setNickname, setProfileImage, setUser } =
+export const { setEmail, setPassword, setUserNickname, setUserImg, setUser } =
     userSlice.actions;
 
 export default userSlice.reducer;

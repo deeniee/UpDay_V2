@@ -62,16 +62,6 @@ const MainLayout = () => {
                 <title>홈 - UpDay</title>
             </Helmet>
 
-            {/* 유저 콘텐츠 */}
-            {/* <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
-                <UserInfo userName={userName} challengeDays={challengeDays} />
-                <OngoingChallenges isLoggedIn={isLoggedIn} />
-            </section>
-
-            <section className='relative w-full h-auto flex flex-col md:flex-row gap-6 md:gap-[4%]'>
-                <PopularChallenges challenges={sortedChallenges} />
-                <ChallengeCategory />
-            </section> */}
             <section className='relative w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6'>
                 <UserInfo userName={userName} challengeDays={challengeDays} />
                 <OngoingChallenges isLoggedIn={isLoggedIn} />

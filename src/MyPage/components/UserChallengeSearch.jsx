@@ -71,7 +71,7 @@ export default function UserChallengeSearch({
                         id='category'
                         name='category'
                         aria-label='Category'
-                        className='btn btn-black w-full col-start-1 row-start-1 appearance-none pl-3 text-neutral-100'
+                        className='btn btn-neutral-2 w-full col-start-1 row-start-1 appearance-none pl-3 text-neutral-100'
                         value={categoryFilter}
                         onChange={(e) => setCategoryFilter(e.target.value)}
                     >

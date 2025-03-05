@@ -5,11 +5,12 @@ import img1 from '../img/1.svg';
 import img2 from '../img/2.svg';
 import img3 from '../img/3.svg';
 import img4 from '../img/4.svg';
+import UserReport from './UserReportSection';
 
 const UserProfile = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [daysSinceSignup, setDaysSinceSignup] = useState(0);
-    const defaultImages = [img1, img2, img3, img4];
+    const defaultImgs = [img1, img2, img3, img4];
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,24 +51,24 @@ const UserProfile = () => {
     }
 
     return (
-        <div className='flex flex-col gap-2 md:h-[40vh] md:min-h-[px]'>
+        <div className='flex flex-col gap-2 md:h-[vh] md:min-h-[px]'>
             <h1 className='title'>내 프로필</h1>
-            <div className='card h-full flex flex-col gap-3 md:gap-4 p-4 md:p-6'>
+            <div className='card h-full md:min-h-[px] flex flex-col gap-3 md:gap-4 p-4 md:p-6'>
                 <div className='flex flex-row items-center'>
                     <div className='inline-block w-[35%] max-w-[122px] md:w-[60%] md:max-w-[180px] aspect-square mr-[5%] md:br-[10%]'>
-                        {loggedInUser.profileImage ? (
+                        {loggedInUser.userImg ? (
                             <img
                                 alt='프로필 이미지'
-                                src={loggedInUser.profileImage}
+                                src={loggedInUser.userImg}
                                 className='w-full h-full object-cover rounded-full ring-1 ring-neutral-400 overflow-hidden'
                             />
                         ) : (
                             <img
                                 alt='기본 프로필 이미지'
                                 src={
-                                    defaultImages[
+                                    defaultImgs[
                                         Math.floor(
-                                            Math.random() * defaultImages.length
+                                            Math.random() * defaultImgs.length
                                         )
                                     ]
                                 }
@@ -79,7 +80,7 @@ const UserProfile = () => {
                         <div className='flex gap-6 md:gap-2 md:flex-col md:h-28'>
                             <div className='flex flex-col gap-1 md:gap-2'>
                                 <p className='title'>
-                                    {loggedInUser.nickname || '닉네임 없음'}
+                                    {loggedInUser.userNickname || '닉네임 없음'}
                                 </p>
                                 <p className='main-text text-neutral-500'>
                                     {loggedInUser.email || '이메일 없음'}
@@ -99,11 +100,12 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <p className='h-12 md:h-16 sub-text line-clamp-4'>
-                            {loggedInUser.about ||
+                            {loggedInUser.userIntroduction ||
                                 '아직 소개글을 작성하지 않았습니다. 프로필을 업데이트해보세요!'}
                         </p>
                     </div>
                 </div>
+                <UserReport />
             </div>
         </div>
     );

@@ -46,31 +46,31 @@ export default function PersonalInfo() {
 
     const [userInfo, setUserInfo] = useState({
         email: '',
-        password: '',
-        nickname: '',
+        passsword: '',
         confirmPassword: '',
-        about: '',
-        profileImage: null,
         signupDate: '',
+        userNickname: '',
+        userImg: null,
+        userIntroduction: '',
     });
 
     const [passwordError, setPasswordError] = useState('');
     const [nicknameError, setNicknameError] = useState('');
     const [editMode, setEditMode] = useState(false);
-    const defaultImages = useMemo(() => [img1, img2, img3, img4], []);
+    const defaultImgs = useMemo(() => [img1, img2, img3, img4], []);
     const [originalUserInfo, setOriginalUserInfo] = useState(null);
     const uploadPhotoInput = useRef(null);
 
     useEffect(() => {
         if (loggedInUser) {
             setUserInfo((prev) => {
-                let initialProfileImage = loggedInUser.profileImage;
+                let initialUserImg = loggedInUser.userImg;
 
                 // 프로필 이미지가 없는 경우 랜덤 이미지 설정
-                if (!initialProfileImage) {
-                    initialProfileImage =
-                        defaultImages[
-                            Math.floor(Math.random() * defaultImages.length)
+                if (!initialUserImg) {
+                    initialUserImg =
+                        defaultImgs[
+                            Math.floor(Math.random() * defaultImgs.length)
                         ];
                 }
 
@@ -78,10 +78,10 @@ export default function PersonalInfo() {
                     ...prev,
                     email: loggedInUser.email || '',
                     password: '',
-                    nickname: loggedInUser.nickname || '',
+                    userNickname: loggedInUser.userNickname || '',
                     signupDate: loggedInUser.signupDate || '',
-                    profileImage: initialProfileImage,
-                    about: loggedInUser.about || '',
+                    userImg: initialUserImg,
+                    userIntroduction: loggedInUser.userIntroduction || '',
                 };
                 if (JSON.stringify(prev) === JSON.stringify(updatedInfo)) {
                     return prev;
@@ -89,12 +89,12 @@ export default function PersonalInfo() {
                 return updatedInfo;
             });
         }
-    }, [loggedInUser, defaultImages]);
+    }, [loggedInUser, defaultImgs]);
 
     const [challengeList, setChallengeList] = useState([]);
 
     useEffect(() => {
-        const challenges = JSON.parse(localStorage.getItem('clglist')) || [];
+        const challenges = JSON.parse(localStorage.getItem('clgList')) || [];
         setChallengeList(challenges);
     }, []);
 
@@ -130,13 +130,13 @@ export default function PersonalInfo() {
             reader.onload = () => {
                 setUserInfo((prev) => ({
                     ...prev,
-                    profileImage: reader.result,
+                    userImg: reader.result,
                 }));
 
                 // localStorage 즉시 업데이트
                 const updatedUsers = users.map((user) =>
                     user.email === loggedInUserEmail
-                        ? { ...user, profileImage: reader.result }
+                        ? { ...user, userImg: reader.result }
                         : user
                 );
                 localStorage.setItem('users', JSON.stringify(updatedUsers));
@@ -149,14 +149,14 @@ export default function PersonalInfo() {
     const handleImageDelete = () => {
         // 랜덤 이미지 선택
         const randomImage =
-            defaultImages[Math.floor(Math.random() * defaultImages.length)];
+            defaultImgs[Math.floor(Math.random() * defaultImgs.length)];
 
         // userInfo 상태 업데이트 및 localStorage 업데이트
-        setUserInfo((prev) => ({ ...prev, profileImage: randomImage }));
+        setUserInfo((prev) => ({ ...prev, userImg: randomImage }));
 
         const updatedUsers = users.map((user) =>
             user.email === loggedInUserEmail
-                ? { ...user, profileImage: randomImage }
+                ? { ...user, userImg: randomImage }
                 : user
         );
         localStorage.setItem('users', JSON.stringify(updatedUsers));
@@ -166,7 +166,7 @@ export default function PersonalInfo() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let error = validateNickname(userInfo.nickname);
+        let error = validateNickname(userInfo.userNickname);
         if (error) {
             setNicknameError(error);
             return;
@@ -174,7 +174,7 @@ export default function PersonalInfo() {
 
         const isNicknameTaken = users.some(
             (user) =>
-                user.nickname === userInfo.nickname &&
+                user.userNickname === userInfo.userNickname &&
                 user.email !== loggedInUserEmail
         );
         if (isNicknameTaken) {
@@ -193,15 +193,15 @@ export default function PersonalInfo() {
         }
 
         const currentUserId = loggedInUserEmail;
-        const newNickname = userInfo.nickname;
+        const newNickname = userInfo.userNickname;
 
         const updatedUser = {
             email: userInfo.email,
             password: userInfo.password || loggedInUser.password, // 기존 비밀번호 유지
-            nickname: userInfo.nickname,
             signupDate: userInfo.signupDate,
-            about: userInfo.about,
-            profileImage: userInfo.profileImage,
+            userNickname: userInfo.userNickname,
+            userImg: userInfo.userImg,
+            userIntroduction: userInfo.userIntroduction,
         };
         const updatedUsers = users.map((user) =>
             user.email === userInfo.email ? updatedUser : user
@@ -211,7 +211,7 @@ export default function PersonalInfo() {
 
         // 챌린지 목록 업데이트 (닉네임 & 프로필 이미지 변경)
         const currentChallenges = JSON.parse(
-            localStorage.getItem('clglist') || '[]'
+            localStorage.getItem('clgList') || '[]'
         );
 
         if (Array.isArray(currentChallenges)) {
@@ -219,17 +219,16 @@ export default function PersonalInfo() {
                 if (challenge.authorId === currentUserId) {
                     return {
                         ...challenge,
-                        nickname: newNickname,
-                        profileImage:
-                            userInfo.profileImage || challenge.profileImage,
-                        userImg: userInfo.profileImage || challenge.userImg,
+                        userNickname: newNickname,
+                        userImg: userInfo.userImg || challenge.userImg,
+                        userImg: userInfo.userImg || challenge.userImg,
                     };
                 }
                 return challenge;
             });
-            localStorage.setItem('clglist', JSON.stringify(updatedChallenges));
+            localStorage.setItem('clgList', JSON.stringify(updatedChallenges));
         } else {
-            console.error('clglist는 배열 형식이어야 합니다.');
+            console.error('clgList는 배열 형식이어야 합니다.');
         }
 
         // 프로필 이미지 변경 후 화면 다시 렌더링
@@ -278,10 +277,10 @@ export default function PersonalInfo() {
                         프로필 사진
                     </label>
                     <div className='mt-2 flex items-center gap-x-3'>
-                        {userInfo.profileImage ? (
+                        {userInfo.userImg ? (
                             <div className='w-[25%] ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full flex-shrink-0'>
                                 <img
-                                    src={userInfo.profileImage}
+                                    src={userInfo.userImg}
                                     alt='프로필'
                                     className='w-full h-full object-cover'
                                 />
@@ -290,10 +289,10 @@ export default function PersonalInfo() {
                             <div className='w-[25%] aspect-square overflow-hidden rounded-full flex-shrink-0 flex items-center justify-center bg-gray-200'>
                                 <img
                                     src={
-                                        defaultImages[
+                                        defaultImgs[
                                             Math.floor(
                                                 Math.random() *
-                                                    defaultImages.length
+                                                    defaultImgs.length
                                             )
                                         ]
                                     }
@@ -345,7 +344,7 @@ export default function PersonalInfo() {
                 </div>
                 <div className='col-span-full'>
                     <label
-                        htmlFor='about'
+                        htmlFor='userIntroduction'
                         className='main-text font-semibold text-neutral-700'
                     >
                         소개글
@@ -353,16 +352,16 @@ export default function PersonalInfo() {
                     <div className='mt-2'>
                         {editMode ? (
                             <textarea
-                                id='about'
-                                name='about'
+                                id='userIntroduction'
+                                name='userIntroduction'
                                 rows={3}
-                                value={userInfo.about}
+                                value={userInfo.userIntroduction}
                                 onChange={handleChange}
                                 className='input-field sub-text w-full h-28'
                             />
                         ) : (
                             <p className='card h-28 main-text px-3 py-1.5 border border-neutral-400'>
-                                {userInfo.about ||
+                                {userInfo.userIntroduction ||
                                     '아직 소개글을 작성하지 않았습니다.'}
                             </p>
                         )}
@@ -372,17 +371,17 @@ export default function PersonalInfo() {
                 <div className='grid grid-cols-1 gap-3 md:gap-x-4 md:gap-y-2 md:grid-cols-2'>
                     <div className='space-y-2'>
                         <label
-                            htmlFor='nickname'
+                            htmlFor='userNickname'
                             className='main-text font-semibold text-neutral-700'
                         >
                             닉네임
                         </label>
 
                         <input
-                            id='nickname'
-                            name='nickname'
+                            id='userNickname'
+                            name='userNickname'
                             type='text'
-                            value={userInfo.nickname}
+                            value={userInfo.userNickname}
                             onChange={handleChange}
                             className='input-field w-full focus:outline-poiny-500'
                             disabled={!editMode}

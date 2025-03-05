@@ -4,8 +4,8 @@ import pic2 from '../img/Group 145.svg';
 
 const ProfileForm = () => {
     const {
-        nickname,
-        profileImage,
+        userNickname,
+        userImg,
         error,
         isModalOpen,
         setNicknameState,
@@ -26,9 +26,9 @@ const ProfileForm = () => {
                         htmlFor='file-upload'
                         className='flex items-center justify-center cursor-pointer rounded-full bg-neutral-300 w-[124px] md:w-32 aspect-square'
                     >
-                        {profileImage ? (
+                        {userImg ? (
                             <img
-                                src={profileImage}
+                                src={userImg}
                                 alt='프로필 미리보기'
                                 className='w-[116px] aspect-square rounded-full'
                             />
@@ -49,11 +49,11 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='relative flex flex-col gap-1 w-full h-full'>
-                    <label htmlFor='nickname'>닉네임</label>
+                    <label htmlFor='userNickname'>닉네임</label>
                     <input
-                        type='nickname'
+                        type='userNickname'
                         placeholder='6자 이내'
-                        value={nickname}
+                        value={userNickname}
                         onChange={(e) => setNicknameState(e.target.value)}
                         className='input-field w-full h-10'
                     />

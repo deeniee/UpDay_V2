@@ -56,9 +56,9 @@
     .btn-neutral-2 {
         @apply border-neutral-400 bg-neutral-400 text-neutral-100 hover:border-neutral-700 hover:bg-neutral-700;
     }
-    /* .btn-neutral-2 {
+    .btn-neutral-3 {
         @apply border-neutral-600 bg-neutral-100 text-neutral-600 hover:border-neutral-700 hover:bg-neutral-700 hover:text-neutral-100;
-    } */
+    }
 
     .badge {
         @apply rounded-full flex justify-center items-center bg-neutral-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap;
@@ -106,7 +106,7 @@
     .done-off {
         @apply w-6 h-6 flex justify-center items-center rounded-full bg-neutral-200 text-neutral-300;
     }
-
+    /* 
     .check-on {
         @apply w-6 h-6 flex justify-center items-center rounded-full bg-green-400 text-neutral-100;
     }
@@ -118,7 +118,7 @@
     }
     .note-off {
         @apply flex justify-center items-center text-neutral-400 text-sm;
-    }
+    } */
 }
 
 body {

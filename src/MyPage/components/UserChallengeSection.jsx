@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyJoinedChallenge } from '../../store/features/userChallengeSlice';
+import { getJoinedChallenge } from '../../store/features/challengeSlice';
 import UserChallengeSearch from './UserChallengeSearch';
 import UserChallengeList from './UserChallengeList';
 
 export default function UserChallengeSection() {
     const dispatch = useDispatch();
     const joinedChallenges =
-        useSelector((state) => state.myClgList.joinedChallenges) || [];
+        useSelector((state) => state.challenge.joinedChallenges) || [];
     const TEST_ACCOUNT_EMAIL = 'test01@naver.com'; // 테스트 계정 이메일 고정
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [users, setUsers] = useState([]);
@@ -20,7 +20,7 @@ export default function UserChallengeSection() {
     const [filteredChallenges, setFilteredChallenges] = useState([]);
 
     useEffect(() => {
-        dispatch(getMyJoinedChallenge());
+        dispatch(getJoinedChallenge());
     }, [dispatch]);
 
     useEffect(() => {

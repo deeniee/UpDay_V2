@@ -10,7 +10,7 @@ import IconEtc from '../../assets/images/icon_etc.svg';
 const PopularChallenges = ({ challenges }) => {
     const [currentChallenges, setCurrentChallenges] = useState([]);
     const [challengeIndex, setChallengeIndex] = useState(0);
-    const allClgList = useSelector((state) => state.myClgList.list) || [];
+    const allClgList = useSelector((state) => state.challenge.list) || [];
     const [highlightIndex, setHighlightIndex] = useState(0);
 
     useEffect(() => {

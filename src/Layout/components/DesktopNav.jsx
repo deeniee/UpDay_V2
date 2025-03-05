@@ -16,12 +16,22 @@ const DesktopNav = ({ loggedInUser, handleLogout }) => {
                     </Link>
                 </li>
 
-                {loggedInUser && ( // 로그인 상태일 때만 마이페이지 표시
-                    <li>
-                        <Link to='/mypage' className='hover:font-black'>
-                            마이페이지
-                        </Link>
-                    </li>
+                {loggedInUser && ( // 로그인 상태일 때만 개인화 페이지 표시
+                    <>
+                        <li>
+                            <Link
+                                to='/my-challenge'
+                                className='hover:font-black'
+                            >
+                                내 챌린지
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/mypage' className='hover:font-black'>
+                                마이페이지
+                            </Link>
+                        </li>
+                    </>
                 )}
 
                 <li>
