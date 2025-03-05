@@ -3,12 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getChallenges } from '../../utils/localStorage';
 import { BsSearch, BsList, BsGridFill } from 'react-icons/bs';
 import { FaChevronDown } from 'react-icons/fa6';
-import { categoryList, getCategoryIcon } from '../../utils/categoryList';
+import { categoryList, getCategoryIcon } from '../../utils/badgeList';
 
-const ChallengeListSearchSection = ({
-    setSelectedCategory,
-    setSearchResults,
-}) => {
+const SearchSection = ({ setSelectedCategory, setSearchResults }) => {
     const navigate = useNavigate();
     const { category } = useParams();
 
@@ -143,4 +140,4 @@ const ChallengeListSearchSection = ({
     );
 };
 
-export default ChallengeListSearchSection;
+export default SearchSection;

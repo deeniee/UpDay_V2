@@ -8,10 +8,8 @@ import {
 import { HiFire } from 'react-icons/hi2';
 import { FaCheck, FaPen } from 'react-icons/fa6';
 import { toggleChallengeState } from '../../store/features/challengeSlice';
-import IconHabit from '../../assets/images/icon_habit.svg';
-import IconHealth from '../../assets/images/icon_health.svg';
-import IconStudy from '../../assets/images/icon_study.svg';
-import IconEtc from '../../assets/images/icon_etc.svg';
+import { getCategoryIcon } from '../../utils/categoryList';
+
 const OngoingChallenges = ({ isLoggedIn }) => {
     const navigate = useNavigate();
     const [startIndex, setStartIndex] = useState(0);
@@ -56,24 +54,6 @@ const OngoingChallenges = ({ isLoggedIn }) => {
         dispatch(toggleChallengeState({ id, type }));
     };
 
-    // 챌린지 카테고리별 뱃지 클래스
-    const badgeClasses = {
-        습관: 'badge-habit',
-        건강: 'badge-health',
-        학습: 'badge-study',
-        기타: 'badge-etc',
-    };
-    const getBadgeClass = (category) => badgeClasses[category] || '';
-
-    // 챌린지 카테고리별 아이콘
-    const badgeIcons = {
-        습관: IconHabit,
-        건강: IconHealth,
-        학습: IconStudy,
-        기타: IconEtc,
-    };
-    const getBadgeIcon = (category) => badgeIcons[category] || '';
-
     // // 챌린지 상태 클래스
     // const getClgTitleClass = (doing, done) =>
     //     !doing && done
@@ -101,8 +81,9 @@ const OngoingChallenges = ({ isLoggedIn }) => {
 
     return (
         <div className='relative w-full h-[200px] md:h-full'>
-            <h2 className='absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 rounded-t-[18px] md:rounded-t-2xl bg-point-200'>
-                도전 중인 챌린지 ({filteredChallenges.length})
+            <h2 className='card rounded-b-none bg-point-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
+                도전 중인 챌린지
+                {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
@@ -125,8 +106,10 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                                                     <div className='flex items-center gap-1'>
                                                         <div className='w-4 md:w-6 h-4 md:h-6'>
                                                             <img
-                                                                alt='icon'
-                                                                src={getBadgeIcon(
+                                                                alt={
+                                                                    challenge.category
+                                                                }
+                                                                src={getCategoryIcon(
                                                                     challenge.category
                                                                 )}
                                                             />
@@ -158,7 +141,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                                                     )
                                                 }
                                             >
-                                                <FaPen text-sm />
+                                                <FaPen className='text-sm' />
                                             </button>
                                         </>
                                     ) : null}
