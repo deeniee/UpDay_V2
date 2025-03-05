@@ -8,10 +8,7 @@ import {
 import { CATEGORY_IMAGES } from '../../data/userChallengeData';
 import LoginRequiredModal from '../../common/components/LoginRequiredModal';
 import useModal from '../../common/hooks/useModal';
-import IconHabit from '../../assets/images/icon_habit.svg';
-import IconHealth from '../../assets/images/icon_health.svg';
-import IconStudy from '../../assets/images/icon_study.svg';
-import IconEtc from '../../assets/images/icon_etc.svg';
+import { getCategoryIcon } from '../../utils/badgeList';
 
 const ChallengeCard = ({ cardData }) => {
     // cardData 구조분해할당
@@ -82,15 +79,6 @@ const ChallengeCard = ({ cardData }) => {
         return CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
     };
 
-    // 챌린지 카테고리별 아이콘
-    const badgeIcons = {
-        습관: IconHabit,
-        건강: IconHealth,
-        학습: IconStudy,
-        기타: IconEtc,
-    };
-    const getBadgeIcon = (category) => badgeIcons[category] || '';
-
     return (
         <div
             className='card p-3 md:p-4 flex flex-col gap-3 md:gap-4'
@@ -99,7 +87,7 @@ const ChallengeCard = ({ cardData }) => {
             {/* 카테고리 & 기간 */}
             <div className='flex items-center gap-1'>
                 <div className='w-4 md:w-6 h-4 md:h-6'>
-                    <img alt='icon' src={getBadgeIcon(category)} />
+                    <img alt={category} src={getCategoryIcon(category)} />
                 </div>
                 <span className='main-text badge'>{category}</span>
                 <span className='main-text whitespace-nowrap'>{duration}</span>

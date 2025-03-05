@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ChallengeIcon from '../images/challenge-2.svg';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import IconHabit from '../../assets/images/icon_habit.svg';
-import IconHealth from '../../assets/images/icon_health.svg';
-import IconStudy from '../../assets/images/icon_study.svg';
-import IconEtc from '../../assets/images/icon_etc.svg';
+import { getCategoryIcon } from '../../utils/badgeList';
 
 const PopularChallenges = ({ challenges }) => {
     const [currentChallenges, setCurrentChallenges] = useState([]);
@@ -43,23 +38,6 @@ const PopularChallenges = ({ challenges }) => {
             (prevIndex) => (prevIndex + 1) % currentChallenges.length
         );
     };
-    // 챌린지 카테고리별 뱃지 클래스
-    const badgeClasses = {
-        습관: 'badge-habit',
-        건강: 'badge-health',
-        학습: 'badge-study',
-        기타: 'badge-etc',
-    };
-    const getBadgeClass = (category) => badgeClasses[category] || '';
-
-    // 챌린지 카테고리별 아이콘
-    const badgeIcons = {
-        습관: IconHabit,
-        건강: IconHealth,
-        학습: IconStudy,
-        기타: IconEtc,
-    };
-    const getBadgeIcon = (category) => badgeIcons[category] || '';
 
     if (currentChallenges.length < 3) return null;
 
@@ -86,8 +64,8 @@ const PopularChallenges = ({ challenges }) => {
                                 <div className='flex items-center gap-1'>
                                     <div className='w-4 md:w-6 h-4 md:h-6'>
                                         <img
-                                            alt='icon'
-                                            src={getBadgeIcon(
+                                            alt={challenge.category}
+                                            src={getCategoryIcon(
                                                 challenge.category
                                             )}
                                         />
