@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getCategoryIcon } from '../../utils/badgeList';
+import { getCategoryIcon } from '../../utils/categoryList';
 
 const PopularChallenges = ({ challenges }) => {
     const [currentChallenges, setCurrentChallenges] = useState([]);

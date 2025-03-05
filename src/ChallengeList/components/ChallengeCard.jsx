@@ -8,7 +8,7 @@ import {
 import { CATEGORY_IMAGES } from '../../data/userChallengeData';
 import LoginRequiredModal from '../../common/components/LoginRequiredModal';
 import useModal from '../../common/hooks/useModal';
-import { getCategoryIcon } from '../../utils/badgeList';
+import { getCategoryIcon } from '../../utils/categoryList';
 
 const ChallengeCard = ({ cardData }) => {
     // cardData 구조분해할당

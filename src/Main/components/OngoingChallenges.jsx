@@ -8,7 +8,7 @@ import {
 import { HiFire } from 'react-icons/hi2';
 import { FaCheck, FaPen } from 'react-icons/fa6';
 import { toggleChallengeState } from '../../store/features/challengeSlice';
-import { getCategoryIcon } from '../../utils/badgeList';
+import { getCategoryIcon } from '../../utils/categoryList';
 
 const OngoingChallenges = ({ isLoggedIn }) => {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getChallenges } from '../../utils/localStorage';
 import { BsSearch, BsList, BsGridFill } from 'react-icons/bs';
 import { FaChevronDown } from 'react-icons/fa6';
-import { categoryList, getCategoryIcon } from '../../utils/badgeList';
+import { categoryList, getCategoryIcon } from '../../utils/categoryList';
 
 const ChallengeListSearchSection = ({
     setSelectedCategory,

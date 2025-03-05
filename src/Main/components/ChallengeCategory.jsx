@@ -5,7 +5,7 @@ import {
     categoryList,
     getCategoryIllust,
     getCategoryPath,
-} from '../../utils/badgeList';
+} from '../../utils/categoryList';
 
 export default function ChallengeCategory() {
     return (
