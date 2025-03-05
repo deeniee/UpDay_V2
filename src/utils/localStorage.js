@@ -1,3 +1,3 @@
 export const getChallenges = () => {
-	return JSON.parse(localStorage.getItem('clglist') || '[]');
-}
+    return JSON.parse(localStorage.getItem('clgList') || '[]');
+};

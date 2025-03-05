@@ -7,22 +7,17 @@ import {
 } from 'react-icons/io';
 import { HiFire } from 'react-icons/hi2';
 import { FaCheck, FaPen } from 'react-icons/fa6';
-import {
-    setMyPosts,
-    toggleClgState,
-    setSelectedChallenge,
-} from '../../store/features/userChallengeSlice';
+import { toggleChallengeState } from '../../store/features/challengeSlice';
 import IconHabit from '../../assets/images/icon_habit.svg';
 import IconHealth from '../../assets/images/icon_health.svg';
 import IconStudy from '../../assets/images/icon_study.svg';
 import IconEtc from '../../assets/images/icon_etc.svg';
-
 const OngoingChallenges = ({ isLoggedIn }) => {
     const navigate = useNavigate();
     const [startIndex, setStartIndex] = useState(0);
     const challengesPerPage = 4;
     const ongoingChallenges =
-        useSelector((state) => state.myClgList.ongoingChallenges) || [];
+        useSelector((state) => state.challenge.ongoingChallenges) || [];
 
     const calculateDaysPassed = (joinDate) => {
         const start = new Date(joinDate);
@@ -58,7 +53,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
 
     // 챌린지 상태 변경 핸들러
     const handleToggle = (id, type) => {
-        dispatch(toggleClgState({ id, type }));
+        dispatch(toggleChallengeState({ id, type }));
     };
 
     // 챌린지 카테고리별 뱃지 클래스

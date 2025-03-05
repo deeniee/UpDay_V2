@@ -31,7 +31,7 @@ export default function TabSwitcher() {
     }, [isTestAccount]);
 
     return (
-        <section className='w-full h-full md:w-[48%] md:h-[76vh] md:min-h-[574px]'>
+        <section className='w-full h-full md:w-[48%] md:h-[76vh] md:min-h-[574px] md:max-h-[972.8px]'>
             <div className='flex gap-2'>
                 <button
                     className={`title ${activeTab === 1 ? 'tap-onclick' : 'tap-default'}`}

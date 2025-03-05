@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     setMyPosts,
-    toggleClgState,
+    toggleChallengeState,
     setSelectedChallenge,
-    getMyJoinedChallenge,
-} from '../../store/features/userChallengeSlice';
+    getJoinedChallenge,
+} from '../../store/features/challengeSlice';
 import { BsDot } from 'react-icons/bs';
 import { HiFire, HiDocumentCheck } from 'react-icons/hi2';
 import UserChallengeModal from './UserChallengeModal';
 
 export default function UserChallengeList({ filteredChallenges }) {
     const dispatch = useDispatch();
-    const myPosts = useSelector((state) => state.myClgList.myPosts);
+    const myPosts = useSelector((state) => state.challenge.myPosts);
     const joinedChallenges =
-        useSelector((state) => state.myClgList.joinedChallenges) || [];
+        useSelector((state) => state.challenge.joinedChallenges) || [];
 
     const [isModalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         dispatch(setMyPosts());
-        dispatch(getMyJoinedChallenge()); // 삭제 후 목록 새로고침
+        dispatch(getJoinedChallenge()); // 삭제 후 목록 새로고침
     }, [dispatch]); // `joinedChallenges`가 변경될 때마다 실행
 
     // 노출할 목록 선택
@@ -39,7 +39,7 @@ export default function UserChallengeList({ filteredChallenges }) {
 
     // 챌린지 상태 변경 핸들러
     const handleToggle = (id, type) => {
-        dispatch(toggleClgState({ id, type }));
+        dispatch(toggleChallengeState({ id, type }));
     };
 
     // 챌린지 카테고리별 뱃지 클래스

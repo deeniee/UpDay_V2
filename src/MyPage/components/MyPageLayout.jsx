@@ -42,7 +42,7 @@ const MyPageLayout = () => {
                 <>
                     <section className='flex flex-col w-full gap-4 md:w-[48%] md:gap-0 md:justify-between'>
                         <UserProfile />
-                        <UserReport />
+                        {/* <UserReport /> */}
                     </section>
                     <TabSwitcher />
                     {/* <PersonalInfo /> */}

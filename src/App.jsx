@@ -7,6 +7,7 @@ import Header from './Layout/Header';
 import Footer from './Layout/Footer';
 import Main from './Main/Main';
 import MyPage from './MyPage/MyPage';
+import MyChallenge from './MyChallenge/MyChallenge';
 import UserChallengeModal from './MyPage/components/UserChallengeModal';
 import ChallengeList from './ChallengeList/ChallengeList';
 import PostDetailModal from './Modal/PostDetailModal';
@@ -22,9 +23,6 @@ function App() {
             <Routes>
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
-                <Route path='/mypage' element={<MyPage />}>
-                    <Route path=':id/edit' element={<UserChallengeModal />} />
-                </Route>
                 <Route path='/challengelist' element={<ChallengeList />}>
                     {/* 카테고리 라우트 */}
                     <Route path='category/:category' element={null} />
@@ -38,7 +36,10 @@ function App() {
                     {/* 글 수정 */}
                     <Route path=':id/edit' element={<PostDetailModal />} />
                 </Route>
-
+                <Route path='/my-challenge' element={<MyChallenge />}>
+                    <Route path=':id/edit' element={<UserChallengeModal />} />
+                </Route>
+                <Route path='/mypage' element={<MyPage />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/profile' element={<ProfileSetup />} />
                 <Route path='/login' element={<Login />} />

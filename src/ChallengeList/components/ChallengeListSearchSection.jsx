@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getChallenges } from '../../utils/localStorage';
-import { BsSearch } from 'react-icons/bs';
+import { BsSearch, BsList, BsGridFill } from 'react-icons/bs';
+import { FaChevronDown } from 'react-icons/fa6';
 
 const btnList = [
     { title: '전체', color: '#2C1725' },
@@ -72,34 +73,67 @@ const ChallengeListSearchSection = ({
         category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
 
     return (
-        <section className='flex flex-col md:flex-row justify-between mb-3 md:mb-4'>
-            <ul className='flex justify-between mb-3 md:mb-0'>
-                {btnList.map((ele, idx) => (
-                    <li className='w-[18%] md:w-full md:pr-4' key={idx}>
-                        <button
-                            onClick={() => handleCategoryClick(ele.title)}
-                            className={`w-full md:px-[30px] whitespace-nowrap ${getCategoryStyle(ele.title)}`}
-                        >
-                            {ele.title}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-            <div className='relative flex flex-1 items-center'>
-                <input
-                    type='text'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder='검색어를 입력하세요 :)'
-                    className='input-field focus:placeholder-transparent'
-                />
-                <button
-                    className='absolute right-0.5 md:right-1 w-8 h-8'
-                    onClick={handleSearch}
-                >
-                    <BsSearch className='text-main-600 size-4 md:size-5' />
-                </button>
+        <section className='w-full flex flex-col gap-3 md:gap-4 mb-3 md:mb-4'>
+            <div className='w-full flex flex-col md:flex-row'>
+                <ul className='w-full md:w-[63.5%] flex justify-between mb-3 md:mb-0'>
+                    {btnList.map((ele, idx) => (
+                        <li className='w-[18%] md:w-[20%] md:pr-4' key={idx}>
+                            <button
+                                onClick={() => handleCategoryClick(ele.title)}
+                                className={`w-full md:px-[30px] whitespace-nowrap ${getCategoryStyle(ele.title)}`}
+                            >
+                                {ele.title}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <div className='relative flex items-center flex-1'>
+                    <input
+                        type='text'
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder='검색어를 입력하세요 :)'
+                        className='input-field focus:placeholder-transparent'
+                    />
+                    <button
+                        className='absolute right-0.5 md:right-1 w-8 h-8'
+                        onClick={handleSearch}
+                    >
+                        <BsSearch className='text-main-600 size-4 md:size-5' />
+                    </button>
+                </div>
+            </div>
+
+            <div className='w-full flex justify-end items-center gap-3 md:gap-4'>
+                <div className='flex justify-center items-center gap-1'>
+                    <select
+                        id='category'
+                        name='category'
+                        aria-label='Category'
+                        className='bg-transparent main-text font-semibold text-neutral-700 text-end col-start-1 row-start-1 appearance-none focus:outline-none'
+                        // value={categoryFilter}
+                        // onChange={(e) => setCategoryFilter(e.target.value)}
+                    >
+                        <option>인기순</option>
+                        <option>최신순</option>
+                        <option>스크랩 많은 순</option>
+                        <option>좋아요 많은 순</option>
+                        <option>달성율 높은 순</option>
+                    </select>
+                    <FaChevronDown
+                        aria-hidden='true'
+                        className='flex items-center pointer-events-none text-neutral-700 size-2.5 md:size-3'
+                    />
+                </div>
+                <div className='flex justify-end items-center gap-1.5 md:gap-2'>
+                    <button>
+                        <BsGridFill className='text-main-600 size-4 ' />
+                    </button>
+                    <button>
+                        <BsList className='text-main-500 size-5' />
+                    </button>
+                </div>
             </div>
         </section>
     );

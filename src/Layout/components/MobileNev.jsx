@@ -25,7 +25,7 @@ const MobileNav = ({
                                     <Link
                                         to='/main'
                                         onClick={() => setIsMenuOpen(false)}
-                                        className='hover:font-extrabold'
+                                        className='hover:font-black'
                                     >
                                         홈
                                     </Link>
@@ -34,27 +34,43 @@ const MobileNav = ({
                                     <Link
                                         to='/challengelist'
                                         onClick={() => setIsMenuOpen(false)}
-                                        className='hover:font-extrabold'
+                                        className='hover:font-black'
                                     >
                                         챌린지 둘러보기
                                     </Link>
                                 </li>
-                                {loggedInUser && (
-                                    <li>
-                                        <Link
-                                            to='/mypage'
-                                            onClick={() => setIsMenuOpen(false)}
-                                            className='hover:font-extrabold'
-                                        >
-                                            마이페이지
-                                        </Link>
-                                    </li>
+                                {loggedInUser && ( // 로그인 상태일 때만 개인화 페이지 표시
+                                    <>
+                                        <li>
+                                            <Link
+                                                to='/my-challenge'
+                                                onClick={() =>
+                                                    setIsMenuOpen(false)
+                                                }
+                                                className='hover:font-black'
+                                            >
+                                                내 챌린지
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to='/mypage'
+                                                onClick={() =>
+                                                    setIsMenuOpen(false)
+                                                }
+                                                className='hover:font-black'
+                                            >
+                                                마이페이지
+                                            </Link>
+                                        </li>
+                                    </>
                                 )}
+
                                 <li>
                                     {loggedInUser ? (
                                         <button
                                             onClick={handleLogout}
-                                            className='hover:font-extrabold'
+                                            className='hover:font-black'
                                         >
                                             로그아웃
                                         </button>
@@ -62,7 +78,7 @@ const MobileNav = ({
                                         <Link
                                             to='/login'
                                             onClick={() => setIsMenuOpen(false)}
-                                            className='hover:font-extrabold'
+                                            className='hover:font-black'
                                         >
                                             로그인
                                         </Link>

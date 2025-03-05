@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     setMyPosts,
+    joinedChallenges,
     deleteChallenge,
     updateChallenge,
-} from '../../store/features/userChallengeSlice';
+} from '../../store/features/challengeSlice';
 import ModalHeader from '../../Modal/components/ModalHeader';
 import ModalContent from '../../Modal/components/ModalContent';
 import ModalFooter from '../../Modal/components/ModalFooter';
@@ -16,9 +17,11 @@ const UserChallengeModal = ({ isOpen, onClose, stopPropagation = false }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const selectedChallenge = useSelector(
-        (state) => state.myClgList.selectedChallenge
+        (state) => state.challenge.selectedChallenge
     );
-    const myChallenges = useSelector((state) => state.myClgList.challenges);
+    const myChallenges = useSelector(
+        (state) => state.challenge.joinedChallenges
+    );
     const loggedInUser = localStorage.getItem('loggedInUser');
 
     // 현재 모드 확인
