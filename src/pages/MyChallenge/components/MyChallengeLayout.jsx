@@ -1,9 +1,9 @@
 import React from 'react';
-import ChallengeListSearchSection from '../../ChallengeList/components/ChallengeListSearchSection';
+import ChallengeSearchSection from '../../ChallengeList/components/ChallengeSearchSection';
 export default function MyChallengeLayout() {
     return (
         <main className='defalut-size flex-col'>
-            <ChallengeListSearchSection />
+            <ChallengeSearchSection />
         </main>
     );
 }
