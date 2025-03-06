@@ -109,7 +109,7 @@ const challengeSlice = createSlice({
             saveChallengeToLocalStorage(updatedChallenges);
         },
 
-        // #2. 챌린지 정보 값 설정
+        // #2. 챌린지 속성 값 설정
         // 챌린지 참여 액션
         joinChallenge: (state, action) => {
             const { id } = action.payload;

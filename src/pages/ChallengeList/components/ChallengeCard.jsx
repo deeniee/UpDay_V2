@@ -5,10 +5,13 @@ import {
     joinChallenge,
     setSelectedChallenge,
 } from '../../../store/features/challengeSlice';
-import { CATEGORY_IMAGES } from '../../../assets/data/userChallengeData';
+
 import LoginRequiredModal from '../../../components/common/components/LoginRequiredModal';
 import useModal from '../../../components/common/hooks/useModal';
-import { getCategoryIcon } from '../../../utils/categoryList';
+import {
+    getCategoryIcon,
+    getCategoryIllust,
+} from '../../../utils/categoryList';
 
 const ChallengeCard = ({ cardData }) => {
     // cardData 구조분해할당
@@ -75,10 +78,6 @@ const ChallengeCard = ({ cardData }) => {
         navigate(`/challengelist/${id}`);
     };
 
-    const getCategoryImage = (category) => {
-        return CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
-    };
-
     return (
         <div
             className='card p-3 md:p-4 flex flex-col gap-3 md:gap-4'
@@ -96,7 +95,7 @@ const ChallengeCard = ({ cardData }) => {
             {/* 기본 제공 이미지 */}
             <div className='h-32 md:h-36 card bg-neutral-300 flex justify-center items-center'>
                 <img
-                    src={getCategoryImage(cardData.category)}
+                    src={getCategoryIllust(cardData.category)}
                     className='h-[70%] overflow-hidden'
                     alt={`${cardData.category} 챌린지`}
                 />
@@ -115,7 +114,7 @@ const ChallengeCard = ({ cardData }) => {
                 <img
                     src={userImg}
                     alt={`${nickname} 사진`}
-                    className='w-4 md:w-6 h-4 md:h-6 rounded-full'
+                    className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
                 />
                 <p className='ml-2 sub-text'>{nickname}</p>
             </div>
