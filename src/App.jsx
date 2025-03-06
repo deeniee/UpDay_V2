@@ -2,25 +2,26 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-import Intro from './Intro/Intro';
-import Header from './Layout/Header';
-import Footer from './Layout/Footer';
-import Main from './Main/Main';
-import MyPage from './MyPage/MyPage';
-import MyChallenge from './MyChallenge/MyChallenge';
-import UserChallengeModal from './MyPage/components/UserChallengeModal';
-import ChallengeList from './ChallengeList/ChallengeList';
-import PostDetailModal from './Modal/PostDetailModal';
-import Signup from './Login/Signup';
-import ProfileSetup from './Login/ProfileSetup';
-import Login from './Login/Login';
-import NotFound from './NotFound/NotFound'; // 404 NotFound 페이지 추가
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+
+import Intro from './pages/Intro/Intro';
+import Main from './pages/Main/Main';
+import MyPage from './pages/MyPage/MyPage';
+import MyChallenge from './pages/MyChallenge/MyChallenge';
+import UserChallengeModal from './pages/MyPage/components/UserChallengeModal';
+import ChallengeList from './pages/ChallengeList/ChallengeList';
+import PostDetailModal from './pages/Modal/PostDetailModal';
+import Signup from './pages/Login/Signup';
+import ProfileSetup from './pages/Login/ProfileSetup';
+import Login from './pages/Login/Login';
+import NotFound from './pages/NotFound/NotFound'; // 404 NotFound 페이지 추가
 
 function App() {
     return (
-        <div className='min-w-[390px] w-screen h-screen md:min-h-[720px] flex flex-col gap-8 md:gap-0 md:justify-between scrollbar-none pt-12'>
+        <div className='min-w-[390px] min-h-screen flex flex-col md:justify-between scrollbar-none pt-12'>
             <Header />
-            <Routes>
+            <Routes className='flex-grow'>
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
                 <Route path='/challengelist' element={<ChallengeList />}>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userChallengeList } from '../../data/userChallengeData';
+import { userChallengeList } from '../../assets/data/userChallengeData';
 import { getChallenges } from '../../utils/localStorage';
 
 // 챌린지 데이터를 localStorage에 저장
