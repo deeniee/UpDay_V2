@@ -10,7 +10,7 @@ import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
 import MyChallenge from './pages/MyChallenge/MyChallenge';
 import UserChallengeModal from './pages/MyPage/components/UserChallengeModal';
-import ChallengeList from './pages/ChallengeList/ChallengeList';
+import AllChallenge from './pages/AllChallenge/AllChallenge';
 import PostDetailModal from './pages/Modal/PostDetailModal';
 import Signup from './pages/Login/Signup';
 import ProfileSetup from './pages/Login/ProfileSetup';
@@ -24,7 +24,7 @@ function App() {
             <Routes className='flex-grow'>
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
-                <Route path='/challengelist' element={<ChallengeList />}>
+                <Route path='/challengelist' element={<AllChallenge />}>
                     {/* 카테고리 라우트 */}
                     <Route path='category/:category' element={null} />
 
