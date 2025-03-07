@@ -13,7 +13,7 @@ import {
     getCategoryIllust,
 } from '../../../utils/categoryList';
 
-const ChallengeCard = ({ cardData }) => {
+const ChallengeList = ({ cardData }) => {
     // cardData 구조분해할당
     const {
         id,
@@ -80,75 +80,75 @@ const ChallengeCard = ({ cardData }) => {
 
     return (
         <div
-            className='card p-3 md:p-4 flex flex-col gap-3 md:gap-4'
+            className='card p-3 md:p-4 flex gap-3 md:gap-4'
             onClick={handleCardClick}
         >
-            {/* 카테고리 & 기간 */}
-            <div className='flex items-center gap-1'>
-                <div className='w-4 md:w-6 h-4 md:h-6'>
-                    <img alt={category} src={getCategoryIcon(category)} />
-                </div>
-                <span className='main-text badge'>{category}</span>
-                <span className='main-text whitespace-nowrap'>{duration}</span>
-            </div>
-
             {/* 기본 제공 이미지 */}
-            <div className='h-32 md:h-36 card bg-neutral-300 flex justify-center items-center'>
+            <div
+                className='h-24 md:h-28 aspect-square
+ card bg-neutral-300 flex justify-center items-center'
+            >
                 <img
                     src={getCategoryIllust(cardData.category)}
                     className='h-[70%] overflow-hidden'
                     alt={`${cardData.category} 챌린지`}
                 />
             </div>
+            <div className='w-full flex flex-col gap-1.5 md:gap-2.5'>
+                <div className='flex items-center gap-1'>
+                    <div className='w-4 md:w-6 h-4 md:h-6'>
+                        <img alt={category} src={getCategoryIcon(category)} />
+                    </div>
+                    <span className='main-text badge'>{category}</span>
+                    <span className='main-text whitespace-nowrap mr-2'>
+                        {duration}
+                    </span>
+                    <p className='h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
+                        {title}
+                    </p>
+                    <div className='sub-text flex flex-1 justify-end gap-2'>
+                        <span>날짜 (0000-00-00)</span>
+                        <span>조회수</span>
+                        <span>스크랩</span>
+                        <span>좋아요</span>
+                    </div>
+                </div>
 
-            {/* 챌린지 제목 & 내용 */}
-            <div className='flex flex-col gap-1'>
-                <p className='h-auto main-text font-semibold line-clamp-1'>
-                    {title}
-                </p>
-                <p className='h-6 md:h-8 sub-text line-clamp-2'>{content}</p>
-            </div>
+                <div className='flex flex-col gap-1'>
+                    <p className='h-6 md:h-8 sub-text line-clamp-2'>
+                        {content}
+                    </p>
+                </div>
 
-            {/* 유저 닉네임 & 사진 */}
-            <div className='flex justify-start items-center'>
-                <img
-                    src={userImg}
-                    alt={`${nickname} 사진`}
-                    className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
+                <div className='w-full flex justify-between'>
+                    <div className='flex justify-start items-center'>
+                        <img
+                            src={userImg}
+                            alt={`${nickname} 사진`}
+                            className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
+                        />
+                        <p className='ml-2 sub-text'>{nickname}</p>
+                    </div>
+
+                    {isLoggedIn && (
+                        <button
+                            type='button'
+                            className={`btn w-[15%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                            onClick={handleJoin}
+                        >
+                            {isAuthor || clgJoin ? '참여 중' : '참여하기'}
+                        </button>
+                    )}
+                </div>
+                <LoginRequiredModal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    onNavigate={handleNavigateToLogin}
+                    stopPropagation={true}
                 />
-                <p className='ml-2 sub-text'>{nickname}</p>
             </div>
-
-            {/* 버튼 */}
-            {/* {canJoin && (
-                    <button
-                        type='button'
-                        className='btn btn-primary w-[40%] max-md:text-xs'
-                        onClick={handleJoin}
-                        disabled={clgJoin}
-                    >
-                        {clgJoin ? '참여중' : '참여하기'}
-                    </button>
-                )} */}
-            <div className='flex justify-center'>
-                {isLoggedIn && (
-                    <button
-                        type='button'
-                        className={`btn w-[60%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
-                        onClick={handleJoin}
-                    >
-                        {isAuthor || clgJoin ? '참여 중' : '참여하기'}
-                    </button>
-                )}
-            </div>
-            <LoginRequiredModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onNavigate={handleNavigateToLogin}
-                stopPropagation={true}
-            />
         </div>
     );
 };
 
-export default ChallengeCard;
+export default ChallengeList;

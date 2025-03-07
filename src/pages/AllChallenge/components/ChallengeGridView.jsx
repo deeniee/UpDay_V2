@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ChallengeCard from './ChallengeCard';
+import ChallengeGrid from './ChallengeGrid';
 import { getChallenges } from '../../../utils/localStorage';
 
-const ChallengeListSection = ({
-    selectedCategory,
+const ChallengeGridView = ({
+    activeCategory,
     searchResults,
     sortedResults,
 }) => {
@@ -16,10 +16,10 @@ const ChallengeListSection = ({
         // 검색 결과가 있을 경우 검색 결과만 사용
         if (searchResults && searchResults.length > 0) {
             const filtered =
-                selectedCategory === '전체'
+                activeCategory === '전체'
                     ? searchResults
                     : searchResults.filter(
-                          (ch) => ch.category === selectedCategory
+                          (ch) => ch.category === activeCategory
                       );
             setFilteredChallenges(filtered);
             return;
@@ -28,10 +28,10 @@ const ChallengeListSection = ({
         // 정렬된 결과가 있고 선택된 카테고리로 필터링
         if (sortedResults && sortedResults.length > 0) {
             const filtered =
-                selectedCategory === '전체'
+                activeCategory === '전체'
                     ? sortedResults
                     : sortedResults.filter(
-                          (ch) => ch.category === selectedCategory
+                          (ch) => ch.category === activeCategory
                       );
             setFilteredChallenges(filtered);
             return;
@@ -39,15 +39,15 @@ const ChallengeListSection = ({
 
         // 아니면 카테고리 필터링 후 결과를 설정
         const filtered =
-            selectedCategory === '전체'
+            activeCategory === '전체'
                 ? storedChallenges
                 : storedChallenges.filter(
-                      (ch) => ch.category === selectedCategory
+                      (ch) => ch.category === activeCategory
                   );
 
         setFilteredChallenges(filtered);
         setNoResults(filtered.length === 0); // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
-    }, [selectedCategory, searchResults, sortedResults]); // 의존성 배열에 sortedResults 추가
+    }, [activeCategory, searchResults, sortedResults]); //
 
     return (
         <>
@@ -58,11 +58,11 @@ const ChallengeListSection = ({
             ) : (
                 <section className='grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4'>
                     {filteredChallenges.map((card) => (
-                        <ChallengeCard key={card.id} cardData={card} />
+                        <ChallengeGrid key={card.id} cardData={card} />
                     ))}
                 </section>
             )}
         </>
     );
 };
-export default ChallengeListSection;
+export default ChallengeGridView;

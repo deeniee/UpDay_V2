@@ -1,5 +1,5 @@
 import React from 'react';
-import ChallengeListLayout from './components/ChallengeListLayout';
+import AllChallengeLayout from './components/AllChallengeLayout';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FaPlus } from 'react-icons/fa6';
@@ -18,7 +18,7 @@ const ChallengeList = () => {
             <Helmet>
                 <title>챌린지 둘러보기 - UpDay</title>
             </Helmet>
-            <ChallengeListLayout />
+            <AllChallengeLayout />
             <Outlet />
             <button
                 className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400
