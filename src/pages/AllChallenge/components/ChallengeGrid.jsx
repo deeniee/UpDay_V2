@@ -12,9 +12,12 @@ import {
     getCategoryIcon,
     getCategoryIllust,
 } from '../../../utils/categoryList';
+import { calcDate } from '../../../utils/clacDate';
+
+import { BsDot } from 'react-icons/bs';
+import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
 const ChallengeGrid = ({ cardData }) => {
-    // cardData 구조분해할당
     const {
         id,
         category,
@@ -23,6 +26,10 @@ const ChallengeGrid = ({ cardData }) => {
         content,
         userImg,
         nickname,
+        postDate,
+        postClicked,
+        scrapCount,
+        likesCount,
         authorId,
         clgJoin,
     } = cardData;
@@ -80,7 +87,7 @@ const ChallengeGrid = ({ cardData }) => {
 
     return (
         <div
-            className='card p-3 md:p-4 flex flex-col gap-3 md:gap-4'
+            className='card p-2 md:p-3 flex flex-col gap-2 md:gap-3'
             onClick={handleCardClick}
         >
             {/* 카테고리 & 기간 */}
@@ -102,7 +109,20 @@ const ChallengeGrid = ({ cardData }) => {
             </div>
 
             {/* 챌린지 제목 & 내용 */}
-            <div className='flex flex-col gap-1'>
+            <div className='flex flex-col gap-1 md:gap-1.5'>
+                <div className='sub-text flex items-center gap-1 md:gap-2 whitespace-nowrap'>
+                    <span>{calcDate(postDate)}</span>
+                    <BsDot className='-mx-0.5' />
+                    <div className='flex items-center gap-0.5 md:gap-1'>
+                        <IoBookmarks className='text-point-600' />
+                        {scrapCount}
+                    </div>
+
+                    <div className='flex items-center gap-0.5 md:gap-1'>
+                        <IoHeart className='size-2.5 text-point-600' />
+                        {likesCount}
+                    </div>
+                </div>
                 <p className='h-auto main-text font-semibold line-clamp-1'>
                     {title}
                 </p>

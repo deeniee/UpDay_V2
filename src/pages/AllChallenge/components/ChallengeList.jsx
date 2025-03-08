@@ -5,16 +5,18 @@ import {
     joinChallenge,
     setSelectedChallenge,
 } from '../../../store/features/challengeSlice';
-
 import LoginRequiredModal from '../../../components/common/components/LoginRequiredModal';
 import useModal from '../../../components/common/hooks/useModal';
 import {
     getCategoryIcon,
     getCategoryIllust,
 } from '../../../utils/categoryList';
+import { calcDate } from '../../../utils/clacDate';
+
+import { BsDot } from 'react-icons/bs';
+import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
 const ChallengeList = ({ cardData }) => {
-    // cardData 구조분해할당
     const {
         id,
         category,
@@ -23,27 +25,24 @@ const ChallengeList = ({ cardData }) => {
         content,
         userImg,
         nickname,
+        postDate,
+        postClicked,
+        scrapCount,
+        likesCount,
         authorId,
         clgJoin,
     } = cardData;
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    // 라우터 이동을 위한 navigate 함수
     const navigate = useNavigate();
-
-    // Redux 액션 dispatch를 위한 함수
     const dispatch = useDispatch();
 
-    // 로그인 한 유저의 아이디
     const loggedInUser = localStorage.getItem('loggedInUser');
-
-    // 로그인한 유저 정보 가져오기 (users 배열에서)
     const userString = localStorage.getItem('users');
-    const users = userString ? JSON.parse(userString) : [];
+    const users = userString ? JSON.parse(userString) : []; // 로그인한 유저 정보 가져오기 (users 배열에서)
 
-    // 현재 로그인한 유저 정보 찾기
-    const currentUser = users.find((user) => user.email === loggedInUser);
+    const currentUser = users.find((user) => user.email === loggedInUser); // 현재 로그인한 유저 정보 찾기
 
     // 내가 작성한 글이 아니고, 로그인한 유저가 있는 경우에만 참여 가능
     // const canJoin = loggedInUser && loggedInUser !== authorId && currentUser;
@@ -80,60 +79,68 @@ const ChallengeList = ({ cardData }) => {
 
     return (
         <div
-            className='card p-3 md:p-4 flex gap-3 md:gap-4'
+            className='card p-2 md:p-3 flex gap-2 md:gap-3'
             onClick={handleCardClick}
         >
-            {/* 기본 제공 이미지 */}
-            <div
-                className='h-24 md:h-28 aspect-square
- card bg-neutral-300 flex justify-center items-center'
-            >
+            <div className='h-24 md:h-28 aspect-square card bg-neutral-300 flex justify-center items-center'>
                 <img
                     src={getCategoryIllust(cardData.category)}
                     className='h-[70%] overflow-hidden'
                     alt={`${cardData.category} 챌린지`}
                 />
             </div>
-            <div className='w-full flex flex-col gap-1.5 md:gap-2.5'>
+            <div className='flex flex-col justify-between flex-1 min-w-0 '>
                 <div className='flex items-center gap-1'>
                     <div className='w-4 md:w-6 h-4 md:h-6'>
                         <img alt={category} src={getCategoryIcon(category)} />
                     </div>
                     <span className='main-text badge'>{category}</span>
-                    <span className='main-text whitespace-nowrap mr-2'>
+                    <span className='text-[10px] md:text-xs whitespace-nowrap mr-1.5 md:mr-2'>
                         {duration}
                     </span>
-                    <p className='h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
+                    <p className='flex-1 h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
                         {title}
                     </p>
-                    <div className='sub-text flex flex-1 justify-end gap-2'>
-                        <span>날짜 (0000-00-00)</span>
-                        <span>조회수</span>
-                        <span>스크랩</span>
-                        <span>좋아요</span>
+                    <div className='sub-text flex justify-end items-center gap-1 md:gap-2 ml-1 md:ml-2'>
+                        <span>{calcDate(postDate)}</span>
+                        <BsDot className='-mx-0.5' />
+                        <div className='flex items-center gap-0.5 md:gap-1'>
+                            <IoBookmarks className='text-point-600' />
+                            {scrapCount}
+                        </div>
+
+                        <div className='flex items-center gap-0.5 md:gap-1'>
+                            <IoHeart className='size-2.5 text-point-600' />
+                            {likesCount}
+                        </div>
                     </div>
                 </div>
 
-                <div className='flex flex-col gap-1'>
-                    <p className='h-6 md:h-8 sub-text line-clamp-2'>
-                        {content}
-                    </p>
-                </div>
+                <p
+                    className='h-6 md:h-8 sub-text line-clamp-2 overflow-hidden text-ellipsis'
+                    style={{
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 2,
+                    }}
+                >
+                    {content}
+                </p>
 
                 <div className='w-full flex justify-between'>
                     <div className='flex justify-start items-center'>
                         <img
                             src={userImg}
-                            alt={`${nickname} 사진`}
-                            className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
+                            alt={`${nickname} 프로필 사진`}
+                            className='w-5 md:w-6 h-5 md:h-6 object-cover rounded-full'
                         />
-                        <p className='ml-2 sub-text'>{nickname}</p>
+                        <p className='ml-1.5 md:ml-2 sub-text'>{nickname}</p>
                     </div>
 
                     {isLoggedIn && (
                         <button
                             type='button'
-                            className={`btn w-[15%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                            className={`btn w-[18%] md:w-[15%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
                             onClick={handleJoin}
                         >
                             {isAuthor || clgJoin ? '참여 중' : '참여하기'}
