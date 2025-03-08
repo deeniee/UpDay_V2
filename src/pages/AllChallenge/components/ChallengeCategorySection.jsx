@@ -18,7 +18,7 @@ const ChallengeCategorySection = ({
         category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
 
     return (
-        <section className='w-full md:w-[63.5%]'>
+        <section className='w-full md:w-[60.8%]'>
             <ul className='w-full flex justify-between mb-3 md:mb-0'>
                 {categoryList.map((category, index) => (
                     <li className='w-[18%] md:w-[20%] md:pr-4' key={index}>

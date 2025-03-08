@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { BsList, BsGridFill } from 'react-icons/bs';
+import { BsGridFill } from 'react-icons/bs';
+import { FaList } from 'react-icons/fa';
+// import { IoGrid } from 'react-icons/io5';
+// import { FaThList } from 'react-icons/fa';
+
 import { FaChevronDown } from 'react-icons/fa6';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeGridView from './ChallengeGridView';
@@ -28,7 +32,7 @@ export default function ChallengeSortSection({
         if (!challenges || challenges.length === 0) return [];
 
         switch (option) {
-            case '인기순':
+            case '관심순':
                 return [...challenges].sort(
                     (a, b) => b.postClicked - a.postClicked
                 );
@@ -63,7 +67,7 @@ export default function ChallengeSortSection({
                         onChange={handleSortChange}
                     >
                         <option>최신순</option>
-                        <option>인기순</option>
+                        <option>관심순</option>
                         <option>스크랩 많은 순</option>
                         <option>좋아요 많은 순</option>
                     </select>
@@ -76,8 +80,8 @@ export default function ChallengeSortSection({
                         />
                     </button>
                     <button onClick={() => setViewMode(2)}>
-                        <BsList
-                            className={`size-[22px] ${viewMode === 2 ? 'viewmode-onclick' : 'viewmode-default'}`}
+                        <FaList
+                            className={`size-4 ${viewMode === 2 ? 'viewmode-onclick' : 'viewmode-default'}`}
                         />
                     </button>
                 </div>

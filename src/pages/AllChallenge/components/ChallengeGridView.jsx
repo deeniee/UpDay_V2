@@ -56,7 +56,7 @@ const ChallengeGridView = ({
                     등록된 챌린지가 없습니다.
                 </p>
             ) : (
-                <section className='grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4'>
+                <section className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4'>
                     {filteredChallenges.map((card) => (
                         <ChallengeGrid key={card.id} cardData={card} />
                     ))}
