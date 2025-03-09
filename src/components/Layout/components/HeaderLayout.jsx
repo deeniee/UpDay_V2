@@ -13,7 +13,7 @@ const HeaderLayout = () => {
 
     // 특정 페이지에만 z-index 높게 설정
     const isHighZIndexPage = [
-        '/challengelist',
+        '/challenges',
         '/',
         '/main',
         '/mypage',

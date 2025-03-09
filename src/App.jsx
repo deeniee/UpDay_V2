@@ -24,7 +24,7 @@ function App() {
             <Routes className='flex-grow'>
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
-                <Route path='/challengelist' element={<AllChallenge />}>
+                <Route path='/challenges' element={<AllChallenge />}>
                     {/* 카테고리 라우트 */}
                     <Route path='category/:category' element={null} />
 
@@ -37,7 +37,7 @@ function App() {
                     {/* 글 수정 */}
                     <Route path=':id/edit' element={<PostDetailModal />} />
                 </Route>
-                <Route path='/my-challenge' element={<MyChallenge />}>
+                <Route path='/my-challenges' element={<MyChallenge />}>
                     <Route path=':id/edit' element={<UserChallengeModal />} />
                 </Route>
                 <Route path='/mypage' element={<MyPage />} />

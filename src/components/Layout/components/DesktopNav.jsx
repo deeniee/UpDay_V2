@@ -11,7 +11,7 @@ const DesktopNav = ({ loggedInUser, handleLogout }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/challengelist' className='hover:font-black'>
+                    <Link to='/challenges' className='hover:font-black'>
                         챌린지 둘러보기
                     </Link>
                 </li>
@@ -20,7 +20,7 @@ const DesktopNav = ({ loggedInUser, handleLogout }) => {
                     <>
                         <li>
                             <Link
-                                to='/my-challenge'
+                                to='/my-challenges'
                                 className='hover:font-black'
                             >
                                 내 챌린지

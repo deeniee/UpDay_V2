@@ -23,10 +23,10 @@ const NotFound = () => {
                     페이지가 존재하지 않거나, 사용할 수 없는 페이지입니다 <br />
                     입력하신 주소가 정확한지 다시 한 번 확인해주세요.
                 </div>
+                <Link to='/main' className='btn btn-primary px-16 md:px-20'>
+                    메인으로
+                </Link>
             </section>
-            <Link to='/main' className='btn btn-primary px-16 md:px-20'>
-                메인으로
-            </Link>
         </main>
     );
 };
