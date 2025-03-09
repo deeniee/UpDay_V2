@@ -4,15 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import {
     joinChallenge,
     setSelectedChallenge,
-} from '../../../store/features/challengeSlice';
+} from '../../store/features/challengeSlice';
 
-import LoginRequiredModal from '../../../components/common/components/LoginRequiredModal';
-import useModal from '../../../components/common/hooks/useModal';
-import {
-    getCategoryIcon,
-    getCategoryIllust,
-} from '../../../utils/categoryList';
-import { calcDate } from '../../../utils/clacDate';
+import LoginRequiredModal from '../common/components/LoginRequiredModal';
+import useModal from '../common/hooks/useModal';
+import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
+import { calcDate } from '../../utils/clacDate';
 
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';

@@ -32,7 +32,7 @@ const MobileNav = ({
                                 </li>
                                 <li>
                                     <Link
-                                        to='/challengelist'
+                                        to='/challenges'
                                         onClick={() => setIsMenuOpen(false)}
                                         className='hover:font-black'
                                     >
@@ -43,7 +43,7 @@ const MobileNav = ({
                                     <>
                                         <li>
                                             <Link
-                                                to='/my-challenge'
+                                                to='/my-challenges'
                                                 onClick={() =>
                                                     setIsMenuOpen(false)
                                                 }

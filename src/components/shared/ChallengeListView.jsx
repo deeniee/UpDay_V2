@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ChallengeList from './ChallengeList';
-import { getChallenges } from '../../../utils/localStorage';
 
 const ChallengeListView = ({
+    challenges,
     activeCategory,
     searchResults,
     sortedResults,
@@ -11,7 +11,7 @@ const ChallengeListView = ({
     const [noResults, setNoResults] = useState(false); // 결과가 없을 때 메시지 처리 상태
 
     useEffect(() => {
-        const storedChallenges = getChallenges();
+        const storedChallenges = challenges;
 
         // 검색 결과가 있을 경우 검색 결과만 사용
         if (searchResults && searchResults.length > 0) {
@@ -47,7 +47,7 @@ const ChallengeListView = ({
 
         setFilteredChallenges(filtered);
         setNoResults(filtered.length === 0); // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
-    }, [activeCategory, searchResults, sortedResults]); //
+    }, [challenges, activeCategory, searchResults, sortedResults]); //
 
     return (
         <>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { categoryList, getCategoryIcon } from '../../../utils/categoryList';
+import { categoryList, getCategoryIcon } from '../../utils/categoryList';
 
 const ChallengeCategorySection = ({
     activeCategory,
@@ -11,7 +11,7 @@ const ChallengeCategorySection = ({
     const handleCategoryClick = (category) => {
         setActiveCategory(category); // 부모 컴포넌트에 선택한 카테고리 전달
         setSearchResults(null); // 카테고리 변경시 검색 결과 초기화
-        navigate(`/challengelist/category/${category}`);
+        navigate(`/challenges/category/${category}`);
     };
 
     const getCategoryStyle = (category) =>

@@ -5,11 +5,11 @@ import { FaList } from 'react-icons/fa';
 // import { FaThList } from 'react-icons/fa';
 
 import { FaChevronDown } from 'react-icons/fa6';
-import { getChallenges } from '../../../utils/localStorage';
 import ChallengeGridView from './ChallengeGridView';
 import ChallengeListView from './ChallengeListView';
 
 export default function ChallengeSortSection({
+    challenges,
     activeCategory,
     searchResults,
 }) {
@@ -22,11 +22,11 @@ export default function ChallengeSortSection({
         const challengesToSort =
             searchResults && searchResults.length > 0
                 ? searchResults
-                : getChallenges();
+                : challenges;
 
         const sortedData = sortedChallenges(challengesToSort, sortOption);
         setSortedResults(sortedData);
-    }, [sortOption, searchResults]); // 정렬 옵션이나 검색 결과가 변경될 때마다 실행
+    }, [challenges, sortOption, searchResults]); // 정렬 옵션이나 검색 결과가 변경될 때마다 실행
 
     const sortedChallenges = (challenges, option) => {
         if (!challenges || challenges.length === 0) return [];
@@ -90,12 +90,14 @@ export default function ChallengeSortSection({
                 {/* 활성화된 뷰모드에 따라 다른 컴포넌트 렌더링 */}
                 {viewMode === 1 && (
                     <ChallengeGridView
+                        challenges={challenges}
                         activeCategory={activeCategory}
                         searchResults={sortedResults}
                     />
                 )}
                 {viewMode === 2 && (
                     <ChallengeListView
+                        challenges={challenges}
                         activeCategory={activeCategory}
                         searchResults={sortedResults}
                     />
