@@ -57,7 +57,7 @@ const MainLayout = () => {
     }, []);
 
     return (
-        <div className='defalut-size flex-col'>
+        <div className='default-size flex-col'>
             <Helmet>
                 <title>홈 - UpDay</title>
             </Helmet>

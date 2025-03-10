@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import ModalHeader from './components/ModalHeader';
 import ModalContent from './components/ModalContent';
 import ModalFooter from './components/ModalFooter';
+
 import {
     addChallenge,
     deleteChallenge,
     updateChallenge,
 } from '../../store/features/challengeSlice';
-import {
-    CATEGORY_IMAGES,
-    userChallengeList,
-} from '../../assets/data/userChallengeData';
+import { getCategoryIllust } from '../../utils/categoryList';
+import { userChallengeList } from '../../assets/data/userChallengeData';
 import useModal from '../../components/common/hooks/useModal';
+
 import LoginRequiredModal from '../../components/common/components/LoginRequiredModal';
 
 const PostDetailModal = () => {
@@ -76,23 +77,18 @@ const PostDetailModal = () => {
         return null;
     }
 
-    // 카테고리별 이미지를 가져오는 함수 추가
-    const getCategoryImage = (category) => {
-        return CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
-    };
-
     // 로그인 한 유저인지 확인하는 로직
     const isMyPost =
         isCreateMode || loggedInUser === selectedChallenge?.authorId;
 
     // 창 닫기
     const handleClose = () => {
-        navigate('/challengelist');
+        navigate('/challenges');
     };
 
     // 수정 버튼 클릭시 수정하는 모달 상태창으로 변경하는 로직
     const handleUpdate = () => {
-        navigate(`/challengelist/${selectedChallenge.id}/edit`);
+        navigate(`/challenges/${selectedChallenge.id}/edit`);
     };
 
     // 글 작성하는 로직
@@ -100,7 +96,7 @@ const PostDetailModal = () => {
         if (isCreateMode) {
             // 1. 로컬 스토리지의 챌린지 가져오기
             const existingStorageChallenges = JSON.parse(
-                localStorage.getItem('clglist') || '[]'
+                localStorage.getItem('clgList') || '[]'
             );
 
             // 2. 더미 데이터 챌린지와 로컬 스토리지에 저장된 챌린지 합치기
@@ -145,7 +141,7 @@ const PostDetailModal = () => {
             }
 
             dispatch(addChallenge(newChallenge));
-            navigate('/challengelist');
+            navigate('/challenges');
         } else if (isEditMode) {
             // 필수 입력 체크
             if (
@@ -165,14 +161,14 @@ const PostDetailModal = () => {
             };
 
             dispatch(updateChallenge(updatedChallenge));
-            navigate('/challengelist');
+            navigate('/challenges');
         }
     };
 
     // 글 삭제하는 로직
     const handleDelete = (id) => {
         dispatch(deleteChallenge(id));
-        navigate('/challengelist');
+        navigate('/challenges');
     };
 
     return (
@@ -182,7 +178,7 @@ const PostDetailModal = () => {
                     isOpen={isModalOpen}
                     onClose={() => {
                         closeModal();
-                        navigate('/challengelist');
+                        navigate('/challenges');
                     }}
                     onNavigate={handleNavigateToLogin}
                 />
@@ -191,48 +187,11 @@ const PostDetailModal = () => {
                     className='fixed inset-0 bg-neutral-900/60 flex items-center justify-center z-[100]'
                     onClick={handleClose}
                 >
-                    {/* 모달 내부 클릭시 닫히지 않도록 하는 메소드 */}
-                    <div
-                        className='w-[440px] max-md:w-[90%] max-md:mx-4 p-6 max-md:p-4 rounded-2xl bg-neutral-100'
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div
-                            className='h-[384px] max-md:h-[280px] mb-4 max-md:mb-3 overflow-hidden rounded-2xl'
-                            style={{
-                                backgroundColor: isViewMode
-                                    ? selectedChallenge?.category === '식단'
-                                        ? '#e6f4f2'
-                                        : selectedChallenge?.category === '학습'
-                                          ? '#fff9e6'
-                                          : selectedChallenge?.category ===
-                                              '운동'
-                                            ? '#f2f2ff'
-                                            : selectedChallenge?.category ===
-                                                '습관'
-                                              ? '#fff1f5'
-                                              : '#F7F7F7'
-                                    : formData.category === '식단'
-                                      ? '#c5ebe6'
-                                      : formData.category === '학습'
-                                        ? '#fef2c8'
-                                        : formData.category === '운동'
-                                          ? '#e3e3f4'
-                                          : formData.category === '습관'
-                                            ? '#ffdee7'
-                                            : '#F7F7F7',
-                            }}
-                        >
+                    <div className='w-[80%] md:w-[400px] max-md:mx-4 p-3 pt-9 md:p-4 md:pt-12 card'>
+                        <div className='card bg-neutral-300 h-[300px] md:h-[280px] mb-4 max-md:mb-3 overflow-hidden'>
                             <img
-                                className='h-full mx-auto p-[1rem]'
-                                src={
-                                    isViewMode
-                                        ? getCategoryImage(
-                                              selectedChallenge?.category
-                                          )
-                                        : formData.category
-                                          ? getCategoryImage(formData.category)
-                                          : CATEGORY_IMAGES.default
-                                }
+                                className='h-full mx-auto'
+                                src={getCategoryIllust()}
                                 alt=''
                             />
                         </div>

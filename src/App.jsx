@@ -11,11 +11,11 @@ import MyPage from './pages/MyPage/MyPage';
 import MyChallenges from './pages/MyChallenges/MyChallenges';
 import UserChallengeModal from './pages/MyPage/components/UserChallengeModal';
 import AllChallenges from './pages/AllChallenges/AllChallenges';
-import PostDetailModal from './pages/Modal/PostDetailModal';
+import ChallengeDetail from './pages/ChallengeDetail/ChallengeDetail';
 import Signup from './pages/Login/Signup';
 import ProfileSetup from './pages/Login/ProfileSetup';
 import Login from './pages/Login/Login';
-import NotFound from './pages/NotFound/NotFound'; // 404 NotFound 페이지 추가
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
     return (
@@ -25,18 +25,12 @@ function App() {
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
                 <Route path='/challenges' element={<AllChallenges />}>
-                    {/* 카테고리 라우트 */}
                     <Route path='category/:category' element={null} />
-
-                    {/* 글 생성 */}
-                    <Route path='create' element={<PostDetailModal />} />
-
-                    {/* 글 읽기 */}
-                    <Route path=':id' element={<PostDetailModal />} />
-
-                    {/* 글 수정 */}
-                    <Route path=':id/edit' element={<PostDetailModal />} />
                 </Route>
+                <Route
+                    path='challenges/:id'
+                    element={<ChallengeDetail />}
+                ></Route>
                 <Route path='/my-challenges' element={<MyChallenges />}>
                     <Route path=':id/edit' element={<UserChallengeModal />} />
                 </Route>

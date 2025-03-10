@@ -9,7 +9,7 @@ import {
 import LoginRequiredModal from '../common/components/LoginRequiredModal';
 import useModal from '../common/hooks/useModal';
 import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
-import { calcDate } from '../../utils/clacDate';
+import { calcDate } from '../../utils/calcDate';
 
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
@@ -79,7 +79,7 @@ const ChallengeGrid = ({ cardData }) => {
         dispatch(setSelectedChallenge(cardData));
 
         // 해당 카드의 상세 모달 페이지로 이동
-        navigate(`/challengelist/${id}`);
+        navigate(`/challenges/${id}`);
     };
 
     return (
@@ -158,12 +158,12 @@ const ChallengeGrid = ({ cardData }) => {
                     </button>
                 )}
             </div>
-            <LoginRequiredModal
+            {/* <LoginRequiredModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 onNavigate={handleNavigateToLogin}
                 stopPropagation={true}
-            />
+            /> */}
         </div>
     );
 };
