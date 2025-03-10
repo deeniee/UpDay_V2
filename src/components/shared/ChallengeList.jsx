@@ -98,7 +98,7 @@ const ChallengeList = ({ cardData }) => {
                     <p className='flex-1 h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
                         {title}
                     </p>
-                    <div className='sub-text flex justify-end items-center gap-1 md:gap-2 ml-1 md:ml-2'>
+                    <div className='sub-text flex justify-end items-center gap-1 md:gap-1.5 ml-1 md:ml-2'>
                         <span>{calcDate(postDate)}</span>
                         <BsDot className='-mx-0.5' />
                         <div className='flex items-center gap-0.5 md:gap-1'>

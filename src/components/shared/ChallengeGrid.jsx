@@ -49,7 +49,7 @@ const ChallengeGrid = ({ cardData }) => {
     // 현재 로그인한 유저 정보 찾기
     const currentUser = users.find((user) => user.email === loggedInUser);
 
-    // 내가 작성한 글이 아니고, 로그인한 유저가 있는 경우에만 참여 가능
+    // 내가 작성한 글이 아니ㅌ, 로그인한 유저가 있는 경우에만 참여 가능
     // const canJoin = loggedInUser && loggedInUser !== authorId && currentUser;
     // 로그인한 유저인지 확인
     const isLoggedIn = loggedInUser && currentUser;
@@ -107,7 +107,7 @@ const ChallengeGrid = ({ cardData }) => {
 
             {/* 챌린지 제목 & 내용 */}
             <div className='flex flex-col gap-1 md:gap-1.5'>
-                <div className='sub-text flex items-center gap-1 md:gap-2 whitespace-nowrap'>
+                <div className='sub-text flex items-center gap-1 md:gap-1.5 whitespace-nowrap'>
                     <span>{calcDate(postDate)}</span>
                     <BsDot className='-mx-0.5' />
                     <div className='flex items-center gap-0.5 md:gap-1'>

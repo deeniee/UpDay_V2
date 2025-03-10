@@ -1,10 +1,10 @@
 import React from 'react';
-import AllChallengeLayout from './components/AllChallengeLayout';
+import AllChallengesLayout from './components/AllChallengesLayout';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FaPlus } from 'react-icons/fa6';
 
-const ChallengeList = () => {
+const AllChallenges = () => {
     // 글 생성하는 모달로 가게 하기 위해 호출
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const ChallengeList = () => {
             <Helmet>
                 <title>챌린지 둘러보기 - UpDay</title>
             </Helmet>
-            <AllChallengeLayout />
+            <AllChallengesLayout />
             <Outlet />
             <button
                 className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400
@@ -31,4 +31,4 @@ const ChallengeList = () => {
     );
 };
 
-export default ChallengeList;
+export default AllChallenges;

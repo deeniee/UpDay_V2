@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getJoinedChallenge } from '../../../store/features/challengeSlice';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
-const MyChallengeLayout = () => {
+const MyChallengesLayout = () => {
     const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
     const dispatch = useDispatch();
     const challenges = useSelector((state) => state.challenge.joinedChallenges); //
@@ -62,4 +62,4 @@ const MyChallengeLayout = () => {
     );
 };
 
-export default MyChallengeLayout;
+export default MyChallengesLayout;

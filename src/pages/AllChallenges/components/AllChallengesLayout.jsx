@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
-const AllChallengeLayout = () => {
+const AllChallengesLayout = () => {
     const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
     const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
     const [searchTerm, setSearchTerm] = useState('');
@@ -55,4 +55,4 @@ const AllChallengeLayout = () => {
     );
 };
 
-export default AllChallengeLayout;
+export default AllChallengesLayout;
