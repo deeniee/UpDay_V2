@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { BsGridFill } from 'react-icons/bs';
 import { FaList } from 'react-icons/fa';
 // import { IoGrid } from 'react-icons/io5';
@@ -16,6 +17,10 @@ export default function ChallengeSortSection({
     const [viewMode, setViewMode] = useState(1); // 기본값 그리드 뷰
     const [sortOption, setSortOption] = useState('최신순');
     const [sortedResults, setSortedResults] = useState(null); // 정렬된 결과 상태 관리
+    const location = useLocation();
+
+    // 페이지별 props 다르게 전달
+    const isChallenges = ['/challenges'].includes(location.pathname);
 
     useEffect(() => {
         // 검색 결과가 있으면 그것을 정렬하고, 없으면 전체 챌린지 가져와서 정렬

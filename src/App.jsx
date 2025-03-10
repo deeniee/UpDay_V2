@@ -8,9 +8,9 @@ import Footer from './components/Layout/Footer';
 import Intro from './pages/Intro/Intro';
 import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
-import MyChallenge from './pages/MyChallenge/MyChallenge';
+import MyChallenges from './pages/MyChallenges/MyChallenges';
 import UserChallengeModal from './pages/MyPage/components/UserChallengeModal';
-import AllChallenge from './pages/AllChallenge/AllChallenge';
+import AllChallenges from './pages/AllChallenges/AllChallenges';
 import PostDetailModal from './pages/Modal/PostDetailModal';
 import Signup from './pages/Login/Signup';
 import ProfileSetup from './pages/Login/ProfileSetup';
@@ -24,7 +24,7 @@ function App() {
             <Routes className='flex-grow'>
                 <Route path='/' element={<Intro />} />
                 <Route path='/main' element={<Main />} />
-                <Route path='/challenges' element={<AllChallenge />}>
+                <Route path='/challenges' element={<AllChallenges />}>
                     {/* 카테고리 라우트 */}
                     <Route path='category/:category' element={null} />
 
@@ -37,7 +37,7 @@ function App() {
                     {/* 글 수정 */}
                     <Route path=':id/edit' element={<PostDetailModal />} />
                 </Route>
-                <Route path='/my-challenges' element={<MyChallenge />}>
+                <Route path='/my-challenges' element={<MyChallenges />}>
                     <Route path=':id/edit' element={<UserChallengeModal />} />
                 </Route>
                 <Route path='/mypage' element={<MyPage />} />
