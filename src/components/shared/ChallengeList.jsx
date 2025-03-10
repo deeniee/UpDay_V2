@@ -8,7 +8,7 @@ import {
 import LoginRequiredModal from '../common/components/LoginRequiredModal';
 import useModal from '../common/hooks/useModal';
 import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
-import { calcDate } from '../../utils/clacDate';
+import { calcDate } from '../../utils/calcDate';
 
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';

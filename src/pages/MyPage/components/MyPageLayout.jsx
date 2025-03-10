@@ -32,7 +32,7 @@ const MyPageLayout = () => {
     }, [checkUserLogin]);
 
     return (
-        <main className='defalut-size flex-col md:flex-row gap-4 md:gap-0'>
+        <main className='default-size flex-col md:flex-row gap-4 md:gap-0'>
             <Helmet>
                 <title>마이페이지 - UpDay</title>
             </Helmet>

@@ -5,7 +5,7 @@ import illust404 from './upday_404.svg';
 
 const NotFound = () => {
     return (
-        <main className='defalut-size h-full md:min-h-[582px] md:max-h-[1139px] flex-col justify-center items-center gap-[10%]'>
+        <main className='default-size h-full md:min-h-[582px] md:max-h-[1139px] flex-col justify-center items-center gap-[10%]'>
             <Helmet>
                 <title>404 - 페이지를 찾을 수 없습니다</title>
             </Helmet>

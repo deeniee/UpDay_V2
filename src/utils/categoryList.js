@@ -54,7 +54,7 @@ export const getCategoryIllust = (category) => {
     return item ? item.illust : '';
 };
 
-// 카테고리에 맞는 일러스트 반환 함수
+// 카테고리에 맞는 path 반환 함수
 export const getCategoryPath = (category) => {
     const item = categoryList.find((item) => item.title === category);
     return item ? item.path : '';

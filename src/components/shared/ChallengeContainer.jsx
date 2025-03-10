@@ -15,7 +15,7 @@ const ChallengeListContainer = ({
     challenges,
 }) => {
     return (
-        <main className='defalut-size flex-col gap-0 md:justify-start'>
+        <main className='default-size flex-col gap-0 md:justify-start'>
             <div className='w-full mb-3 md:mb-4 flex flex-col md:flex-row'>
                 {/* 카테고리 선택 섹션 */}
                 <ChallengeCategorySection
