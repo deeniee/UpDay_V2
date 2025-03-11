@@ -13,7 +13,6 @@ const MyChallengesLayout = () => {
 
     // Redux에서 challenges 가져오기
     const challenges = useSelector((state) => state.challenge.joinedChallenges);
-    console.log(challenges); // 로그 확인
 
     // 참여한 챌린지 불러오기
     useEffect(() => {

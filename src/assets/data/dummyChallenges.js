@@ -43,7 +43,7 @@ const allChallenges = [
         scrapCount: 50,
         likesCount: 82,
         participants: [
-            ...getRandomParticipants(dummyUsers, 17),
+            ...getRandomParticipants(dummyUsers, 15),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2024-11-30T12:00:00',
@@ -65,7 +65,7 @@ const allChallenges = [
         postClicked: 75,
         scrapCount: 48,
         likesCount: 62,
-        participants: getRandomParticipants(dummyUsers, 27),
+        participants: getRandomParticipants(dummyUsers, 22),
     },
     {
         id: 4,
@@ -79,7 +79,7 @@ const allChallenges = [
         postClicked: 158,
         scrapCount: 94,
         likesCount: 36,
-        participants: getRandomParticipants(dummyUsers, 30),
+        participants: getRandomParticipants(dummyUsers, 25),
     },
     {
         id: 5,
@@ -93,7 +93,7 @@ const allChallenges = [
         postClicked: 194,
         scrapCount: 32,
         likesCount: 45,
-        participants: getRandomParticipants(dummyUsers, 15),
+        participants: getRandomParticipants(dummyUsers, 10),
     },
     {
         id: 6,
@@ -153,7 +153,7 @@ const allChallenges = [
         postClicked: 252,
         scrapCount: 105,
         likesCount: 53,
-        participants: getRandomParticipants(dummyUsers, 20),
+        participants: getRandomParticipants(dummyUsers, 14),
     },
     {
         id: 9,
@@ -167,7 +167,7 @@ const allChallenges = [
         postClicked: 208,
         scrapCount: 121,
         likesCount: 42,
-        participants: getRandomParticipants(dummyUsers, 19),
+        participants: getRandomParticipants(dummyUsers, 16),
     },
     {
         id: 10,
@@ -181,7 +181,7 @@ const allChallenges = [
         postClicked: 211,
         scrapCount: 95,
         likesCount: 42,
-        participants: getRandomParticipants(dummyUsers, 27),
+        participants: getRandomParticipants(dummyUsers, 25),
     },
     {
         id: 11,
@@ -196,7 +196,7 @@ const allChallenges = [
         scrapCount: 78,
         likesCount: 54,
         participants: [
-            ...getRandomParticipants(dummyUsers, 13),
+            ...getRandomParticipants(dummyUsers, 8),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-12T01:00:00',
@@ -219,7 +219,7 @@ const allChallenges = [
         scrapCount: 37,
         likesCount: 120,
         participants: [
-            ...getRandomParticipants(dummyUsers, 7),
+            ...getRandomParticipants(dummyUsers, 12),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-02T01:00:00',
@@ -242,7 +242,7 @@ const allChallenges = [
         scrapCount: 194,
         likesCount: 132,
         participants: [
-            ...getRandomParticipants(dummyUsers, 31),
+            ...getRandomParticipants(dummyUsers, 24),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-01T18:00:00',
@@ -301,7 +301,7 @@ const allChallenges = [
         postClicked: 224,
         scrapCount: 29,
         likesCount: 32,
-        participants: getRandomParticipants(dummyUsers, 36),
+        participants: getRandomParticipants(dummyUsers, 30),
     },
     {
         id: 17,
@@ -316,7 +316,7 @@ const allChallenges = [
         scrapCount: 130,
         likesCount: 215,
         participants: [
-            ...getRandomParticipants(dummyUsers, 28),
+            ...getRandomParticipants(dummyUsers, 23),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-17T23:00:00',
@@ -340,7 +340,7 @@ const allChallenges = [
         scrapCount: 63,
         likesCount: 42,
         participants: [
-            ...getRandomParticipants(dummyUsers, 19),
+            ...getRandomParticipants(dummyUsers, 16),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-16T22:00:00',
@@ -363,7 +363,7 @@ const allChallenges = [
         scrapCount: 199,
         likesCount: 164,
         participants: [
-            ...getRandomParticipants(dummyUsers, 30),
+            ...getRandomParticipants(dummyUsers, 26),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-01-26T13:00:00',
@@ -385,7 +385,7 @@ const allChallenges = [
         postClicked: 126,
         scrapCount: 107,
         likesCount: 65,
-        participants: getRandomParticipants(dummyUsers, 35),
+        participants: getRandomParticipants(dummyUsers, 29),
     },
     {
         id: 21,
@@ -400,7 +400,7 @@ const allChallenges = [
         scrapCount: 45,
         likesCount: 96,
         participants: [
-            ...getRandomParticipants(dummyUsers, 30),
+            ...getRandomParticipants(dummyUsers, 28),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-02-16T12:00:00',
@@ -423,7 +423,7 @@ const allChallenges = [
         scrapCount: 152,
         likesCount: 85,
         participants: [
-            ...getRandomParticipants(dummyUsers, 23),
+            ...getRandomParticipants(dummyUsers, 22),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2025-03-11T13:00:00',
@@ -446,7 +446,7 @@ const allChallenges = [
         postClicked: 64,
         scrapCount: 40,
         likesCount: 20,
-        participants: getRandomParticipants(dummyUsers, 27),
+        participants: getRandomParticipants(dummyUsers, 17),
     },
     {
         id: 24,
@@ -476,7 +476,7 @@ const allChallenges = [
         likesCount: 40,
         joinDate: '2025-03-02T10:00:00',
         participants: [
-            ...getRandomParticipants(dummyUsers, 17),
+            ...getRandomParticipants(dummyUsers, 12),
             {
                 userId: 'daymaker@naver.com',
                 joinDate: '2024-11-30T12:00:00',
@@ -498,7 +498,7 @@ const allChallenges = [
         postClicked: 92,
         scrapCount: 30,
         likesCount: 8,
-        participants: getRandomParticipants(dummyUsers, 15),
+        participants: getRandomParticipants(dummyUsers, 10),
     },
     {
         id: 27,
@@ -535,22 +535,25 @@ const allChallenges = [
         postClicked: 93,
         scrapCount: 12,
         likesCount: 5,
-        participants: getRandomParticipants(dummyUsers, 8),
+        participants: getRandomParticipants(dummyUsers, 4),
     },
 ];
 
-export const dummyChallenges = allChallenges.map((challenge) => ({
-    ...challenge,
-    participants: challenge.participants.map(
-        (participant) =>
-            participant.userId !== userData.userId // 테스트 계정이 아닌 경우에만 추가
-                ? {
-                      ...participant,
-                      joinDate: challenge.postDate, // 챌린지 생성 날짜를 참여 날짜로 설정
-                      clgJoin: true,
-                      clgDoing: true,
-                      clgDone: false,
-                  }
-                : participant // 테스트 계정이면 기존 값 유지
-    ),
-}));
+export const dummyChallenges = allChallenges.map((challenge, index) => {
+    const updatedParticipants = challenge.participants.map((participant) =>
+        participant.userId !== userData.userId
+            ? {
+                  ...participant,
+                  joinDate: challenge.postDate,
+                  clgJoin: true,
+                  clgDoing: true,
+                  clgDone: false,
+              }
+            : participant
+    );
+
+    return {
+        ...challenge,
+        participants: updatedParticipants,
+    };
+});

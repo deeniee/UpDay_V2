@@ -11,7 +11,7 @@ import { calcActiveDays } from '../../../utils/calcDate';
 const MainLayout = () => {
     const currentUser = useMemo(() => getCurrentUserData(), []); // 🔹 useMemo를 사용해 불필요한 re-render 방지
     const isLoggedIn = !!currentUser; // `currentUser`가 있으면 true, 없으면 false
-    const userName = currentUser?.userNickname || '게스트';
+    const userName = currentUser?.nickname || '게스트';
     const challengeDays = currentUser ? calcActiveDays(currentUser) : 0;
 
     return (

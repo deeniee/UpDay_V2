@@ -1,5 +1,4 @@
-const UNSPLASH_ACCESS_KEY = 'CnQXEEIJxs7vakHJPHpu6zT_3OjeGDjDXwxYYjJbBcU';
-const BASE_URL = 'https://api.dicebear.com/7.x/pixel-art/svg?seed=';
+import { getRandomUserImg } from '../../utils/getRandomUserImg';
 
 export const dummyUsers = [
     {
@@ -269,50 +268,19 @@ export const dummyUsers = [
         userIntroduction: '건강한 식습관을 위한 도전!',
         signupDate: '2025-01-15',
     },
-    {
-        userId: 'test16@gmail.com',
-        nickname: 'techgeek',
-        userImg: '',
-        nickname: 'techgeek',
-        userIntroduction:
-            '새로운 기술 배우는 게 좋아요.요즘은 AI와 블록체인에 관심이 많아요.',
-        signupDate: '2025-01-16',
-    },
-    {
-        userId: 'test17@naver.com',
-        userImg: '',
-        nickname: 'writinghabit',
-        userIntroduction:
-            '매일 글 쓰는 습관 만들기, 짧아도 괜찮아, 중요한 건 꾸준함!',
-        signupDate: '2025-01-17',
-    },
-    {
-        userId: 'test18@daum.net',
-        userImg: '',
-        nickname: 'yogamaster',
-        userIntroduction:
-            '요가로 몸과 마음을 단련 중\n아침 요가 20분 실천하기!',
-        signupDate: '2025-01-18',
-    },
-    {
-        userId: 'test19@gmail.com',
-        userImg: '',
-        nickname: 'musiclover',
-        userIntroduction:
-            '하루 한 곡 추천하는 블로거.음악이 삶을 풍요롭게 한다고 믿어요.',
-        signupDate: '2025-01-19',
-    },
-    {
-        userId: 'test20@naver.com',
-        userImg: '',
-        nickname: 'mindful',
-        userIntroduction: '매 순간을 소중히! 디지털 디톡스를 실천 중입니다.',
-        signupDate: '2025-01-20',
-    },
 ];
 
-dummyUsers.forEach((user) => {
-    if (user.userImg === '') {
-        return `${BASE_URL}${user.nickname}`;
-    }
-});
+export const updateUserImages = async (users) => {
+    const updatedUsers = await Promise.all(
+        users.map(async (user) => {
+            if (user.userImg === '') {
+                // 이미지가 비어있다면 랜덤 이미지를 가져옴
+                const randomImg = await getRandomUserImg([user]); // 배열로 전달
+                user.userImg = randomImg[0].userImg; // userImg에 이미지 URL을 할당
+            }
+            return user;
+        })
+    );
+
+    return updatedUsers;
+};

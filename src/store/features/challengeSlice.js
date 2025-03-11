@@ -7,7 +7,6 @@ const saveChallengeToLocalStorage = (challenge) =>
     localStorage.setItem('clgList', JSON.stringify(challenge));
 
 const getInitialList = () => {
-    // 로컬 스토리지에서 챌린지 가져오기
     const savedChallenges = localStorage.getItem('clgList');
 
     // 로컬 스토리지에 clglist가 없으면
@@ -174,7 +173,7 @@ const challengeSlice = createSlice({
         // #3. 내 챌린지 (테스트 계정)
         // 작성한 챌린지 가져오는 액션
         setMyPosts: (state) => {
-            const currentUserId = 'daymaker@naver.com'; // 테스트용 사용자 아이디
+            const currentUserId = localStorage.getItem('loggedInUser');
             const currentChallenges = getChallenges();
 
             state.myPosts = currentChallenges.filter(
@@ -186,7 +185,7 @@ const challengeSlice = createSlice({
 
         // 참여한 챌린지 가져오는 액션
         getJoinedChallenge: (state) => {
-            const currentUserId = 'daymaker@naver.com'; // 테스트용 사용자 아이디
+            const currentUserId = localStorage.getItem('loggedInUser');
             const currentChallenges = getChallenges();
 
             // 각 챌린지에 대해 참여한 사람을 필터링
@@ -204,7 +203,7 @@ const challengeSlice = createSlice({
         // 참여한 챌린지 상태 변경 및 저장하는 액션
         toggleChallengeState: (state, action) => {
             const { id, type } = action.payload;
-            const currentUserId = 'daymaker@naver.com'; // 테스트용 사용자 아이디
+            const currentUserId = localStorage.getItem('loggedInUser');
             const updatedChallenges = state.list.map((challenge) => {
                 if (challenge.participants) {
                     challenge.participants = challenge.participants.map(
@@ -238,6 +237,15 @@ const challengeSlice = createSlice({
                         participant.userId === currentUserId &&
                         participant.clgJoin === true &&
                         participant.clgDoing === true // 진행 중인 상태만 필터링
+                )
+            );
+
+            // joinedChallenges 업데이트
+            state.joinedChallenges = updatedChallenges.filter((challenge) =>
+                challenge.participants?.some(
+                    (participant) =>
+                        participant.userId === currentUserId &&
+                        participant.clgJoin === true
                 )
             );
 

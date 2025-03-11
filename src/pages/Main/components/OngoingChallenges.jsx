@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa6';
 import {
     toggleChallengeState,
     setSelectedChallenge,
+    getJoinedChallenge,
 } from '../../../store/features/challengeSlice';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { calcPassedDays } from '../../../utils/calcDate';
@@ -15,6 +16,10 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     const ongoingChallenges = useSelector(
         (state) => state.challenge.ongoingChallenges
     );
+
+    useEffect(() => {
+        dispatch(getJoinedChallenge()); // 액션 디스패치
+    }, [dispatch]);
 
     const filteredChallenges = ongoingChallenges
         ? [...ongoingChallenges].sort((a, b) => {
@@ -116,7 +121,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             )}
                     </ul>
                 ) : (
-                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center  card rounded-t-none  main-text text-neutral-500'>
+                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card  main-text text-neutral-500'>
                         진행 중인 챌린지가 없습니다.
                     </div>
                 )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { getCategoryIllust } from '../../../utils/categoryList';
 import { calcDate } from '../../../utils/calcDate';
@@ -6,6 +6,8 @@ import { getAuthorData, getParticipantDatas } from '../../../utils/getUserData';
 
 import ChallengeHeader from './ChallengeHeader';
 
+import { FaPlus } from 'react-icons/fa6';
+import { BsThreeDots } from 'react-icons/bs';
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
@@ -26,6 +28,21 @@ const ChallengeInfo = ({ postData }) => {
 
     const getDateCount = calcDate(postDate);
     const formattedDate = format(postDate, 'yyyy.MM.dd');
+
+    const [participantsData, setParticipantsData] = useState([]);
+
+    useEffect(() => {
+        // 예시로 participants 데이터를 받아올 때
+        const participantIds = postData.participants; // 예시로 participants 목록
+        const fetchParticipants = async () => {
+            const updatedParticipants =
+                await getParticipantDatas(participantIds);
+            setParticipantsData(updatedParticipants);
+        };
+
+        console.log('참가자 데이터:', participants);
+        fetchParticipants();
+    }, [postData]); // postData 변경 시마다 다시 호출
 
     return (
         <section className='card flex flex-col md:flex-row'>
@@ -49,18 +66,38 @@ const ChallengeInfo = ({ postData }) => {
             </div>
             <div className='w-auto md:w-[60%] flex flex-col gap-4 m-3 mt-0 md:m-4 md:ml-0'>
                 <ChallengeHeader postData={postData} />
-                <div className='flex'>
-                    {getParticipantDatas().map((participant, index) => (
-                        <div key={index} className='participant'>
+                <p className='main-text'>{content}</p>
+                <div className='relative flex items-center'>
+                    <p className='main-text mr-1.5'>
+                        {participants.length}명이 참여하고 있어요!
+                    </p>
+                    {participants.slice(0, 3).map((participant, index) => (
+                        <div
+                            key={index}
+                            className='w-auto blur-[0.5px]'
+                            style={{
+                                zIndex: participants.length - index, // index가 클수록 z-index가 낮아지도록 설정
+                                marginLeft: index === 0 ? 0 : -18, // index가 커질수록 왼쪽 여백이 증가
+                            }}
+                        >
                             <img
                                 src={participant.userImg}
                                 alt={`${participant.nickname} 프로필 사진`}
-                                className='w-8 h-8'
+                                className='w-8 h-8 object-cover rounded-full'
+                            />
+                            <div
+                                className='absolute top-0 w-8 h-8 object-cover rounded-full bg-neutral-900/20'
+                                style={{
+                                    zIndex: participants.length - index, // index가 클수록 z-index가 낮아지도록 설정
+                                    marginLeft: index === 0 ? 0 : -18, // index가 커질수록 왼쪽 여백이 증가
+                                    left: index === 0 ? 0 : 18,
+                                }}
                             />
                         </div>
                     ))}
+                    <BsThreeDots className='absolute top-1 left-36 z-20 w-6 h-6 flex justify-center items-center text-neutral-100' />
                 </div>
-                <p className='main-text'>{content}</p>
+
                 <p className='main-text'>ai 추천 멘트</p>
                 <div className='flex items-center gap-2'>
                     <img
