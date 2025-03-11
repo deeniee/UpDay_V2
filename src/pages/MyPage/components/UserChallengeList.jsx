@@ -7,7 +7,8 @@ import {
     getJoinedChallenge,
 } from '../../../store/features/challengeSlice';
 import { BsDot } from 'react-icons/bs';
-import { HiFire, HiDocumentCheck } from 'react-icons/hi2';
+import { HiFire, HiDocumentCheck, HiOutlineDocument } from 'react-icons/hi2';
+import { IoClose } from 'react-icons/io5';
 import UserChallengeModal from './UserChallengeModal';
 
 export default function UserChallengeList({ filteredChallenges }) {
@@ -108,7 +109,7 @@ export default function UserChallengeList({ filteredChallenges }) {
                                     {challenge.title}
                                 </span>
                             </div>
-                            <div className='w-14 flex justify-between items-center'>
+                            <div className='w-24 flex justify-between items-center'>
                                 <button
                                     className={getClgDoingClass(
                                         challenge.clgDoing
@@ -128,6 +129,18 @@ export default function UserChallengeList({ filteredChallenges }) {
                                     }
                                 >
                                     <HiDocumentCheck className='text-xl' />
+                                </button>
+
+                                <button
+                                    className={`relative ${getClgDoneClass(
+                                        challenge.clgDone
+                                    )}`}
+                                    onClick={(e) =>
+                                        handleToggle(challenge.id, 'done', e)
+                                    }
+                                >
+                                    <HiOutlineDocument className='text-xl' />
+                                    <IoClose className='absolute top-2 size-3' />
                                 </button>
                             </div>
                         </li>

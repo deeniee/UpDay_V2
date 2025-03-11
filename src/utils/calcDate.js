@@ -1,4 +1,23 @@
 import { format } from 'date-fns';
+import { getCurrentUserData } from './localStorage';
+
+export const calcActiveDays = () => {
+    const user = getCurrentUserData();
+    const signUpDate = new Date(user.signupDate);
+    const today = new Date();
+    const diffDays =
+        Math.floor((today - signUpDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    return diffDays;
+};
+
+export const calcPassedDays = (joinDate) => {
+    const start = new Date(joinDate);
+    const today = new Date();
+    const diffTime = Math.abs(today - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+};
 
 export const calcDate = (postDate) => {
     const start = new Date(postDate);

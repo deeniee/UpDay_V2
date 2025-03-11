@@ -1,13 +1,13 @@
 import React from 'react';
 import UserInfoIllustBg from './UserInfoIllustBg';
 
-const UserInfo = ({ userName, challengeDays }) => {
+const UserInfo = ({ userName, challengeDays, isLoggedIn }) => {
     return (
         <div className='relative w-full h-[120px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] flex gap-4 md:justify-between'>
             <div className='w-full h-full text-left flex flex-col justify-end md:justify-center gap-2'>
                 <div className='space-x-1'>
                     <span className='text-xl md:text-2xl font-bold'>
-                        {userName ? `${userName}` : '게스트'}
+                        {userName}
                     </span>
                     <span className='text-base md:text-lg'>
                         {userName ? `님, 안녕하세요!` : '님, 반가워요!'}
@@ -20,7 +20,7 @@ const UserInfo = ({ userName, challengeDays }) => {
                         className='h-6 md:h-8 object-contain'
                     />
 
-                    {userName ? (
+                    {isLoggedIn ? (
                         <div className='w-full md:h-full flex items-end pl-1 whitespace-nowrap'>
                             와
                             <span className='font-semibold text-point-500 pl-2'>

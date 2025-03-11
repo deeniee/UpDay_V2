@@ -1,84 +1,33 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-    IoIosArrowDropleftCircle,
-    IoIosArrowDroprightCircle,
-} from 'react-icons/io';
-import { HiFire } from 'react-icons/hi2';
-import { FaCheck, FaPen } from 'react-icons/fa6';
+import { FaPen } from 'react-icons/fa6';
 import { toggleChallengeState } from '../../../store/features/challengeSlice';
 import { getCategoryIcon } from '../../../utils/categoryList';
+import { calcPassedDays } from '../../../utils/calcDate';
 
-const OngoingChallenges = ({ isLoggedIn }) => {
+const OngoingChallenges = ({ userName, isLoggedIn }) => {
     const navigate = useNavigate();
-    const [startIndex, setStartIndex] = useState(0);
-    const challengesPerPage = 4;
-    const ongoingChallenges =
-        useSelector((state) => state.challenge.ongoingChallenges) || [];
-
-    const calculateDaysPassed = (joinDate) => {
-        const start = new Date(joinDate);
-        const today = new Date();
-        const diffTime = Math.abs(today - start);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
-    };
+    const dispatch = useDispatch();
+    const ongoingChallenges = useSelector(
+        (state) => state.challenge.ongoingChallenges
+    );
 
     const filteredChallenges = ongoingChallenges
         ? [...ongoingChallenges].sort((a, b) => {
-              const daysA = calculateDaysPassed(a.joinDate);
-              const daysB = calculateDaysPassed(b.joinDate);
+              const daysA = calcPassedDays(a.joinDate);
+              const daysB = calcPassedDays(b.joinDate);
               return daysA - daysB; // 날짜 기준 오름차순 정렬
           })
         : [];
-
-    const handleLeftClick = () => {
-        setStartIndex((prev) =>
-            prev - challengesPerPage < 0 ? 0 : prev - challengesPerPage
-        );
-    };
-
-    const handleRightClick = () => {
-        setStartIndex((prev) =>
-            prev + challengesPerPage >= filteredChallenges.length
-                ? prev
-                : prev + challengesPerPage
-        );
-    };
-
-    const dispatch = useDispatch();
 
     // 챌린지 상태 변경 핸들러
     const handleToggle = (id, type) => {
         dispatch(toggleChallengeState({ id, type }));
     };
 
-    // // 챌린지 상태 클래스
-    // const getClgTitleClass = (doing, done) =>
-    //     !doing && done
-    //         ? 'line-through'
-    //         : !doing && !done
-    //           ? 'line-through text-neutral-500'
-    //           : '';
-    // const getClgDoingClass = (doing) => (doing ? 'check-on' : 'check-off');
-    // const getClgNoteClass = (done) => (done ? 'note-on' : 'note-off');
-
-    /* <div className='flex gap-3'>
-                    <IoIosArrowDropleftCircle
-                        direction='left'
-                        onClick={handleLeftClick}
-                        className='text-3xl md:text-4xl'
-                    />
-                    <IoIosArrowDroprightCircle
-                        direction='right'
-                        onClick={handleRightClick}
-                        className='text-3xl md:text-4xl'
-                    />
-                </div> */
-
     return (
-        <div className='relative w-full h-[200px] md:h-full'>
+        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
             <h2 className='card rounded-b-none bg-point-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
                 도전 중인 챌린지
                 {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}
@@ -90,7 +39,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] md:min-h-[94px] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
@@ -117,7 +66,7 @@ const OngoingChallenges = ({ isLoggedIn }) => {
                                                         </span>
                                                     </div>
                                                     <span className='sub-text text-main-500 font-semibold'>
-                                                        {calculateDaysPassed(
+                                                        {calcPassedDays(
                                                             challenge.joinDate
                                                         )}
                                                         일 째

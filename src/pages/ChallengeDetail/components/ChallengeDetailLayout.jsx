@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { userChallengeList } from '../../../assets/data/userChallengeData';
+import { dummyChallenges } from '../../../assets/data/dummyChallenges';
 
 import ChallengeInfo from './ChallengeInfo';
 import ChallengeActions from './ChallengeActions';
@@ -11,7 +11,7 @@ export default function ChallengeDetail() {
     const [postData, setPostData] = useState(null);
 
     useEffect(() => {
-        const selectedChallenge = userChallengeList.find(
+        const selectedChallenge = dummyChallenges.find(
             (challenge) => String(challenge.id) === String(id)
         );
         setPostData(selectedChallenge);

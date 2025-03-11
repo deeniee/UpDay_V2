@@ -9,10 +9,12 @@ const useLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const defaultEmail = 'test01@naver.com';
-    const defaultPassword = 'test123^';
+    const defaultUserId = 'daymaker@naver.com';
+    const defaultPassword = 'test123!';
 
-    const [email, setEmail] = useState(location.state?.email || defaultEmail);
+    const [userId, setUserId] = useState(
+        location.state?.userId || defaultUserId
+    );
     const [password, setPassword] = useState(
         location.state?.password || defaultPassword
     );
@@ -29,14 +31,14 @@ const useLogin = () => {
         const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
         const existingUser = storedUsers.find(
-            (user) => user.email === email && user.password === password
+            (user) => user.userId === userId && user.password === password
         );
 
         if (existingUser) {
             setError('');
 
-            localStorage.setItem('loggedInUser', existingUser.email);
-            dispatch(setUser({ email: existingUser.email }));
+            localStorage.setItem('loggedInUser', existingUser.userId);
+            dispatch(setUser({ userId: existingUser.userId }));
 
             navigate('/main');
             window.location.reload();
@@ -46,8 +48,8 @@ const useLogin = () => {
     };
 
     return {
-        email,
-        setEmail,
+        userId,
+        setUserId,
         password,
         setPassword,
         error,

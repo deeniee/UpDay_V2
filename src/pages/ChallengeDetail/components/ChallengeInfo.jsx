@@ -28,8 +28,8 @@ const ChallengeInfo = ({ postData }) => {
     const formattedDate = format(postDate, 'yyyy.MM.dd');
 
     return (
-        <section className='flex flex-col md:flex-row gap-4'>
-            <div className='relative card w-full aspect-[5/3] md:w-[40%] md:max-w-[480px] md:aspect-square'>
+        <section className='card flex flex-col md:flex-row'>
+            <div className='relative card bg-neutral-300 w-auto aspect-[5/3] md:w-[40%] md:max-w-[480px] md:aspect-square m-3 md:m-4'>
                 <img
                     src={getCategoryIllust(category)}
                     alt={category}
@@ -47,7 +47,7 @@ const ChallengeInfo = ({ postData }) => {
                     </div>
                 </div>
             </div>
-            <div className='w-full md:w-[60%] flex flex-col gap-4'>
+            <div className='w-auto md:w-[60%] flex flex-col gap-4 m-3 mt-0 md:m-4 md:ml-0'>
                 <ChallengeHeader postData={postData} />
                 <p className='main-text'>{content}</p>
                 <p className='main-text'>ai 추천 멘트</p>

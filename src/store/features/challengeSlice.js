@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userChallengeList } from '../../assets/data/userChallengeData';
+import { dummyChallenges } from '../../assets/data/dummyChallenges';
 import { getChallenges } from '../../utils/localStorage';
 
 // 챌린지 데이터를 localStorage에 저장
@@ -12,15 +12,15 @@ const getInitialList = () => {
 
     // 로컬 스토리지에 clglist가 없으면
     if (!savedChallenges) {
-        localStorage.setItem('clgList', JSON.stringify(userChallengeList));
-        return userChallengeList;
+        localStorage.setItem('clgList', JSON.stringify(dummyChallenges));
+        return dummyChallenges;
     }
 
     // 로컬 스토리지 데이터 파싱
     const parsedChallenges = JSON.parse(savedChallenges);
 
     // 1. 더미데이터 상태 업데이트
-    const updatedList = userChallengeList.map((challenge) => {
+    const updatedList = dummyChallenges.map((challenge) => {
         const savedChallenge = parsedChallenges.find(
             (saved) => saved.id === challenge.id
         );
@@ -29,8 +29,7 @@ const getInitialList = () => {
 
     // 2. 사용자가 작성한 챌린지 추가
     const userWrittenChallenges = parsedChallenges.filter(
-        (challenge) =>
-            !userChallengeList.some((data) => data.id === challenge.id)
+        (challenge) => !dummyChallenges.some((data) => data.id === challenge.id)
     );
 
     // 3. 업데이트 된 더미데이터 + 사용자가 작성한 챌린지
@@ -42,18 +41,29 @@ const getInitialList = () => {
     return mergedChallenges;
 };
 
+const initialChallenges = getInitialList();
+
 const challengeSlice = createSlice({
     name: 'challenge',
     initialState: {
-        list: getInitialList(), // 초기 데이터, 전체 챌린지
-        selectedChallenge: null, // 현재 선택된 챌린지
-        myPosts: [], // 테스트 계정이 작성한 챌린지 목록
-        joinedChallenges: getInitialList().filter(
-            (challenge) => challenge.clgJoin
-        ), // 테스트 계정이 참여한 챌린지 목록
-        ongoingChallenges: getInitialList().filter(
-            (challenge) => challenge.clgJoin && challenge.clgDoing
-        ), // 테스트 계정이 진행 중인 챌린지 목록
+        list: initialChallenges,
+        selectedChallenge: null,
+        myPosts: [],
+        joinedChallenges: initialChallenges.filter((challenge) =>
+            challenge.participants?.some(
+                (participant) =>
+                    participant.userId === 'daymaker@naver.com' &&
+                    participant.clgJoin === true // 참가한 챌린지인지 확인
+            )
+        ),
+        ongoingChallenges: initialChallenges.filter((challenge) =>
+            challenge.participants?.some(
+                (participant) =>
+                    participant.userId === 'daymaker@naver.com' &&
+                    participant.clgJoin === true && // 참가한 챌린지인지 확인
+                    participant.clgDoing === true // 진행 중인 상태일 경우
+            )
+        ),
     },
     reducers: {
         // #1. 챌린지 CRUD
@@ -152,11 +162,11 @@ const challengeSlice = createSlice({
         // #3. 내 챌린지 (테스트 계정)
         // 작성한 챌린지 가져오는 액션
         setMyPosts: (state) => {
-            const loggedInUser = localStorage.getItem('loggedInUser');
+            const currentUserId = getChallenges().userId;
             const currentChallenges = getChallenges();
 
             state.myPosts = currentChallenges.filter(
-                (post) => post.authorId === loggedInUser
+                (post) => post.authorId === currentUserId
             );
 
             saveChallengeToLocalStorage(currentChallenges);
@@ -164,9 +174,13 @@ const challengeSlice = createSlice({
 
         // 참여한 챌린지 가져오는 액션
         getJoinedChallenge: (state) => {
+            const currentUserId = getChallenges().userId;
             const currentChallenges = getChallenges();
+
             state.joinedChallenges = currentChallenges.filter(
-                (challenge) => challenge.clgJoin
+                (challenge) =>
+                    challenge.participants.userId === currentUserId &&
+                    challenge.participants.clgJoin
             );
 
             saveChallengeToLocalStorage(currentChallenges);
@@ -175,22 +189,25 @@ const challengeSlice = createSlice({
         // 참여한 챌린지 상태 변경 및 저장하는 액션
         toggleChallengeState: (state, action) => {
             const { id, type } = action.payload;
+            const currentUserId = getChallenges().userId;
             const currentChallenges = getChallenges();
 
             const updatedChallenges = currentChallenges.map((challenge) => {
-                if (challenge.id === id) {
-                    if (type === 'doing') {
-                        return {
-                            ...challenge,
-                            clgDoing: !challenge.clgDoing,
-                            clgDone: challenge.clgDoing ? true : false,
-                        };
-                    } else if (type === 'done') {
-                        return {
-                            ...challenge,
-                            clgDone: !challenge.clgDone,
-                            clgDoing: false,
-                        };
+                if (challenge.participants.userId === currentUserId) {
+                    if (challenge.id === id) {
+                        if (type === 'doing') {
+                            return {
+                                ...challenge,
+                                clgDoing: !challenge.clgDoing,
+                                clgDone: challenge.clgDoing ? true : false,
+                            };
+                        } else if (type === 'done') {
+                            return {
+                                ...challenge,
+                                clgDone: !challenge.clgDone,
+                                clgDoing: false,
+                            };
+                        }
                     }
                 }
                 return challenge;
@@ -200,10 +217,12 @@ const challengeSlice = createSlice({
 
             state.list = updatedChallenges;
             state.myPosts = updatedChallenges.filter(
-                (post) => post.authorId === localStorage.getItem('loggedInUser')
+                (challenge) => challenge.authorId === currentUserId
             );
             state.joinedChallenges = updatedChallenges.filter(
-                (challenge) => challenge.clgJoin
+                (challenge) =>
+                    challenge.authorId === currentUserId &&
+                    challenge.participants.clgJoin
             );
         },
     },
