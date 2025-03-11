@@ -10,6 +10,7 @@ import LoginRequiredModal from '../common/components/LoginRequiredModal';
 import useModal from '../common/hooks/useModal';
 import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
 import { calcDate } from '../../utils/calcDate';
+import { getAuthorData } from '../../utils/getUserData';
 
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
@@ -21,39 +22,28 @@ const ChallengeGrid = ({ cardData }) => {
         duration,
         title,
         content,
-        userImg,
-        nickname,
+        authorId,
         postDate,
         postClicked,
         scrapCount,
         likesCount,
-        authorId,
-        clgJoin,
+        participants,
     } = cardData;
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    // 라우터 이동을 위한 navigate 함수
     const navigate = useNavigate();
-
-    // Redux 액션 dispatch를 위한 함수
     const dispatch = useDispatch();
-
-    // 로그인 한 유저의 아이디
     const loggedInUser = localStorage.getItem('loggedInUser');
 
-    // 로그인한 유저 정보 가져오기 (users 배열에서)
     const userString = localStorage.getItem('users');
     const users = userString ? JSON.parse(userString) : [];
-
-    // 현재 로그인한 유저 정보 찾기
-    const currentUser = users.find((user) => user.email === loggedInUser);
-
-    // 내가 작성한 글이 아니ㅌ, 로그인한 유저가 있는 경우에만 참여 가능
-    // const canJoin = loggedInUser && loggedInUser !== authorId && currentUser;
-    // 로그인한 유저인지 확인
+    const currentUser = users.find((user) => user.userId === loggedInUser);
     const isLoggedIn = loggedInUser && currentUser;
-    const isAuthor = loggedInUser === authorId;
+    const isUserJoined = participants?.some(
+        (participant) =>
+            participant.userId === loggedInUser && participant.clgDoing === true
+    );
 
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
@@ -129,41 +119,26 @@ const ChallengeGrid = ({ cardData }) => {
             {/* 유저 닉네임 & 사진 */}
             <div className='flex justify-start items-center'>
                 <img
-                    src={userImg}
-                    alt={`${nickname} 사진`}
+                    src={getAuthorData(authorId).userImg}
+                    alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
                     className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
                 />
-                <p className='ml-2 sub-text'>{nickname}</p>
+                <p className='ml-2 sub-text'>
+                    {getAuthorData(authorId).nickname}
+                </p>
             </div>
 
-            {/* 버튼 */}
-            {/* {canJoin && (
-                    <button
-                        type='button'
-                        className='btn btn-primary w-[40%] max-md:text-xs'
-                        onClick={handleJoin}
-                        disabled={clgJoin}
-                    >
-                        {clgJoin ? '참여중' : '참여하기'}
-                    </button>
-                )} */}
             <div className='flex justify-center'>
                 {isLoggedIn && (
                     <button
                         type='button'
-                        className={`btn w-[60%] ${isAuthor || clgJoin ? 'btn-secondary' : 'btn-primary'}`}
+                        className={`btn w-[60%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
                         onClick={handleJoin}
                     >
-                        {isAuthor || clgJoin ? '참여 중' : '참여하기'}
+                        {isUserJoined ? '참여 중' : '참여하기'}
                     </button>
                 )}
             </div>
-            {/* <LoginRequiredModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onNavigate={handleNavigateToLogin}
-                stopPropagation={true}
-            /> */}
         </div>
     );
 };

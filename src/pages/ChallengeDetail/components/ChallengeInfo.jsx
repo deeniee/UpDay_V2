@@ -2,6 +2,8 @@ import React from 'react';
 import { format } from 'date-fns';
 import { getCategoryIllust } from '../../../utils/categoryList';
 import { calcDate } from '../../../utils/calcDate';
+import { getAuthorData, getParticipantDatas } from '../../../utils/getUserData';
+
 import ChallengeHeader from './ChallengeHeader';
 
 import { BsDot } from 'react-icons/bs';
@@ -14,14 +16,12 @@ const ChallengeInfo = ({ postData }) => {
         duration,
         title,
         content,
-        userImg,
-        nickname,
+        authorId,
         postDate,
         postClicked,
         scrapCount,
         likesCount,
-        authorId,
-        clgJoin,
+        participants,
     } = postData;
 
     const getDateCount = calcDate(postDate);
@@ -49,15 +49,28 @@ const ChallengeInfo = ({ postData }) => {
             </div>
             <div className='w-auto md:w-[60%] flex flex-col gap-4 m-3 mt-0 md:m-4 md:ml-0'>
                 <ChallengeHeader postData={postData} />
+                <div className='flex'>
+                    {getParticipantDatas().map((participant, index) => (
+                        <div key={index} className='participant'>
+                            <img
+                                src={participant.userImg}
+                                alt={`${participant.nickname} 프로필 사진`}
+                                className='w-8 h-8'
+                            />
+                        </div>
+                    ))}
+                </div>
                 <p className='main-text'>{content}</p>
                 <p className='main-text'>ai 추천 멘트</p>
                 <div className='flex items-center gap-2'>
                     <img
-                        src={userImg}
-                        alt={`${nickname}프로필 이미지`}
+                        src={getAuthorData(authorId).userImg}
+                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
                         className='w-8 h-8 object-cover rounded-full'
                     />
-                    <span className='main-text'>{nickname}</span>
+                    <span className='main-text'>
+                        {getAuthorData(authorId).nickname}
+                    </span>
                     <span>해당유저 달성율</span>
                 </div>
             </div>

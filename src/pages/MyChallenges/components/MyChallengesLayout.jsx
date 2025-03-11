@@ -7,12 +7,13 @@ import ChallengeListContainer from '../../../components/shared/ChallengeContaine
 const MyChallengesLayout = () => {
     const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
     const dispatch = useDispatch();
-    const challenges = useSelector((state) => state.challenge.joinedChallenges); //
     const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
 
-    console.log(challenges);
+    // Redux에서 challenges 가져오기
+    const challenges = useSelector((state) => state.challenge.joinedChallenges);
+    console.log(challenges); // 로그 확인
 
     // 참여한 챌린지 불러오기
     useEffect(() => {

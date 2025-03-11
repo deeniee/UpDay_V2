@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa6';
-import { toggleChallengeState } from '../../../store/features/challengeSlice';
+import {
+    toggleChallengeState,
+    setSelectedChallenge,
+} from '../../../store/features/challengeSlice';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { calcPassedDays } from '../../../utils/calcDate';
 
@@ -26,6 +29,14 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
         dispatch(toggleChallengeState({ id, type }));
     };
 
+    const handleCardClick = (challenge) => {
+        // 선택한 카드의 데이터를 Redux store에 저장
+        dispatch(setSelectedChallenge(challenge));
+
+        // 해당 카드의 상세 모달 페이지로 이동
+        navigate(`/challenges/${challenge.id}`);
+    };
+
     return (
         <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
             <h2 className='card rounded-b-none bg-point-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
@@ -39,12 +50,13 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] md:min-h-[94px] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
                                             : 'border-neutral-300'
                                     }`}
+                                    onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                                 >
                                     {challenge ? (
                                         <>
