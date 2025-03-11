@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { getChallenges } from '../../../utils/localStorage';
 
-const PopularChallenges = ({ challenges }) => {
+const PopularChallenges = () => {
     const [currentChallenges, setCurrentChallenges] = useState([]);
     // const [challengeIndex, setChallengeIndex] = useState(0);
     const allClgList = getChallenges();
@@ -18,18 +18,18 @@ const PopularChallenges = ({ challenges }) => {
         return [];
     }, [allClgList]);
 
-    useEffect(() => {
-        // sortedChallenges는 useMemo에서 메모이제이션된 값
-        setCurrentChallenges(sortedChallenges.slice(0, 5));
-    }, [sortedChallenges]); // sortedChallenges만 의존성으로 설정
+    // useEffect(() => {
+    //     // sortedChallenges는 useMemo에서 메모이제이션된 값
+    //     setCurrentChallenges(sortedChallenges.slice(0, 5));
+    // }, [sortedChallenges]); // sortedChallenges만 의존성으로 설정
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setHighlightIndex((prev) => (prev + 1) % 5); // 0~4 순환
-        }, 2000); // 2초마다 변경
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setHighlightIndex((prev) => (prev + 1) % 5); // 0~4 순환
+    //     }, 2000); // 2초마다 변경
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     // const handlePrevChallenge = () => {
     //     setChallengeIndex(

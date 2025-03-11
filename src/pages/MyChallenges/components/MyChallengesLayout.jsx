@@ -12,6 +12,8 @@ const MyChallengesLayout = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
 
+    console.log(challenges);
+
     // 참여한 챌린지 불러오기
     useEffect(() => {
         dispatch(getJoinedChallenge());

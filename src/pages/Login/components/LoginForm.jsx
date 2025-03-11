@@ -4,7 +4,7 @@ import pic3 from '../img/kakao_login_large_wide 1.svg';
 import pic4 from '../img/kakao_login_large_wide 2.svg';
 
 const LoginForm = () => {
-    const { email, setEmail, password, setPassword, error, handleSubmit } =
+    const { userId, setUserId, password, setPassword, error, handleSubmit } =
         useLogin();
 
     return (
@@ -17,8 +17,8 @@ const LoginForm = () => {
                     type='email'
                     placeholder='이메일'
                     className='input-field main-text w-full h-10'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
                 />
                 <input
                     type='password'
