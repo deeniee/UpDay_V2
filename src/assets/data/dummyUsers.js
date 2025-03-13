@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { getRandomUserImg } from '../../utils/getRandomUserImg';
 
 export const dummyUsers = [
@@ -275,7 +276,7 @@ export const updateUserImages = async (users) => {
         users.map(async (user) => {
             if (user.userImg === '') {
                 // 이미지가 비어있다면 랜덤 이미지를 가져옴
-                const randomImg = await getRandomUserImg([user]); // 배열로 전달
+                const randomImg = await getRandomUserImg('일상인물사진'); // 배열로 전달
                 user.userImg = randomImg[0].userImg; // userImg에 이미지 URL을 할당
             }
             return user;

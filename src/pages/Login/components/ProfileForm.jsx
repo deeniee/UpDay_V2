@@ -1,14 +1,12 @@
 import useProfileSetup from '../hooks/UseProfileSetup';
-import pic1 from '../img/Group 195.svg';
-import pic2 from '../img/Group 145.svg';
 
 const ProfileForm = () => {
     const {
-        userNickname,
+        nickname,
         userImg,
         error,
         isModalOpen,
-        setUserNicknameState,
+        setNicknameState,
         handleImageUpload,
         handleSubmit,
         closeModal,
@@ -49,12 +47,12 @@ const ProfileForm = () => {
                 </div>
 
                 <div className='relative flex flex-col gap-1 w-full h-full'>
-                    <label htmlFor='userNickname'>닉네임</label>
+                    <label htmlFor='nickname'>닉네임</label>
                     <input
-                        type='userNickname'
+                        type='nickname'
                         placeholder='6자 이내'
-                        value={userNickname}
-                        onChange={(e) => setUserNicknameState(e.target.value)}
+                        value={nickname}
+                        onChange={(e) => setNicknameState(e.target.value)}
                         className='input-field w-full h-10'
                     />
                     {error && (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getCategoryIcon } from '../../../utils/categoryList';
@@ -9,11 +9,26 @@ const PopularChallenges = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [currentChallenges, setCurrentChallenges] = useState([]);
-    // const [challengeIndex, setChallengeIndex] = useState(0);
-    const allClgList = getChallenges();
+    const [allClgList, setAllClgList] = useState(getChallenges());
     const [highlightIndex, setHighlightIndex] = useState(0);
+    const allClgListRef = useRef(allClgList);
 
-    // useMemo를 사용하여 allClgList의 변경 시에만 계산
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const newClgList = getChallenges();
+            if (
+                JSON.stringify(newClgList) !==
+                JSON.stringify(allClgListRef.current)
+            ) {
+                setAllClgList(newClgList);
+                allClgListRef.current = newClgList;
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
     const sortedChallenges = useMemo(() => {
         if (allClgList && allClgList.length > 0) {
             return [...allClgList].sort(
@@ -24,14 +39,13 @@ const PopularChallenges = () => {
     }, [allClgList]);
 
     useEffect(() => {
-        // sortedChallenges는 useMemo에서 메모이제이션된 값
         setCurrentChallenges(sortedChallenges.slice(0, 5));
-    }, []);
+    }, [sortedChallenges]);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setHighlightIndex((prev) => (prev + 1) % 5); // 0~4 순환
-        }, 2000); // 2초마다 변경
+            setHighlightIndex((prev) => (prev + 1) % 5);
+        }, 2000);
 
         return () => clearInterval(interval);
     }, []);
