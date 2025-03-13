@@ -9,7 +9,6 @@ import Intro from './pages/Intro/Intro';
 import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
 import MyChallenges from './pages/MyChallenges/MyChallenges';
-import UserChallengeModal from './pages/MyPage/components/UserChallengeModal';
 import AllChallenges from './pages/AllChallenges/AllChallenges';
 import ChallengeDetail from './pages/ChallengeDetail/ChallengeDetail';
 import Signup from './pages/Login/Signup';
@@ -31,9 +30,7 @@ function App() {
                     path='challenges/:id'
                     element={<ChallengeDetail />}
                 ></Route>
-                <Route path='/my-challenges' element={<MyChallenges />}>
-                    <Route path=':id/edit' element={<UserChallengeModal />} />
-                </Route>
+                <Route path='/my-challenges' element={<MyChallenges />}></Route>
                 <Route path='/mypage' element={<MyPage />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/profile' element={<ProfileSetup />} />

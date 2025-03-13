@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getJoinedChallenge } from '../../../store/features/challengeSlice';
+import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
 const MyChallengesLayout = () => {
@@ -11,8 +11,9 @@ const MyChallengesLayout = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
 
-    // Redux에서 challenges 가져오기
-    const challenges = useSelector((state) => state.challenge.joinedChallenges);
+    const challenges = useSelector(
+        (state) => state.userChallenge.joinedChallenges
+    );
 
     // 참여한 챌린지 불러오기
     useEffect(() => {

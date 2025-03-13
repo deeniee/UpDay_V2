@@ -4,7 +4,6 @@ import PopularChallenges from './PopularChallenges';
 import OngoingChallenges from './OngoingChallenges';
 import ChallengeCategory from './ChallengeCategory';
 import UserInfo from './UserInfo';
-import { dummyChallenges } from '../../../assets/data/dummyChallenges';
 import { getCurrentUserData } from '../../../utils/localStorage';
 import { calcActiveDays } from '../../../utils/calcDate';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HiFire, HiDocumentCheck, HiMiniTrophy } from 'react-icons/hi2';
 import { FaStar } from 'react-icons/fa6';
-import { getJoinedChallenge } from '../../../store/features/challengeSlice';
+import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 
 export default function UserReport() {
     const dispatch = useDispatch();
