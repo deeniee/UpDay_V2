@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa6';
+import { setSelectedChallenge } from '../../../store/features/challengeSlice';
 import {
+    getOngoingChallenge,
     toggleChallengeState,
-    setSelectedChallenge,
-    getJoinedChallenge,
-} from '../../../store/features/challengeSlice';
+} from '../../../store/features/userChallengeSlice';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { calcPassedDays } from '../../../utils/calcDate';
 
@@ -14,18 +14,23 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const ongoingChallenges = useSelector(
-        (state) => state.challenge.ongoingChallenges
+        (state) => state.userChallenge.ongoingChallenges
     );
+    const userId = localStorage.getItem('loggedInUser'); // 현재 로그인한 사용자 ID
 
     useEffect(() => {
-        dispatch(getJoinedChallenge()); // 액션 디스패치
+        dispatch(getOngoingChallenge());
     }, [dispatch]);
 
     const filteredChallenges = ongoingChallenges
         ? [...ongoingChallenges].sort((a, b) => {
-              const daysA = calcPassedDays(a.joinDate);
-              const daysB = calcPassedDays(b.joinDate);
-              return daysA - daysB; // 날짜 기준 오름차순 정렬
+              const daysA = calcPassedDays(
+                  a.participants.find((p) => p.userId === userId)?.joinDate
+              );
+              const daysB = calcPassedDays(
+                  b.participants.find((p) => p.userId === userId)?.joinDate
+              );
+              return daysA - daysB;
           })
         : [];
 
@@ -84,7 +89,11 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                     </div>
                                                     <span className='sub-text text-main-500 font-semibold'>
                                                         {calcPassedDays(
-                                                            challenge.joinDate
+                                                            challenge.participants.find(
+                                                                (p) =>
+                                                                    p.userId ===
+                                                                    userId
+                                                            )?.joinDate
                                                         )}
                                                         일 째
                                                     </span>
@@ -116,7 +125,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                         {filteredChallenges.length > 0 &&
                             filteredChallenges.length < 5 && (
                                 <div className='w-full min-h-[56px] md:h-[7.8vh] flex justify-center items-center main-text text-neutral-500'>
-                                    챌린지를 더 추가해보세요!
+                                    다른 챌린지도 도전해보는 건 어때요?
                                 </div>
                             )}
                     </ul>

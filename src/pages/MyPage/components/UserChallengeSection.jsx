@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getJoinedChallenge } from '../../../store/features/challengeSlice';
+import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 import UserChallengeSearch from './UserChallengeSearch';
 import UserChallengeList from './UserChallengeList';
 

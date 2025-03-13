@@ -11,7 +11,7 @@ const ChallengeGridView = ({
     const [noResults, setNoResults] = useState(false); // 결과가 없을 때 메시지 처리 상태
 
     useEffect(() => {
-        const storedChallenges = challenges;
+        const storedChallenges = challenges || [];
 
         // 검색 결과가 있을 경우 검색 결과만 사용
         if (searchResults && searchResults.length > 0) {
@@ -26,7 +26,7 @@ const ChallengeGridView = ({
         }
 
         // 정렬된 결과가 있고 선택된 카테고리로 필터링
-        if (sortedResults && sortedResults.length > 0) {
+        if (sortedResults?.length > 0) {
             const filtered =
                 activeCategory === '전체'
                     ? sortedResults
@@ -46,7 +46,7 @@ const ChallengeGridView = ({
                   );
 
         setFilteredChallenges(filtered);
-        setNoResults(filtered.length === 0); // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
+        setNoResults((filtered?.length ?? 0) === 0); // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
     }, [challenges, activeCategory, searchResults, sortedResults]); //
 
     return (

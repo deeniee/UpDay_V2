@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    setMyPosts,
+    getUserPosts,
     toggleChallengeState,
-    setSelectedChallenge,
     getJoinedChallenge,
-} from '../../../store/features/challengeSlice';
+} from '../../../store/features/userChallengeSlice';
+import { setSelectedChallenge } from '../../../store/features/challengeSlice';
 import { BsDot } from 'react-icons/bs';
 import { HiFire, HiDocumentCheck, HiOutlineDocument } from 'react-icons/hi2';
 import { IoClose } from 'react-icons/io5';
-import UserChallengeModal from './UserChallengeModal';
 
 export default function UserChallengeList({ filteredChallenges }) {
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ export default function UserChallengeList({ filteredChallenges }) {
     const [isModalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        dispatch(setMyPosts());
+        dispatch(getUserPosts());
         dispatch(getJoinedChallenge()); // 삭제 후 목록 새로고침
     }, [dispatch]); // `joinedChallenges`가 변경될 때마다 실행
 
@@ -151,11 +150,6 @@ export default function UserChallengeList({ filteredChallenges }) {
                     </li>
                 )}
             </ul>
-            {/* 모달 컴포넌트 */}
-            <UserChallengeModal
-                isOpen={isModalOpen}
-                onClose={() => setModalOpen(false)}
-            />
         </>
     );
 }

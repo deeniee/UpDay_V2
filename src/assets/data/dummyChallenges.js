@@ -540,16 +540,18 @@ const allChallenges = [
 ];
 
 export const dummyChallenges = allChallenges.map((challenge, index) => {
+    const loggedInUser = userData[0]?.userId.trim(); // 현재 로그인한 사용자 ID
+
     const updatedParticipants = challenge.participants.map((participant) =>
-        participant.userId !== userData.userId
-            ? {
+        String(participant.userId).trim() === String(loggedInUser).trim()
+            ? participant // 로그인한 사용자의 데이터는 그대로 둠
+            : {
                   ...participant,
                   joinDate: challenge.postDate,
                   clgJoin: true,
                   clgDoing: true,
                   clgDone: false,
               }
-            : participant
     );
 
     return {
