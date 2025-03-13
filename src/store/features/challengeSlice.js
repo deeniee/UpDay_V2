@@ -7,7 +7,6 @@ const saveChallengeToLocalStorage = (challenge) =>
     localStorage.setItem('clgList', JSON.stringify(challenge));
 
 const getInitialList = () => {
-    // 로컬 스토리지에서 챌린지 가져오기
     const savedChallenges = localStorage.getItem('clgList');
 
     // 로컬 스토리지에 clglist가 없으면
@@ -129,9 +128,15 @@ const challengeSlice = createSlice({
                 if (challenge.id === id) {
                     return {
                         ...challenge,
-                        clgJoin: true,
-                        clgDoing: true,
-                        joinDate: joinDate,
+                        participants: [
+                            ...challenge.participants, // 기존 참가자들 추가
+                            {
+                                userId: localStorage.getItem('loggedInUser'),
+                                clgJoin: true,
+                                clgDoing: true,
+                                joinDate: joinDate,
+                            },
+                        ],
                     };
                 }
                 return challenge;
@@ -149,9 +154,15 @@ const challengeSlice = createSlice({
                 if (challenge.id === id) {
                     return {
                         ...challenge,
-                        clgJoin: true,
-                        clgDoing: true,
-                        joinDate: joinDate,
+                        participants: [
+                            ...challenge.participants, // 기존 참가자들 추가
+                            {
+                                userId: localStorage.getItem('loggedInUser'),
+                                clgJoin: true,
+                                clgDoing: true,
+                                joinDate: joinDate,
+                            },
+                        ],
                     };
                 }
                 return challenge;
@@ -162,7 +173,7 @@ const challengeSlice = createSlice({
         // #3. 내 챌린지 (테스트 계정)
         // 작성한 챌린지 가져오는 액션
         setMyPosts: (state) => {
-            const currentUserId = getChallenges().userId;
+            const currentUserId = localStorage.getItem('loggedInUser');
             const currentChallenges = getChallenges();
 
             state.myPosts = currentChallenges.filter(
@@ -174,13 +185,16 @@ const challengeSlice = createSlice({
 
         // 참여한 챌린지 가져오는 액션
         getJoinedChallenge: (state) => {
-            const currentUserId = getChallenges().userId;
+            const currentUserId = localStorage.getItem('loggedInUser');
             const currentChallenges = getChallenges();
 
-            state.joinedChallenges = currentChallenges.filter(
-                (challenge) =>
-                    challenge.participants.userId === currentUserId &&
-                    challenge.participants.clgJoin
+            // 각 챌린지에 대해 참여한 사람을 필터링
+            state.joinedChallenges = currentChallenges.filter((challenge) =>
+                challenge.participants?.some(
+                    (participant) =>
+                        participant.userId === currentUserId &&
+                        participant.clgJoin === true
+                )
             );
 
             saveChallengeToLocalStorage(currentChallenges);
@@ -189,41 +203,53 @@ const challengeSlice = createSlice({
         // 참여한 챌린지 상태 변경 및 저장하는 액션
         toggleChallengeState: (state, action) => {
             const { id, type } = action.payload;
-            const currentUserId = getChallenges().userId;
-            const currentChallenges = getChallenges();
-
-            const updatedChallenges = currentChallenges.map((challenge) => {
-                if (challenge.participants.userId === currentUserId) {
-                    if (challenge.id === id) {
-                        if (type === 'doing') {
-                            return {
-                                ...challenge,
-                                clgDoing: !challenge.clgDoing,
-                                clgDone: challenge.clgDoing ? true : false,
-                            };
-                        } else if (type === 'done') {
-                            return {
-                                ...challenge,
-                                clgDone: !challenge.clgDone,
-                                clgDoing: false,
-                            };
+            const currentUserId = localStorage.getItem('loggedInUser');
+            const updatedChallenges = state.list.map((challenge) => {
+                if (challenge.participants) {
+                    challenge.participants = challenge.participants.map(
+                        (participant) => {
+                            if (participant.userId === currentUserId) {
+                                if (type === 'doing') {
+                                    participant.clgDoing =
+                                        !participant.clgDoing;
+                                    participant.clgDone = participant.clgDoing
+                                        ? true
+                                        : false;
+                                } else if (type === 'done') {
+                                    participant.clgDone = !participant.clgDone;
+                                    participant.clgDoing = false;
+                                }
+                            }
+                            return participant;
                         }
-                    }
+                    );
                 }
                 return challenge;
             });
 
-            saveChallengeToLocalStorage(currentChallenges);
-
+            // 상태 업데이트
             state.list = updatedChallenges;
-            state.myPosts = updatedChallenges.filter(
-                (challenge) => challenge.authorId === currentUserId
+
+            // ongoingChallenges 업데이트
+            state.ongoingChallenges = updatedChallenges.filter((challenge) =>
+                challenge.participants?.some(
+                    (participant) =>
+                        participant.userId === currentUserId &&
+                        participant.clgJoin === true &&
+                        participant.clgDoing === true // 진행 중인 상태만 필터링
+                )
             );
-            state.joinedChallenges = updatedChallenges.filter(
-                (challenge) =>
-                    challenge.authorId === currentUserId &&
-                    challenge.participants.clgJoin
+
+            // joinedChallenges 업데이트
+            state.joinedChallenges = updatedChallenges.filter((challenge) =>
+                challenge.participants?.some(
+                    (participant) =>
+                        participant.userId === currentUserId &&
+                        participant.clgJoin === true
+                )
             );
+
+            saveChallengeToLocalStorage(updatedChallenges);
         },
     },
 });

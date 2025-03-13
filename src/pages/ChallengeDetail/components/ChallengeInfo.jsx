@@ -1,10 +1,10 @@
-import React from 'react';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { getCategoryIllust } from '../../../utils/categoryList';
-import { calcDate } from '../../../utils/calcDate';
+import { getAuthorData, getParticipantDatas } from '../../../utils/getUserData';
+
 import ChallengeHeader from './ChallengeHeader';
 
-import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
 const ChallengeInfo = ({ postData }) => {
@@ -14,22 +14,28 @@ const ChallengeInfo = ({ postData }) => {
         duration,
         title,
         content,
-        userImg,
-        nickname,
+        authorId,
         postDate,
         postClicked,
         scrapCount,
         likesCount,
-        authorId,
-        clgJoin,
+        participants,
     } = postData;
 
-    const getDateCount = calcDate(postDate);
-    const formattedDate = format(postDate, 'yyyy.MM.dd');
+    const [participantsData, setParticipantsData] = useState([]);
+
+    useEffect(() => {
+        const participantIds = postData.participants;
+        const fetchParticipants = async () => {
+            const updatedParticipants = getParticipantDatas(participantIds);
+            setParticipantsData(updatedParticipants);
+        };
+        fetchParticipants();
+    }, [postData, participants]);
 
     return (
         <section className='card flex flex-col md:flex-row'>
-            <div className='relative card bg-neutral-300 w-auto aspect-[5/3] md:w-[40%] md:max-w-[480px] md:aspect-square m-3 md:m-4'>
+            <div className='relative card bg-neutral-300 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:aspect-square m-3 md:m-4'>
                 <img
                     src={getCategoryIllust(category)}
                     alt={category}
@@ -47,18 +53,22 @@ const ChallengeInfo = ({ postData }) => {
                     </div>
                 </div>
             </div>
-            <div className='w-auto md:w-[60%] flex flex-col gap-4 m-3 mt-0 md:m-4 md:ml-0'>
-                <ChallengeHeader postData={postData} />
-                <p className='main-text'>{content}</p>
-                <p className='main-text'>ai 추천 멘트</p>
+            <div className='w-auto md:w-[60%] flex flex-col justify-between m-3 mt-0 md:m-4 md:ml-0'>
+                <div className='space-y-3 md:space-y-4'>
+                    <ChallengeHeader postData={postData} />
+                    <p className='main-text h-20'>{content}</p>
+                </div>
+
                 <div className='flex items-center gap-2'>
                     <img
-                        src={userImg}
-                        alt={`${nickname}프로필 이미지`}
+                        src={getAuthorData(authorId).userImg}
+                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
                         className='w-8 h-8 object-cover rounded-full'
                     />
-                    <span className='main-text'>{nickname}</span>
-                    <span>해당유저 달성율</span>
+                    <span className='main-text'>
+                        {getAuthorData(authorId).nickname}
+                    </span>
+                    <span>가입일/달성율</span>
                 </div>
             </div>
         </section>

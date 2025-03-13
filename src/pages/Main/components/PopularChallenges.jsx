@@ -1,14 +1,34 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { getChallenges } from '../../../utils/localStorage';
+import { setSelectedChallenge } from '../../../store/features/challengeSlice';
 
 const PopularChallenges = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [currentChallenges, setCurrentChallenges] = useState([]);
-    // const [challengeIndex, setChallengeIndex] = useState(0);
-    const allClgList = getChallenges();
+    const [allClgList, setAllClgList] = useState(getChallenges());
     const [highlightIndex, setHighlightIndex] = useState(0);
+    const allClgListRef = useRef(allClgList);
 
-    // useMemo를 사용하여 allClgList의 변경 시에만 계산
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const newClgList = getChallenges();
+            if (
+                JSON.stringify(newClgList) !==
+                JSON.stringify(allClgListRef.current)
+            ) {
+                setAllClgList(newClgList);
+                allClgListRef.current = newClgList;
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
     const sortedChallenges = useMemo(() => {
         if (allClgList && allClgList.length > 0) {
             return [...allClgList].sort(
@@ -18,18 +38,25 @@ const PopularChallenges = () => {
         return [];
     }, [allClgList]);
 
-    // useEffect(() => {
-    //     // sortedChallenges는 useMemo에서 메모이제이션된 값
-    //     setCurrentChallenges(sortedChallenges.slice(0, 5));
-    // }, [sortedChallenges]); // sortedChallenges만 의존성으로 설정
+    useEffect(() => {
+        setCurrentChallenges(sortedChallenges.slice(0, 5));
+    }, [sortedChallenges]);
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setHighlightIndex((prev) => (prev + 1) % 5); // 0~4 순환
-    //     }, 2000); // 2초마다 변경
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setHighlightIndex((prev) => (prev + 1) % 5);
+        }, 2000);
 
-    //     return () => clearInterval(interval);
-    // }, []);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleCardClick = (challenge) => {
+        // 선택한 카드의 데이터를 Redux store에 저장
+        dispatch(setSelectedChallenge(challenge));
+
+        // 해당 카드의 상세 모달 페이지로 이동
+        navigate(`/challenges/${challenge.id}`);
+    };
 
     // const handlePrevChallenge = () => {
     //     setChallengeIndex(
@@ -62,6 +89,7 @@ const PopularChallenges = () => {
                             key={index}
                             className={`card w-full h-10 md:h-[5.4vh] md:min-h-[37px] md:max-h-[69px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
                                 ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}
+                            onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
                                 <span className='w-[4%] main-text'>

@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import useLogin from '../hooks/UseLogin';
-import pic3 from '../img/kakao_login_large_wide 1.svg';
-import pic4 from '../img/kakao_login_large_wide 2.svg';
 
 const LoginForm = () => {
     const { userId, setUserId, password, setPassword, error, handleSubmit } =

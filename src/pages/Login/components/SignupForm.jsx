@@ -2,14 +2,14 @@ import useSignup from '../hooks/UseSignup';
 
 const SignupForm = () => {
     const {
-        email,
+        userId,
         password,
-        emailError,
+        userIdError,
         pwError,
         passwordConfirm,
         pwConfirmError,
         error,
-        setEmailState,
+        setUserIdState,
         setPasswordState,
         setPasswordConfirmState,
         handleSubmit,
@@ -26,13 +26,13 @@ const SignupForm = () => {
                     <input
                         type='email'
                         placeholder='example@email.com'
-                        value={email}
-                        onChange={(e) => setEmailState(e.target.value)}
+                        value={userId}
+                        onChange={(e) => setUserIdState(e.target.value)}
                         className='input-field w-full h-10'
                     />
-                    {emailError && (
+                    {userIdError && (
                         <div className='sub-text w-full text-center text-red-400 absolute top-[68px] left-0'>
-                            {emailError}
+                            {userIdError}
                         </div>
                     )}
                     {error && (

@@ -2,7 +2,7 @@ export const userData = [
     {
         userId: 'daymaker@naver.com',
         password: 'test123!',
-        userNickname: '데이메이커',
+        nickname: '데이메이커',
         userImg:
             'https://img.freepik.com/free-photo/happy-smiling-young-woman-outdoor-with-headphones_624325-2774.jpg?t=st=1739337349~exp=1739340949~hmac=09682bb91bc32e12f74294761387c2d0b03eb8ba74bc808b70070949c2b90a8c&w=900',
         userIntroduction:

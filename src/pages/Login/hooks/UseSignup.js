@@ -4,10 +4,10 @@ import { setEmail, setPassword } from '../../../store/features/UserSlice';
 import { useNavigate } from 'react-router-dom';
 
 const useSignup = () => {
-    const [email, setEmailState] = useState('');
+    const [userId, setUserIdState] = useState('');
     const [password, setPasswordState] = useState('');
     const [passwordConfirm, setPasswordConfirmState] = useState('');
-    const [emailError, setEmailError] = useState('');
+    const [userIdError, setUserIdError] = useState('');
     const [pwError, setPwError] = useState('');
     const [pwConfirmError, setPwConfirmError] = useState('');
     const [error, setError] = useState('');
@@ -26,13 +26,13 @@ const useSignup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setEmailError('');
+        setUserIdError('');
         setPwError('');
         setPwConfirmError('');
         setError('');
 
-        if (!validateEmail(email)) {
-            setEmailError('올바른 이메일 형식으로 입력하세요.');
+        if (!validateEmail(userId)) {
+            setUserIdError('올바른 이메일 형식으로 입력하세요.');
             return;
         }
 
@@ -49,32 +49,32 @@ const useSignup = () => {
         }
 
         const users = JSON.parse(localStorage.getItem('users')) || [];
-        if (users.some((user) => user.email === email)) {
+        if (users.some((user) => user.userId === userId)) {
             setError('이미 등록된 아이디입니다.');
             return;
         }
 
-        if (clglist.some((challenge) => challenge.authorId === email)) {
+        if (clglist.some((challenge) => challenge.authorId === userId)) {
             setError('이미 등록된 아이디입니다.');
             return;
         }
 
         // 모든 조건을 통과하면 회원가입 처리
-        dispatch(setEmail(email));
+        dispatch(setEmail(userId));
         dispatch(setPassword(password));
 
         navigate('/profile');
     };
 
     return {
-        email,
+        userId,
         password,
-        emailError,
+        userIdError,
         pwError,
         passwordConfirm,
         pwConfirmError,
         error,
-        setEmailState,
+        setUserIdState,
         setPasswordState,
         setPasswordConfirmState,
         handleSubmit,

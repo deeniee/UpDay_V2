@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa6';
-import { toggleChallengeState } from '../../../store/features/challengeSlice';
+import {
+    toggleChallengeState,
+    setSelectedChallenge,
+    getJoinedChallenge,
+} from '../../../store/features/challengeSlice';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { calcPassedDays } from '../../../utils/calcDate';
 
@@ -12,6 +16,10 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     const ongoingChallenges = useSelector(
         (state) => state.challenge.ongoingChallenges
     );
+
+    useEffect(() => {
+        dispatch(getJoinedChallenge()); // 액션 디스패치
+    }, [dispatch]);
 
     const filteredChallenges = ongoingChallenges
         ? [...ongoingChallenges].sort((a, b) => {
@@ -24,6 +32,14 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     // 챌린지 상태 변경 핸들러
     const handleToggle = (id, type) => {
         dispatch(toggleChallengeState({ id, type }));
+    };
+
+    const handleCardClick = (challenge) => {
+        // 선택한 카드의 데이터를 Redux store에 저장
+        dispatch(setSelectedChallenge(challenge));
+
+        // 해당 카드의 상세 모달 페이지로 이동
+        navigate(`/challenges/${challenge.id}`);
     };
 
     return (
@@ -39,12 +55,13 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] md:min-h-[94px] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
                                             : 'border-neutral-300'
                                     }`}
+                                    onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                                 >
                                     {challenge ? (
                                         <>
@@ -104,7 +121,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             )}
                     </ul>
                 ) : (
-                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center  card rounded-t-none  main-text text-neutral-500'>
+                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card  main-text text-neutral-500'>
                         진행 중인 챌린지가 없습니다.
                     </div>
                 )

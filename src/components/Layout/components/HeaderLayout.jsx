@@ -18,6 +18,7 @@ const HeaderLayout = () => {
         '/main',
         '/mypage',
         '/login',
+        '/challenges/:id',
     ].includes(location.pathname);
 
     useEffect(() => {

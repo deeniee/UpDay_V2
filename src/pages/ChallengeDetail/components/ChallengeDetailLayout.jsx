@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { dummyChallenges } from '../../../assets/data/dummyChallenges';
+import { getParticipantDatas } from '../../../utils/getUserData';
 
 import ChallengeInfo from './ChallengeInfo';
 import ChallengeActions from './ChallengeActions';
+import ChallengeComments from './ChallengeComments';
 
 export default function ChallengeDetail() {
     const { id } = useParams();
@@ -17,6 +19,8 @@ export default function ChallengeDetail() {
         setPostData(selectedChallenge);
     }, [id]);
 
+    const [participantsData, setParticipantsData] = useState([]);
+
     // ChallengeHeader.jsx → 챌린지 제목, 카테고리, 진행 상태 등
     // ChallengeInfo.jsx → 설명, 목표, 주최자 정보 등
     // ChallengeActions.jsx → 참여하기 버튼, 공유, 스크랩 등의 인터랙션
@@ -27,10 +31,10 @@ export default function ChallengeDetail() {
     if (!postData) return <p>챌린지를 찾을 수 없습니다.</p>;
 
     return (
-        <main className='default-size flex-col'>
+        <main className='card default-size flex-col justify-start gap-4 md:h-[80vh]'>
             <ChallengeInfo postData={postData} />
-
             <ChallengeActions postData={postData} />
+            <ChallengeComments postData={postData} />
         </main>
     );
 }
