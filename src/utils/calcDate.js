@@ -19,7 +19,7 @@ export const calcPassedDays = (joinDate) => {
     return diffDays;
 };
 
-export const calcDate = (postDate) => {
+export const calcPassedDate = (postDate) => {
     const start = new Date(postDate);
     const now = new Date();
     const diffTime = Math.abs(now - start);

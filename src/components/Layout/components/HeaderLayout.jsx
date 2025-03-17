@@ -12,14 +12,16 @@ const HeaderLayout = () => {
     const location = useLocation();
 
     // 특정 페이지에만 z-index 높게 설정
-    const isHighZIndexPage = [
-        '/challenges',
-        '/',
-        '/main',
-        '/mypage',
-        '/login',
-        '/challenges/:id',
-    ].includes(location.pathname);
+    const isHighZIndexPage =
+        [
+            '/challenges',
+            '/',
+            '/main',
+            '/mypage',
+            '/login',
+            '/challenges/:id',
+        ].includes(location.pathname) ||
+        /^\/challenges\/\d+$/.test(location.pathname);
 
     useEffect(() => {
         const handleStorageChange = () => {
