@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { categoryList, getCategoryIcon } from '../../utils/categoryList';
 
 const ChallengeCategorySection = ({
@@ -8,12 +8,19 @@ const ChallengeCategorySection = ({
     setSearchResults,
 }) => {
     const navigate = useNavigate();
+    const location = useLocation(); // 현재 URL 경로 가져오기
+    const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
+
     const handleCategoryClick = (category) => {
         setActiveCategory(category); // 부모 컴포넌트에 선택한 카테고리 전달
         setSearchResults(null); // 카테고리 변경시 검색 결과 초기화
-        navigate(`/challenges/category/${category}`);
-    };
 
+        if (isMyChallengesPage) {
+            navigate(`/my-challenges/category/${category}`);
+        } else {
+            navigate(`/challenges/category/${category}`);
+        }
+    };
     const getCategoryStyle = (category) =>
         category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
 

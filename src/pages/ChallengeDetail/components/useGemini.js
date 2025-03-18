@@ -33,31 +33,38 @@ const useGemini = () => {
                     }),
                 });
 
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        console.warn(
+                            `⚠️ 429 오류 발생, ${retryCount + 1}번째 재시도`
+                        );
+                        retryCount++;
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, RETRY_DELAY * retryCount)
+                        ); // 재시도 시 대기 시간 증가
+                        continue;
+                    }
+                    throw new Error(`HTTP 오류: ${res.status}`);
+                }
+
                 const data = await res.json();
-                console.log('📌 API 응답 데이터:', data); // 디버깅용 로그 추가
+                console.log('📌 API 응답 데이터:', data);
 
                 if (data?.candidates && data.candidates.length > 0) {
-                    let responseText = data.candidates[0].content.parts[0].text;
-
-                    setLoading(false);
-                    return responseText;
+                    return {
+                        success: true,
+                        message: data.candidates[0].content.parts[0].text,
+                    };
                 } else {
-                    setLoading(false);
-                    return '재밌는 챌린지였어요.';
+                    return { success: false, message: '재밌는 챌린지였어요.' };
                 }
             } catch (error) {
-                console.error('API 요청 실패:', error);
-                if (error?.code === 429) {
-                    retryCount++;
-                    await new Promise((resolve) =>
-                        setTimeout(resolve, RETRY_DELAY)
-                    );
-                } else {
-                    setLoading(false);
-                    return '오류 발생';
-                }
+                console.error('❌ API 요청 실패:', error);
+                return { success: false, message: '오류 발생' };
             }
         }
+
+        return { success: false, message: '최대 재시도 횟수를 초과했습니다.' };
     };
 
     return { loading, generateRecommendation };

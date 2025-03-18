@@ -9,7 +9,7 @@ import {
 import LoginRequiredModal from '../common/components/LoginRequiredModal';
 import useModal from '../common/hooks/useModal';
 import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
-import { calcDate } from '../../utils/calcDate';
+import { calcPassedDate } from '../../utils/calcDate';
 import { getAuthorData } from '../../utils/getUserData';
 
 import { BsDot } from 'react-icons/bs';
@@ -97,7 +97,7 @@ const ChallengeList = ({ cardData }) => {
                         {title}
                     </p>
                     <div className='sub-text flex justify-end items-center gap-1 md:gap-1.5 ml-1 md:ml-2'>
-                        <span>{calcDate(postDate)}</span>
+                        <span>{calcPassedDate(postDate)}</span>
                         <BsDot className='-mx-0.5' />
                         <div className='flex items-center gap-0.5 md:gap-1'>
                             <IoBookmarks className='text-point-600' />

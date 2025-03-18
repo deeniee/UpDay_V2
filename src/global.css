@@ -36,7 +36,7 @@
     }
 
     .btn {
-        @apply border p-1.5 flex justify-center items-center font-bold text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
+        @apply border p-1.5 flex justify-center items-center font-bold h-[30px] md:h-[34px] text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
     }
     .btn-primary {
         @apply border-main-500 bg-main-500 text-neutral-100 hover:border-main-600 hover:bg-main-600;
@@ -58,6 +58,9 @@
     }
     .btn-neutral-3 {
         @apply border-neutral-600 bg-neutral-100 text-neutral-600 hover:border-neutral-700 hover:bg-neutral-700 hover:text-neutral-100;
+    }
+    .btn-action {
+        @apply border-transparent bg-transparent text-neutral-600 hover:text-neutral-700;
     }
 
     .badge {

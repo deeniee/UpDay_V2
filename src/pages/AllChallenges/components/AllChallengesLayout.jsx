@@ -36,10 +36,16 @@ const AllChallengesLayout = () => {
     // 카테고리 변경 시, 검색 실행
     useEffect(() => {
         if (category) {
-            setActiveCategory(category);
-            handleSearch(searchTerm, category); // 카테고리 변경 시 검색 실행
+            setActiveCategory(category); // URL로부터 카테고리 값 업데이트
         }
-    }, [category, handleSearch, searchTerm]);
+    }, [category]); // URL 카테고리 파라미터가 변경될 때마다 실행
+
+    // 카테고리나 검색어가 변경될 때만 검색을 실행
+    useEffect(() => {
+        if (searchTerm || activeCategory !== '전체') {
+            handleSearch(searchTerm, activeCategory);
+        }
+    }, [activeCategory, searchTerm, handleSearch]); // 카테고리 또는 검색어 변경 시 실행
 
     return (
         <ChallengeListContainer
