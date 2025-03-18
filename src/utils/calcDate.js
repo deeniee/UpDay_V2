@@ -1,8 +1,7 @@
 import { format } from 'date-fns';
 import { getCurrentUserData } from './localStorage';
 
-export const calcActiveDays = () => {
-    const user = getCurrentUserData();
+export const calcActiveDays = (user) => {
     const signUpDate = new Date(user.signupDate);
     const today = new Date();
     const diffDays =

@@ -30,7 +30,9 @@ function App() {
                     path='challenges/:id'
                     element={<ChallengeDetail />}
                 ></Route>
-                <Route path='/my-challenges' element={<MyChallenges />}></Route>
+                <Route path='/my-challenges' element={<MyChallenges />}>
+                    <Route path='category/:category' element={null} />
+                </Route>
                 <Route path='/mypage' element={<MyPage />} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/profile' element={<ProfileSetup />} />

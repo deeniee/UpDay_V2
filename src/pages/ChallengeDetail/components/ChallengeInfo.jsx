@@ -37,30 +37,22 @@ const ChallengeInfo = ({ postData }) => {
 
     return (
         <section className='flex flex-col md:flex-row'>
-            <div className='card bg-neutral-300 w-auto aspect-[5/3] md:w-[45%] md:max-w-[420px] md:aspect-square m-3 md:m-4 md:mb-10'>
+            <div className='card bg-neutral-300 w-auto aspect-[5/3] md:w-[45%] md:max-w-[420px] md:aspect-square m-3 md:m-4'>
                 <img
                     src={getCategoryIllust(category)}
                     alt={category}
                     className='w-full p-4 aspect-[5/3] md:aspect-square'
                 />
             </div>
-            <div className='w-auto md:w-[60%] flex flex-col justify-between m-3 mt-0 md:m-4 md:ml-0'>
-                <div className='space-y-2'>
+            <div className='flex flex-col w-auto md:w-[60%] justify-between m-3 my-0 md:m-4 md:ml-0'>
+                <div className='flex flex-col gap-3 mb-3'>
                     <ChallengeHeader postData={postData} />
                     <p className='main-text overflow-hidden'>{content}</p>
                 </div>
-
-                <div className='flex justify-end items-center gap-2 mt-2 md:mt-0'>
-                    <img
-                        src={getAuthorData(authorId).userImg}
-                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
-                        className='w-6 md:w-8 aspect-square object-cover rounded-full'
-                    />
-                    <span className='main-text'>
-                        {getAuthorData(authorId).nickname}
-                    </span>
-                    <span className='main-text'>{calcActiveDays()}</span>
-                </div>
+                <ChallengeActions
+                    scrapCount={scrapCount}
+                    likesCount={likesCount}
+                />
             </div>
         </section>
     );

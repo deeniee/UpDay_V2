@@ -12,42 +12,44 @@ const ChallengeGridView = ({
 
     useEffect(() => {
         const storedChallenges = challenges || [];
+        let filtered = [];
 
         // 검색 결과가 있을 경우 검색 결과만 사용
         if (searchResults && searchResults.length > 0) {
-            const filtered =
+            filtered =
                 activeCategory === '전체'
                     ? searchResults
                     : searchResults.filter(
                           (ch) => ch.category === activeCategory
                       );
-            setFilteredChallenges(filtered);
-            return;
         }
-
-        // 정렬된 결과가 있고 선택된 카테고리로 필터링
-        if (sortedResults?.length > 0) {
-            const filtered =
+        // 정렬된 결과가 있을 경우
+        else if (sortedResults?.length > 0) {
+            filtered =
                 activeCategory === '전체'
                     ? sortedResults
                     : sortedResults.filter(
                           (ch) => ch.category === activeCategory
                       );
-            setFilteredChallenges(filtered);
-            return;
+        }
+        // 기본 챌린지 사용
+        else {
+            filtered =
+                activeCategory === '전체'
+                    ? storedChallenges
+                    : storedChallenges.filter(
+                          (ch) => ch.category === activeCategory
+                      );
         }
 
-        // 아니면 카테고리 필터링 후 결과를 설정
-        const filtered =
-            activeCategory === '전체'
-                ? storedChallenges
-                : storedChallenges.filter(
-                      (ch) => ch.category === activeCategory
-                  );
+        // filteredChallenges가 실제로 변경될 때만 상태 업데이트
+        if (filtered !== filteredChallenges) {
+            setFilteredChallenges(filtered);
+        }
 
-        setFilteredChallenges(filtered);
-        setNoResults((filtered?.length ?? 0) === 0); // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
-    }, [challenges, activeCategory, searchResults, sortedResults]); //
+        // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
+        setNoResults(filtered.length === 0);
+    }, [challenges, activeCategory, searchResults, sortedResults]);
 
     return (
         <>
@@ -65,4 +67,5 @@ const ChallengeGridView = ({
         </>
     );
 };
+
 export default ChallengeGridView;

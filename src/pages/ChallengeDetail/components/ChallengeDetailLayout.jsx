@@ -31,9 +31,8 @@ export default function ChallengeDetail() {
     if (!postData) return <p>챌린지를 찾을 수 없습니다.</p>;
 
     return (
-        <main className='card default-size md:h-full flex-col justify-start gap-4 md:h-[80vh]'>
+        <main className='card default-size md:h-full flex-col justify-start gap-3 md:gap-0 md:h-[80vh]'>
             <ChallengeInfo postData={postData} />
-            <ChallengeActions postData={postData} />
             <ChallengeComments postData={postData} />
         </main>
     );

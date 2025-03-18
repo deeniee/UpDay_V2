@@ -7,15 +7,7 @@ import { calcActiveDays } from '../../../utils/calcDate';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
 const ChallengeHeader = ({ postData }) => {
-    const {
-        category,
-        duration,
-        title,
-        postDate,
-        postClicked,
-        scrapCount,
-        likesCount,
-    } = postData;
+    const { category, duration, title, authorId, postDate } = postData;
 
     const formattedDate = format(postDate, 'yyyy.MM.dd');
 
@@ -26,7 +18,7 @@ const ChallengeHeader = ({ postData }) => {
                     <img
                         src={getCategoryIcon(category)}
                         alt={category}
-                        className='w-5 md:w-6'
+                        className='w-6 md:w-7'
                     />
                     <div className='badge'>{category}</div>
 
@@ -34,16 +26,15 @@ const ChallengeHeader = ({ postData }) => {
                         {duration}
                     </span>
                 </div>
-                <div className='main-text flex items-center gap-1 md:gap-1.5'>
-                    <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoBookmarks className='text-point-500 ' />
-                        {scrapCount}
-                    </div>
-
-                    <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoHeart className='text-point-500 size-3.5' />
-                        {likesCount}
-                    </div>
+                <div className='flex justify-end items-center gap-2 mt-2 md:mt-0'>
+                    <img
+                        src={getAuthorData(authorId).userImg}
+                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
+                        className='w-6 md:w-7 aspect-square object-cover rounded-full'
+                    />
+                    <span className='main-text'>
+                        {getAuthorData(authorId).nickname}
+                    </span>
                 </div>
             </div>
             <div className='flex justify-between'>

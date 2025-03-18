@@ -43,13 +43,17 @@ const MyChallengesLayout = () => {
         [activeCategory, challenges]
     );
 
-    // 카테고리 변경 시, 검색 실행
+    // 카테고리 또는 검색어 변경 시, 검색 실행
+    useEffect(() => {
+        handleSearch(searchTerm, activeCategory); // 카테고리 변경 시 검색 실행
+    }, [activeCategory, searchTerm, handleSearch]); // 카테고리 또는 검색어 변경 시 실행
+
+    // 카테고리 변경 시, activeCategory 상태 업데이트
     useEffect(() => {
         if (category) {
             setActiveCategory(category);
-            handleSearch(searchTerm, category); // 카테고리 변경 시 검색 실행
         }
-    }, [category, handleSearch, searchTerm]);
+    }, [category]); // URL 카테고리 파라미터가 변경될 때마다 실행
 
     return (
         <ChallengeListContainer
