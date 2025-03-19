@@ -58,13 +58,14 @@ const HeaderLayout = () => {
     }, []);
 
     useEffect(() => {
-        // localStorage에서 로그인한 사용자 정보가 있다면 상태 초기화
+        // 페이지가 처음 렌더링될 때 localStorage에서 로그인 정보를 가져옴
         const loggedInUser = localStorage.getItem('loggedInUser');
+
+        // 로그인 정보가 있을 경우에만 Redux에 상태 설정
         if (loggedInUser) {
-            // 상태를 Redux에 저장
-            dispatch(setUser({ userID: loggedInUser }));
+            dispatch(setUser({ userId: loggedInUser }));
         }
-    }, [dispatch]);
+    }, [dispatch]); // 한 번만 실행되도록 빈 배열로 설정 (리렌더링 시 실행되지 않음)
 
     return (
         <div
