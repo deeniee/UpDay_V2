@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IoClose, IoMenu } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
 
-const MobileNav = ({
-    isMenuOpen,
-    setIsMenuOpen,
-    loggedInUser,
-    handleLogout,
-}) => {
+const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
+    const loggedInUser = useSelector((state) => state.user.userId);
+
     return (
         <>
             {isMenuOpen ? (

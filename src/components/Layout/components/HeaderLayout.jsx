@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
+import { setUser } from '../../../store/features/UserSlice';
 
 const HeaderLayout = () => {
-    const [loggedInUser, setLoggedInUser] = useState(
-        localStorage.getItem('loggedInUser')
-    );
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // 특정 페이지에만 z-index 높게 설정
     const isHighZIndexPage =
@@ -24,24 +24,28 @@ const HeaderLayout = () => {
         /^\/challenges\/\d+$/.test(location.pathname);
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setLoggedInUser(localStorage.getItem('loggedInUser'));
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
-    }, []);
-
-    useEffect(() => {
         setIsMenuOpen(false);
     }, [location.pathname]);
 
     const handleLogout = () => {
+        // localStorage에서 로그인 정보 제거
         localStorage.removeItem('loggedInUser');
-        setLoggedInUser(null);
+
+        // Redux 상태 초기화
+        dispatch(
+            setUser({
+                userId: '',
+                password: '',
+                userNickname: '',
+                userImg: '',
+            })
+        );
+
+        // 로그아웃 후 홈으로 이동
         navigate('/');
         setIsMenuOpen(false);
     };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
@@ -52,6 +56,15 @@ const HeaderLayout = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        // localStorage에서 로그인한 사용자 정보가 있다면 상태 초기화
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            // 상태를 Redux에 저장
+            dispatch(setUser({ userID: loggedInUser }));
+        }
+    }, [dispatch]);
 
     return (
         <div
@@ -70,16 +83,12 @@ const HeaderLayout = () => {
                 </Link>
 
                 {/* 데스크톱 메뉴 */}
-                <DesktopNav
-                    loggedInUser={loggedInUser}
-                    handleLogout={handleLogout}
-                />
+                <DesktopNav handleLogout={handleLogout} />
 
                 {/* 모바일 메뉴 */}
                 <MobileNav
                     isMenuOpen={isMenuOpen}
                     setIsMenuOpen={setIsMenuOpen}
-                    loggedInUser={loggedInUser}
                     handleLogout={handleLogout}
                 />
             </header>

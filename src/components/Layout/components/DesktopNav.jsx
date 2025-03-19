@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const DesktopNav = ({ loggedInUser, handleLogout }) => {
+const DesktopNav = ({ handleLogout }) => {
+    const loggedInUser = useSelector((state) => state.user.userId);
+
     return (
         <nav className='hidden md:flex items-center h-full text-sm font-medium'>
             <ul className='flex gap-10'>

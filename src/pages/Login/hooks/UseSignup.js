@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEmail, setPassword } from '../../../store/features/UserSlice';
+import { setUser, setPassword } from '../../../store/features/UserSlice';
 import { useNavigate } from 'react-router-dom';
 
 const useSignup = () => {
@@ -60,7 +60,7 @@ const useSignup = () => {
         }
 
         // 모든 조건을 통과하면 회원가입 처리
-        dispatch(setEmail(userId));
+        dispatch(setUser(userId));
         dispatch(setPassword(password));
 
         navigate('/profile');

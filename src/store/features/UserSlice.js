@@ -1,18 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    email: '',
-    password: '',
-    userNickname: '',
-    userImg: '',
-};
-
 const userSlice = createSlice({
     name: 'user',
-    initialState,
+    initialState: {
+        userId: '',
+        password: '',
+        userNickname: '',
+        userImg: '',
+    },
     reducers: {
-        setEmail: (state, action) => {
-            state.email = action.payload;
+        setUser: (state, action) => {
+            // 전체 사용자 정보를 초기화하는 객체를 전달받아서 상태를 업데이트
+            const { userId, password, userNickname, userImg } = action.payload;
+            state.userId = userId;
+            state.password = password;
+            state.userNickname = userNickname;
+            state.userImg = userImg;
         },
         setPassword: (state, action) => {
             state.password = action.payload;
@@ -23,16 +26,10 @@ const userSlice = createSlice({
         setUserImg: (state, action) => {
             state.userImg = action.payload;
         },
-        setUser: (state, action) => {
-            state.email = action.payload.email;
-            state.password = action.payload.password;
-            state.userNickname = action.payload.userNickname;
-            state.userImg = action.payload.userImg;
-        },
     },
 });
 
-export const { setEmail, setPassword, setUserNickname, setUserImg, setUser } =
+export const { setUser, setPassword, setUserNickname, setUserImg } =
     userSlice.actions;
 
 export default userSlice.reducer;
