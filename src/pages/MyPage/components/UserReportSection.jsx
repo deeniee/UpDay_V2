@@ -6,7 +6,7 @@ import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 
 export default function UserReport() {
     const dispatch = useDispatch();
-    const TEST_ACCOUNT_EMAIL = 'test01@naver.com'; // 테스트 계정 이메일 고정
+    const TEST_ACCOUNT_EMAIL = 'daymaker@naver.com'; // 테스트 계정 이메일 고정
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [users, setUsers] = useState([]);
     const [isTestAccount, setIsTestAccount] = useState(false);
@@ -55,41 +55,25 @@ export default function UserReport() {
     // 테스트 계정이 아닐 경우
     if (!isTestAccount) {
         return (
-            <div className='relative flex flex-col gap-2'>
-                <h1 className='title'>업데이 리포트</h1>
-                <div className='card flex flex-row gap-2 p-6 w-full h-full md:h-[296px] justify-evenly items-center'>
-                    <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                        <p className='text-sm md:text-base font-semibold'>
-                            진행 중
-                        </p>
-                        <HiFire className='text-4xl md:text-6xl text-orange-400' />
-                        <p className='text-sm md:text-base font-bold opacity-0'>
-                            -
-                        </p>
+            <div className='flex flex-col'>
+                <div className='flex flex-row gap-2 p-4 w-full h-full justify-evenly items-center'>
+                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+                        <p className='main-text font-semibold'>진행 중</p>
+                        <HiFire className='text-3xl md:text-4xl text-main-600' />
                     </div>
-                    <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                        <p className='text-sm md:text-base font-semibold'>
-                            완료
-                        </p>
-                        <HiDocumentCheck className='text-4xl md:text-6xl text-green-400' />
-                        <p className='text-sm md:text-base font-bold opacity-0'>
-                            -
-                        </p>
+                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+                        <p className='main-text font-semibold'>완료</p>
+                        <HiDocumentCheck className='text-3xl md:text-4xl text-main-600' />
                     </div>
-                    <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-                        <p className='text-sm md:text-base font-semibold'>
-                            목표 달성율
-                        </p>
+                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+                        <p className='main-text font-semibold'>목표 달성율</p>
                         <div className='relative flex justify-center'>
-                            <HiMiniTrophy className='text-4xl md:text-6xl text-yellow-400' />
-                            <FaStar className='absolute text-neutral-100 text-xs top-1 md:text-lg md:top-2' />
+                            <HiMiniTrophy className='text-3xl md:text-4xl text-main-600' />
+                            <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1' />
                         </div>
-                        <p className='text-sm md:text-base font-bold opacity-0'>
-                            -
-                        </p>
                     </div>
                 </div>
-                <p className='absolute top-[80%] md:top-[78%] w-full px-[36px] text-xs md:text-sm text-center text-gray-500'>
+                <p className='w-full main-text text-center text-gray-500 whitespace-nowrap'>
                     테스트 계정이 아닌 경우, 해당 기능은 제한됩니다.
                 </p>
             </div>

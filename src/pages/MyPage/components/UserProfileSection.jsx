@@ -15,10 +15,10 @@ const UserProfile = () => {
 
     useEffect(() => {
         const fetchLoggedInUser = () => {
-            const loggedInUserEmail = localStorage.getItem('loggedInUser');
+            const loggedInUserId = localStorage.getItem('loggedInUser');
             const usersData = localStorage.getItem('users');
 
-            if (!loggedInUserEmail) {
+            if (!loggedInUserId) {
                 navigate('/login');
                 return;
             }
@@ -27,7 +27,7 @@ const UserProfile = () => {
                 try {
                     const users = JSON.parse(usersData);
                     const foundUser = users.find(
-                        (user) => user.email === loggedInUserEmail
+                        (user) => user.userId === loggedInUserId
                     );
 
                     if (foundUser) {
@@ -76,14 +76,14 @@ const UserProfile = () => {
                             />
                         )}
                     </div>
-                    <div className='w-full h-full flex flex-col items-start gap-4'>
-                        <div className='flex gap-6 md:gap-2 md:flex-col md:h-28'>
+                    <div className='w-full h-full flex flex-col items-start gap-4 md:gap-6'>
+                        <div className='flex gap-8 md:gap-4 md:flex-col md:h-28'>
                             <div className='flex flex-col gap-1 md:gap-2'>
                                 <p className='title'>
-                                    {loggedInUser.userNickname || '닉네임 없음'}
+                                    {loggedInUser.nickname || '닉네임 없음'}
                                 </p>
                                 <p className='main-text text-neutral-500'>
-                                    {loggedInUser.email || '이메일 없음'}
+                                    {loggedInUser.userId || '이메일 없음'}
                                 </p>
                             </div>
                             <div className='flex flex-col gap-2 md:gap-3'>

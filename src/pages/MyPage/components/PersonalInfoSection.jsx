@@ -3,37 +3,14 @@ import img1 from '../img/1.svg';
 import img2 from '../img/2.svg';
 import img3 from '../img/3.svg';
 import img4 from '../img/4.svg';
-
-// 비밀번호 유효성 검사 함수
-const validatePassword = (password) => {
-    if (password.length < 8) {
-        return '비밀번호는 8자 이상이어야 합니다.';
-    }
-    if (!/[a-z]/.test(password)) {
-        return '비밀번호에는 소문자가 하나 이상 포함되어야 합니다.';
-    }
-    if (!/[0-9]/.test(password)) {
-        return '비밀번호에는 숫자가 하나 이상 포함되어야 합니다.';
-    }
-    if (!/[!@#$%^&*]/.test(password)) {
-        return '비밀번호에는 특수 문자가 하나 이상 포함되어야 합니다.';
-    }
-    return null;
-};
-
-const validateNickname = (nickname) => {
-    if (nickname.length > 6) {
-        return '닉네임은 6글자 이내여야 합니다.';
-    }
-    return null;
-};
+import { validatePassword, validateNickname } from '../../../utils/validation';
 
 export default function PersonalInfo() {
     const handleRefresh = () => {
         window.location.reload();
     };
 
-    const loggedInUserEmail = localStorage.getItem('loggedInUser');
+    const loggedInUserId = localStorage.getItem('loggedInUser');
 
     const [users, setUsers] = useState(() => {
         try {
@@ -42,14 +19,14 @@ export default function PersonalInfo() {
             return [];
         }
     });
-    const loggedInUser = users.find((user) => user.email === loggedInUserEmail);
+    const loggedInUser = users.find((user) => user.userId === loggedInUserId);
 
     const [userInfo, setUserInfo] = useState({
-        email: '',
+        userId: '',
         passsword: '',
         confirmPassword: '',
         signupDate: '',
-        userNickname: '',
+        nickname: '',
         userImg: null,
         userIntroduction: '',
     });
@@ -58,7 +35,6 @@ export default function PersonalInfo() {
     const [nicknameError, setNicknameError] = useState('');
     const [editMode, setEditMode] = useState(false);
     const defaultImgs = useMemo(() => [img1, img2, img3, img4], []);
-    const [originalUserInfo, setOriginalUserInfo] = useState(null);
     const uploadPhotoInput = useRef(null);
 
     useEffect(() => {
@@ -76,9 +52,9 @@ export default function PersonalInfo() {
 
                 const updatedInfo = {
                     ...prev,
-                    email: loggedInUser.email || '',
+                    userId: loggedInUser.userId || '',
                     password: '',
-                    userNickname: loggedInUser.userNickname || '',
+                    nickname: loggedInUser.nickname || '',
                     signupDate: loggedInUser.signupDate || '',
                     userImg: initialUserImg,
                     userIntroduction: loggedInUser.userIntroduction || '',
@@ -91,29 +67,22 @@ export default function PersonalInfo() {
         }
     }, [loggedInUser, defaultImgs]);
 
-    const [challengeList, setChallengeList] = useState([]);
-
-    useEffect(() => {
-        const challenges = JSON.parse(localStorage.getItem('clgList')) || [];
-        setChallengeList(challenges);
-    }, []);
-
     const handleChange = (e) => {
         e.preventDefault();
-        const { name, value } = e.target;
-        setUserInfo((prev) => ({ ...prev, [name]: value }));
+        const { item, value } = e.target;
+        setUserInfo((prev) => ({ ...prev, [item]: value }));
 
-        if (name === 'nickname') {
+        if (item === 'nickname') {
             const error = validateNickname(value);
             setNicknameError(error || '');
         }
 
-        if (name === 'password') {
+        if (item === 'password') {
             const error = validatePassword(value);
             setPasswordError(error || '');
         }
 
-        if (name === 'confirmPassword') {
+        if (item === 'confirmPassword') {
             if (value !== userInfo.password) {
                 setPasswordError('비밀번호가 일치하지 않습니다.');
             } else {
@@ -125,25 +94,48 @@ export default function PersonalInfo() {
     const handleImageUpload = (e) => {
         e.preventDefault();
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const maxSize = 200; // 최대 크기 (200px)
+
+                let width = img.width;
+                let height = img.height;
+
+                // 비율 유지하며 크기 조정
+                if (width > height) {
+                    if (width > maxSize) {
+                        height *= maxSize / width;
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width *= maxSize / height;
+                        height = maxSize;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // 압축하여 JPEG 저장 (품질 70%)
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+
                 setUserInfo((prev) => ({
                     ...prev,
-                    userImg: reader.result,
+                    userImg: compressedDataUrl,
                 }));
-
-                // localStorage 즉시 업데이트
-                const updatedUsers = users.map((user) =>
-                    user.email === loggedInUserEmail
-                        ? { ...user, userImg: reader.result }
-                        : user
-                );
-                localStorage.setItem('users', JSON.stringify(updatedUsers));
-                setUsers(updatedUsers);
             };
-            reader.readAsDataURL(file);
-        }
+        };
     };
 
     const handleImageDelete = () => {
@@ -155,7 +147,7 @@ export default function PersonalInfo() {
         setUserInfo((prev) => ({ ...prev, userImg: randomImage }));
 
         const updatedUsers = users.map((user) =>
-            user.email === loggedInUserEmail
+            user.userId === loggedInUserId
                 ? { ...user, userImg: randomImage }
                 : user
         );
@@ -166,45 +158,29 @@ export default function PersonalInfo() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let error = validateNickname(userInfo.userNickname);
-        if (error) {
-            setNicknameError(error);
+        // 닉네임 유효성 검사 + 중복 검사 통합
+        const nicknameErrorMsg = validateNickname(userInfo.nickname);
+        if (nicknameErrorMsg) {
+            setNicknameError(nicknameErrorMsg);
             return;
         }
 
-        const isNicknameTaken = users.some(
-            (user) =>
-                user.userNickname === userInfo.userNickname &&
-                user.email !== loggedInUserEmail
-        );
-        if (isNicknameTaken) {
-            setNicknameError('이 닉네임은 이미 사용 중입니다.');
-            return;
-        }
-
-        if (passwordError) {
-            alert(passwordError);
-            return;
-        }
-
+        // 비밀번호 확인
         if (userInfo.password !== userInfo.confirmPassword) {
             alert('비밀번호가 일치하지 않습니다.');
             return;
         }
 
-        const currentUserId = loggedInUserEmail;
-        const newNickname = userInfo.userNickname;
-
+        // 기존 유저 정보 유지하면서 업데이트할 부분만 덮어쓰기
         const updatedUser = {
-            email: userInfo.email,
-            password: userInfo.password || loggedInUser.password, // 기존 비밀번호 유지
-            signupDate: userInfo.signupDate,
-            userNickname: userInfo.userNickname,
-            userImg: userInfo.userImg,
-            userIntroduction: userInfo.userIntroduction,
+            ...loggedInUser, // 기존 정보 유지
+            ...userInfo, // 새로 입력한 정보 적용
+            password: userInfo.password || loggedInUser.password, // 비밀번호 유지
         };
+
+        // 유저 목록 업데이트
         const updatedUsers = users.map((user) =>
-            user.email === userInfo.email ? updatedUser : user
+            user.userId === loggedInUserId ? updatedUser : user
         );
         localStorage.setItem('users', JSON.stringify(updatedUsers));
         setUsers(updatedUsers);
@@ -213,44 +189,37 @@ export default function PersonalInfo() {
         const currentChallenges = JSON.parse(
             localStorage.getItem('clgList') || '[]'
         );
+        const updatedChallenges = currentChallenges.map((challenge) =>
+            challenge.authorId === loggedInUserId
+                ? {
+                      ...challenge,
+                      nickname: userInfo.nickname,
+                      userImg: userInfo.userImg || challenge.userImg,
+                  }
+                : challenge
+        );
 
-        if (Array.isArray(currentChallenges)) {
-            const updatedChallenges = currentChallenges.map((challenge) => {
-                if (challenge.authorId === currentUserId) {
-                    return {
-                        ...challenge,
-                        userNickname: newNickname,
-                        userImg: userInfo.userImg || challenge.userImg,
-                    };
-                }
-                return challenge;
-            });
-            localStorage.setItem('clgList', JSON.stringify(updatedChallenges));
-        } else {
-            console.error('clgList는 배열 형식이어야 합니다.');
-        }
+        localStorage.setItem('clgList', JSON.stringify(updatedChallenges));
 
-        // 프로필 이미지 변경 후 화면 다시 렌더링
+        // 화면 갱신 및 수정 모드 종료
         handleRefresh();
         setEditMode(false);
     };
 
-    const handleEditMode = () => {
-        setOriginalUserInfo({ ...userInfo });
-        setEditMode(true);
-    };
+    // const handleEditMode = () => {
+    //     setOriginalUserInfo({ ...userInfo });
+    //     setEditMode(true);
+    // };
 
-    const handleCancel = () => {
-        setUserInfo(userInfo); // Reset userInfo to the original values
-        setEditMode(false);
-        setPasswordError('');
-        setNicknameError('');
-
-        // If a new photo was selected but not saved, clear the input
-        if (uploadPhotoInput.current) {
-            uploadPhotoInput.current.value = ''; // Clear the file input
-        }
-    };
+    // const handleCancel = () => {
+    //     setUserInfo(loggedInUser);
+    //     setEditMode(false);
+    //     setPasswordError('');
+    //     setNicknameError('');
+    //     if (uploadPhotoInput.current) {
+    //         uploadPhotoInput.current.value = ''; // Clear the file input
+    //     }
+    // };
 
     if (!loggedInUser) {
         return (
@@ -353,13 +322,13 @@ export default function PersonalInfo() {
                             <textarea
                                 id='userIntroduction'
                                 name='userIntroduction'
-                                rows={3}
+                                rows={4}
                                 value={userInfo.userIntroduction}
                                 onChange={handleChange}
-                                className='input-field sub-text w-full h-28'
+                                className='input-field sub-text w-full overflow-scroll scrollbar-none'
                             />
                         ) : (
-                            <p className='card h-28 main-text px-3 py-1.5 border border-neutral-400'>
+                            <p className='input-field card w-full  h-[78px] md:h-[94px] main-text border border-neutral-400 overflow-scroll scrollbar-none'>
                                 {userInfo.userIntroduction ||
                                     '아직 소개글을 작성하지 않았습니다.'}
                             </p>
@@ -380,9 +349,9 @@ export default function PersonalInfo() {
                             id='userNickname'
                             name='userNickname'
                             type='text'
-                            value={userInfo.userNickname}
+                            value={userInfo.nickname}
                             onChange={handleChange}
-                            className='input-field w-full focus:outline-poiny-500'
+                            className='input-field w-full focus:outline-point-500'
                             disabled={!editMode}
                         />
                         {nicknameError && (
@@ -403,9 +372,9 @@ export default function PersonalInfo() {
                             id='email'
                             name='email'
                             type='text'
-                            value={userInfo.email}
+                            value={userInfo.userId}
                             className='input-field w-full'
-                            readOnly
+                            disabled
                         />
                     </div>
                     {editMode && (
@@ -423,7 +392,7 @@ export default function PersonalInfo() {
                                 type='password'
                                 value={userInfo.password}
                                 onChange={handleChange}
-                                className='input-field w-full focus:outline-poiny-500'
+                                className='input-field w-full focus:outline-point-500'
                                 disabled={!editMode}
                             />
                             {passwordError && (
@@ -448,14 +417,14 @@ export default function PersonalInfo() {
                                 type='password'
                                 value={userInfo.confirmPassword}
                                 onChange={handleChange}
-                                className='input-field w-full focus:outline-poiny-500'
+                                className='input-field w-full focus:outline-point-500'
                                 disabled={!editMode}
                             />
                         </div>
                     )}
                 </div>
             </div>
-            <div className='flex justify-center gap-x-6'>
+            <div className='flex justify-center gap-x-6 mt-6'>
                 {!editMode ? (
                     <button
                         type='button'
