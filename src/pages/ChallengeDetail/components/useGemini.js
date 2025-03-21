@@ -35,12 +35,13 @@ const useGemini = () => {
 
                 if (!res.ok) {
                     if (res.status === 429) {
+                        let currentRetry = retryCount;
                         console.warn(
-                            `⚠️ 429 오류 발생, ${retryCount + 1}번째 재시도`
+                            `⚠️ 429 오류 발생, ${currentRetry + 1}번째 재시도`
                         );
-                        retryCount++;
+                        currentRetry++;
                         await new Promise((resolve) =>
-                            setTimeout(resolve, RETRY_DELAY * retryCount)
+                            setTimeout(resolve, RETRY_DELAY * currentRetry)
                         ); // 재시도 시 대기 시간 증가
                         continue;
                     }
