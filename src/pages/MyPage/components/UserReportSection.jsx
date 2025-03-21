@@ -81,33 +81,7 @@ export default function UserReport() {
     }
 
     return (
-        // <div className='flex flex-col gap-2 w-full h-full md:h-[32vh] md:min-h-[264px]'>
-        //     <h1 className='title'>업데이 리포트</h1>
-        //     <div className='card flex flex-row gap-2 p-6 w-full h-full justify-evenly items-center'>
-        //         <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-        //             <p className='main-text font-semibold'>진행 중</p>
-        //             <HiFire className='text-4xl md:text-6xl text-main-600' />
-        //             <p className='main-text font-semibold'>{numClgDoing}</p>
-        //         </div>
-        //         <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-        //             <p className='main-text font-semibold'>완료</p>
-        //             <HiDocumentCheck className='text-4xl md:text-6xl text-main-600' />
-        //             <p className='main-text font-semibold'>{numClgDone}</p>
-        //         </div>
-        //         <div className='flex flex-col justilfy-center items-center gap-6 w-[30%]'>
-        //             <p className='main-text font-semibold'>목표 달성율</p>
-        //             <div className='relative flex justify-center'>
-        //                 <HiMiniTrophy className='text-4xl md:text-6xl text-main-600' />
-        //                 <FaStar className='absolute text-neutral-100 text-xs top-1 md:text-lg md:top-2' />
-        //             </div>
-        //             <p className='main-text font-semibold'>
-        //                 {achievementRate}%
-        //             </p>
-        //         </div>
-        //     </div>
-        // </div>
-
-        <div className='flex flex-row gap-2 p-4 w-full h-full justify-evenly items-center'>
+        <div className='flex flex-row p-3 md:p-0 w-full h-full md:h-32 justify-evenly items-center'>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>진행 중</p>
                 <HiFire className='text-3xl md:text-4xl text-main-600' />

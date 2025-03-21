@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import img1 from '../img/1.svg';
-import img2 from '../img/2.svg';
-import img3 from '../img/3.svg';
-import img4 from '../img/4.svg';
+import img1 from '../../../assets/images/icons/pic_etc.svg';
+import img2 from '../../../assets/images/icons/pic_habit.svg';
+import img3 from '../../../assets/images/icons/pic_health.svg';
+import img4 from '../../../assets/images/icons/pic_study.svg';
 import { validatePassword, validateNickname } from '../../../utils/validation';
 
 export default function PersonalInfo() {
@@ -245,16 +245,14 @@ export default function PersonalInfo() {
                         프로필 사진
                     </label>
                     <div className='mt-2 flex items-center gap-x-3'>
-                        {userInfo.userImg ? (
-                            <div className='w-[25%] ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full flex-shrink-0'>
+                        <div className='w-[25%] md:w-[30%] shrink-0 ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full'>
+                            {userInfo.userImg ? (
                                 <img
                                     src={userInfo.userImg}
                                     alt='프로필'
                                     className='w-full h-full object-cover'
                                 />
-                            </div>
-                        ) : (
-                            <div className='w-[25%] aspect-square overflow-hidden rounded-full flex-shrink-0 flex items-center justify-center bg-gray-200'>
+                            ) : (
                                 <img
                                     src={
                                         defaultImgs[
@@ -265,10 +263,10 @@ export default function PersonalInfo() {
                                         ]
                                     }
                                     alt='기본 프로필'
-                                    className='w-full h-full object-cover'
+                                    className='w-full h-full object-cover bg-point-200'
                                 />
-                            </div>
-                        )}
+                            )}{' '}
+                        </div>
 
                         <input
                             type='file'

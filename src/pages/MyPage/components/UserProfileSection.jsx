@@ -51,11 +51,11 @@ const UserProfile = () => {
     }
 
     return (
-        <div className='flex flex-col gap-2 md:h-[vh] md:min-h-[px]'>
+        <div className='flex flex-col gap-2'>
             <h1 className='title'>내 프로필</h1>
-            <div className='card h-full md:min-h-[px] flex flex-col gap-3 md:gap-4 p-4 md:p-6'>
+            <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4'>
                 <div className='flex flex-row items-center'>
-                    <div className='inline-block w-[35%] max-w-[122px] md:w-[60%] md:max-w-[180px] aspect-square mr-[5%] md:br-[10%]'>
+                    <div className='w-[25%] md:w-[30%] aspect-square shrink-0'>
                         {loggedInUser.userImg ? (
                             <img
                                 alt='프로필 이미지'
@@ -76,8 +76,8 @@ const UserProfile = () => {
                             />
                         )}
                     </div>
-                    <div className='w-full h-full flex flex-col items-start gap-4 md:gap-6'>
-                        <div className='flex gap-8 md:gap-4 md:flex-col md:h-28'>
+                    <div className='ml-3 flex flex-col gap-3 items-center'>
+                        <div className='w-full h-full flex justify-start gap-3 md:gap-4 md:flex-col'>
                             <div className='flex flex-col gap-1 md:gap-2'>
                                 <p className='title'>
                                     {loggedInUser.nickname || '닉네임 없음'}
@@ -99,12 +99,16 @@ const UserProfile = () => {
                                 </p>
                             </div>
                         </div>
-                        <p className='h-12 md:h-16 sub-text line-clamp-4'>
+                        <p className='md:hidden max-h-12 sub-text line-clamp-4'>
                             {loggedInUser.userIntroduction ||
                                 '아직 소개글을 작성하지 않았습니다. 프로필을 업데이트해보세요!'}
                         </p>
                     </div>
                 </div>
+                <p className='hidden md:block md:h-16 sub-text line-clamp-4'>
+                    {loggedInUser.userIntroduction ||
+                        '아직 소개글을 작성하지 않았습니다. 프로필을 업데이트해보세요!'}
+                </p>
                 <UserReport />
             </div>
         </div>
