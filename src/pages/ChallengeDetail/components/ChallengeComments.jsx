@@ -10,11 +10,11 @@ const ChallengeComments = ({ postData }) => {
 
     return (
         <section>
-            <div className='relative flex items-center justify-end border-b border-neutral-300 py-3 md:py-4 mx-3 md:mx-4'>
-                <p className='main-text mr-1.5'>
+            <div className='relative flex items-center justify-end border-b border-neutral-300 pb-3 md:pb-4 mx-3 md:mx-4'>
+                <p className='main-text mr-1.5 '>
                     지금까지 {participants.length}명이 참여했어요!
                 </p>
-                <BsThreeDots className='absolute top-4.5 right-[26px] md:top-6 md:right-11 z-30 w-3 h-3 md:w-4 md:h-4 flex justify-center items-center text-neutral-100' />
+                <BsThreeDots className='absolute top-4.5 right-[26px] md:top-2 md:right-11 z-30 w-3 h-3 md:w-4 md:h-4 flex justify-center items-center text-neutral-100' />
                 {updatedParticipants.slice(0, 3).map((participant, index) => (
                     <div
                         key={index}
