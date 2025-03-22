@@ -67,6 +67,7 @@ export default function ChallengeSortSection({
         // 결과 업데이트
         setSortedResults(sortedData.length > 0 ? sortedData : []); // 결과가 없으면 빈 배열 설정
     }, [
+        loggedInUser,
         isMyPost,
         isDoingClg,
         isDoneClg,
