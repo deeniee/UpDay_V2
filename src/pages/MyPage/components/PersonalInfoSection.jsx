@@ -349,7 +349,7 @@ export default function PersonalInfo() {
                             type='text'
                             value={userInfo.nickname}
                             onChange={handleChange}
-                            className='input-field w-full focus:outline-point-500'
+                            className='input-field w-full'
                             disabled={!editMode}
                         />
                         {nicknameError && (
@@ -390,7 +390,7 @@ export default function PersonalInfo() {
                                 type='password'
                                 value={userInfo.password}
                                 onChange={handleChange}
-                                className='input-field w-full focus:outline-point-500'
+                                className='input-field w-full'
                                 disabled={!editMode}
                             />
                             {passwordError && (
@@ -415,7 +415,7 @@ export default function PersonalInfo() {
                                 type='password'
                                 value={userInfo.confirmPassword}
                                 onChange={handleChange}
-                                className='input-field w-full focus:outline-point-500'
+                                className='input-field w-full'
                                 disabled={!editMode}
                             />
                         </div>

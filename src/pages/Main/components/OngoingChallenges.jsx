@@ -124,8 +124,8 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                         {/* ✅ 챌린지 개수가 5개 미만일 때 메시지 표시 */}
                         {filteredChallenges.length > 0 &&
                             filteredChallenges.length < 5 && (
-                                <div className='w-full min-h-[56px] md:h-[7.8vh] flex justify-center items-center main-text text-neutral-500'>
-                                    다른 챌린지도 도전해보는 건 어때요?
+                                <div className='w-full h-full flex justify-center items-center main-text text-neutral-500'>
+                                    다른 챌린지에도 도전해보는 건 어때요?
                                 </div>
                             )}
                     </ul>

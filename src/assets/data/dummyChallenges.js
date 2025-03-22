@@ -195,16 +195,7 @@ const allChallenges = [
         postClicked: 52,
         scrapCount: 78,
         likesCount: 54,
-        participants: [
-            ...getRandomParticipants(dummyUsers, 8),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2025-01-12T01:00:00',
-                clgJoin: true,
-                clgDoing: false,
-                clgDone: true,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 8)],
     },
     {
         id: 12,
@@ -213,21 +204,12 @@ const allChallenges = [
         title: '점심 먹고 30분 이상 산책 하기',
         content:
             '식사 후 산책은 혈당조절에도 도움이 되고, 소화를 돕는다고 합니다. 추워도 굴하지 않고 걸어요!!',
-        authorId: 'daymaker@naver.com',
+        authorId: 'walking10000@gmail.com',
         postDate: '2025-01-01T08:00:00',
         postClicked: 411,
         scrapCount: 37,
         likesCount: 120,
-        participants: [
-            ...getRandomParticipants(dummyUsers, 12),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2025-01-02T01:00:00',
-                clgJoin: true,
-                clgDoing: false,
-                clgDone: true,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 12)],
     },
     {
         id: 13,
@@ -241,16 +223,7 @@ const allChallenges = [
         postClicked: 203,
         scrapCount: 194,
         likesCount: 132,
-        participants: [
-            ...getRandomParticipants(dummyUsers, 24),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2025-01-01T18:00:00',
-                clgJoin: true,
-                clgDoing: false,
-                clgDone: true,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 24)],
     },
     {
         id: 14,
@@ -315,16 +288,7 @@ const allChallenges = [
         postClicked: 501,
         scrapCount: 130,
         likesCount: 215,
-        participants: [
-            ...getRandomParticipants(dummyUsers, 23),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2025-01-17T23:00:00',
-                clgJoin: true,
-                clgDoing: false,
-                clgDone: true,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 23)],
     },
 
     {
@@ -334,21 +298,12 @@ const allChallenges = [
         title: '2주에 책 1권씩 읽기',
         content:
             '숏폼에 빠져 책을 멀리하게 된 제 자신이 참... 근데 여러분도 그렇죠? 일단 얇은 책 부터 시작해서 책 읽는 재미를 들이고, 다음 책을 읽을 설렘이 생길 수 있도록 도전해봐요!',
-        authorId: 'daymaker@naver.com',
+        authorId: 'vloger@naver.com',
         postDate: '2025-01-14T22:00:00',
         postClicked: 135,
         scrapCount: 63,
         likesCount: 42,
-        participants: [
-            ...getRandomParticipants(dummyUsers, 16),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2025-01-16T22:00:00',
-                clgJoin: true,
-                clgDoing: true,
-                clgDone: false,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 16)],
     },
     {
         id: 19,
@@ -475,16 +430,7 @@ const allChallenges = [
         scrapCount: 34,
         likesCount: 40,
         joinDate: '2025-03-02T10:00:00',
-        participants: [
-            ...getRandomParticipants(dummyUsers, 12),
-            {
-                userId: 'daymaker@naver.com',
-                joinDate: '2024-11-30T12:00:00',
-                clgJoin: true,
-                clgDoing: false,
-                clgDone: true,
-            },
-        ],
+        participants: [...getRandomParticipants(dummyUsers, 12)],
     },
     {
         id: 26,

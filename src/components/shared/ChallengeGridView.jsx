@@ -6,6 +6,7 @@ const ChallengeGridView = ({
     activeCategory,
     searchResults,
     sortedResults,
+    viewMode,
 }) => {
     const [filteredChallenges, setFilteredChallenges] = useState([]);
     const [noResults, setNoResults] = useState(false); // 결과가 없을 때 메시지 처리 상태
@@ -49,7 +50,13 @@ const ChallengeGridView = ({
 
         // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
         setNoResults(filtered.length === 0);
-    }, [challenges, activeCategory, searchResults, sortedResults, filteredChallenges]);
+    }, [
+        challenges,
+        activeCategory,
+        searchResults,
+        sortedResults,
+        filteredChallenges,
+    ]);
 
     return (
         <>
@@ -60,7 +67,11 @@ const ChallengeGridView = ({
             ) : (
                 <section className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4'>
                     {filteredChallenges.map((card) => (
-                        <ChallengeGrid key={card.id} cardData={card} />
+                        <ChallengeGrid
+                            key={card.id}
+                            cardData={card}
+                            viewMode={viewMode}
+                        />
                     ))}
                 </section>
             )}

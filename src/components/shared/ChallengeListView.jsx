@@ -6,6 +6,7 @@ const ChallengeListView = ({
     activeCategory,
     searchResults,
     sortedResults,
+    viewMode,
 }) => {
     const [filteredChallenges, setFilteredChallenges] = useState([]);
     const [noResults, setNoResults] = useState(false); // 결과가 없을 때 메시지 처리 상태
@@ -58,7 +59,11 @@ const ChallengeListView = ({
             ) : (
                 <section className='flex flex-col gap-3 md:gap-4'>
                     {filteredChallenges.map((card) => (
-                        <ChallengeList key={card.id} cardData={card} />
+                        <ChallengeList
+                            key={card.id}
+                            cardData={card}
+                            viewMode={viewMode}
+                        />
                     ))}
                 </section>
             )}

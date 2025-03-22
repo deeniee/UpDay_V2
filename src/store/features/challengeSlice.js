@@ -91,23 +91,27 @@ const challengeSlice = createSlice({
             const userId = localStorage.getItem('loggedInUser');
             const joinDate = new Date().toISOString().split('T')[0];
 
-            state.list = state.list.map((challenge) =>
-                challenge.id === id
-                    ? {
-                          ...challenge,
-                          participants: [
-                              ...challenge.participants,
-                              {
-                                  userId,
-                                  clgJoin: true,
-                                  clgDoing: true,
-                                  joinDate,
-                              },
-                          ],
-                      }
-                    : challenge
-            );
+            // 챌린지 목록에서 해당 챌린지 찾기
+            const updatedChallenges = state.list.map((challenge) => {
+                if (challenge.id === id) {
+                    return {
+                        ...challenge,
+                        participants: [
+                            ...challenge.participants,
+                            {
+                                userId,
+                                clgJoin: true,
+                                clgDoing: true,
+                                clgDone: false,
+                                joinDate,
+                            },
+                        ],
+                    };
+                }
+                return challenge;
+            });
 
+            // 선택된 챌린지 업데이트
             if (state.selectedChallenge?.id === id) {
                 state.selectedChallenge = {
                     ...state.selectedChallenge,
@@ -115,12 +119,15 @@ const challengeSlice = createSlice({
                 };
             }
 
-            // updateChallenge 사용하여 중복 코드 방지
-            const updatedChallenge = state.list.find(
+            // 상태 업데이트
+            state.list = updatedChallenges;
+
+            // 중복 코드 방지: 챌린지 목록이 변경된 경우만 로컬 스토리지에 저장
+            const updatedChallenge = updatedChallenges.find(
                 (challenge) => challenge.id === id
             );
             if (updatedChallenge) {
-                saveChallengeToLocalStorage(state.list);
+                saveChallengeToLocalStorage(updatedChallenges);
             }
         },
     },
