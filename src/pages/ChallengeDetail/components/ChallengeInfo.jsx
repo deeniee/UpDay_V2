@@ -36,11 +36,28 @@ const ChallengeInfo = ({
                         onChange={onChange}
                         onDelete={onDelete}
                     />
-                    <p className='main-text overflow-hidden'>
-                        {isCreateMode || isEditMode
-                            ? formData.content
-                            : postData?.content}
-                    </p>
+                    {isCreateMode || isEditMode ? (
+                        <>
+                            <label
+                                htmlFor='challengeContent'
+                                className='main-text font-semibold text-neutral-700 -mb-2'
+                            >
+                                챌린지 설명
+                            </label>
+                            <textarea
+                                id='challengeContent'
+                                name='challengeContent'
+                                rows={5}
+                                value={formData.content}
+                                className='textarea-field'
+                                placeholder='어떤 목표를 이루고 싶나요? 간단하고 구체적으로 250자 이내로 적어보세요 :)'
+                            />
+                        </>
+                    ) : (
+                        <p className='main-text overflow-hidden'>
+                            {postData?.content}
+                        </p>
+                    )}
                     <div className='flex justify-end items-center gap-2 mt-2 md:mt-0'>
                         {!isCreateMode && (
                             <>
@@ -59,10 +76,12 @@ const ChallengeInfo = ({
                         )}
                     </div>
                 </div>
+
                 <ChallengeActions
                     scrapCount={postData?.scrapCount}
                     likesCount={postData?.likesCount}
                     isCreateMode={isCreateMode}
+                    isEditMode={isEditMode}
                     onSubmit={onChange}
                 />
             </div>
