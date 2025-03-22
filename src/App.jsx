@@ -15,6 +15,7 @@ import Signup from './pages/Login/Signup';
 import ProfileSetup from './pages/Login/ProfileSetup';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
+import PostDetailModal from './pages/Modal/PostDetailModal';
 
 function App() {
     return (
@@ -26,10 +27,9 @@ function App() {
                 <Route path='/challenges' element={<AllChallenges />}>
                     <Route path='category/:category' element={null} />
                 </Route>
-                <Route
-                    path='challenges/:id'
-                    element={<ChallengeDetail />}
-                ></Route>
+
+                <Route path='challenges/create' element={<ChallengeDetail />} />
+                <Route path='challenges/:id' element={<ChallengeDetail />} />
                 <Route path='/my-challenges' element={<MyChallenges />}>
                     <Route path='category/:category' element={null} />
                 </Route>

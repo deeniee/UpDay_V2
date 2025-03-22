@@ -12,7 +12,7 @@ import {
     updateChallenge,
 } from '../../store/features/challengeSlice';
 import { getCategoryIllust } from '../../utils/categoryList';
-import { userChallengeList } from '../../assets/data/userChallengeData';
+import { dummyChallenges } from '../../assets/data/dummyChallenges';
 import useModal from '../../components/common/hooks/useModal';
 
 import LoginRequiredModal from '../../components/common/components/LoginRequiredModal';
@@ -21,7 +21,6 @@ const PostDetailModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    // useModal 훅
     const { isModalOpen, openModal, closeModal } = useModal();
 
     // 현재 모드 확인
@@ -101,7 +100,7 @@ const PostDetailModal = () => {
 
             // 2. 더미 데이터 챌린지와 로컬 스토리지에 저장된 챌린지 합치기
             const allChallenges = [
-                ...userChallengeList,
+                ...dummyChallenges,
                 ...existingStorageChallenges,
             ];
 
@@ -184,7 +183,7 @@ const PostDetailModal = () => {
                 />
             ) : (
                 <div
-                    className='fixed inset-0 bg-neutral-900/60 flex items-center justify-center z-[100]'
+                    className='flex items-center justify-center z-[100]'
                     onClick={handleClose}
                 >
                     <div className='w-[80%] md:w-[400px] max-md:mx-4 p-3 pt-9 md:p-4 md:pt-12 card'>
