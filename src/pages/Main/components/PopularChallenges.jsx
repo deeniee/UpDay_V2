@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { getChallenges } from '../../../utils/localStorage';
 import { setSelectedChallenge } from '../../../store/features/challengeSlice';
+import { FaMousePointer } from 'react-icons/fa';
+import { IoBookmarks, IoHeart } from 'react-icons/io5';
 
 const PopularChallenges = () => {
     const navigate = useNavigate();
@@ -32,7 +34,11 @@ const PopularChallenges = () => {
     const sortedChallenges = useMemo(() => {
         if (allClgList && allClgList.length > 0) {
             return [...allClgList].sort(
-                (a, b) => b.postClicked - a.postClicked
+                (a, b) =>
+                    b.postClicked +
+                    b.likesCount +
+                    b.scrapCount -
+                    (a.postClicked + a.likesCount + a.scrapCount)
             );
         }
         return [];
@@ -57,20 +63,6 @@ const PopularChallenges = () => {
         // 해당 카드의 상세 모달 페이지로 이동
         navigate(`/challenges/${challenge.id}`);
     };
-
-    // const handlePrevChallenge = () => {
-    //     setChallengeIndex(
-    //         (prevIndex) =>
-    //             (prevIndex - 1 + currentChallenges.length) %
-    //             currentChallenges.length
-    //     );
-    // };
-
-    // const handleNextChallenge = () => {
-    //     setChallengeIndex(
-    //         (prevIndex) => (prevIndex + 1) % currentChallenges.length
-    //     );
-    // };
 
     if (currentChallenges.length < 3) return null;
 
@@ -112,18 +104,19 @@ const PopularChallenges = () => {
                                     {challenge.title}
                                 </span>
                             </div>
-                            <div className='sub-text flex items-end gap-2 text-neutral-700 whitespace-nowrap ml-2'>
-                                <div className='flex gap-0.5'>
-                                    조회
-                                    <span className='font-semibold ml-1'>
-                                        {challenge.postClicked}
-                                    </span>
+                            <div className='sub-text flex items-end gap-2 text-neutral-700 whitespace-nowrap'>
+                                <div className='flex items-center gap-0.5'>
+                                    <FaMousePointer />
+                                    {challenge.postClicked}
                                 </div>
-                                <div className='flex gap-0.5'>
-                                    참여
-                                    <span className='font-semibold ml-1'>
-                                        {challenge.postClicked}
-                                    </span>
+                                <div className='flex items-center gap-1'>
+                                    <IoBookmarks />
+                                    {challenge.scrapCount}
+                                </div>
+                                <div className='flex items-center gap-0.5'>
+                                    <IoHeart />
+
+                                    {challenge.likesCount}
                                 </div>
                             </div>
                         </li>

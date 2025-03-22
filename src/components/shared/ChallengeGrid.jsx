@@ -1,21 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
     joinChallenge,
     setSelectedChallenge,
 } from '../../store/features/challengeSlice';
-
 import LoginRequiredModal from '../common/components/LoginRequiredModal';
 import useModal from '../common/hooks/useModal';
 import { getCategoryIcon, getCategoryIllust } from '../../utils/categoryList';
 import { calcPassedDate } from '../../utils/calcDate';
 import { getAuthorData } from '../../utils/getUserData';
-
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
+import { ChallengeState } from '../../pages/MyChallenges/components/ChallengeState';
 
-const ChallengeGrid = ({ cardData }) => {
+const ChallengeGrid = ({ cardData, viewMode }) => {
     const {
         id,
         category,
@@ -32,8 +31,9 @@ const ChallengeGrid = ({ cardData }) => {
 
     const { isModalOpen, openModal, closeModal } = useModal();
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
     const loggedInUser = localStorage.getItem('loggedInUser');
 
     const userString = localStorage.getItem('users');
@@ -42,8 +42,10 @@ const ChallengeGrid = ({ cardData }) => {
     const isLoggedIn = loggedInUser && currentUser;
     const isUserJoined = participants?.some(
         (participant) =>
-            participant.userId === loggedInUser && participant.clgDoing === true
+            participant.userId === loggedInUser && participant.clgJoin === true
     );
+
+    const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
 
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
@@ -53,22 +55,20 @@ const ChallengeGrid = ({ cardData }) => {
         if (!loggedInUser) {
             openModal();
         } else {
-            dispatch(joinChallenge({ id }));
+            // 참가자를 추가하는 액션 디스패치
+            dispatch(joinChallenge({ id, participant: loggedInUser }));
         }
     };
 
-    // 모달창 닫고 로그인 페이지로 이동하는 로직
+    // 모달창 닫고 로그인 페이지로 이동
     const handleNavigateToLogin = () => {
         closeModal();
         navigate('/login');
     };
 
-    // 카드 클릭시 모달을 띄우는 이벤트 핸들러
+    // 클릭시 해당 카드의 상세 모달 페이지로 이동
     const handleCardClick = () => {
-        // 선택한 카드의 데이터를 Redux store에 저장
-        dispatch(setSelectedChallenge(cardData));
-
-        // 해당 카드의 상세 모달 페이지로 이동
+        dispatch(setSelectedChallenge(cardData)); // 선택한 카드의 데이터를 Redux store에 저장
         navigate(`/challenges/${id}`);
     };
 
@@ -121,24 +121,32 @@ const ChallengeGrid = ({ cardData }) => {
                 <img
                     src={getAuthorData(authorId).userImg}
                     alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
-                    className='w-4 md:w-6 h-4 md:h-6 object-cover rounded-full'
+                    className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full'
                 />
                 <p className='ml-2 sub-text'>
                     {getAuthorData(authorId).nickname}
                 </p>
             </div>
-
-            <div className='flex justify-center'>
-                {isLoggedIn && (
-                    <button
-                        type='button'
-                        className={`btn w-[60%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
-                        onClick={handleJoin}
-                    >
-                        {isUserJoined ? '참여 중' : '참여하기'}
-                    </button>
-                )}
-            </div>
+            {/* 참여버튼 */}
+            {isMyChallengesPage ? (
+                <ChallengeState
+                    loggedInUser={loggedInUser}
+                    participants={participants}
+                    viewMode={viewMode}
+                />
+            ) : (
+                <div className='flex justify-center'>
+                    {isLoggedIn && (
+                        <button
+                            type='button'
+                            className={`btn w-[60%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                            onClick={handleJoin}
+                        >
+                            {isUserJoined ? '참여 중' : '참여하기'}
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

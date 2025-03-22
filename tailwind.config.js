@@ -41,11 +41,21 @@ module.exports = {
                     500: '#C50000',
                     600: '#9E0000',
                 },
-                category: {
-                    habit: '#E3D9ED',
-                    health: '#C1D1FF',
-                    study: '#FED2D2',
-                    etc: '#F4D9EB',
+                pink: {
+                    100: '#FFEFFA',
+                    200: '#FFE1F5',
+                    300: '#FFC5EB',
+                    400: '#FF9BDC',
+                    500: '#F86AC7',
+                    600: '#E83BAD',
+                },
+                blue: {
+                    100: '#EFF3FF',
+                    200: '#BCCDFF',
+                    300: '#628BFF',
+                    400: '#0042FF',
+                    500: '#0032B8',
+                    600: '#002271',
                 },
             },
             animation: {
