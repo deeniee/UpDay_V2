@@ -123,7 +123,9 @@ export default function ChallengeDetail() {
     const [participantsData, setParticipantsData] = useState([]);
 
     return (
-        <main className='card default-size md:h-full flex-col justify-start gap-3 md:gap-0 md:h-[80vh]'>
+        <main
+            className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0`}
+        >
             {isCreateMode ? (
                 <>
                     <ChallengeInfo
