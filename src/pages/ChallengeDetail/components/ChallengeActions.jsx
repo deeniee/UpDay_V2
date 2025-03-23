@@ -6,21 +6,29 @@ import {
     IoHeartOutline,
     IoShareSocial,
 } from 'react-icons/io5';
+
 export default function ChallengeActions({
     scrapCount,
     likesCount,
+    onSubmit,
+    onCancel,
     isCreateMode,
     isEditMode,
-    onSubmit,
 }) {
     return (
         <>
             {isCreateMode || isEditMode ? (
                 <section className='flex justify-center gap-3 md:gap-4 mb-3 md:mb-0'>
-                    <button className='btn btn-negative w-[30%] md:max-w-[240px]'>
+                    <button
+                        className='btn btn-negative w-[30%] md:max-w-[240px]'
+                        onClick={onCancel}
+                    >
                         취소하기
                     </button>
-                    <button className='btn btn-primary w-[30%]'>
+                    <button
+                        className='btn btn-primary w-[30%]'
+                        onClick={onSubmit}
+                    >
                         저장하기
                     </button>
                 </section>

@@ -44,7 +44,10 @@ const challengeSlice = createSlice({
 
         // 새로운 챌린지 생성하는 액션
         addChallenge: (state, action) => {
-            state.list.push(action.payload);
+            // 불변성 유지하며 새로운 상태 업데이트
+            state.list = [...state.list, action.payload];
+
+            // 로컬스토리지에 새로운 챌린지 반영
             const currentChallenges = getChallenges();
             const updatedChallenges = [...currentChallenges, action.payload];
             saveChallengeToLocalStorage(updatedChallenges);
@@ -54,34 +57,48 @@ const challengeSlice = createSlice({
         updateChallenge: (state, action) => {
             const updatedChallenge = action.payload;
 
+            // 리스트에서 해당 챌린지 ID에 맞는 항목을 업데이트
             state.list = state.list.map((challenge) =>
                 challenge.id === updatedChallenge.id
                     ? updatedChallenge
                     : challenge
             );
 
+            // 선택된 챌린지가 있으면 업데이트
             if (state.selectedChallenge?.id === updatedChallenge.id) {
                 state.selectedChallenge = updatedChallenge;
             }
 
-            saveChallengeToLocalStorage(state.list);
+            // 로컬스토리지에 변경된 챌린지 반영
+            const currentChallenges = getChallenges();
+            const updatedChallenges = currentChallenges.map((challenge) =>
+                challenge.id === updatedChallenge.id
+                    ? updatedChallenge
+                    : challenge
+            );
+            saveChallengeToLocalStorage(updatedChallenges);
         },
 
         // 챌린지 삭제하는 액션
         deleteChallenge: (state, action) => {
             const challengeId = action.payload;
 
+            // 상태에서 해당 챌린지 삭제
             state.list = state.list.filter(
                 (challenge) => challenge.id !== challengeId
             );
 
             // 삭제하려는 챌린지가 선택된 챌린지라면 초기화
-            state.selectedChallenge =
-                state.selectedChallenge?.id === challengeId
-                    ? null
-                    : state.selectedChallenge;
+            if (state.selectedChallenge?.id === challengeId) {
+                state.selectedChallenge = null;
+            }
 
-            saveChallengeToLocalStorage(state.list);
+            // 로컬스토리지에서 삭제된 챌린지 반영
+            const currentChallenges = getChallenges();
+            const updatedChallenges = currentChallenges.filter(
+                (challenge) => challenge.id !== challengeId
+            );
+            saveChallengeToLocalStorage(updatedChallenges);
         },
 
         // #2. 챌린지 속성 값 설정
