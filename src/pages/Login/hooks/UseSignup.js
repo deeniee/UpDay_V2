@@ -14,7 +14,7 @@ const useSignup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const clglist = useSelector((state) => state.challenge.list ?? []);
+    const clgList = useSelector((state) => state.challenge.list ?? []);
 
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const validatePassword = (password) =>
@@ -54,13 +54,13 @@ const useSignup = () => {
             return;
         }
 
-        if (clglist.some((challenge) => challenge.authorId === userId)) {
+        if (clgList.some((challenge) => challenge.authorId === userId)) {
             setError('이미 등록된 아이디입니다.');
             return;
         }
 
         // 모든 조건을 통과하면 회원가입 처리
-        dispatch(setUser(userId));
+        dispatch(setUser({ userId, password, userNickname: '', userImg: '' }));
         dispatch(setPassword(password));
 
         navigate('/profile');

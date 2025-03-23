@@ -10,7 +10,6 @@ const MyChallengesLayout = () => {
     const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
-
     const challenges = useSelector(
         (state) => state.userChallenge.joinedChallenges
     );

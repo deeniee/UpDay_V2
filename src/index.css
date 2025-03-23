@@ -32,7 +32,7 @@
     }
 
     .default-size {
-        @apply w-[90vw] md:w-[80vw] md:max-w-[1344px] min-h-screen md:min-h-[606px] flex gap-6 md:gap-0 md:justify-between mx-auto md:mt-[2vh];
+        @apply w-[90vw] md:w-[80vw] md:max-w-[1344px] min-h-screen md:min-h-[606px] flex gap-6 md:gap-0 md:justify-between mx-auto;
     }
 
     .btn {

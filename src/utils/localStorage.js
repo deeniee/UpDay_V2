@@ -1,6 +1,6 @@
 export const getChallenges = () => {
-    const challenges = localStorage.getItem('clgList');
-    return challenges ? JSON.parse(challenges) : [];
+    const challenges = JSON.parse(localStorage.getItem('clgList')) || [];
+    return challenges;
 };
 
 export const getCurrentUserData = () => {

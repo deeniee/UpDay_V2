@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { dummyChallenges } from '../../../assets/data/dummyChallenges';
+import { getChallenges } from '../../../utils/localStorage';
 import {
     addChallenge,
     updateChallenge,
     deleteChallenge,
 } from '../../../store/features/challengeSlice';
+import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 import ChallengeInfo from './ChallengeInfo';
 import ChallengeComments from './ChallengeComments';
+
+import pic3 from '../../../assets/images/backgrounds/pic_3.svg';
+import pic4 from '../../../assets/images/backgrounds/pic_4.svg';
+import PostForm from './PostForm';
 
 export default function ChallengeDetail() {
     const dispatch = useDispatch();
@@ -16,24 +21,40 @@ export default function ChallengeDetail() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     const { id } = useParams();
     const { pathname } = useLocation();
-    const isCreateMode = pathname.endsWith('/create'); // 현재 모드 확인
-    const isEditMode = pathname.endsWith('/edit');
-    const isViewMode = !isCreateMode && !isEditMode;
+    const [mode, setMode] = useState(
+        pathname.endsWith('/create') ? 'create' : 'view'
+    );
+    const isCreateMode = mode === 'create';
+    const isEditMode = mode === 'edit';
     const selectedChallenge = useSelector(
         (state) => state.challenge.selectedChallenge
     );
     const [postData, setPostData] = useState(null);
 
+    // 챌린지 생성 & 수정 모드일 때 사용할 상태
     const [formData, setFormData] = useState({
         title: '',
         content: '',
         category: '',
         duration: '',
-    }); // 챌린지 생성 & 수정 모드일 때 사용할 상태
+    });
+    const allChallenges = JSON.parse(localStorage.getItem('clgList'));
+    const maxId =
+        allChallenges.length > 0
+            ? Math.max(...allChallenges.map((ch) => ch.id))
+            : 0;
+
+    useEffect(() => {
+        const selectedChallenge = getChallenges().find(
+            (challenge) => String(challenge.id) === String(id)
+        );
+        setPostData(selectedChallenge);
+    }, [id]);
 
     useEffect(() => {
         if (isEditMode && selectedChallenge) {
             setFormData({
+                clgImg: selectedChallenge.clgImg,
                 title: selectedChallenge.title,
                 content: selectedChallenge.content,
                 category: selectedChallenge.category,
@@ -44,12 +65,22 @@ export default function ChallengeDetail() {
     }, [isEditMode, selectedChallenge]);
 
     useEffect(() => {
-        if (selectedChallenge) {
-            setPostData(selectedChallenge);
-        }
-    }, [selectedChallenge]);
+        dispatch(getJoinedChallenge()); // 컴포넌트가 처음 렌더링될 때 참여한 챌린지 가져오기
+    }, [dispatch]); // 의존성 배열에서 dispatch를 넣어주면 컴포넌트가 처음 렌더링될 때만 실행됨
 
-    // 글 작성&수정하는 로직
+    // 글 수정하는 로직
+    const handleEditClick = () => {
+        setMode('edit');
+        setFormData({
+            title: selectedChallenge.title,
+            content: selectedChallenge.content,
+            category: selectedChallenge.category,
+            duration: selectedChallenge.duration,
+            participants: selectedChallenge.participants || [],
+        });
+    };
+
+    // 글 작성하는 로직
     const handleSubmit = () => {
         if (
             !formData.title ||
@@ -60,38 +91,25 @@ export default function ChallengeDetail() {
             alert('모든 항목을 입력하세요.');
             return;
         }
-        if (isCreateMode) {
-            // 1. 로컬 스토리지의 챌린지 가져오기
-            const existingStorageChallenges = JSON.parse(
-                localStorage.getItem('clgList') || '[]'
-            );
-            // 2. 전체 챌린지 목록 업데이트
-            const allChallenges = [
-                ...dummyChallenges,
-                ...existingStorageChallenges,
-            ];
-            // 3. 새 챌린지의 id값 계산
-            const maxId =
-                Math.max(...allChallenges.map((challenge) => challenge.id), 0) +
-                1;
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const userInfo = users.find((user) => user.userId === loggedInUser); // 현재 로그인한 유저 구별
 
+        if (isEditMode) {
+            dispatch(updateChallenge({ ...selectedChallenge, ...formData }));
+        } else {
             const newChallenge = {
-                ...formData,
-                id: maxId,
+                id: maxId + 1, // ID 생성 & 데이터 순서를 위해 ...대신 모든 속성을 명시
+                category: formData.category,
+                duration: formData.duration,
+                title: formData.title,
+                content: formData.content,
                 authorId: loggedInUser,
-                userImg: userInfo?.userImg || '',
-                nickname: userInfo?.nickname || '기본 닉네임',
                 postDate: new Date().toISOString().slice(0, 19),
                 postClicked: 0,
                 scrapCount: 0,
                 likesCount: 0,
                 participants: [
-                    ...(formData.participants || []),
                     {
-                        userId: loggedInUser, // 작성자는 자동으로 참여
-                        joinDate: new Date().toISOString().split('T')[0],
+                        userId: loggedInUser,
+                        joinDate: new Date().toISOString().slice(0, 19),
                         clgJoin: true,
                         clgDoing: true,
                         clgDone: false,
@@ -99,12 +117,17 @@ export default function ChallengeDetail() {
                 ],
             };
             dispatch(addChallenge(newChallenge));
-        } else if (isEditMode) {
-            const updatedChallenge = { ...selectedChallenge, ...formData };
-            dispatch(updateChallenge(updatedChallenge));
+            dispatch(getJoinedChallenge());
         }
 
+        setMode('view');
         setTimeout(() => navigate('/challenges'), 100);
+    };
+
+    // 글 수정 및 작성 취소하는 로직
+    const handleCancelEdit = () => {
+        setMode('view');
+        navigate('/challenges');
     };
 
     // 글 삭제하는 로직
@@ -113,45 +136,53 @@ export default function ChallengeDetail() {
         navigate('/challenges');
     };
 
-    useEffect(() => {
-        const selectedChallenge = dummyChallenges.find(
-            (challenge) => String(challenge.id) === String(id)
-        );
-        setPostData(selectedChallenge);
-    }, [id]);
-
-    const [participantsData, setParticipantsData] = useState([]);
-
     return (
-        <main
-            className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0`}
-        >
-            {isCreateMode ? (
-                <>
-                    <ChallengeInfo
+        <div className='relative md:default-size md:mt-0'>
+            <main
+                className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0`}
+            >
+                {isCreateMode || isEditMode ? (
+                    <PostForm
                         formData={formData}
                         setFormData={setFormData}
+                        onSubmit={handleSubmit}
+                        onCancel={handleCancelEdit}
                         isCreateMode={isCreateMode}
                         isEditMode={isEditMode}
-                        onChange={handleSubmit}
                     />
-                </>
-            ) : postData ? (
-                <>
-                    <ChallengeInfo
-                        postData={postData}
-                        formData={formData}
-                        setFormData={setFormData}
-                        isCreateMode={isCreateMode}
-                        isEditMode={isEditMode}
-                        onChange={handleSubmit}
-                        onDelete={() => handleDelete(selectedChallenge?.id)}
+                ) : postData ? (
+                    <>
+                        <ChallengeInfo
+                            postData={postData}
+                            formData={formData}
+                            setFormData={setFormData}
+                            isCreateMode={isCreateMode}
+                            isEditMode={isEditMode}
+                            onChange={handleSubmit}
+                            onDelete={() => handleDelete(selectedChallenge?.id)}
+                        />
+                        <ChallengeComments postData={postData} />
+                    </>
+                ) : (
+                    <p>챌린지를 찾을 수 없습니다.</p>
+                )}
+            </main>
+            {isCreateMode || isEditMode ? (
+                <div className='absolute -bottom-12 flex justify-between w-full'>
+                    <img
+                        src={pic4}
+                        alt='bg_illust_pic4'
+                        className='hidden md:block md:w-44'
                     />
-                    <ChallengeComments postData={postData} />
-                </>
+                    <img
+                        src={pic3}
+                        alt='bg_illust_pic3'
+                        className='hidden md:block md:w-40'
+                    />
+                </div>
             ) : (
-                <p>챌린지를 찾을 수 없습니다.</p>
+                <></>
             )}
-        </main>
+        </div>
     );
 }
