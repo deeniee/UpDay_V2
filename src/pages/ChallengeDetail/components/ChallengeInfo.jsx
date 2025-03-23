@@ -17,13 +17,20 @@ const ChallengeInfo = ({
     return (
         <section className='relative flex flex-col md:flex-row'>
             <div className='card bg-neutral-300 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:self-start md:aspect-square m-3 md:m-4'>
-                <img
-                    src={getCategoryIllust(
-                        formData.category || postData?.category
-                    )}
-                    alt={formData.category || postData?.category}
-                    className='w-full p-4 aspect-[5/3] md:aspect-square'
-                />
+                {isCreateMode ? (
+                    <img
+                        src='../../../assets/'
+                        alt={'사용자가 업로드'}
+                        className='w-full p-4 aspect-[5/3] md:aspect-square'
+                        onChange={onChange}
+                    />
+                ) : (
+                    <img
+                        src={getCategoryIllust(postData?.category)}
+                        alt={postData?.category}
+                        className='w-full p-4 aspect-[5/3] md:aspect-square'
+                    />
+                )}
             </div>
             <div className='flex flex-col w-auto md:w-[60%] justify-between m-3 my-0 md:m-4 md:ml-0'>
                 <div className='flex flex-col gap-3 mb-5'>
