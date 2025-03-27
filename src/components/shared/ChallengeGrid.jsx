@@ -47,6 +47,9 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
     const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
 
+    const getNewText =
+        postDate.split('T')[0] === new Date().toISOString().split('T')[0];
+
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
         e.stopPropagation(); // 이벤트 전파 중지
@@ -87,7 +90,14 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
             </div>
 
             {/* 기본 제공 이미지 */}
-            <div className='h-32 md:h-36 card bg-neutral-300 flex justify-center items-center'>
+            <div className='relative h-32 md:h-36 card bg-neutral-300 flex justify-center items-center'>
+                {getNewText ? (
+                    <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
+                        NEW
+                    </p>
+                ) : (
+                    <></>
+                )}
                 <img
                     src={getCategoryIllust(cardData.category)}
                     className='h-[70%] overflow-hidden'
@@ -101,12 +111,12 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
                     <span>{calcPassedDate(postDate)}</span>
                     <BsDot className='-mx-0.5' />
                     <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoBookmarks className='text-point-600' />
+                        <IoBookmarks className='text-neutral-600' />
                         {scrapCount}
                     </div>
 
                     <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoHeart className='size-2.5 text-point-600' />
+                        <IoHeart className='size-2.5 text-neutral-600' />
                         {likesCount}
                     </div>
                 </div>

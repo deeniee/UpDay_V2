@@ -28,7 +28,7 @@
         @apply font-medium text-xs md:text-sm;
     }
     .sub-text {
-        @apply text-[8px]/3 md:text-[10px]/4;
+        @apply text-[10px]/3 md:text-[12px]/4;
     }
 
     .default-size {

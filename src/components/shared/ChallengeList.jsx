@@ -47,6 +47,9 @@ const ChallengeList = ({ cardData, viewMode }) => {
 
     const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
 
+    const getNewText =
+        postDate.split('T')[0] === new Date().toISOString().split('T')[0];
+
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
         e.stopPropagation(); // 이벤트 전파 중지
@@ -77,7 +80,14 @@ const ChallengeList = ({ cardData, viewMode }) => {
             onClick={handleCardClick}
         >
             {/* 기본 제공 이미지 */}
-            <div className='h-24 md:h-28 aspect-square card bg-neutral-300 flex justify-center items-center'>
+            <div className='relative h-24 md:h-28 aspect-square card bg-neutral-300 flex justify-center items-center'>
+                {getNewText ? (
+                    <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
+                        NEW
+                    </p>
+                ) : (
+                    <></>
+                )}
                 <img
                     src={getCategoryIllust(cardData.category)}
                     className='h-[70%] overflow-hidden'

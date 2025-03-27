@@ -70,6 +70,10 @@ export default function ChallengeDetail() {
 
     // 글 수정하는 로직
     const handleEditClick = () => {
+        // if (!selectedChallenge) {
+        //     alert('수정할 챌린지가 존재하지 않습니다.');
+        //     return;
+        // }
         setMode('edit');
         setFormData({
             title: selectedChallenge.title,
@@ -117,7 +121,9 @@ export default function ChallengeDetail() {
                 ],
             };
             dispatch(addChallenge(newChallenge));
-            dispatch(getJoinedChallenge());
+            setTimeout(() => {
+                dispatch(getJoinedChallenge());
+            }, 100);
         }
 
         setMode('view');
@@ -127,13 +133,13 @@ export default function ChallengeDetail() {
     // 글 수정 및 작성 취소하는 로직
     const handleCancelEdit = () => {
         setMode('view');
-        navigate('/challenges');
+        navigate(-1);
     };
 
     // 글 삭제하는 로직
     const handleDelete = (id) => {
         dispatch(deleteChallenge(id));
-        navigate('/challenges');
+        navigate(-1);
     };
 
     return (
@@ -159,6 +165,7 @@ export default function ChallengeDetail() {
                             isCreateMode={isCreateMode}
                             isEditMode={isEditMode}
                             onChange={handleSubmit}
+                            onEdit={handleEditClick}
                             onDelete={() => handleDelete(selectedChallenge?.id)}
                         />
                         <ChallengeComments postData={postData} />
