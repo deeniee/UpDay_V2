@@ -9,7 +9,7 @@ export const getRandomParticipants = (users, count) => {
 
     // participants가 비어 있는 챌린지만 업데이트
     challenges = challenges.map((challenge) => {
-        if (!challenge.participants || challenge.participants.length === 1) {
+        if (!challenge.participants || challenge.participants.length === 0) {
             isUpdated = true; // 데이터 변경 확인
             return {
                 ...challenge,

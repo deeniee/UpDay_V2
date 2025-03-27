@@ -11,6 +11,7 @@ const ChallengeHeader = ({
     isCreateMode,
     isEditMode,
     onChange,
+    onEdit,
     onDelete,
 }) => {
     const isMyPost = postData.authorId === localStorage.getItem('loggedInUser');
@@ -33,7 +34,7 @@ const ChallengeHeader = ({
                 >
                     <button
                         className='flex items-center gap-0.5 md:gap-1 transition hover:text-neutral-800'
-                        onChange={onChange}
+                        onClick={onEdit}
                     >
                         <FaPenToSquare className='size-2.5 md:size-3' />
                         수정
