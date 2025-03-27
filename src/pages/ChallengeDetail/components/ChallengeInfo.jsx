@@ -12,6 +12,7 @@ const ChallengeInfo = ({
     isCreateMode,
     isEditMode,
     onChange,
+    onEdit,
     onDelete,
 }) => {
     return (
@@ -41,6 +42,7 @@ const ChallengeInfo = ({
                         isCreateMode={isCreateMode}
                         isEditMode={isEditMode}
                         onChange={onChange}
+                        onEdit={onEdit}
                         onDelete={onDelete}
                     />
                     {isCreateMode || isEditMode ? (

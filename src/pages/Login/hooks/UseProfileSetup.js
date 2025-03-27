@@ -56,7 +56,7 @@ const useProfileSetup = () => {
             password,
             nickname,
             userImg: userImg || randomImage, // 기본이미지 설정정
-            signupDate: new Date().toISOString().split('T')[0], // 날짜만 저장
+            signupDate: new Date().toISOString().slice(0, 19),
         };
 
         users.push(newUser);

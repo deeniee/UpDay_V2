@@ -124,8 +124,6 @@ const userChallengeSlice = createSlice({
                 };
             });
 
-            console.log('🔄 업데이트된 챌린지:', state.list);
-
             state.joinedChallenges = state.list.filter((challenge) =>
                 challenge.participants?.some(
                     (participant) =>
