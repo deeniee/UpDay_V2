@@ -9,21 +9,13 @@ const saveChallengeToLocalStorage = (challenges) => {
 
 const getInitialList = () => {
     const savedChallenges = JSON.parse(localStorage.getItem('clgList')) || [];
+    const savedIds = new Set(savedChallenges.map((c) => c.id));
 
-    // dummyChallenges를 Map으로 변환하여 빠르게 병합
-    const challengeMap = new Map(savedChallenges.map((c) => [c.id, c]));
+    // 기존 데이터에 없는 dummyChallenges만 추가
+    const newChallenges = dummyChallenges.filter((c) => !savedIds.has(c.id));
+    const mergedChallenges = [...savedChallenges, ...newChallenges];
 
-    dummyChallenges.forEach((challenge) => {
-        if (!challengeMap.has(challenge.id)) {
-            challengeMap.set(challenge.id, challenge);
-        }
-    });
-
-    const mergedChallenges = Array.from(challengeMap.values());
-
-    // 병합된 데이터로 로컬 스토리지 업데이트
     localStorage.setItem('clgList', JSON.stringify(mergedChallenges));
-
     return mergedChallenges;
 };
 
@@ -32,7 +24,7 @@ const initialChallenges = getInitialList();
 const challengeSlice = createSlice({
     name: 'challenge',
     initialState: {
-        list: initialChallenges,
+        list: JSON.parse(localStorage.getItem('clgList')) || [],
         selectedChallenge: null,
     },
     reducers: {
