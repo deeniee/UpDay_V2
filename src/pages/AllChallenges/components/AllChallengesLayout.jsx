@@ -1,14 +1,30 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
 const AllChallengesLayout = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
     const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
-    const challenges = getChallenges();
+    const [challenges, setChallenges] = useState([]);
+
+    useEffect(() => {
+        setChallenges(getChallenges());
+    }, []);
+
+    // 삭제 후 최신 데이터를 불러오도록 useEffect 추가
+    useEffect(() => {
+        if (location.state?.refresh) {
+            setChallenges(getChallenges());
+
+            navigate('/challenges', { replace: true }); // 페이지 이동 후 `state` 초기화
+        }
+        console.log('삭제 후 챌린지 목록', challenges);
+    }, [location.state?.refresh]);
 
     // 검색 로직 (useCallback을 사용해 handleSearch 메모이제이션)
     const handleSearch = useCallback(

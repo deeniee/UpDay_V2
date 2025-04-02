@@ -30,6 +30,7 @@ export default function ChallengeDetail() {
         (state) => state.challenge.selectedChallenge
     );
     const [postData, setPostData] = useState(null);
+    const [challenges, setChallenges] = useState(getChallenges());
 
     // 챌린지 생성 & 수정 모드일 때 사용할 상태
     const [formData, setFormData] = useState({
@@ -137,11 +138,30 @@ export default function ChallengeDetail() {
     };
 
     // 글 삭제하는 로직
-    const handleDelete = (id) => {
-        dispatch(deleteChallenge(id));
-        navigate(-1);
+    const handleDelete = (challengeId) => {
+        const storedChallenges =
+            JSON.parse(localStorage.getItem('clgList')) || [];
+
+        const updatedChallenges = storedChallenges.filter(
+            (challenge) => challenge.id !== challengeId
+        );
+
+        // 🛑 삭제된 챌린지를 기록
+        const deletedChallenges =
+            JSON.parse(localStorage.getItem('deletedChallenges')) || [];
+        localStorage.setItem(
+            'deletedChallenges',
+            JSON.stringify([...deletedChallenges, challengeId])
+        );
+
+        localStorage.setItem('clgList', JSON.stringify(updatedChallenges)); // localStorage 업데이트
+        setChallenges(getChallenges()); // 상태 업데이트 (리렌더링을 위함)
+        navigate('/challenges', { state: { refresh: true } }); // 페이지 이동 후 새로고침 트리거 추가
     };
 
+    useEffect(() => {
+        console.log('업데이트된 챌린지 목록', challenges);
+    }, [challenges]); // ✅ challenges가 변경될 때마다 실행
     return (
         <div className='relative md:default-size md:mt-0'>
             <main

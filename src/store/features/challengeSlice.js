@@ -8,22 +8,22 @@ const saveChallengeToLocalStorage = (challenges) => {
 };
 
 const getInitialList = () => {
-    const savedChallenges = JSON.parse(localStorage.getItem('clgList')) || [];
+    const savedChallenges = getChallenges() || [];
+    const savedIds = new Set(savedChallenges.map((c) => c.id));
 
-    // dummyChallenges를 Map으로 변환하여 빠르게 병합
-    const challengeMap = new Map(savedChallenges.map((c) => [c.id, c]));
+    // 삭제된 챌린지 목록 가져오기
+    const deletedChallenges = new Set(
+        JSON.parse(localStorage.getItem('deletedChallenges')) || []
+    );
 
-    dummyChallenges.forEach((challenge) => {
-        if (!challengeMap.has(challenge.id)) {
-            challengeMap.set(challenge.id, challenge);
-        }
-    });
+    // 기존 데이터에 없는 dummyChallenges만 추가하되, 삭제된 챌린지는 제외
+    const newChallenges = dummyChallenges.filter(
+        (c) => !savedIds.has(c.id) && !deletedChallenges.has(c.id)
+    );
 
-    const mergedChallenges = Array.from(challengeMap.values());
+    const mergedChallenges = [...savedChallenges, ...newChallenges];
 
-    // 병합된 데이터로 로컬 스토리지 업데이트
     localStorage.setItem('clgList', JSON.stringify(mergedChallenges));
-
     return mergedChallenges;
 };
 
@@ -48,8 +48,7 @@ const challengeSlice = createSlice({
             state.list = [...state.list, action.payload];
 
             // 로컬스토리지에 새로운 챌린지 반영
-            const currentChallenges = getChallenges();
-            const updatedChallenges = [...currentChallenges, action.payload];
+            const updatedChallenges = [...state.list, action.payload];
             saveChallengeToLocalStorage(updatedChallenges);
         },
 
@@ -57,48 +56,41 @@ const challengeSlice = createSlice({
         updateChallenge: (state, action) => {
             const updatedChallenge = action.payload;
 
-            // 리스트에서 해당 챌린지 ID에 맞는 항목을 업데이트
             state.list = state.list.map((challenge) =>
                 challenge.id === updatedChallenge.id
                     ? updatedChallenge
                     : challenge
             );
 
-            // 선택된 챌린지가 있으면 업데이트
             if (state.selectedChallenge?.id === updatedChallenge.id) {
                 state.selectedChallenge = updatedChallenge;
             }
 
-            // 로컬스토리지에 변경된 챌린지 반영
-            const currentChallenges = getChallenges();
-            const updatedChallenges = currentChallenges.map((challenge) =>
-                challenge.id === updatedChallenge.id
-                    ? updatedChallenge
-                    : challenge
-            );
-            saveChallengeToLocalStorage(updatedChallenges);
+            saveChallengeToLocalStorage(state.list);
         },
 
         // 챌린지 삭제하는 액션
         deleteChallenge: (state, action) => {
             const challengeId = action.payload;
 
-            // 상태에서 해당 챌린지 삭제
+            // 삭제된 챌린지 ID를 로컬스토리지에 저장
+            const deletedChallenges =
+                JSON.parse(localStorage.getItem('deletedChallenges')) || [];
+            localStorage.setItem(
+                'deletedChallenges',
+                JSON.stringify([...deletedChallenges, challengeId])
+            );
+
+            // 삭제된 챌린지를 상태에서 제거
             state.list = state.list.filter(
                 (challenge) => challenge.id !== challengeId
             );
 
-            // 삭제하려는 챌린지가 선택된 챌린지라면 초기화
             if (state.selectedChallenge?.id === challengeId) {
                 state.selectedChallenge = null;
             }
 
-            // 로컬스토리지에서 삭제된 챌린지 반영
-            const currentChallenges = getChallenges();
-            const updatedChallenges = currentChallenges.filter(
-                (challenge) => challenge.id !== challengeId
-            );
-            saveChallengeToLocalStorage(updatedChallenges);
+            saveChallengeToLocalStorage(state.list);
         },
 
         // #2. 챌린지 속성 값 설정
@@ -108,44 +100,31 @@ const challengeSlice = createSlice({
             const userId = localStorage.getItem('loggedInUser');
             const joinDate = new Date().toISOString().split('T')[0];
 
-            // 챌린지 목록에서 해당 챌린지 찾기
-            const updatedChallenges = state.list.map((challenge) => {
-                if (challenge.id === id) {
-                    return {
-                        ...challenge,
-                        participants: [
-                            ...challenge.participants,
-                            {
-                                userId,
-                                clgJoin: true,
-                                clgDoing: true,
-                                clgDone: false,
-                                joinDate,
-                            },
-                        ],
-                    };
-                }
-                return challenge;
-            });
+            // 챌린지 목록 업데이트
+            state.list = state.list.map((challenge) =>
+                challenge.id === id
+                    ? {
+                          ...challenge,
+                          participants: [
+                              ...(challenge.participants || []),
+                              {
+                                  userId,
+                                  clgJoin: true,
+                                  clgDoing: true,
+                                  clgDone: false,
+                                  joinDate,
+                              },
+                          ],
+                      }
+                    : challenge
+            );
 
             // 선택된 챌린지 업데이트
             if (state.selectedChallenge?.id === id) {
-                state.selectedChallenge = {
-                    ...state.selectedChallenge,
-                    clgJoin: true,
-                };
+                state.selectedChallenge.clgJoin = true;
             }
 
-            // 상태 업데이트
-            state.list = updatedChallenges;
-
-            // 중복 코드 방지: 챌린지 목록이 변경된 경우만 로컬 스토리지에 저장
-            const updatedChallenge = updatedChallenges.find(
-                (challenge) => challenge.id === id
-            );
-            if (updatedChallenge) {
-                saveChallengeToLocalStorage(updatedChallenges);
-            }
+            saveChallengeToLocalStorage(state.list);
         },
     },
 });
