@@ -146,11 +146,17 @@ export default function ChallengeDetail() {
             (challenge) => challenge.id !== challengeId
         );
 
+        // 🛑 삭제된 챌린지를 기록
+        const deletedChallenges =
+            JSON.parse(localStorage.getItem('deletedChallenges')) || [];
+        localStorage.setItem(
+            'deletedChallenges',
+            JSON.stringify([...deletedChallenges, challengeId])
+        );
+
         localStorage.setItem('clgList', JSON.stringify(updatedChallenges)); // localStorage 업데이트
-        setTimeout(() => {
-            setChallenges(getChallenges());
-        }, 0); // 삭제 후 최신 데이터 적용 (비동기 처리)
-        navigate('/challenges', { state: { refresh: true }, replace: true }); // location state를 초기화
+        setChallenges(getChallenges()); // 상태 업데이트 (리렌더링을 위함)
+        navigate('/challenges', { state: { refresh: true } }); // 페이지 이동 후 새로고침 트리거 추가
     };
 
     useEffect(() => {

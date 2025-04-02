@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
+import MyChallengesList from './MyChallengesList';
 
-const MyChallengesLayout = () => {
+export default function MyChallengesLayout() {
     const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
     const dispatch = useDispatch();
     const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
@@ -65,7 +66,15 @@ const MyChallengesLayout = () => {
             handleSearch={handleSearch}
             challenges={challenges}
         />
+        // <MyChallengesList
+        //     activeCategory={activeCategory}
+        //     setActiveCategory={setActiveCategory}
+        //     searchTerm={searchTerm}
+        //     setSearchTerm={setSearchTerm}
+        //     searchResults={searchResults}
+        //     setSearchResults={setSearchResults}
+        //     handleSearch={handleSearch}
+        //     challenges={challenges}
+        // />
     );
-};
-
-export default MyChallengesLayout;
+}
