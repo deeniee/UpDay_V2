@@ -191,7 +191,8 @@ body {
 }
 
 a,
-button {
+button,
+Link {
     cursor: pointer;
 }
 
