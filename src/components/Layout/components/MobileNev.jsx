@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 
-const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
+const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
     return (
         <>
             {isMenuOpen ? (
                 <>
-                    <div className='fixed inset-0 h-screen w-screen min-w-[390px] flex flex-col items-center justify-center bg-main-100/95 backdrop-blur-sm z-60'>
+                    <div
+                        id='mobile-menu'
+                        className={`fixed inset-0 h-screen w-screen min-w-[390px] flex flex-col items-center justify-center
+                            bg-main-100/95 backdrop-blur-sm z-60 `}
+                    >
                         <button
                             className='md:hidden flex flex-col items-center justify-center w-8 h-8 z-70 fixed top-5 right-8'
                             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -18,12 +22,12 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                             <IoClose className='text-4xl font-bold text-neutral-900' />
                         </button>
                         <nav>
-                            <ul className='text-lg text-center space-y-10 font-medium'>
+                            <ul className='main-text text-base text-center space-y-10'>
                                 <li>
                                     <Link
                                         to='/main'
                                         onClick={() => setIsMenuOpen(false)}
-                                        className='hover:font-black'
+                                        className='hover:font-extrabold'
                                     >
                                         홈
                                     </Link>
@@ -32,7 +36,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                                     <Link
                                         to='/challenges'
                                         onClick={() => setIsMenuOpen(false)}
-                                        className='hover:font-black'
+                                        className='hover:font-extrabold'
                                     >
                                         챌린지 둘러보기
                                     </Link>
@@ -45,7 +49,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                                                 onClick={() =>
                                                     setIsMenuOpen(false)
                                                 }
-                                                className='hover:font-black'
+                                                className='hover:font-extrabold'
                                             >
                                                 내 챌린지
                                             </Link>
@@ -56,7 +60,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                                                 onClick={() =>
                                                     setIsMenuOpen(false)
                                                 }
-                                                className='hover:font-black'
+                                                className='hover:font-extrabold'
                                             >
                                                 마이페이지
                                             </Link>
@@ -68,7 +72,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                                     {loggedInUser ? (
                                         <button
                                             onClick={handleLogout}
-                                            className='hover:font-black'
+                                            className='hover:font-extrabold'
                                         >
                                             로그아웃
                                         </button>
@@ -76,7 +80,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                                         <Link
                                             to='/login'
                                             onClick={() => setIsMenuOpen(false)}
-                                            className='hover:font-black'
+                                            className='hover:font-extrabold'
                                         >
                                             로그인
                                         </Link>
@@ -87,12 +91,25 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout }) => {
                     </div>
                 </>
             ) : (
-                <button
-                    className='md:hidden flex flex-col items-center justify-center w-8 h-8 z-70'
-                    onClick={() => setIsMenuOpen((prev) => !prev)}
+                <header
+                    className={`bg-gradient-to-b from-main-100 from-60% via-main-100/90 via-90% to-main-100/90 md:hidden flex
+                        justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
                 >
-                    <IoMenu className='text-4xl font-bold text-black' />
-                </button>
+                    {/* 로고 */}
+                    <Link to='main'>
+                        <img
+                            alt='logo'
+                            src='/upday_logo.svg'
+                            className='h-6 md:h-8'
+                        />
+                    </Link>
+                    <button
+                        className='flex flex-col items-center justify-center w-8 h-8 z-70'
+                        onClick={() => setIsMenuOpen((prev) => !prev)}
+                    >
+                        <IoMenu className='text-4xl font-bold text-black' />
+                    </button>
+                </header>
             )}
         </>
     );

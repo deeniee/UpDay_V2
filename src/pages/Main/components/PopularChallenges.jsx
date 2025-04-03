@@ -79,15 +79,18 @@ const PopularChallenges = () => {
                     return (
                         <li
                             key={index}
-                            className={`card w-full h-10 md:h-[5.4vh] md:min-h-[37px] md:max-h-[69px] px-4 py-2 flex items-center justify-between transition duration-500 ease-in-out
-                                ${isHighlighted ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}
+                            className={`card w-full h-10 md:h-[5.4vh] md:min-h-[37px] md:max-h-[69px] px-4 py-2 drop-shadow-sm
+                                flex items-center justify-between transition duration-500 ease-in-out
+                                ${isHighlighted ? 'scale-100' : 'scale-95'}`}
                             onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
                                 <span className='w-[4%] main-text'>
                                     {index + 1}.
                                 </span>
-                                <div className='flex items-center gap-1'>
+                                <div
+                                    className={`flex items-center gap-1 ${isHighlighted ? 'opacity-100' : 'opacity-60'}`}
+                                >
                                     <div className='w-4 md:w-6 h-4 md:h-6'>
                                         <img
                                             alt={challenge.category}
@@ -100,11 +103,15 @@ const PopularChallenges = () => {
                                         {challenge.category}
                                     </span>
                                 </div>
-                                <span className='main-text flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
+                                <span
+                                    className={`main-text flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isHighlighted ? '' : 'font-light'}`}
+                                >
                                     {challenge.title}
                                 </span>
                             </div>
-                            <div className='sub-text flex items-end gap-2 text-neutral-700 whitespace-nowrap'>
+                            <div
+                                className={`sub-text flex items-end gap-2 whitespace-nowrap ${isHighlighted ? 'text-neutral-700' : 'text-neutral-500'}`}
+                            >
                                 <div className='flex items-center gap-0.5'>
                                     <FaMousePointer />
                                     {challenge.postClicked}

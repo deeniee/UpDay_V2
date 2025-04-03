@@ -2,57 +2,69 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const DesktopNav = ({ handleLogout }) => {
+const DesktopNav = ({ handleLogout, showNav }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
     return (
-        <nav className='hidden md:flex items-center h-full text-sm font-medium'>
-            <ul className='flex gap-10'>
-                <li>
-                    <Link to='/main' className='hover:font-black'>
-                        홈
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/challenges' className='hover:font-black'>
-                        챌린지 둘러보기
-                    </Link>
-                </li>
-
-                {loggedInUser && ( // 로그인 상태일 때만 개인화 페이지 표시
-                    <>
-                        <li>
-                            <Link
-                                to='/my-challenges'
-                                className='hover:font-black'
-                            >
-                                내 챌린지
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/mypage' className='hover:font-black'>
-                                마이페이지
-                            </Link>
-                        </li>
-                    </>
-                )}
-
-                <li>
-                    {loggedInUser ? (
-                        <button
-                            onClick={handleLogout}
-                            className='hover:font-black'
-                        >
-                            로그아웃
-                        </button>
-                    ) : (
-                        <Link to='/login' className='hover:font-black'>
-                            로그인
+        <header
+            className={`bg-gradient-to-b from-main-100 from-60% via-main-100/90 via-90% to-main-100/90 hidden md:flex
+                justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
+        >
+            {/* 로고 */}
+            <Link to='main'>
+                <img alt='logo' src='/upday_logo.svg' className='h-6 md:h-8 ' />
+            </Link>
+            <nav className='flex items-center h-full main-text'>
+                <ul className='flex gap-10'>
+                    <li>
+                        <Link to='/main' className='hover:font-extrabold'>
+                            홈
                         </Link>
+                    </li>
+                    <li>
+                        <Link to='/challenges' className='hover:font-extrabold'>
+                            챌린지 둘러보기
+                        </Link>
+                    </li>
+
+                    {loggedInUser && ( // 로그인 상태일 때만 개인화 페이지 표시
+                        <>
+                            <li>
+                                <Link
+                                    to='/my-challenges'
+                                    className='hover:font-extrabold'
+                                >
+                                    내 챌린지
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to='/mypage'
+                                    className='hover:font-extrabold'
+                                >
+                                    마이페이지
+                                </Link>
+                            </li>
+                        </>
                     )}
-                </li>
-            </ul>
-        </nav>
+
+                    <li>
+                        {loggedInUser ? (
+                            <button
+                                onClick={handleLogout}
+                                className='hover:font-extrabold'
+                            >
+                                로그아웃
+                            </button>
+                        ) : (
+                            <Link to='/login' className='hover:font-extrabold'>
+                                로그인
+                            </Link>
+                        )}
+                    </li>
+                </ul>
+            </nav>
+        </header>
     );
 };
 

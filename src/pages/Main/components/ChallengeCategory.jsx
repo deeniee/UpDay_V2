@@ -18,7 +18,7 @@ export default function ChallengeCategory() {
                         <Link
                             key={index}
                             to={getCategoryPath(category.title)}
-                            className={`relative w-full h-32 md:h-full md:min-h-[101.5px] flex justify-between items-center card`}
+                            className={`relative w-full h-32 md:h-full md:min-h-[101.5px] flex justify-between items-center card drop-shadow-sm`}
                         >
                             <div className=' w-full h-full p-3 md:p-4 flex justify-between items-between`'>
                                 <span className='main-text font-semibold whitespace-nowrap'>
