@@ -11,12 +11,11 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
             {isMenuOpen ? (
                 <>
                     <div
-                        id='mobile-menu'
-                        className={`fixed inset-0 h-screen w-screen min-w-[390px] flex flex-col items-center justify-center
-                            bg-main-100/95 backdrop-blur-sm z-60 `}
+                        className='fixed inset-0 h-screen w-screen min-w-[390px] flex flex-col items-center justify-center
+                                    bg-main-100/95 backdrop-blur-sm'
                     >
                         <button
-                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 z-70 fixed top-5 right-8'
+                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 fixed top-2 right-6'
                             onClick={() => setIsMenuOpen((prev) => !prev)}
                         >
                             <IoClose className='text-4xl font-bold text-neutral-900' />
@@ -104,7 +103,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
                         />
                     </Link>
                     <button
-                        className='flex flex-col items-center justify-center w-8 h-8 z-70'
+                        className='flex flex-col items-center justify-center w-8 h-8'
                         onClick={() => setIsMenuOpen((prev) => !prev)}
                     >
                         <IoMenu className='text-4xl font-bold text-black' />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { differenceInDays } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../img/1.svg';
-import img2 from '../img/2.svg';
-import img3 from '../img/3.svg';
-import img4 from '../img/4.svg';
+import img1 from '../../../assets/images/icons/pic_etc.svg';
+import img2 from '../../../assets/images/icons/pic_habit.svg';
+import img3 from '../../../assets/images/icons/pic_health.svg';
+import img4 from '../../../assets/images/icons/pic_study.svg';
 import UserReport from './UserReportSection';
 
 const UserProfile = () => {
@@ -53,7 +53,7 @@ const UserProfile = () => {
     return (
         <div className='flex flex-col gap-2'>
             <h1 className='title'>내 프로필</h1>
-            <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4'>
+            <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4 drop-shadow-sm'>
                 <div className='flex flex-row items-center'>
                     <div className='w-[25%] md:w-[30%] aspect-square shrink-0'>
                         {loggedInUser.userImg ? (
@@ -94,8 +94,15 @@ const UserProfile = () => {
                                     일 째 업데이 중
                                 </p>
                                 <p className='main-text text-neutral-500'>
-                                    {loggedInUser.signupDate ||
-                                        '가입일 정보 없음'}
+                                    {loggedInUser?.signupDate
+                                        ? `${new Date(
+                                              loggedInUser.signupDate
+                                          ).toLocaleDateString('ko-KR', {
+                                              year: 'numeric',
+                                              month: 'long',
+                                              day: 'numeric',
+                                          })} 가입`
+                                        : '가입일 정보 없음'}
                                 </p>
                             </div>
                         </div>

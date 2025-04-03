@@ -102,7 +102,7 @@ const HeaderLayout = () => {
     return (
         <div
             className={`w-full h-12 fixed top-0
-                ${isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-0'}`}
+                  ${isHighZIndexPage ? 'z-50' : isMenuOpen ? 'z-50' : 'z-0'}`}
         >
             {/* 데스크톱 메뉴 */}
             <DesktopNav handleLogout={handleLogout} showNav={showNav} />
