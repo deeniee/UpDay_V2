@@ -233,7 +233,7 @@ export default function PersonalInfo() {
 
     return (
         <form
-            className='w-full h-full flex flex-col justify-between card rounded-tl-none bg-neutral-100 p-4 md:p-6 md:pt-4'
+            className='w-full h-full flex flex-col justify-between card rounded-tl-none bg-neutral-100 p-4 md:p-6 md:pt-4 drop-shadow-sm'
             onSubmit={handleSubmit}
         >
             <div className='flex flex-col gap-3 md:gap-4'>

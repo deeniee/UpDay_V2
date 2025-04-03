@@ -14,14 +14,14 @@ const ToggleButton = ({ checked, onChange }) => {
                 onChange={onChange}
             />
             <div
-                className={`relative w-10 h-5 rounded-full transition ease-in-out ${isOff ? 'bg-neutral-400' : 'bg-main-400'}`}
+                className={`relative w-11 h-5 rounded-full transition ease-in-out ${isOff ? 'bg-neutral-400' : 'bg-point-400'}`}
             >
                 <button
-                    className={`m-1 w-3 h-3 bg-neutral-100 rounded-full transition ease-in-out duration-500 ${isOff ? '' : 'translate-x-5'}`}
+                    className={`m-1 w-3 h-3 bg-neutral-100 rounded-full transition ease-in-out duration-500 ${isOff ? '' : 'translate-x-6'}`}
                     onClick={handleToggle}
                 ></button>
                 <span
-                    className={`absolute top-0.5 left-1 sub-text text-neutral-100 transition ease-in-out duration-500 ${isOff ? 'translate-x-[13px]' : ''}`}
+                    className={`absolute top-0.5 left-1.5 sub-text font-normal text-neutral-100 transition ease-in-out duration-500 ${isOff ? 'translate-x-3' : ''}`}
                 >
                     {isOff ? 'OFF' : 'ON'}
                 </span>

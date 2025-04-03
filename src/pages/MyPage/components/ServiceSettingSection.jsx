@@ -9,7 +9,6 @@ export default function ServiceSetting() {
         participant: false,
         general: true,
     });
-
     const [theme, setTheme] = useState('system');
     const [socialAccounts, setSocialAccounts] = useState({
         google: true,
@@ -36,9 +35,9 @@ export default function ServiceSetting() {
     };
 
     return (
-        <section className='card w-full h-full rounded-tl-none p-3 md:p-4 main-text'>
+        <section className='card w-full h-full rounded-tl-none p-3 md:p-4 main-text drop-shadow-sm'>
             {/* 알림 설정 */}
-            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-400'>
+            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300'>
                 <h3 className='title'>알림 설정</h3>
                 <label className='flex items-center gap-2'>
                     챌린지 리마인더
@@ -64,7 +63,7 @@ export default function ServiceSetting() {
             </div>
 
             {/* 다크모드 설정 */}
-            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-400'>
+            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300'>
                 <h3 className='title'>테마 설정</h3>
                 <label className='flex items-center gap-2'>
                     <RadioButton
@@ -93,7 +92,7 @@ export default function ServiceSetting() {
             </div>
 
             {/* 소셜 로그인 관리 */}
-            {/* <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-400'>
+            {/* <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300'>
                 <h3 className='title'>소셜 로그인 관리</h3>
                 <div>
                     <span>Google</span>
@@ -115,12 +114,12 @@ export default function ServiceSetting() {
                 </div>
             </div> */}
             {/* 언어 및 지역 설정 */}
-            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-400'>
+            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300'>
                 <h3 className='title'>시간 설정</h3>
                 <label>시간대 설정</label>
                 <label>날짜 및 시간 형식 변경</label>
             </div>
-            <h3>
+            <h3 className='text-neutral-500 transition hover:text-red-300'>
                 <button>회원탈퇴하기</button>
             </h3>
         </section>
