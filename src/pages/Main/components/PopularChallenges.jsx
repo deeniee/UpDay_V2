@@ -104,7 +104,7 @@ const PopularChallenges = () => {
                                     </span>
                                 </div>
                                 <span
-                                    className={`main-text flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isHighlighted ? '' : 'font-light'}`}
+                                    className={`main-text flex-grow overflow-hidden text-ellipsis whitespace-nowrap  ${isHighlighted ? '' : 'font-light'}`}
                                 >
                                     {challenge.title}
                                 </span>

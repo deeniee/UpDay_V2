@@ -49,6 +49,17 @@ const HeaderLayout = () => {
     };
 
     useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden'; // 메뉴 오픈 시 스크롤 막기
+        } else {
+            document.body.style.overflow = ''; // 원래대로 복원
+        }
+        return () => {
+            document.body.style.overflow = ''; // 컴포넌트가 언마운트되면 복원
+        };
+    }, [isMenuOpen]);
+
+    useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
                 setIsMenuOpen(false); // 화면이 커지면 메뉴 닫기

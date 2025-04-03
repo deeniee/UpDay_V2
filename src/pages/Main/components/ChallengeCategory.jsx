@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ButtonIcon from '../images/button.svg';
+import { FaArrowCircleRight } from 'react-icons/fa';
 import {
     categoryList,
     getCategoryIllust,
@@ -24,11 +24,7 @@ export default function ChallengeCategory() {
                                 <span className='main-text font-semibold whitespace-nowrap'>
                                     {category.title}
                                 </span>
-                                <img
-                                    src={ButtonIcon}
-                                    alt='Button'
-                                    className='w-4 h-4 md:w-5 md:h-5'
-                                />
+                                <FaArrowCircleRight className='w-4 h-4 md:w-5 md:h-5 text-neutral-600' />
                             </div>
                             <div className='absolute w-full h-full flex justify-center items-end pb-3 md:pb-4'>
                                 <img
