@@ -25,10 +25,10 @@ const ChallengeCategorySection = ({
         category === activeCategory ? 'btn btn-neutral-1' : 'btn btn-neutral-2';
 
     return (
-        <section className='w-full md:w-[60.8%]'>
+        <section className='w-full md:w-[56.8%] lg:w-[63.2%]'>
             <ul className='w-full flex justify-between mb-3 md:mb-0'>
                 {categoryList.map((category, index) => (
-                    <li className='w-[18%] md:w-[20%] md:pr-4' key={index}>
+                    <li className='w-[18.5%] md:w-[20%] md:pr-4' key={index}>
                         <button
                             onClick={() => handleCategoryClick(category.title)}
                             className={`w-full md:px-auto whitespace-nowrap flex gap-[10%] ${getCategoryStyle(category.title)}`}
@@ -38,8 +38,8 @@ const ChallengeCategorySection = ({
                                 src={getCategoryIcon(category.title)}
                                 className={
                                     category.title === '전체'
-                                        ? 'w-6 md:w-7 h-6 md:h-7 -my-2 -ml-2 md:-m-0.5'
-                                        : 'w-4 md:w-6 h-4 md:h-6'
+                                        ? 'w-6 lg:w-7 h-6 lg:h-7 -my-2 -ml-2 md:-m-0.5'
+                                        : 'w-4 md:w-5 lg:w-6 h-4 md:h-5 lg:h-6'
                                 }
                             />
                             {category.title}

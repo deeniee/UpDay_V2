@@ -17,18 +17,18 @@ const MyChallengesList = ({
         <main className='default-size flex-col gap-0 md:justify-start'>
             <div className='w-full mb-3 md:mb-4 flex flex-col md:flex-row'>
                 {/* 카테고리 선택 섹션 */}
-                <ChallengeCategorySection
+                {/* <ChallengeCategorySection
                     activeCategory={activeCategory}
                     setActiveCategory={setActiveCategory}
                     setSearchResults={setSearchResults}
                     handleSearch={handleSearch}
-                />
+                /> */}
                 {/* 검색 섹션 */}
-                <ChallengeSearchSection
+                {/* <ChallengeSearchSection
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
                     handleSearch={handleSearch}
-                />
+                /> */}
             </div>
 
             {/* 정렬 섹션 */}
