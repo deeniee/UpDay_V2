@@ -48,7 +48,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     };
 
     return (
-        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
+        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] drop-shadow-sm'>
             <h2 className='card rounded-b-none bg-point-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
                 도전 중인 챌린지
                 {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}

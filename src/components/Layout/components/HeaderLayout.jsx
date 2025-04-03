@@ -10,6 +10,8 @@ const HeaderLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showNav, setShowNav] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     // 특정 페이지에만 z-index 높게 설정
     const isHighZIndexPage =
@@ -67,32 +69,40 @@ const HeaderLayout = () => {
         }
     }, [dispatch]); // 한 번만 실행되도록 빈 배열로 설정 (리렌더링 시 실행되지 않음)
 
+    useEffect(() => {
+        // 스크롤 이벤트를 처리하는 함수
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY; // 스크롤이 아래로 진행되었는지 확인
+            if (currentScrollY > lastScrollY) {
+                setShowNav(false); // 스크롤을 내릴 때 숨기기
+            } else {
+                setShowNav(true); // 스크롤을 올릴 때  표시
+            }
+
+            setLastScrollY(currentScrollY); // 마지막 스크롤 위치 업데이트
+        };
+
+        window.addEventListener('scroll', handleScroll); // 스크롤 이벤트 리스너 등록
+
+        // 클린업 함수에서 이벤트 리스너 제거
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
+
     return (
         <div
-            className={`w-full h-12 fixed top-0 bg-main-100 ${
-                isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-0'
-            }`}
+            className={`w-full h-12 fixed top-0
+                ${isMenuOpen ? 'z-50' : isHighZIndexPage ? 'z-40' : 'z-0'}`}
         >
-            <header className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
-                {/* 로고 */}
-                <Link to='main'>
-                    <img
-                        alt='logo'
-                        src='/upday_logo.svg'
-                        className='h-6 md:h-8'
-                    />
-                </Link>
+            {/* 데스크톱 메뉴 */}
+            <DesktopNav handleLogout={handleLogout} showNav={showNav} />
 
-                {/* 데스크톱 메뉴 */}
-                <DesktopNav handleLogout={handleLogout} />
-
-                {/* 모바일 메뉴 */}
-                <MobileNav
-                    isMenuOpen={isMenuOpen}
-                    setIsMenuOpen={setIsMenuOpen}
-                    handleLogout={handleLogout}
-                />
-            </header>
+            {/* 모바일 메뉴 */}
+            <MobileNav
+                isMenuOpen={isMenuOpen}
+                setIsMenuOpen={setIsMenuOpen}
+                handleLogout={handleLogout}
+                showNav={showNav}
+            />
         </div>
     );
 };
