@@ -77,7 +77,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
     return (
         <div
-            className='card p-2 md:p-3 flex flex-col gap-2 md:gap-3'
+            className='card p-2.5 md:p-3 flex flex-col gap-2.5 md:gap-3 drop-shadow-sm'
             onClick={handleCardClick}
         >
             {/* 카테고리 & 기간 */}
@@ -106,7 +106,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
             </div>
 
             {/* 챌린지 제목 & 내용 */}
-            <div className='flex flex-col gap-1 md:gap-1.5'>
+            <div className='flex flex-col gap-1.5 md:gap-2'>
                 <div className='sub-text flex items-center gap-1 md:gap-1.5 whitespace-nowrap'>
                     <span>{calcPassedDate(postDate)}</span>
                     <BsDot className='-mx-0.5' />
@@ -127,36 +127,46 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
             </div>
 
             {/* 유저 닉네임 & 사진 */}
-            <div className='flex justify-start items-center'>
-                <img
-                    src={getAuthorData(authorId).userImg}
-                    alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
-                    className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full'
-                />
-                <p className='ml-2 sub-text'>
-                    {getAuthorData(authorId).nickname}
-                </p>
+            <div className='flex justify-between'>
+                <div className='flex justify-start items-center'>
+                    <img
+                        src={getAuthorData(authorId).userImg}
+                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
+                        className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full'
+                    />
+                    <p className='ml-2 sub-text'>
+                        {getAuthorData(authorId).nickname}
+                    </p>
+                </div>
+                {isLoggedIn && (
+                    <button
+                        type='button'
+                        className={`btn w-[45%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                        onClick={handleJoin}
+                    >
+                        {isUserJoined ? '참여 중' : '참여하기'}
+                    </button>
+                )}
             </div>
             {/* 참여버튼 */}
-            {isMyChallengesPage ? (
+            {/* {isMyChallengesPage ? (
                 <ChallengeState
                     loggedInUser={loggedInUser}
                     participants={participants}
                     viewMode={viewMode}
                 />
-            ) : (
-                <div className='flex justify-center'>
-                    {isLoggedIn && (
-                        <button
-                            type='button'
-                            className={`btn w-[60%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
-                            onClick={handleJoin}
-                        >
-                            {isUserJoined ? '참여 중' : '참여하기'}
-                        </button>
-                    )}
-                </div>
-            )}
+            ) : ( 
+            <div className='flex justify-center'>
+                {isLoggedIn && (
+                    <button
+                        type='button'
+                        className={`btn w-[60%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                        onClick={handleJoin}
+                    >
+                        {isUserJoined ? '참여 중' : '참여하기'}
+                    </button>
+                )}
+            </div>*/}
         </div>
     );
 };

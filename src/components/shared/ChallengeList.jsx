@@ -80,7 +80,7 @@ const ChallengeList = ({ cardData, viewMode }) => {
             onClick={handleCardClick}
         >
             {/* 기본 제공 이미지 */}
-            <div className='relative h-24 md:h-28 aspect-square card bg-neutral-300 flex justify-center items-center'>
+            <div className='relative h-24 md:h-28 lg:h-32 aspect-square card bg-neutral-300 flex justify-center items-center'>
                 {getNewText ? (
                     <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
                         NEW

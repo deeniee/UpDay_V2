@@ -55,18 +55,9 @@ export default function MyChallengesLayout() {
         }
     }, [category]); // URL 카테고리 파라미터가 변경될 때마다 실행
 
+    const sortedChallenges = () => {};
     return (
-        <ChallengeListContainer
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            handleSearch={handleSearch}
-            challenges={challenges}
-        />
-        // <MyChallengesList
+        // <ChallengeListContainer
         //     activeCategory={activeCategory}
         //     setActiveCategory={setActiveCategory}
         //     searchTerm={searchTerm}
@@ -76,5 +67,15 @@ export default function MyChallengesLayout() {
         //     handleSearch={handleSearch}
         //     challenges={challenges}
         // />
+        <MyChallengesList
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+            handleSearch={handleSearch}
+            challenges={challenges}
+        />
     );
 }

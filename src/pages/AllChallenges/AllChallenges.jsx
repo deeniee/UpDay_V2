@@ -21,8 +21,8 @@ const AllChallenges = () => {
             <AllChallengesLayout />
             <Outlet />
             <button
-                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400
-                fixed bottom-[10%] right-[10%] w-14 md:w-16 h-14 md:h-16 text-4xl md:text-5xl'
+                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400 drop-shadow-md
+                fixed bottom-[11%] right-[6%] md:right-[11%] w-12 md:w-14 h-12 md:h-14 text-2xl md:text-3xl'
                 onClick={handleCreateClick}
             >
                 <FaPlus />
