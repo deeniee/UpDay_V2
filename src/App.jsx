@@ -19,29 +19,37 @@ import PostDetailModal from './pages/Modal/PostDetailModal';
 
 function App() {
     return (
-        <div className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12'>
-            <Header />
-            <Routes className='flex-grow'>
-                <Route path='/' element={<Intro />} />
-                <Route path='/main' element={<Main />} />
-                <Route path='/challenges' element={<AllChallenges />}>
-                    <Route path='category/:category' element={null} />
-                </Route>
+        <html>
+            <body className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-900'>
+                <Header />
+                <Routes className='flex-grow'>
+                    <Route path='/' element={<Intro />} />
+                    <Route path='/main' element={<Main />} />
+                    <Route path='/challenges' element={<AllChallenges />}>
+                        <Route path='category/:category' element={null} />
+                    </Route>
 
-                <Route path='challenges/create' element={<ChallengeDetail />} />
-                <Route path='challenges/:id' element={<ChallengeDetail />} />
-                <Route path='/my-challenges' element={<MyChallenges />}>
-                    <Route path='category/:category' element={null} />
-                </Route>
-                <Route path='/mypage' element={<MyPage />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/profile' element={<ProfileSetup />} />
-                <Route path='/login' element={<Login />} />
+                    <Route
+                        path='challenges/create'
+                        element={<ChallengeDetail />}
+                    />
+                    <Route
+                        path='challenges/:id'
+                        element={<ChallengeDetail />}
+                    />
+                    <Route path='/my-challenges' element={<MyChallenges />}>
+                        <Route path='category/:category' element={null} />
+                    </Route>
+                    <Route path='/mypage' element={<MyPage />} />
+                    <Route path='/signup' element={<Signup />} />
+                    <Route path='/profile' element={<ProfileSetup />} />
+                    <Route path='/login' element={<Login />} />
 
-                <Route path='*' element={<NotFound />} />
-            </Routes>
-            <Footer />
-        </div>
+                    <Route path='*' element={<NotFound />} />
+                </Routes>
+                <Footer />
+            </body>
+        </html>
     );
 }
 

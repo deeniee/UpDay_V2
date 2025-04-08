@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { FaChevronDown } from 'react-icons/fa6';
 import ToggleButton from '../../../components/ui/ToggleButton';
 import RadioButton from '../../../components/ui/RadioButton';
+import { useThemeManager } from '../hooks/useThemeManager';
 
 export default function ServiceSetting() {
+    const { theme, changeTheme } = useThemeManager();
     const [notifications, setNotifications] = useState({
         challenge: true,
         participant: false,
         general: true,
     });
-    const [theme, setTheme] = useState('system');
+
     const [socialAccounts, setSocialAccounts] = useState({
         google: true,
         kakao: true,
@@ -21,10 +24,6 @@ export default function ServiceSetting() {
             ...prev,
             [type]: !prev[type],
         }));
-    };
-
-    const handleThemeChange = (e) => {
-        setTheme(e.target.value);
     };
 
     const toggleSocialLogin = (platform) => {
@@ -69,7 +68,7 @@ export default function ServiceSetting() {
                     <RadioButton
                         value='light'
                         checked={theme === 'light'}
-                        onChange={handleThemeChange}
+                        onChange={() => changeTheme('light')}
                     />
                     라이트 모드
                 </label>
@@ -77,18 +76,18 @@ export default function ServiceSetting() {
                     <RadioButton
                         value='dark'
                         checked={theme === 'dark'}
-                        onChange={handleThemeChange}
+                        onChange={() => changeTheme('dark')}
                     />
                     다크 모드
                 </label>
-                <label className='flex items-center gap-2'>
+                {/* <label className='flex items-center gap-2'>
                     <RadioButton
                         value='system'
                         checked={theme === 'system'}
                         onChange={handleThemeChange}
                     />
                     시스템 설정 따르기
-                </label>
+                </label> */}
             </div>
 
             {/* 소셜 로그인 관리 */}

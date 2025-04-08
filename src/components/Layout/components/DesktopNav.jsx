@@ -7,8 +7,8 @@ const DesktopNav = ({ handleLogout, showNav }) => {
 
     return (
         <header
-            className={`bg-gradient-to-b from-main-100 from-60% via-main-100/90 via-90% to-main-100/90 hidden md:flex
-                justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
+            className={`header hidden md:flex justify-between items-center
+                w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
         >
             {/* 로고 */}
             <Link to='main'>
