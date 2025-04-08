@@ -110,7 +110,7 @@ const PopularChallenges = () => {
                                 </span>
                             </div>
                             <div
-                                className={`sub-text flex items-end gap-2 whitespace-nowrap ${isHighlighted ? 'text-neutral-700' : 'text-neutral-500'}`}
+                                className={`sub-text flex items-end gap-2 whitespace-nowrap ${isHighlighted ? 'text-neutral-700 dark:text-neutral-200' : 'text-neutral-500'}`}
                             >
                                 <div className='flex items-center gap-0.5'>
                                     <FaMousePointer />

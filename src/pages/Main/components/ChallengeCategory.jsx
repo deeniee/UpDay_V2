@@ -24,7 +24,7 @@ export default function ChallengeCategory() {
                                 <span className='main-text font-semibold whitespace-nowrap'>
                                     {category.title}
                                 </span>
-                                <FaArrowCircleRight className='w-4 h-4 md:w-5 md:h-5 text-neutral-600' />
+                                <FaArrowCircleRight className='w-4 h-4 md:w-5 md:h-5 text-neutral-600 dark:text-neutral-200' />
                             </div>
                             <div className='absolute w-full h-full flex justify-center items-end pb-3 md:pb-4'>
                                 <img
