@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const DesktopNav = ({ handleLogout, showNav, checkTheme }) => {
+const DesktopNav = ({ handleLogout, showNav, getLogo }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
     return (
@@ -12,7 +12,7 @@ const DesktopNav = ({ handleLogout, showNav, checkTheme }) => {
         >
             {/* 로고 */}
             <Link to='main'>
-                <img alt='logo' src={checkTheme} className='h-6 md:h-8 ' />
+                <img alt='logo' src={getLogo} className='h-6 md:h-8 ' />
             </Link>
             <nav className='flex items-center h-full main-text'>
                 <ul className='flex gap-10'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
 import { setUser } from '../../../store/features/UserSlice';
@@ -12,16 +12,10 @@ const HeaderLayout = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const [theme, setTheme] = useState('');
+    const theme = useSelector((state) => state.theme.mode);
 
-    const checkTheme = () => {
-        const nowTheme = localStorage.getItem('theme');
-        if (nowTheme === 'light') {
-            return 'upday_logo.svg';
-        }
-        if (nowTheme === 'dark') {
-            return 'upday_logo_white.svg';
-        }
+    const getLogo = () => {
+        return theme === 'dark' ? 'upday_logo_white.svg' : 'upday_logo.svg';
     };
 
     // 특정 페이지에만 z-index 높게 설정
@@ -35,10 +29,6 @@ const HeaderLayout = () => {
             '/challenges/:id',
         ].includes(location.pathname) ||
         /^\/challenges\/\d+$/.test(location.pathname);
-
-    useEffect(() => {
-        setTheme(checkTheme);
-    }, [setTheme]);
 
     useEffect(() => {
         setIsMenuOpen(false);
@@ -123,7 +113,7 @@ const HeaderLayout = () => {
             <DesktopNav
                 handleLogout={handleLogout}
                 showNav={showNav}
-                checkTheme={checkTheme()}
+                getLogo={getLogo()}
             />
 
             {/* 모바일 메뉴 */}
@@ -132,7 +122,7 @@ const HeaderLayout = () => {
                 setIsMenuOpen={setIsMenuOpen}
                 handleLogout={handleLogout}
                 showNav={showNav}
-                checkTheme={checkTheme()}
+                getLogo={getLogo()}
             />
         </div>
     );

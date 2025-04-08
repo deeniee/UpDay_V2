@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTheme } from '../../../store/features/themeSlice';
+import { setTheme } from '../store/features/themeSlice';
 
 export const useThemeManager = () => {
     const dispatch = useDispatch();

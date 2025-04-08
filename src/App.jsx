@@ -1,3 +1,4 @@
+import react, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -16,8 +17,20 @@ import ProfileSetup from './pages/Login/ProfileSetup';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 import PostDetailModal from './pages/Modal/PostDetailModal';
+import { useThemeManager } from './hooks/useThemeManager';
 
 function App() {
+    useThemeManager();
+
+    useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, []);
+
     return (
         <html>
             <body className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-700'>
