@@ -49,22 +49,22 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
 
     return (
         <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] drop-shadow-sm'>
-            <h2 className='card rounded-b-none bg-point-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
+            <h2 className='card rounded-b-none bg-point-200 dark:bg-point-600 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
                 도전 중인 챌린지
                 {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card bg-neutral-100 overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] bg-neutral-100 flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
-                                            : 'border-neutral-300'
+                                            : 'border-neutral-300 dark:border-neutral-700'
                                     }`}
                                     onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                                 >
@@ -87,7 +87,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                             {challenge.category}
                                                         </span>
                                                     </div>
-                                                    <span className='sub-text text-main-500 font-semibold'>
+                                                    <span className='sub-text font-semibold text-main-500 dark:text-main-300'>
                                                         {calcPassedDays(
                                                             challenge.participants.find(
                                                                 (p) =>
@@ -129,12 +129,12 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             )}
                     </ul>
                 ) : (
-                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card  main-text text-neutral-500'>
+                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card main-text text-neutral-500'>
                         진행 중인 챌린지가 없습니다.
                     </div>
                 )
             ) : (
-                <div className='w-full h-full pt-8 md:pt-10 flex flex-col card bg-neutral-100 justify-around itmes-center'>
+                <div className='w-full h-full pt-8 md:pt-10 flex flex-col card justify-around itmes-center'>
                     <h2 className='main-text font-semibold text-center text-neutral-700 ml-[3%]'>
                         로그인이 필요한 기능입니다.
                     </h2>

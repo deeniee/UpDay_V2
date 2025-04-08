@@ -126,7 +126,7 @@
     }
 
     .badge {
-        @apply rounded-full flex justify-center items-center bg-neutral-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap;
+        @apply rounded-full flex justify-center items-center bg-neutral-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap dark:bg-neutral-200 dark:text-neutral-900;
     }
     .badge-lg {
         @apply rounded-full flex justify-center items-center bg-neutral-600 text-neutral-100 font-bold text-[12px] w-10 h-7 md:text-[14px] md:w-12 md:h-8 whitespace-nowrap;

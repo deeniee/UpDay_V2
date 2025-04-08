@@ -13,7 +13,7 @@ const UserInfo = ({ userName, challengeDays, isLoggedIn }) => {
                         {userName ? `님, 안녕하세요!` : '님, 반가워요!'}
                     </span>
                 </div>
-                <div className='flex items-center text-neutral-700 text-base md:text-lg'>
+                <div className='flex items-center text-base md:text-lg text-neutral-700 dark:text-neutral-300'>
                     <img
                         alt='logo'
                         src='/upday_logo_round.svg'
@@ -23,7 +23,7 @@ const UserInfo = ({ userName, challengeDays, isLoggedIn }) => {
                     {isLoggedIn ? (
                         <div className='w-full md:h-full flex items-end pl-1 whitespace-nowrap'>
                             와
-                            <span className='font-semibold text-point-500 pl-2'>
+                            <span className='font-semibold text-point-500 dark:text-point-400 pl-2'>
                                 {challengeDays}
                             </span>
                             일 째 도전 중입니다.
