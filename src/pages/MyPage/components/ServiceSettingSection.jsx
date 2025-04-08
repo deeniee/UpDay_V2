@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { FaChevronDown } from 'react-icons/fa6';
 import ToggleButton from '../../../components/ui/ToggleButton';
 import RadioButton from '../../../components/ui/RadioButton';
-import { useThemeManager } from '../hooks/useThemeManager';
+import { useThemeManager } from '../../../hooks/useThemeManager';
 
 export default function ServiceSetting() {
     const { theme, changeTheme } = useThemeManager();

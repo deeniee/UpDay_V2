@@ -8,7 +8,7 @@ const MobileNav = ({
     setIsMenuOpen,
     handleLogout,
     showNav,
-    checkTheme,
+    getLogo,
 }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
@@ -102,11 +102,7 @@ const MobileNav = ({
                 >
                     {/* 로고 */}
                     <Link to='main'>
-                        <img
-                            alt='logo'
-                            src={checkTheme}
-                            className='h-6 md:h-8'
-                        />
+                        <img alt='logo' src={getLogo} className='h-6 md:h-8' />
                     </Link>
                     <button
                         className='flex flex-col items-center justify-center w-8 h-8'
