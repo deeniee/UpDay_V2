@@ -12,6 +12,17 @@ const HeaderLayout = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [theme, setTheme] = useState('');
+
+    const checkTheme = () => {
+        const nowTheme = localStorage.getItem('theme');
+        if (nowTheme === 'light') {
+            return 'upday_logo.svg';
+        }
+        if (nowTheme === 'dark') {
+            return 'upday_logo_white.svg';
+        }
+    };
 
     // 특정 페이지에만 z-index 높게 설정
     const isHighZIndexPage =
@@ -24,6 +35,10 @@ const HeaderLayout = () => {
             '/challenges/:id',
         ].includes(location.pathname) ||
         /^\/challenges\/\d+$/.test(location.pathname);
+
+    useEffect(() => {
+        setTheme(checkTheme);
+    }, [setTheme]);
 
     useEffect(() => {
         setIsMenuOpen(false);
@@ -105,7 +120,11 @@ const HeaderLayout = () => {
                   ${isHighZIndexPage ? 'z-50' : isMenuOpen ? 'z-50' : 'z-0'}`}
         >
             {/* 데스크톱 메뉴 */}
-            <DesktopNav handleLogout={handleLogout} showNav={showNav} />
+            <DesktopNav
+                handleLogout={handleLogout}
+                showNav={showNav}
+                checkTheme={checkTheme()}
+            />
 
             {/* 모바일 메뉴 */}
             <MobileNav
@@ -113,6 +132,7 @@ const HeaderLayout = () => {
                 setIsMenuOpen={setIsMenuOpen}
                 handleLogout={handleLogout}
                 showNav={showNav}
+                checkTheme={checkTheme()}
             />
         </div>
     );
