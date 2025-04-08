@@ -5,7 +5,7 @@ import img1 from '../../../assets/images/icons/pic_etc.svg';
 import img2 from '../../../assets/images/icons/pic_habit.svg';
 import img3 from '../../../assets/images/icons/pic_health.svg';
 import img4 from '../../../assets/images/icons/pic_study.svg';
-import UserReport from './UserReportSection';
+import UserReport from './UserReport';
 
 const UserProfile = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
@@ -82,18 +82,18 @@ const UserProfile = () => {
                                 <p className='title'>
                                     {loggedInUser.nickname || '닉네임 없음'}
                                 </p>
-                                <p className='main-text text-neutral-500'>
+                                <p className='main-text text-neutral-500 dark:text-neutral-400'>
                                     {loggedInUser.userId || '이메일 없음'}
                                 </p>
                             </div>
                             <div className='flex flex-col gap-2 md:gap-3'>
                                 <p className='main-text font-semibold'>
-                                    <span className='text-point-500'>
+                                    <span className='text-point-500 dark:text-point-400'>
                                         {daysSinceSignup}
                                     </span>
                                     일 째 업데이 중
                                 </p>
-                                <p className='main-text text-neutral-500'>
+                                <p className='main-text text-neutral-500 dark:text-neutral-400'>
                                     {loggedInUser?.signupDate
                                         ? `${new Date(
                                               loggedInUser.signupDate

@@ -84,19 +84,19 @@ export default function UserReport() {
         <div className='flex flex-row p-3 md:p-0 w-full h-full md:h-32 justify-evenly items-center'>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>진행 중</p>
-                <HiFire className='text-3xl md:text-4xl text-main-600' />
+                <HiFire className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
                 <p className='main-text font-semibold'>{numClgDoing}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>완료</p>
-                <HiDocumentCheck className='text-3xl md:text-4xl text-main-600' />
+                <HiDocumentCheck className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
                 <p className='main-text font-semibold'>{numClgDone}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>목표 달성율</p>
                 <div className='relative flex justify-center'>
-                    <HiMiniTrophy className='text-3xl md:text-4xl text-main-600' />
-                    <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1' />
+                    <HiMiniTrophy className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
+                    <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1 dark:text-neutral-800' />
                 </div>
                 <p className='main-text font-semibold'>{achievementRate}%</p>
             </div>

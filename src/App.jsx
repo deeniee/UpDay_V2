@@ -20,7 +20,7 @@ import PostDetailModal from './pages/Modal/PostDetailModal';
 function App() {
     return (
         <html>
-            <body className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-900'>
+            <body className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-700'>
                 <Header />
                 <Routes className='flex-grow'>
                     <Route path='/' element={<Intro />} />

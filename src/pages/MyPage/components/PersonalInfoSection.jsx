@@ -233,14 +233,14 @@ export default function PersonalInfo() {
 
     return (
         <form
-            className='w-full h-full flex flex-col justify-between card rounded-tl-none bg-neutral-100 p-4 md:p-6 md:pt-4 drop-shadow-sm'
+            className='w-full h-full flex flex-col justify-between card rounded-tl-none p-4 md:p-6 md:pt-4 drop-shadow-sm'
             onSubmit={handleSubmit}
         >
             <div className='flex flex-col gap-3 md:gap-4'>
                 <div className='col-span-full'>
                     <label
                         htmlFor='photo'
-                        className='main-text font-semibold text-neutral-700'
+                        className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                     >
                         프로필 사진
                     </label>
@@ -311,11 +311,11 @@ export default function PersonalInfo() {
                 <div className='col-span-full'>
                     <label
                         htmlFor='userIntroduction'
-                        className='main-text font-semibold text-neutral-700'
+                        className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                     >
                         소개글
                     </label>
-                    <div className='mt-2'>
+                    <div className='mt-2 '>
                         {editMode ? (
                             <textarea
                                 id='userIntroduction'
@@ -323,10 +323,10 @@ export default function PersonalInfo() {
                                 rows={4}
                                 value={userInfo.userIntroduction}
                                 onChange={handleChange}
-                                className='input-field sub-text w-full overflow-scroll scrollbar-none'
+                                className='textarea-field sub-text w-full overflow-scroll scrollbar-none'
                             />
                         ) : (
-                            <p className='input-field card w-full  h-[78px] md:h-[94px] main-text border border-neutral-400 overflow-scroll scrollbar-none'>
+                            <p className='textarea-field w-full h-[78px] md:h-[94px] main-text overflow-scroll scrollbar-none'>
                                 {userInfo.userIntroduction ||
                                     '아직 소개글을 작성하지 않았습니다.'}
                             </p>
@@ -338,7 +338,7 @@ export default function PersonalInfo() {
                     <div className='space-y-2'>
                         <label
                             htmlFor='userNickname'
-                            className='main-text font-semibold text-neutral-700'
+                            className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                         >
                             닉네임
                         </label>
@@ -361,7 +361,7 @@ export default function PersonalInfo() {
                     <div className='space-y-2'>
                         <label
                             htmlFor='email'
-                            className='main-text font-semibold text-neutral-700'
+                            className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                         >
                             아이디
                         </label>
@@ -379,7 +379,7 @@ export default function PersonalInfo() {
                         <div className='space-y-2'>
                             <label
                                 htmlFor='password'
-                                className='main-text font-semibold text-neutral-700'
+                                className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                             >
                                 새 비밀번호
                             </label>
@@ -404,7 +404,7 @@ export default function PersonalInfo() {
                         <div className='space-y-2'>
                             <label
                                 htmlFor='confirmPassword'
-                                className='main-text font-semibold text-neutral-700'
+                                className='main-text font-semibold text-neutral-700 dark:text-neutral-200'
                             >
                                 새 비밀번호 확인
                             </label>

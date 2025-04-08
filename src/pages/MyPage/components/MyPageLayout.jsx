@@ -3,7 +3,7 @@ import useModal from '../../../components/common/hooks/useModal';
 import { Helmet } from 'react-helmet';
 import MyPageNonLogin from './MyPageNonLogin';
 import UserProfile from './UserProfileSection';
-import UserReport from './UserReportSection';
+import UserReport from './UserReport';
 import TabSwitcher from './TabSwitcher';
 import PersonalInfo from './PersonalInfoSection';
 import ModalForLogin from '../../../components/common/ModalForLogin';

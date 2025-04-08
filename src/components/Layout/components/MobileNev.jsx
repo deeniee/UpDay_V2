@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 
-const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
+const MobileNav = ({
+    isMenuOpen,
+    setIsMenuOpen,
+    handleLogout,
+    showNav,
+    checkTheme,
+}) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
     return (
@@ -12,13 +18,13 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
                 <>
                     <div
                         className='fixed inset-0 h-screen w-screen min-w-[390px] flex flex-col items-center justify-center
-                                    bg-main-100/95 backdrop-blur-sm'
+                                    bg-main-100/95 backdrop-blur-sm dark:bg-neutral-700/95'
                     >
                         <button
-                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 fixed top-2 right-6'
+                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 fixed top-2 right-10'
                             onClick={() => setIsMenuOpen((prev) => !prev)}
                         >
-                            <IoClose className='text-4xl font-bold text-neutral-900' />
+                            <IoClose className='text-4xl font-bold text-neutral-900 dark:text-neutral-100' />
                         </button>
                         <nav>
                             <ul className='main-text text-base text-center space-y-10'>
@@ -91,14 +97,14 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
                 </>
             ) : (
                 <header
-                    className={`bg-gradient-to-b from-main-100 from-60% via-main-100/90 via-90% to-main-100/90 md:hidden flex
-                        justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
+                    className={`header md:hidden flex justify-between items-center
+                        w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
                 >
                     {/* 로고 */}
                     <Link to='main'>
                         <img
                             alt='logo'
-                            src='/upday_logo.svg'
+                            src={checkTheme}
                             className='h-6 md:h-8'
                         />
                     </Link>
@@ -106,7 +112,7 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen, handleLogout, showNav }) => {
                         className='flex flex-col items-center justify-center w-8 h-8'
                         onClick={() => setIsMenuOpen((prev) => !prev)}
                     >
-                        <IoMenu className='text-4xl font-bold text-black' />
+                        <IoMenu className='text-4xl font-bold text-neutral-900 dark:text-neutral-100' />
                     </button>
                 </header>
             )}
