@@ -80,7 +80,7 @@ const ChallengeList = ({ cardData, viewMode }) => {
             onClick={handleCardClick}
         >
             {/* 기본 제공 이미지 */}
-            <div className='relative h-24 md:h-28 lg:h-32 aspect-square card bg-neutral-300 flex justify-center items-center'>
+            <div className='relative h-24 md:h-28 lg:h-32 aspect-square card bg-neutral-300 flex justify-center items-center dark:bg-neutral-700'>
                 {getNewText ? (
                     <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
                         NEW
@@ -111,12 +111,12 @@ const ChallengeList = ({ cardData, viewMode }) => {
                         <span>{calcPassedDate(postDate)}</span>
                         <BsDot className='-mx-0.5' />
                         <div className='flex items-center gap-0.5 md:gap-1'>
-                            <IoBookmarks className='text-point-600' />
+                            <IoBookmarks className='text-point-600 dark:text-point-400' />
                             {scrapCount}
                         </div>
 
                         <div className='flex items-center gap-0.5 md:gap-1'>
-                            <IoHeart className='size-2.5 text-point-600' />
+                            <IoHeart className='size-2.5 text-point-600 dark:text-point-400' />
                             {likesCount}
                         </div>
                     </div>

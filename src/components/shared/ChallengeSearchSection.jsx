@@ -40,7 +40,7 @@ const ChallengeSearchSection = ({
                 className='absolute right-0.5 md:right-1 w-8 h-8'
                 onClick={handleSearchButtonClick}
             >
-                <BsSearch className='text-main-600 size-4 md:size-5' />
+                <BsSearch className='text-point-600 size-4 md:size-5' />
             </button>
         </section>
     );

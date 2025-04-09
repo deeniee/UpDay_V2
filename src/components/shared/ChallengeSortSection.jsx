@@ -163,7 +163,7 @@ export default function ChallengeSortSection({
                     <select
                         id='sort'
                         name='sort'
-                        className='bg-transparent main-text font-semibold text-neutral-700 text-end col-start-1 row-start-1 appearance-none focus:outline-none'
+                        className='bg-transparent main-text font-semibold text-neutral-700 text-end col-start-1 row-start-1 appearance-none focus:outline-none dark:text-neutral-100'
                         value={sortOption}
                         onChange={handleSortChange}
                     >
@@ -172,7 +172,7 @@ export default function ChallengeSortSection({
                         <option>스크랩 많은 순</option>
                         <option>좋아요 많은 순</option>
                     </select>
-                    <FaChevronDown className='text-neutral-700 size-2.5 md:size-3' />
+                    <FaChevronDown className='text-neutral-700 size-2.5 md:size-3 dark:text-neutral-100' />
                 </div>
                 <div className='flex justify-end items-center gap-1.5 md:gap-2'>
                     <button onClick={() => setViewMode(1)}>
