@@ -206,21 +206,6 @@ export default function PersonalInfo() {
         setEditMode(false);
     };
 
-    // const handleEditMode = () => {
-    //     setOriginalUserInfo({ ...userInfo });
-    //     setEditMode(true);
-    // };
-
-    // const handleCancel = () => {
-    //     setUserInfo(loggedInUser);
-    //     setEditMode(false);
-    //     setPasswordError('');
-    //     setNicknameError('');
-    //     if (uploadPhotoInput.current) {
-    //         uploadPhotoInput.current.value = ''; // Clear the file input
-    //     }
-    // };
-
     if (!loggedInUser) {
         return (
             <div className='w-full h-[756px] rounded-r-3xl rounded-bl-3xl bg-neutral-100 p-[36px]'>
@@ -233,10 +218,10 @@ export default function PersonalInfo() {
 
     return (
         <form
-            className='w-full h-full flex flex-col justify-between card rounded-tl-none p-4 md:p-6 md:pt-4 drop-shadow-sm'
+            className={`w-full ${editMode ? 'h-[720px]' : 'h-[570px]'} md:h-full flex flex-col justify-between card rounded-tl-none p-4 md:p-6 md:pt-4 drop-shadow-sm`}
             onSubmit={handleSubmit}
         >
-            <div className='flex flex-col gap-3 md:gap-4'>
+            <div className='flex flex-col gap-3 md:gap-4 -mt-1 md:mt-0'>
                 <div className='col-span-full'>
                     <label
                         htmlFor='photo'
@@ -265,7 +250,7 @@ export default function PersonalInfo() {
                                     alt='기본 프로필'
                                     className='w-full h-full object-cover bg-point-200'
                                 />
-                            )}{' '}
+                            )}
                         </div>
 
                         <input
@@ -279,12 +264,7 @@ export default function PersonalInfo() {
                         />
                         <label
                             htmlFor='upload-photo'
-                            className={`btn px-3 text-center whitespace-nowrap
-                                            ${
-                                                editMode
-                                                    ? 'btn-primary'
-                                                    : 'opacity-0 cursor-default'
-                                            } `}
+                            className={`btn px-3 text-center whitespace-nowrap ${editMode ? 'btn-primary' : 'opacity-0 cursor-default'} `}
                         >
                             사진 올리기
                         </label>

@@ -13,19 +13,19 @@ const ToggleButton = ({ checked, onChange }) => {
                 checked={checked}
                 onChange={onChange}
             />
-            <div
+            <button
                 className={`relative w-11 h-5 rounded-full transition ease-in-out ${isOff ? 'bg-neutral-400 dark:bg-neutral-600' : 'bg-point-400'}`}
+                onClick={handleToggle}
             >
-                <button
+                <div
                     className={`m-1 w-3 h-3 bg-neutral-100 rounded-full transition ease-in-out duration-500 ${isOff ? '' : 'translate-x-6'}`}
-                    onClick={handleToggle}
-                ></button>
+                ></div>
                 <span
                     className={`absolute top-1 left-2 md:top-0.5 md:left-1.5 sub-text font-normal text-neutral-100 transition ease-in-out duration-500 ${isOff ? 'translate-x-3' : ''}`}
                 >
                     {isOff ? 'OFF' : 'ON'}
                 </span>
-            </div>
+            </button>
         </div>
     );
 };

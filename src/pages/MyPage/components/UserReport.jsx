@@ -53,49 +53,49 @@ export default function UserReport() {
             : 0;
 
     // 테스트 계정이 아닐 경우
-    if (!isTestAccount) {
-        return (
-            <div className='flex flex-col'>
-                <div className='flex flex-row gap-2 p-4 w-full h-full justify-evenly items-center'>
-                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-                        <p className='main-text font-semibold'>진행 중</p>
-                        <HiFire className='text-3xl md:text-4xl text-main-600' />
-                    </div>
-                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-                        <p className='main-text font-semibold'>완료</p>
-                        <HiDocumentCheck className='text-3xl md:text-4xl text-main-600' />
-                    </div>
-                    <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-                        <p className='main-text font-semibold'>목표 달성율</p>
-                        <div className='relative flex justify-center'>
-                            <HiMiniTrophy className='text-3xl md:text-4xl text-main-600' />
-                            <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1' />
-                        </div>
-                    </div>
-                </div>
-                <p className='w-full main-text text-center text-gray-500 whitespace-nowrap'>
-                    테스트 계정이 아닌 경우, 해당 기능은 제한됩니다.
-                </p>
-            </div>
-        );
-    }
+    // if (!isTestAccount) {
+    //     return (
+    //         <div className='flex flex-col'>
+    //             <div className='flex flex-row gap-2 p-4 w-full h-full justify-evenly items-center'>
+    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+    //                     <p className='main-text font-semibold'>진행 중</p>
+    //                     <HiFire className='text-3xl md:text-4xl text-main-600' />
+    //                 </div>
+    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+    //                     <p className='main-text font-semibold'>완료</p>
+    //                     <HiDocumentCheck className='text-3xl md:text-4xl text-main-600' />
+    //                 </div>
+    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
+    //                     <p className='main-text font-semibold'>목표 달성율</p>
+    //                     <div className='relative flex justify-center'>
+    //                         <HiMiniTrophy className='text-3xl md:text-4xl text-main-600' />
+    //                         <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1' />
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <p className='w-full main-text text-center text-gray-500 whitespace-nowrap'>
+    //                 테스트 계정이 아닌 경우, 해당 기능은 제한됩니다.
+    //             </p>
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className='flex flex-row p-3 md:p-0 w-full h-full md:h-32 justify-evenly items-center'>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>진행 중</p>
-                <HiFire className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
+                <HiFire className='text-3xl md:text-4xl text-point-600 dark:text-point-500' />
                 <p className='main-text font-semibold'>{numClgDoing}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>완료</p>
-                <HiDocumentCheck className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
+                <HiDocumentCheck className='text-3xl md:text-4xl text-point-600 dark:text-point-500' />
                 <p className='main-text font-semibold'>{numClgDone}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>목표 달성율</p>
                 <div className='relative flex justify-center'>
-                    <HiMiniTrophy className='text-3xl md:text-4xl text-main-600 dark:text-main-400' />
+                    <HiMiniTrophy className='text-3xl md:text-4xl text-point-600 dark:text-point-500' />
                     <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1 dark:text-neutral-800' />
                 </div>
                 <p className='main-text font-semibold'>{achievementRate}%</p>
