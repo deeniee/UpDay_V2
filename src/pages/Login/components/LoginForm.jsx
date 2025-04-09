@@ -29,7 +29,7 @@ const LoginForm = () => {
                 <button type='submit' className='btn btn-primary w-full h-10'>
                     로그인
                 </button>
-                <button className='btn bg-yellow-300 border-yellow-300 w-full max-w-[288px] h-10'>
+                <button className='btn bg-yellow-300 border-yellow-300 w-full max-w-[288px] h-10 dark:bg-yellow-400'>
                     카카오 로그인
                 </button>
             </form>

@@ -33,7 +33,7 @@ const useProfileSetup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (nickname.length > 6) {
+        if (nickname.length > 6 || nickname.length === 0) {
             setError('닉네임은 6글자 이내여야 합니다.');
             return;
         }
