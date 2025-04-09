@@ -13,13 +13,13 @@ export default function TabSwitcher() {
                     className={`title ${activeTab === 1 ? 'tap-onclick' : 'tap-default'} drop-shadow-sm`}
                     onClick={() => setActiveTab(1)}
                 >
-                    <h2>개인정보관리</h2>
+                    <h2>개인정보수정</h2>
                 </button>
                 <button
                     className={`title ${activeTab === 2 ? 'tap-onclick' : 'tap-default'} drop-shadow-sm`}
                     onClick={() => setActiveTab(2)}
                 >
-                    <h2>서비스 설정</h2>
+                    <h2>서비스설정</h2>
                 </button>
             </div>
 
