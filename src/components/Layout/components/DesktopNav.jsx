@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const DesktopNav = ({ handleLogout, showNav, getLogo }) => {
+const DesktopNav = ({ handleLogout, showNav, isScrolled, getLogo }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
 
     return (
         <header
-            className={`header hidden md:flex justify-between items-center
-                w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
+            className={`hidden md:flex justify-between items-center
+                w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'} ${isScrolled ? 'header' : ''}`}
         >
             {/* 로고 */}
             <Link to='main'>

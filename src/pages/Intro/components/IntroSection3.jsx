@@ -1,10 +1,22 @@
 import React from 'react';
-
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import FadeInSection from './FadeInSection';
 import MessageCard from './MessageCard';
 import IllustBg3 from './IllustBg3';
 
 export default function IntroSection3() {
+    const navigate = useNavigate();
+    const theme = useSelector((state) => state.theme.mode);
+
+    const getLogo = () => {
+        return theme === 'dark' ? 'upday_logo_white.svg' : 'upday_logo.svg';
+    };
+
+    const handleClickForClgList = () => {
+        navigate('/signup');
+    };
+
     return (
         <section className='relative w-full h-full snap-start flex flex-col py-28'>
             <div className='flex flex-col space-y-16 w-[95%] md:w-[80%] md:max-w-[640px] mx-auto'>
@@ -41,7 +53,7 @@ export default function IntroSection3() {
                         <div className='flex items-center gap-1 md:gap-2'>
                             <img
                                 alt='logo'
-                                src='/upday_logo.svg'
+                                src={getLogo()}
                                 className='h-6 md:h-8'
                             />
                             <span>를 통해 더 나은 매일을 만들어보세요.</span>
@@ -49,6 +61,17 @@ export default function IntroSection3() {
                     </div>
                 </FadeInSection>
             </div>
+            <FadeInSection
+                delay={1200}
+                className='mt-16 w-full flex item-center justify-center z-10'
+            >
+                <button
+                    className='btn btn-point w-[32%] md:w-[30%]'
+                    onClick={handleClickForClgList}
+                >
+                    업데이 시작하기
+                </button>
+            </FadeInSection>
             <IllustBg3 />
         </section>
     );

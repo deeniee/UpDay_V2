@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
+import { useThemeManager } from '../../../hooks/useThemeManager';
 
 const MobileNav = ({
     isMenuOpen,
     setIsMenuOpen,
     handleLogout,
     showNav,
+    isScrolled,
     getLogo,
 }) => {
     const loggedInUser = useSelector((state) => state.user.userId);
@@ -97,8 +99,8 @@ const MobileNav = ({
                 </>
             ) : (
                 <header
-                    className={`header md:hidden flex justify-between items-center
-                        w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto ${showNav ? '' : 'hide-nav'}`}
+                    className={` md:hidden flex justify-between items-center
+                        w-full px-[5vw] h-full mx-auto ${showNav ? '' : 'hide-nav'} ${isScrolled ? 'header' : ''}`}
                 >
                     {/* 로고 */}
                     <Link to='main'>
