@@ -80,14 +80,14 @@ export default function ServiceSetting() {
                     />
                     다크 모드
                 </label>
-                {/* <label className='flex items-center gap-2'>
+                <label className='flex items-center gap-2'>
                     <RadioButton
                         value='system'
                         checked={theme === 'system'}
-                        onChange={handleThemeChange}
+                        onChange={() => changeTheme('system')}
                     />
                     시스템 설정 따르기
-                </label> */}
+                </label>
             </div>
 
             {/* 소셜 로그인 관리 */}

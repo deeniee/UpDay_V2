@@ -141,10 +141,10 @@
     }
 
     .tap-onclick {
-        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-500 text-neutral-100 transition active:bg-main-600 hover:bg-main-600 dark:bg-main-400 dark:active:bg-main-500 dark:hover:bg-main-500;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-500 text-neutral-100 transition hover:bg-main-600 dark:bg-main-500 dark:hover:bg-main-400;
     }
     .tap-default {
-        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-300 text-neutral-100 transition active:bg-main-600 hover:bg-main-600 dark:bg-main-600 dark:active:bg-main-500 dark:hover:bg-main-500;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-300 text-neutral-100 transition hover:bg-main-600 dark:bg-main-600 dark:hover:bg-main-400;
     }
 
     .viewmode-onclick {

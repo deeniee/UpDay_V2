@@ -11,7 +11,7 @@ export default function UserReport() {
     const [users, setUsers] = useState([]);
     const [isTestAccount, setIsTestAccount] = useState(false);
     const joinedChallenges =
-        useSelector((state) => state.challenge.joinedChallenges) || [];
+        useSelector((state) => state.userChallenge.joinedChallenges) || [];
 
     useEffect(() => {
         dispatch(getJoinedChallenge());
@@ -41,56 +41,38 @@ export default function UserReport() {
     }, []);
 
     // 내가 참여한 챌린지 상태 값
-    const numClgDoing = joinedChallenges.filter((clg) => clg.clgDoing).length;
-    const numClgDone = joinedChallenges.filter((clg) => clg.clgDone).length;
-    const numClgOver = joinedChallenges.filter(
-        (clg) => !clg.clgDoing && !clg.clgDone
+    const getNumClgDoing = joinedChallenges.filter((challenge) =>
+        challenge.participants.some(
+            (p) => p.userId === loggedInUser && p.clgDoing
+        )
+    ).length;
+    const getNumClgDone = joinedChallenges.filter((challenge) =>
+        challenge.participants.some(
+            (p) => p.userId === loggedInUser && p.clgDone
+        )
+    ).length;
+    const getNumClgOver = joinedChallenges.filter((challenge) =>
+        challenge.participants.some((p) => !p.clgDoing && !p.clgDone)
     ).length;
 
     const achievementRate =
-        numClgDone + numClgOver > 0
-            ? Math.round((numClgDone / (numClgDone + numClgOver)) * 100)
+        getNumClgDone + getNumClgOver > 0
+            ? Math.round(
+                  (getNumClgDone / (getNumClgDone + getNumClgOver)) * 100
+              )
             : 0;
-
-    // 테스트 계정이 아닐 경우
-    // if (!isTestAccount) {
-    //     return (
-    //         <div className='flex flex-col'>
-    //             <div className='flex flex-row gap-2 p-4 w-full h-full justify-evenly items-center'>
-    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-    //                     <p className='main-text font-semibold'>진행 중</p>
-    //                     <HiFire className='text-3xl md:text-4xl text-main-600' />
-    //                 </div>
-    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-    //                     <p className='main-text font-semibold'>완료</p>
-    //                     <HiDocumentCheck className='text-3xl md:text-4xl text-main-600' />
-    //                 </div>
-    //                 <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
-    //                     <p className='main-text font-semibold'>목표 달성율</p>
-    //                     <div className='relative flex justify-center'>
-    //                         <HiMiniTrophy className='text-3xl md:text-4xl text-main-600' />
-    //                         <FaStar className='absolute text-neutral-100 text-[8px] top-1 md:text-[11px] md:top-1' />
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             <p className='w-full main-text text-center text-gray-500 whitespace-nowrap'>
-    //                 테스트 계정이 아닌 경우, 해당 기능은 제한됩니다.
-    //             </p>
-    //         </div>
-    //     );
-    // }
 
     return (
         <div className='flex flex-row p-3 md:p-0 w-full h-full md:h-32 justify-evenly items-center'>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>진행 중</p>
                 <HiFire className='text-3xl md:text-4xl text-point-600 dark:text-point-500' />
-                <p className='main-text font-semibold'>{numClgDoing}</p>
+                <p className='main-text font-semibold'>{getNumClgDoing}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>완료</p>
                 <HiDocumentCheck className='text-3xl md:text-4xl text-point-600 dark:text-point-500' />
-                <p className='main-text font-semibold'>{numClgDone}</p>
+                <p className='main-text font-semibold'>{getNumClgDone}</p>
             </div>
             <div className='flex flex-col justilfy-center items-center gap-3 w-[30%]'>
                 <p className='main-text font-semibold'>목표 달성율</p>

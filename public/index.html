@@ -2,6 +2,24 @@
 <html lang="ko">
     <head>
         <meta charset="utf-8" />
+        <!-- React 앱 시작 전 다크모드 적용 -->
+        <script>
+            const theme = localStorage.getItem('theme') || 'system'; // 기본값 설정
+            let finalTheme = theme;
+
+            if (theme === 'system') {
+                const prefersDark = window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
+                finalTheme = prefersDark ? 'dark' : 'light';
+            }
+
+            if (finalTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
         <link rel="icon" href="%PUBLIC_URL%/upday_favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
@@ -21,14 +39,6 @@
         />
         <meta property="og:image" content="%PUBLIC_URL%/upday_favicon.svg" />
         <meta property="og:type" content="website" />
-
-        <!-- React 앱 시작 전 다크모드 적용 -->
-        <script>
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
-        </script>
 
         <title>UpDay</title>
     </head>
