@@ -8,6 +8,7 @@ import {
 } from 'react-icons/io5';
 
 export default function ChallengeActions({
+    participants,
     scrapCount,
     likesCount,
     onSubmit,
@@ -15,6 +16,12 @@ export default function ChallengeActions({
     isCreateMode,
     isEditMode,
 }) {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+
+    const isUserJoined = participants?.some(
+        (participant) =>
+            participant.userId === loggedInUser && participant.clgJoin === true
+    );
     return (
         <>
             {isCreateMode || isEditMode ? (
@@ -35,20 +42,22 @@ export default function ChallengeActions({
             ) : (
                 <section className='flex justify-between'>
                     <div className='flex justify-center items-center w-[30%] md:max-w-[240px]'>
-                        <button className='btn btn-primary w-full'>
+                        <button
+                            className={`btn btn-primary w-full ${isUserJoined ? 'hidden' : ''}`}
+                        >
                             참여하기
                         </button>
                     </div>
                     <div className='flex gap-1.5 md:gap-2'>
                         <button className='btn btn-action flex gap-1.5 md:gap-2'>
                             <IoBookmarksOutline className='size-5' />
-                            <span className='main-text text-neutral-900 font-semibold'>
+                            <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
                                 {scrapCount}
                             </span>
                         </button>
                         <button className='btn btn-action flex gap-1.5 md:gap-2'>
                             <IoHeartOutline className='size-5' />
-                            <span className='main-text text-neutral-900 font-semibold'>
+                            <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
                                 {likesCount}
                             </span>
                         </button>

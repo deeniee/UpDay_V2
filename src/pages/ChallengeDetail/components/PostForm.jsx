@@ -17,7 +17,7 @@ const PostForm = ({
 
     return (
         <section className='relative flex flex-col md:flex-row'>
-            <div className='card bg-neutral-300 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:self-start md:aspect-square m-3 md:m-4'>
+            <div className='card bg-neutral-300 dark:bg-neutral-700 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:self-start md:aspect-square m-3 md:m-4'>
                 <label
                     htmlFor='file-upload'
                     className='flex items-center justify-center cursor-pointer w-full h-full'
@@ -29,7 +29,7 @@ const PostForm = ({
                             className='w-full p-4 aspect-[5/3] md:aspect-square'
                         />
                     ) : (
-                        <p className='w-full h-full flex items-center justify-center text-neutral-500'>
+                        <p className='w-full h-full flex items-center justify-center font-medium text-neutral-500 dark:text-neutral-300'>
                             이미지 업로드
                         </p>
                     )}
@@ -80,7 +80,7 @@ const PostForm = ({
                     </div>
                     <label
                         htmlFor='challengeTitle'
-                        className='main-text font-semibold text-neutral-700 -mb-1.5 md:-mb-2'
+                        className='main-text font-medium text-neutral-700 dark:text-neutral-300 -mb-1.5 md:-mb-2'
                     >
                         챌린지 이름
                     </label>
@@ -95,7 +95,7 @@ const PostForm = ({
                     />
                     <label
                         htmlFor='challengeContent'
-                        className='main-text font-semibold text-neutral-700 -mb-1.5 md:-mb-2'
+                        className='main-text font-medium text-neutral-700 dark:text-neutral-300 -mb-1.5 md:-mb-2'
                     >
                         챌린지 설명
                     </label>

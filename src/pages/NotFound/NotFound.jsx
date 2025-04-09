@@ -16,7 +16,7 @@ const NotFound = () => {
                     alt='Not Found'
                     className='w-[320px] md:w-[400px] '
                 />
-                <div className='text-main-600 font-semibold text-xl md:text-2xl'>
+                <div className='text-main-600 font-semibold text-xl md:text-2xl dark:text-main-200'>
                     페이지를 찾을 수 없습니다.
                 </div>
                 <div className='main-text'>
