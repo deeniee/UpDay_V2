@@ -13,7 +13,7 @@ const LoginLayout = ({ children, title }) => {
     return (
         <div className='relative default-size flex-col card min-h-[640px] h-[86vh] md:h-[79vh] md:min-h-[606px] md:w-[48%] mt-[2vh] p-8 md:p-6'>
             <div className='title flex justify-center items-center h-[10%]'>
-                <p className='z-10 h-full flex items-center text-main-600 '>
+                <p className='z-10 h-full flex items-center text-main-600 dark:text-main-200'>
                     {title}
                 </p>
                 <img

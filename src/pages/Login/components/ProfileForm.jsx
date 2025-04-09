@@ -22,7 +22,7 @@ const ProfileForm = () => {
                     <label htmlFor='file-upload'>프로필 사진</label>
                     <label
                         htmlFor='file-upload'
-                        className='flex items-center justify-center cursor-pointer rounded-full bg-neutral-300 w-[124px] md:w-32 aspect-square'
+                        className='flex items-center justify-center cursor-pointer rounded-full bg-neutral-300 w-[124px] md:w-32 aspect-square dark:bg-neutral-200'
                     >
                         {userImg ? (
                             <img
@@ -71,12 +71,12 @@ const ProfileForm = () => {
             </form>
             {isModalOpen && (
                 <div className='fixed inset-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 backdrop-blur-sm'>
-                    <div className='relative card flex flex-col justify-between items-center min-w-80 w-[82%] max-w-96 p-6 pt-9 md:w-96 h-48 md:p-6'>
-                        <div className='title font-bold'>
-                            회원 가입이 완료되었습니다!
+                    <div className='relative card flex flex-col justify-between items-center min-w-80 w-[82%] max-w-96 p-6 pt-9 md:w-96 h-56 md:p-6'>
+                        <div className='title font-bold mt-4'>
+                            회원 가입이 완료되었습니다
                         </div>
                         <div className='main-text'>
-                            업데이와 함께 원하던 목표를 이뤄봐요 :)
+                            업데이와 함께 원하던 목표를 이뤄봐요!
                             <br />
                         </div>
                         <button
