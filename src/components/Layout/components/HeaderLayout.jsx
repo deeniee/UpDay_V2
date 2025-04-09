@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
@@ -12,6 +12,8 @@ const HeaderLayout = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [isScrolled, setIsScrolled] = useState(false);
+
     const theme = useSelector((state) => state.theme.mode);
 
     const getLogo = () => {
@@ -83,7 +85,7 @@ const HeaderLayout = () => {
         if (loggedInUser) {
             dispatch(setUser({ userId: loggedInUser }));
         }
-    }, [dispatch]); // 한 번만 실행되도록 빈 배열로 설정 (리렌더링 시 실행되지 않음)
+    }, [dispatch]);
 
     useEffect(() => {
         // 스크롤 이벤트를 처리하는 함수
@@ -93,6 +95,13 @@ const HeaderLayout = () => {
                 setShowNav(false); // 스크롤을 내릴 때 숨기기
             } else {
                 setShowNav(true); // 스크롤을 올릴 때  표시
+            }
+
+            // 헤더 배경 변경 조건 (0보다 크면 true)
+            if (currentScrollY > 10) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
             }
 
             setLastScrollY(currentScrollY); // 마지막 스크롤 위치 업데이트
@@ -113,6 +122,7 @@ const HeaderLayout = () => {
             <DesktopNav
                 handleLogout={handleLogout}
                 showNav={showNav}
+                isScrolled={isScrolled}
                 getLogo={getLogo()}
             />
 
@@ -122,6 +132,7 @@ const HeaderLayout = () => {
                 setIsMenuOpen={setIsMenuOpen}
                 handleLogout={handleLogout}
                 showNav={showNav}
+                isScrolled={isScrolled}
                 getLogo={getLogo()}
             />
         </div>

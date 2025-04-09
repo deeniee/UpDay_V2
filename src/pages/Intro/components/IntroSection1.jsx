@@ -1,5 +1,4 @@
 import React from 'react';
-
 import IllustBg1 from './IllustBg1';
 
 export default function IntroSection1() {
