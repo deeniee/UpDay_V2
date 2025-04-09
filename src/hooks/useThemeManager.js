@@ -4,8 +4,9 @@ import { setTheme } from '../store/features/themeSlice';
 
 export const useThemeManager = () => {
     const dispatch = useDispatch();
-    const currentTheme = useSelector((state) => state.theme.mode); // 전역 상태
-    const [theme, setLocalTheme] = useState(currentTheme || 'light');
+    // localStorage에서 초기값 직접 가져오기
+    const initialTheme = localStorage.getItem('theme') || 'light';
+    const [theme, setLocalTheme] = useState(initialTheme);
 
     const applyTheme = (themeValue) => {
         setLocalTheme(themeValue);
@@ -20,8 +21,7 @@ export const useThemeManager = () => {
     };
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        applyTheme(savedTheme);
+        applyTheme(initialTheme); // 👈 이미 적용된 상태일 수도 있지만 문제없음
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
 import { setUser } from '../../../store/features/UserSlice';
+import { setTheme } from '../../../store/features/themeSlice';
 
 const HeaderLayout = () => {
     const dispatch = useDispatch();
@@ -49,6 +50,10 @@ const HeaderLayout = () => {
                 userImg: '',
             })
         );
+        // 로그아웃 시 라이트모드로 테마 변경
+        dispatch(setTheme('light'));
+        localStorage.setItem('theme', 'light');
+        document.documentElement.classList.remove('dark');
 
         // 로그아웃 후 홈으로 이동
         navigate('/');
