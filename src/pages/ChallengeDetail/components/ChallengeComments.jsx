@@ -20,7 +20,7 @@ const ChallengeComments = ({ postData }) => {
                         <p className='main-text mr-1.5 '>
                             지금까지 {participants.length}명이 참여했어요!
                         </p>
-                        <BsThreeDots className='absolute top-4.5 right-[26px] md:top-2 md:right-11 z-30 w-3 h-3 md:w-4 md:h-4 flex justify-center items-center text-neutral-100' />
+                        <BsThreeDots className='absolute top-4.5 right-[26px] md:top-2 md:right-11 z-30 w-3 h-3 md:w-4 md:h-4 flex justify-center items-center' />
                         {updatedParticipants
                             .slice(0, 3)
                             .map((participant, index) => (
@@ -76,7 +76,7 @@ const ChallengeComments = ({ postData }) => {
                             className='input-field h-[30px] md:h-[34px]'
                             placeholder='후기를 입력하세요.'
                         ></input>
-                        <button className='btn btn-secondary w-24 md:w-28'>
+                        <button className='btn btn-primary w-24 md:w-28'>
                             등록하기
                         </button>
                     </li>

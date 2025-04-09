@@ -146,7 +146,7 @@ export default function ChallengeDetail() {
             (challenge) => challenge.id !== challengeId
         );
 
-        // 🛑 삭제된 챌린지를 기록
+        // 삭제된 챌린지를 기록
         const deletedChallenges =
             JSON.parse(localStorage.getItem('deletedChallenges')) || [];
         localStorage.setItem(
@@ -161,7 +161,7 @@ export default function ChallengeDetail() {
 
     useEffect(() => {
         console.log('업데이트된 챌린지 목록', challenges);
-    }, [challenges]); // ✅ challenges가 변경될 때마다 실행
+    }, [challenges]); // challenges가 변경될 때마다 실행
     return (
         <div className='relative md:default-size md:mt-0'>
             <main
