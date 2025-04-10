@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userChallengeReducer from './features/userChallengeSlice';
+import userReducer from './features/userSlice';
 import challengeReducer from './features/challengeSlice';
-import userReducer from './features/UserSlice';
+import userChallengeReducer from './features/userChallengeSlice';
 import themeSlice from './features/themeSlice';
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        challenge: challengeReducer,
         userChallenge: userChallengeReducer,
+        challenge: challengeReducer,
         theme: themeSlice,
     },
 });

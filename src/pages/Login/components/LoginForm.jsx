@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
-import useLogin from '../hooks/UseLogin';
+import useLogin from '../hooks/useLogin';
 
 const LoginForm = () => {
-    const { userId, setUserId, password, setPassword, error, handleSubmit } =
-        useLogin();
+    const {
+        userId,
+        handleUserIdChange,
+        handleBeforeInput,
+        password,
+        setPassword,
+        error,
+        handleSubmit,
+    } = useLogin();
 
     return (
         <div className=' flex flex-col items-center text-center gap-8'>
@@ -13,10 +20,12 @@ const LoginForm = () => {
             >
                 <input
                     type='email'
-                    placeholder='이메일'
+                    placeholder='아이디'
                     className='input-field main-text w-full h-10'
                     value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
+                    onChange={handleUserIdChange}
+                    onBeforeInput={handleBeforeInput}
+                    inputMode='email'
                 />
                 <input
                     type='password'
@@ -24,6 +33,7 @@ const LoginForm = () => {
                     className='input-field main-text w-full h-10'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    inputMode='password'
                 />
                 {error && <div className='main-text text-red-400'>{error}</div>}
                 <button type='submit' className='btn btn-primary w-full h-10'>

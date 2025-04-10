@@ -1,4 +1,4 @@
-import useProfileSetup from '../hooks/UseProfileSetup';
+import useProfileSetup from '../hooks/useProfileSetup';
 
 const ProfileForm = () => {
     const {
@@ -22,13 +22,13 @@ const ProfileForm = () => {
                     <label htmlFor='file-upload'>프로필 사진</label>
                     <label
                         htmlFor='file-upload'
-                        className='flex items-center justify-center cursor-pointer rounded-full bg-neutral-300 w-[124px] md:w-32 aspect-square dark:bg-neutral-200'
+                        className='flex items-center justify-center cursor-pointer rounded-full border border-neutral-400 overflow-hidden bg-neutral-300 w-[124px] h-[124px] md:w-32 md:h-32 dark:bg-neutral-200'
                     >
                         {userImg ? (
                             <img
                                 src={userImg}
                                 alt='프로필 미리보기'
-                                className='w-[116px] aspect-square rounded-full'
+                                className=' w-[124px] h-[124px] md:w-32 md:h-32 object-cover'
                             />
                         ) : (
                             <span className='text-neutral-500'>

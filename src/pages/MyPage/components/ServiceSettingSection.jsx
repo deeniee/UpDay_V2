@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { FaChevronDown } from 'react-icons/fa6';
 import ToggleButton from '../../../components/ui/ToggleButton';
 import RadioButton from '../../../components/ui/RadioButton';
@@ -33,6 +32,9 @@ export default function ServiceSetting() {
         }));
     };
 
+    const deleteUser = () => {
+        const currentUser = localStorage.getItem('loggedInUser');
+    };
     return (
         <section className='card w-full h-[570px] md:h-full rounded-tl-none p-4 md:p-6 main-text drop-shadow-sm'>
             {/* 알림 설정 */}
@@ -91,7 +93,7 @@ export default function ServiceSetting() {
             </div>
 
             {/* 소셜 로그인 관리 */}
-            {/* <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300'>
+            {/* <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300 dark:border-neutral-700'>
                 <h3 className='title'>소셜 로그인 관리</h3>
                 <div>
                     <span>Google</span>
@@ -113,11 +115,11 @@ export default function ServiceSetting() {
                 </div>
             </div> */}
             {/* 언어 및 지역 설정 */}
-            <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300 dark:border-neutral-700'>
+            {/* <div className='flex flex-col gap-3 md:gap-4 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300 dark:border-neutral-700'>
                 <h3 className='title'>시간 설정</h3>
                 <label>시간대 설정</label>
                 <label>날짜 및 시간 형식 변경</label>
-            </div>
+            </div> */}
             <h3 className='text-neutral-500 transition hover:text-red-300 dark:text-neutral-400 dark:hover:text-red-300'>
                 <button>회원탈퇴하기</button>
             </h3>

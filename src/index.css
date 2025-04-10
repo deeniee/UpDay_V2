@@ -126,7 +126,7 @@
     }
 
     .badge {
-        @apply rounded-full flex justify-center items-center bg-main-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap dark:bg-neutral-200 dark:text-neutral-900;
+        @apply rounded-full flex justify-center items-center bg-main-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap dark:bg-main-100 dark:text-neutral-900;
     }
 
     .card {

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
-import { setUser } from '../../../store/features/UserSlice';
+import { setUser } from '../../../store/features/userSlice';
 import { setTheme } from '../../../store/features/themeSlice';
 
 const HeaderLayout = () => {
