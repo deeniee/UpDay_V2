@@ -22,15 +22,6 @@ import { useThemeManager } from './hooks/useThemeManager';
 function App() {
     useThemeManager();
 
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, []);
-
     return (
         <html>
             <body className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-700'>

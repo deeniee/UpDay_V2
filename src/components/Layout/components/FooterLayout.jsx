@@ -6,12 +6,20 @@ const FooterLayout = () => {
     const location = useLocation();
     const hideFooterRoutes = ['/login', '/signup', '/profile'];
     const isFooterHidden = hideFooterRoutes.includes(location.pathname);
-    const theme = useSelector((state) => state.theme.mode);
+    const appliedTheme = useSelector((state) => state.theme.mode);
 
-    const getLogo = () => {
-        return theme === 'dark' ? 'upday_logo_white.svg' : 'upday_logo.svg';
+    const logoSrc = () => {
+        if (appliedTheme === 'dark') {
+            return 'upday_logo_white.svg';
+        } else if (appliedTheme === 'system') {
+            const prefersDark = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
+            return prefersDark ? 'upday_logo_white.svg' : 'upday_logo.svg';
+        } else {
+            return 'upday_logo.svg';
+        }
     };
-
     if (location.pathname === '/') return null;
 
     return (
@@ -21,7 +29,7 @@ const FooterLayout = () => {
             <div className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}
 
-                <img alt='logo' src={getLogo()} className='h-6 md:h-8' />
+                <img alt='logo' src={logoSrc()} className='h-6 md:h-8' />
 
                 <div className='sub-text text-neutral-700 text-right dark:text-neutral-100'>
                     <p>서울 강동구 고덕로 429 팍스에비뉴 4~5층</p>

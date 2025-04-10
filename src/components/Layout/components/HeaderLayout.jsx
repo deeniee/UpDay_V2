@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNev';
-import { setUser } from '../../../store/features/UserSlice';
+import { setUser } from '../../../store/features/userSlice';
 import { setTheme } from '../../../store/features/themeSlice';
 
 const HeaderLayout = () => {
@@ -14,11 +14,19 @@ const HeaderLayout = () => {
     const [showNav, setShowNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isScrolled, setIsScrolled] = useState(false);
+    const appliedTheme = useSelector((state) => state.theme.mode);
 
-    const theme = useSelector((state) => state.theme.mode);
-
-    const getLogo = () => {
-        return theme === 'dark' ? 'upday_logo_white.svg' : 'upday_logo.svg';
+    const logoSrc = () => {
+        if (appliedTheme === 'dark') {
+            return 'upday_logo_white.svg';
+        } else if (appliedTheme === 'system') {
+            const prefersDark = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
+            return prefersDark ? 'upday_logo_white.svg' : 'upday_logo.svg';
+        } else {
+            return 'upday_logo.svg';
+        }
     };
 
     // 특정 페이지에만 z-index 높게 설정
@@ -128,7 +136,7 @@ const HeaderLayout = () => {
                 handleLogout={handleLogout}
                 showNav={showNav}
                 isScrolled={isScrolled}
-                getLogo={getLogo()}
+                getLogo={logoSrc()}
             />
 
             {/* 모바일 메뉴 */}
@@ -138,7 +146,7 @@ const HeaderLayout = () => {
                 handleLogout={handleLogout}
                 showNav={showNav}
                 isScrolled={isScrolled}
-                getLogo={getLogo()}
+                getLogo={logoSrc()}
             />
         </div>
     );

@@ -7,15 +7,23 @@ const userSlice = createSlice({
         password: '',
         userNickname: '',
         userImg: '',
+        userIntroduction: '',
     },
     reducers: {
         setUser: (state, action) => {
             // 전체 사용자 정보를 초기화하는 객체를 전달받아서 상태를 업데이트
-            const { userId, password, userNickname, userImg } = action.payload;
+            const {
+                userId,
+                password,
+                userNickname,
+                userImg,
+                userIntroduction,
+            } = action.payload;
             state.userId = userId;
             state.password = password;
             state.userNickname = userNickname;
             state.userImg = userImg;
+            state.userIntroduction = userIntroduction;
         },
         setPassword: (state, action) => {
             state.password = action.payload;

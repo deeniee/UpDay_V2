@@ -1,4 +1,4 @@
-import useSignup from '../hooks/UseSignup';
+import useSignup from '../hooks/useSignup';
 
 const SignupForm = () => {
     const {
@@ -22,10 +22,10 @@ const SignupForm = () => {
                 className='relative flex flex-col items-center gap-6 main-text w-full '
             >
                 <div className='relative flex flex-col gap-1 w-full max-w-[288px]'>
-                    <label htmlFor='email'>이메일</label>
+                    <label htmlFor='email'>아이디</label>
                     <input
                         type='email'
-                        placeholder='example@email.com'
+                        placeholder='이메일 형식으로 입력하세요'
                         value={userId}
                         onChange={(e) => setUserIdState(e.target.value)}
                         className='input-field w-full h-10'
