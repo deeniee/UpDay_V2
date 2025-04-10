@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const DesktopNav = ({ handleLogout, showNav, isScrolled, getLogo }) => {
-    const loggedInUser = useSelector((state) => state.user.userId);
+    const checkLoggedIn = localStorage.getItem('loggedInUser');
 
     return (
         <header
@@ -27,7 +27,7 @@ const DesktopNav = ({ handleLogout, showNav, isScrolled, getLogo }) => {
                         </Link>
                     </li>
 
-                    {loggedInUser && ( // 로그인 상태일 때만 개인화 페이지 표시
+                    {checkLoggedIn && ( // 로그인 상태일 때만 개인화 페이지 표시
                         <>
                             <li>
                                 <Link
@@ -49,7 +49,7 @@ const DesktopNav = ({ handleLogout, showNav, isScrolled, getLogo }) => {
                     )}
 
                     <li>
-                        {loggedInUser ? (
+                        {checkLoggedIn ? (
                             <button
                                 onClick={handleLogout}
                                 className='hover:font-extrabold'

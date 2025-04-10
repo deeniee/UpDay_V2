@@ -70,8 +70,8 @@ const ProfileForm = () => {
                 </button>
             </form>
             {isModalOpen && (
-                <div className='fixed inset-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 backdrop-blur-sm'>
-                    <div className='relative card flex flex-col justify-between items-center min-w-80 w-[82%] max-w-96 p-6 pt-9 md:w-96 h-56 md:p-6'>
+                <div className='fixed inset-0 flex items-center justify-center bg-neutral-900/30 backdrop-blur-sm'>
+                    <div className='relative card flex flex-col justify-between items-center w-96 p-6 pt-9 h-56 md:p-6'>
                         <div className='title font-bold mt-4'>
                             회원 가입이 완료되었습니다
                         </div>
