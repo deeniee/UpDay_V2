@@ -26,7 +26,7 @@ const ChallengeCategorySection = ({
 
     return (
         <section className='w-full md:w-[56.8%] lg:w-[63.2%]'>
-            <ul className='w-full flex justify-between mb-3 md:mb-0'>
+            <ul className='w-full flex justify-between'>
                 {categoryList.map((category, index) => (
                     <li className='w-[18.5%] md:w-[20%] md:pr-4' key={index}>
                         <button

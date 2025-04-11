@@ -49,7 +49,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
 
     return (
         <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] drop-shadow-sm'>
-            <h2 className='card rounded-b-none bg-point-200 dark:bg-point-600 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
+            <h2 className='card rounded-b-none bg-main-200 text-neutral-700 dark:bg-main-500 dark:text-neutral-200 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
                 도전 중인 챌린지
                 {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}
             </h2>
@@ -87,16 +87,18 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                             {challenge.category}
                                                         </span>
                                                     </div>
-                                                    <span className='sub-text font-semibold text-main-500 dark:text-main-300'>
-                                                        {calcPassedDays(
-                                                            challenge.participants.find(
-                                                                (p) =>
-                                                                    p.userId ===
-                                                                    userId
-                                                            )?.joinDate
-                                                        )}
+                                                    <p className='sub-text font-semibold'>
+                                                        <span className='text-point-500 dark:text-point-400'>
+                                                            {calcPassedDays(
+                                                                challenge.participants.find(
+                                                                    (p) =>
+                                                                        p.userId ===
+                                                                        userId
+                                                                )?.joinDate
+                                                            )}
+                                                        </span>
                                                         일 째
-                                                    </span>
+                                                    </p>
                                                 </div>
 
                                                 <span className='main-text w-full overflow-hidden text-ellipsis whitespace-nowrap'>

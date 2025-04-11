@@ -98,7 +98,7 @@
     }
 
     .btn {
-        @apply box-border p-1.5 flex justify-center items-center font-semibold h-[30px] md:h-[34px] text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
+        @apply box-border p-1.5 flex justify-center items-center font-medium h-[30px] md:h-[34px] text-xs md:text-sm rounded-xl md:rounded-[13px] transition whitespace-nowrap;
     }
     .btn-primary {
         @apply bg-main-500 text-neutral-100  hover:bg-main-600 dark:bg-main-500 dark:hover:bg-main-400;
@@ -116,7 +116,7 @@
         @apply bg-neutral-700 text-neutral-100 hover:bg-neutral-800 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-neutral-100;
     }
     .btn-neutral-2 {
-        @apply bg-neutral-100 hover:border hover:border-neutral-400 dark:bg-neutral-500 dark:hover:border-neutral-100;
+        @apply bg-neutral-100 hover:bg-neutral-700 hover:text-neutral-100 dark:bg-neutral-600 dark:hover:bg-neutral-100 dark:hover:text-neutral-900;
     }
     .btn-neutral-3 {
         @apply bg-neutral-100 hover:bg-neutral-400 hover:text-neutral-100;
@@ -126,7 +126,7 @@
     }
 
     .badge {
-        @apply rounded-full flex justify-center items-center bg-main-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap dark:bg-main-100 dark:text-neutral-900;
+        @apply rounded-full flex justify-center items-center bg-neutral-700 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-9 md:h-6 whitespace-nowrap dark:bg-neutral-200 dark:text-neutral-900;
     }
 
     .card {
@@ -134,10 +134,10 @@
     }
 
     .input-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400 dark:text-neutral-900;
     }
     .textarea-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400  focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400  focus:outline-point-400 dark:text-neutral-900;
     }
 
     .tap-onclick {

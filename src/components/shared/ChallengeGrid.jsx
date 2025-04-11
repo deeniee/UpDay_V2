@@ -77,20 +77,22 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
     return (
         <div
-            className='card p-2.5 md:p-3 flex flex-col gap-2.5 md:gap-3 drop-shadow-sm'
+            className='card p-2.5 md:p-3 flex flex-col gap-2.5 md:gap-3 drop-shadow-sm hover:scale-[102%] transition'
             onClick={handleCardClick}
         >
             {/* 카테고리 & 기간 */}
-            <div className='flex items-center gap-1'>
+            <div className='flex items-center gap-1 md:gap-1.5'>
                 <div className='w-4 md:w-6 h-4 md:h-6'>
                     <img alt={category} src={getCategoryIcon(category)} />
                 </div>
                 <span className='main-text badge'>{category}</span>
-                <span className='main-text whitespace-nowrap'>{duration}</span>
+                <span className='main-text font-normal text-neutral-600 dark:text-neutral-300 whitespace-nowrap'>
+                    {duration}
+                </span>
             </div>
 
             {/* 기본 제공 이미지 */}
-            <div className='relative h-32 md:h-36 card bg-neutral-200 flex justify-center items-center dark:bg-neutral-700'>
+            <div className='relative h-32 md:h-36 card bg-neutral-200 flex justify-center items-center dark:bg-neutral-600'>
                 {getNewText ? (
                     <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
                         NEW
@@ -110,13 +112,13 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
                 <div className='sub-text flex items-center gap-1 md:gap-1.5 whitespace-nowrap'>
                     <span>{calcPassedDate(postDate)}</span>
                     <BsDot className='-mx-0.5' />
-                    <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoBookmarks className='text-point-600 dark:text-point-400' />
+                    <div className='flex items-center gap-1 md:gap-[6px]'>
+                        <IoBookmarks className='size-2 md:size-2.5 text-point-600 dark:text-point-400' />
                         {scrapCount}
                     </div>
 
                     <div className='flex items-center gap-0.5 md:gap-1'>
-                        <IoHeart className='size-2.5 text-point-600 dark:text-point-400' />
+                        <IoHeart className='text-point-600 dark:text-point-400' />
                         {likesCount}
                     </div>
                 </div>
