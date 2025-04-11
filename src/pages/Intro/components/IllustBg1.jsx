@@ -16,53 +16,53 @@ export default function IllustBg1() {
             <img
                 src={Pic4}
                 alt='bg_illust_pic4'
-                className='absolute right-[15%] md:right-[18%] top-[10%] h-52 md:h-56 -scale-x-100'
+                className='absolute right-[15%] md:right-[18%] top-[10%] h-40 md:h-56 -scale-x-100'
             />
             <div className='absolute right-[4%] bottom-[8%] flex items-end'>
                 <img
                     src={BgElement1}
                     alt='pinkrock1'
-                    className='h-16 md:h-24 -mr-8 pb-1'
+                    className='h-12 md:h-24 -mr-8 pb-1'
                 />
                 <img
                     src={BgElement6}
                     alt='triangleflower'
-                    className='h-24 md:h-28'
+                    className='h-20 md:h-28'
                 />
             </div>
             <div className='absolute right-[22%] md:right-[25%] bottom-[18%] md:bottom-[20%] flex items-center gap-1 md:gap-2'>
                 <img
                     src={BgElement5}
                     alt='blueflower'
-                    className=' h-16 md:h-20 '
+                    className='h-12 md:h-20 '
                 />
                 <img
                     src={BgElement2}
                     alt='pinkrock2'
-                    className=' h-14 md:h-16 '
+                    className=' h-10 md:h-16 '
                 />
             </div>
             <div className='absolute left-[4%] bottom-[8%] flex items-end gap-1 md:gap-2'>
                 <img
                     src={BgElement3}
                     alt='purplerock'
-                    className='h-14 md:h-16 mb-2'
+                    className='h-10 md:h-16 mb-2'
                 />
                 <img
                     src={BgElement7}
                     alt='reddotsflower'
-                    className='h-24 md:h-28 -ml-4 mb-12'
+                    className='h-20 md:h-28 -ml-4 mb-12'
                 />
                 <img
                     src={BgElement4}
                     alt='pinkflower'
-                    className='h-14 md:h-16 ml-4'
+                    className='h-10 md:h-16 ml-4'
                 />
             </div>
             <img
                 src={BgElement8}
                 alt='cat'
-                className='absolute right-[2%] md:right-[8%] bottom-[22%] md:bottom-[24%] h-14 md:h-16'
+                className='absolute right-[2%] md:right-[8%] bottom-[22%] md:bottom-[24%] h-10 md:h-16'
             />
         </div>
     );
