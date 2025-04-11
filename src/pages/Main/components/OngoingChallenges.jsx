@@ -134,10 +134,16 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                     </div>
                 )
             ) : (
-                <div className='w-full h-full pt-8 md:pt-10 flex flex-col card justify-around itmes-center'>
-                    <h2 className='main-text font-semibold text-center text-neutral-700 ml-[3%]'>
-                        로그인이 필요한 기능입니다.
-                    </h2>
+                <div className='w-full h-full pt-11 pb-4 md:pt-16 md:pb-8 flex flex-col card justify-between itmes-center'>
+                    <div className='flex flex-col justify-center items-center gap-[20%] w-full h-[70%]'>
+                        <h2 className='main-text font-semibold text-neutral-700 dark:text-neutral-100'>
+                            로그인이 필요한 기능입니다
+                        </h2>
+                        <p className='sub-text text-neutral-700 dark:text-neutral-100'>
+                            도전 중인 챌린지를 메인 페이지에서 한 번에 볼 수
+                            있어요!
+                        </p>
+                    </div>
                     <button
                         onClick={() => navigate('/login')}
                         className='btn btn-point w-auto mx-auto px-3 md:px-4'
