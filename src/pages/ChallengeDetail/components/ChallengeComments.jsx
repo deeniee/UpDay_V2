@@ -57,7 +57,7 @@ const ChallengeComments = ({ postData }) => {
                                 <img
                                     src={participant.userImg}
                                     alt={`${participant.nickname} 프로필 사진`}
-                                    className='w-10 md:w-11 aspect-square object-cover rounded-full'
+                                    className='w-10 md:w-11 aspect-square object-cover rounded-full border border-neutral-400'
                                 />
                                 <div className='flex flex-col flex-1 main-text gap-1.5 md:gap-2'>
                                     <span className='font-semibold'>
@@ -70,7 +70,7 @@ const ChallengeComments = ({ postData }) => {
                         <img
                             src={getCurrentUserData().userImg}
                             alt={`유저 프로필`}
-                            className='w-10 md:w-11 aspect-square object-cover rounded-full'
+                            className='w-10 md:w-11 aspect-square object-cover rounded-full border border-neutral-400'
                         />
                         <input
                             className='input-field h-[30px] md:h-[34px]'
