@@ -23,14 +23,11 @@ const FooterLayout = () => {
     if (location.pathname === '/') return null;
 
     return (
-        <footer
-            className={`w-full h-12 my-2 ${isFooterHidden ? 'hidden' : ''}`}
-        >
-            <div className='flex justify-between items-center w-[90vw] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
+        <footer className={`w-full h-12 ${isFooterHidden ? 'hidden' : ''}`}>
+            <div className='flex justify-between items-center w-[90vw] min-w-[336px] md:w-[80vw] md:max-w-[1344px] h-full mx-auto'>
                 {/* 로고 */}
 
                 <img alt='logo' src={logoSrc()} className='h-6 md:h-8' />
-
                 <div className='sub-text text-neutral-700 text-right dark:text-neutral-100'>
                     <p>서울 강동구 고덕로 429 팍스에비뉴 4~5층</p>
                     <p>© 2025 My Company. All rights reserved.</p>
