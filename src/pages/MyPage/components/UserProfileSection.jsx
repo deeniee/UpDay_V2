@@ -55,12 +55,12 @@ const UserProfile = () => {
             <h1 className='title'>내 프로필</h1>
             <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4 drop-shadow-sm'>
                 <div className='flex flex-row items-center'>
-                    <div className='w-[25%] md:w-[30%] aspect-square shrink-0'>
+                    <div className='w-[25%] md:w-[30%] rounded-full ring-1 ring-neutral-400 aspect-square shrink-0 bg-neutral-100 overflow-hidden'>
                         {loggedInUser.userImg ? (
                             <img
                                 alt='프로필 이미지'
                                 src={loggedInUser.userImg}
-                                className='w-full h-full object-cover rounded-full ring-1 ring-neutral-400 overflow-hidden'
+                                className='w-full h-full object-cover'
                             />
                         ) : (
                             <img
@@ -72,7 +72,7 @@ const UserProfile = () => {
                                         )
                                     ]
                                 }
-                                className='w-full h-full object-cover rounded-full ring-1 ring-neutral-400 overflow-hidden'
+                                className='w-full h-full object-cover'
                             />
                         )}
                     </div>

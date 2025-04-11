@@ -230,7 +230,7 @@ export default function PersonalInfo() {
                         프로필 사진
                     </label>
                     <div className='mt-2 flex items-center gap-x-3'>
-                        <div className='w-[25%] md:w-[30%] shrink-0 ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full'>
+                        <div className='w-[25%] md:w-[30%] shrink-0 ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full bg-neutral-100'>
                             {userInfo.userImg ? (
                                 <img
                                     src={userInfo.userImg}
@@ -248,7 +248,7 @@ export default function PersonalInfo() {
                                         ]
                                     }
                                     alt='기본 프로필'
-                                    className='w-full h-full object-cover bg-point-200'
+                                    className='w-full h-full object-cover'
                                 />
                             )}
                         </div>
