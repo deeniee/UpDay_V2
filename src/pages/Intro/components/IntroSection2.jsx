@@ -13,7 +13,7 @@ export default function IntroSection2() {
     return (
         <section className='relative w-full h-full snap-start'>
             <FadeInSection className='absolute w-full h-full flex flex-col gap-6 md:gap-8 justify-center items-center z-10'>
-                <div className='text-base md:text-lg font-bold space-y-1 md:space-y-2 animate-slide-up -mt-12 md:flex md:gap-2 md:items-end'>
+                <div className='text-base md:text-lg font-bold space-y-1 md:space-y-2 animate-slide-up md:flex md:gap-2 md:items-end'>
                     <div className='flex items-center gap-0.5 md:gap-1'>
                         <img
                             alt='logo'
