@@ -218,7 +218,7 @@ export default function PersonalInfo() {
 
     return (
         <form
-            className={`w-full ${editMode ? 'h-[720px]' : 'h-[570px]'} md:h-full flex flex-col justify-between card rounded-tl-none p-4 md:p-6 md:pt-4 drop-shadow-sm`}
+            className={`w-full ${editMode ? 'h-[720px]' : 'h-[570px]'} md:h-full flex flex-col justify-between card rounded-tl-none p-4 md:p-6 md:pt-4`}
             onSubmit={handleSubmit}
         >
             <div className='flex flex-col gap-3 md:gap-4 -mt-1 md:mt-0'>

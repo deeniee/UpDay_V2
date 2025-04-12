@@ -9,6 +9,7 @@ const ProfileForm = () => {
         setNicknameState,
         handleImageUpload,
         handleSubmit,
+        openModal,
         closeModal,
     } = useProfileSetup();
 
@@ -64,16 +65,20 @@ const ProfileForm = () => {
 
                 <button
                     type='submit'
+                    onClick={openModal}
                     className='btn btn-neutral-1 w-full max-w-[288px] h-10 mt-[80px] md:mt-[70px]'
                 >
                     회원가입 완료
                 </button>
             </form>
             {isModalOpen && (
-                <div className='fixed inset-0 flex items-center justify-center bg-neutral-900/30 backdrop-blur-sm'>
+                <div className='fixed -top-16 w-[100vw] h-[100vh] scroll-none flex items-center justify-center bg-neutral-900/30 backdrop-blur-sm z-50'>
                     <div className='relative card flex flex-col justify-between items-center w-96 p-6 pt-9 h-56 md:p-6'>
                         <div className='title font-bold mt-4'>
-                            회원 가입이 완료되었습니다
+                            <span className='font-extrabold'>
+                                '{nickname}'{' '}
+                            </span>
+                            님의 회원 가입이 완료되었습니다
                         </div>
                         <div className='main-text'>
                             업데이와 함께 원하던 목표를 이뤄봐요!

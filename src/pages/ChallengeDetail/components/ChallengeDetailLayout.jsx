@@ -165,7 +165,7 @@ export default function ChallengeDetail() {
     return (
         <div className='relative md:default-size md:mt-0'>
             <main
-                className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0 drop-shadow-sm`}
+                className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0`}
             >
                 {isCreateMode || isEditMode ? (
                     <PostForm

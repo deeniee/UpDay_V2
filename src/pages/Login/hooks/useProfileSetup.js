@@ -61,8 +61,11 @@ const useProfileSetup = () => {
 
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
+    };
 
+    const openModal = () => {
         setIsModalOpen(true); // 모달창 열기
+        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
@@ -78,6 +81,7 @@ const useProfileSetup = () => {
         setNicknameState,
         handleImageUpload,
         handleSubmit,
+        openModal,
         closeModal,
     };
 };

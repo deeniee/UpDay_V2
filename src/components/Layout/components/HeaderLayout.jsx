@@ -29,6 +29,8 @@ const HeaderLayout = () => {
         }
     };
 
+    const isLowZindexPage = ['/profile'].includes(location.pathname);
+
     useEffect(() => {
         setIsMenuOpen(false);
     }, [location.pathname]);
@@ -116,8 +118,7 @@ const HeaderLayout = () => {
 
     return (
         <div
-            className={`w-full h-12 fixed top-0 z-50
-                  ${isMenuOpen ? '' : 'z-0'}`}
+            className={`w-full h-12 fixed top-0 z-50 ${isMenuOpen ? '' : 'z-0'} `}
         >
             {/* 데스크톱 메뉴 */}
             <DesktopNav

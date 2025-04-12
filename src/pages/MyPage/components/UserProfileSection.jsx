@@ -51,9 +51,9 @@ const UserProfile = () => {
     }
 
     return (
-        <div className='flex flex-col gap-2'>
+        <section className='flex flex-col gap-2 w-full md:w-[48%]'>
             <h1 className='title'>내 프로필</h1>
-            <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4 drop-shadow-sm'>
+            <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4'>
                 <div className='flex flex-row items-center'>
                     <div className='w-[25%] md:w-[30%] rounded-full ring-1 ring-neutral-400 aspect-square shrink-0 bg-neutral-100 overflow-hidden'>
                         {loggedInUser.userImg ? (
@@ -118,7 +118,7 @@ const UserProfile = () => {
                 </p>
                 <UserReport />
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -77,7 +77,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
     return (
         <div
-            className='card p-2.5 md:p-3 flex flex-col gap-2.5 md:gap-3 drop-shadow-sm hover:scale-[102%] transition'
+            className='card p-2.5 md:p-3 flex flex-col gap-2.5 md:gap-3 hover:scale-[102%] transition'
             onClick={handleCardClick}
         >
             {/* 카테고리 & 기간 */}
@@ -92,7 +92,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
             </div>
 
             {/* 기본 제공 이미지 */}
-            <div className='relative h-32 md:h-36 card bg-neutral-200 flex justify-center items-center dark:bg-neutral-600'>
+            <div className='relative h-32 md:h-36 card drop-shadow-none bg-neutral-200 dark:bg-neutral-600 flex justify-center items-center'>
                 {getNewText ? (
                     <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
                         NEW

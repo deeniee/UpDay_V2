@@ -23,7 +23,7 @@ const MobileNav = ({
                                     bg-main-100/95 backdrop-blur-sm dark:bg-neutral-700/95'
                     >
                         <button
-                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 fixed top-2 right-10'
+                            className='md:hidden flex flex-col items-center justify-center w-8 h-8 fixed top-2 right-6'
                             onClick={() => setIsMenuOpen((prev) => !prev)}
                         >
                             <IoClose className='text-4xl font-bold text-neutral-900 dark:text-neutral-100' />
