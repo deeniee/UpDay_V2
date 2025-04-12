@@ -90,7 +90,7 @@
     }
 
     .default-size {
-        @apply w-[90vw] min-w-[336px] md:w-[80vw] md:max-w-[1344px] min-h-screen md:min-h-[606px] flex gap-6 md:gap-0 md:justify-between mx-auto;
+        @apply w-[90vw] min-w-[336px] md:w-[80vw] md:max-w-[1344px] min-h-screen md:min-h-[606px] flex gap-6 md:gap-0 md:justify-between mx-auto mt-3 md:mt-2;
     }
 
     .header {
@@ -98,7 +98,7 @@
     }
 
     .btn {
-        @apply box-border p-1.5 flex justify-center items-center font-semibold h-[30px] md:h-[34px] text-xs md:text-sm rounded-xl md:rounded-[14px] transition whitespace-nowrap;
+        @apply box-border p-1.5 flex justify-center items-center font-medium h-[30px] md:h-[34px] text-xs md:text-sm rounded-xl md:rounded-[13px] transition whitespace-nowrap drop-shadow-sm;
     }
     .btn-primary {
         @apply bg-main-500 text-neutral-100  hover:bg-main-600 dark:bg-main-500 dark:hover:bg-main-400;
@@ -116,7 +116,7 @@
         @apply bg-neutral-700 text-neutral-100 hover:bg-neutral-800 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-neutral-100;
     }
     .btn-neutral-2 {
-        @apply bg-neutral-100 hover:border hover:border-neutral-400 dark:bg-neutral-500 dark:hover:border-neutral-100;
+        @apply bg-neutral-100 hover:bg-neutral-700 hover:text-neutral-100 dark:bg-neutral-600 dark:hover:bg-neutral-100 dark:hover:text-neutral-900;
     }
     .btn-neutral-3 {
         @apply bg-neutral-100 hover:bg-neutral-400 hover:text-neutral-100;
@@ -126,25 +126,25 @@
     }
 
     .badge {
-        @apply rounded-full flex justify-center items-center bg-main-600 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-8 md:h-6 whitespace-nowrap dark:bg-main-100 dark:text-neutral-900;
+        @apply rounded-full flex justify-center items-center bg-neutral-700 text-neutral-100 font-bold text-[8px] w-7 h-5 md:text-[10px] md:w-9 md:h-6 whitespace-nowrap dark:bg-neutral-200 dark:text-neutral-900;
     }
 
     .card {
-        @apply rounded-[18px] md:rounded-2xl bg-neutral-100 dark:bg-neutral-800;
+        @apply rounded-[18px] md:rounded-2xl bg-neutral-100 dark:bg-neutral-800 drop-shadow-sm;
     }
 
     .input-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400 dark:text-neutral-900;
     }
     .textarea-field {
-        @apply block w-full rounded-xl md:rounded-[14px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400  focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400  focus:outline-point-400 dark:text-neutral-900;
     }
 
     .tap-onclick {
-        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-500 text-neutral-100 transition hover:bg-main-600 dark:bg-main-500 dark:hover:bg-main-400;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-500 text-neutral-100 transition hover:bg-main-600 dark:bg-main-500 dark:hover:bg-main-400 drop-shadow-sm;
     }
     .tap-default {
-        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-300 text-neutral-100 transition hover:bg-main-600 dark:bg-main-600 dark:hover:bg-main-400;
+        @apply w-24 md:w-28 h-8 rounded-t-xl bg-main-300 text-neutral-100 transition hover:bg-main-600 dark:bg-main-600 dark:hover:bg-main-400 drop-shadow-sm;
     }
 
     .viewmode-onclick {

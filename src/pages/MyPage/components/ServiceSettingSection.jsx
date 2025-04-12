@@ -62,7 +62,7 @@ export default function ServiceSetting() {
     };
 
     return (
-        <section className='card w-full h-[570px] md:h-full rounded-tl-none p-4 md:p-6 main-text drop-shadow-sm'>
+        <section className='card w-full h-[570px] md:h-full rounded-tl-none p-4 md:p-6 main-text'>
             {/* 알림 설정 */}
             <div className='flex flex-col gap-3 md:gap-4 md:-mt-1 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-neutral-300 dark:border-neutral-700'>
                 <h3 className='title'>알림 설정</h3>

@@ -76,11 +76,11 @@ const ChallengeList = ({ cardData, viewMode }) => {
 
     return (
         <div
-            className='card p-2 pr-3 md:p-3 md:pr-4 flex gap-2 md:gap-3 '
+            className='card p-2 pr-3 md:p-3 md:pr-4 flex gap-2 md:gap-3 hover:scale-[102%] transition'
             onClick={handleCardClick}
         >
             {/* 기본 제공 이미지 */}
-            <div className='relative h-24 md:h-28 lg:h-32 aspect-square card bg-neutral-300 flex justify-center items-center dark:bg-neutral-700'>
+            <div className='relative h-24 md:h-28 lg:h-32 aspect-square card drop-shadow-none bg-neutral-200 dark:bg-neutral-600 flex justify-center items-center '>
                 {getNewText ? (
                     <p className='absolute top-2 left-2.5 md:top-1 md:left-2 main-text font-semibold text-point-400'>
                         NEW
@@ -101,7 +101,7 @@ const ChallengeList = ({ cardData, viewMode }) => {
                         <img alt={category} src={getCategoryIcon(category)} />
                     </div>
                     <span className='main-text badge'>{category}</span>
-                    <span className='text-[10px] md:text-xs whitespace-nowrap mr-1.5 md:mr-2'>
+                    <span className='main-text font-normal text-neutral-600 dark:text-neutral-300 whitespace-nowrap mr-1.5 md:mr-2 '>
                         {duration}
                     </span>
                     <p className='flex-1 h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
@@ -110,13 +110,13 @@ const ChallengeList = ({ cardData, viewMode }) => {
                     <div className='sub-text flex justify-end items-center gap-1 md:gap-1.5 ml-1 md:ml-2'>
                         <span>{calcPassedDate(postDate)}</span>
                         <BsDot className='-mx-0.5' />
-                        <div className='flex items-center gap-0.5 md:gap-1'>
-                            <IoBookmarks className='text-point-600 dark:text-point-400' />
+                        <div className='flex items-center gap-1 md:gap-[6px]'>
+                            <IoBookmarks className='size-2 md:size-2.5 text-point-600 dark:text-point-400' />
                             {scrapCount}
                         </div>
 
                         <div className='flex items-center gap-0.5 md:gap-1'>
-                            <IoHeart className='size-2.5 text-point-600 dark:text-point-400' />
+                            <IoHeart className='text-point-600 dark:text-point-400' />
                             {likesCount}
                         </div>
                     </div>

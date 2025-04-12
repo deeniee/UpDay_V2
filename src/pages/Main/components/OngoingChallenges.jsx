@@ -48,14 +48,17 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     };
 
     return (
-        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] drop-shadow-sm'>
-            <h2 className='card rounded-b-none bg-point-200 dark:bg-point-600 absolute top-0 title w-full h-8 md:h-10 flex items-center p-3 md:p-4 gap-1'>
+        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
+            <h2
+                className='card rounded-b-none drop-shadow-none absolute top-0 title w-full h-8 md:h-10 flex items-center
+            p-3 md:p-4 gap-1 z-10 bg-main-200 text-neutral-700 dark:bg-main-500 dark:text-neutral-200'
+            >
                 도전 중인 챌린지
                 {isLoggedIn ? <span>({filteredChallenges.length})</span> : ''}
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card dark:bg-neutral-300 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
@@ -87,16 +90,18 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                             {challenge.category}
                                                         </span>
                                                     </div>
-                                                    <span className='sub-text font-semibold text-main-500 dark:text-main-300'>
-                                                        {calcPassedDays(
-                                                            challenge.participants.find(
-                                                                (p) =>
-                                                                    p.userId ===
-                                                                    userId
-                                                            )?.joinDate
-                                                        )}
+                                                    <p className='sub-text font-semibold'>
+                                                        <span className='text-point-500 dark:text-point-400'>
+                                                            {calcPassedDays(
+                                                                challenge.participants.find(
+                                                                    (p) =>
+                                                                        p.userId ===
+                                                                        userId
+                                                                )?.joinDate
+                                                            )}
+                                                        </span>
                                                         일 째
-                                                    </span>
+                                                    </p>
                                                 </div>
 
                                                 <span className='main-text w-full overflow-hidden text-ellipsis whitespace-nowrap'>
@@ -140,7 +145,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             로그인이 필요한 기능입니다
                         </h2>
                         <p className='sub-text text-neutral-700 dark:text-neutral-100'>
-                            도전 중인 챌린지를 메인 페이지에서 한 번에 볼 수
+                            도전 중인 챌린지를 메인 페이지에서 한 눈에 볼 수
                             있어요!
                         </p>
                     </div>

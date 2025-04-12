@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import useModal from '../../../components/common/hooks/useModal';
 import { Helmet } from 'react-helmet';
-import MyPageNonLogin from './MyPageNonLogin';
 import UserProfile from './UserProfileSection';
-import UserReport from './UserReport';
+
 import TabSwitcher from './TabSwitcher';
-import PersonalInfo from './PersonalInfoSection';
+
 import ModalForLogin from '../../../components/common/ModalForLogin';
 
 const MyPageLayout = () => {
@@ -36,18 +35,10 @@ const MyPageLayout = () => {
             <Helmet>
                 <title>마이페이지 - UpDay</title>
             </Helmet>
-            {!loggedInUser ? (
-                <MyPageNonLogin />
-            ) : (
-                <>
-                    <section className='flex flex-col w-full gap-4 md:w-[48%] md:gap-0 md:justify-between'>
-                        <UserProfile />
-                        {/* <UserReport /> */}
-                    </section>
-                    <TabSwitcher />
-                    {/* <PersonalInfo /> */}
-                </>
-            )}
+
+            <UserProfile />
+            <TabSwitcher />
+
             <ModalForLogin
                 isOpen={isModalOpen} // 모달 열기 여부
                 onClose={closeModal} // 모달 닫기

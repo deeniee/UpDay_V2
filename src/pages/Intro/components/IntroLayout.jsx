@@ -11,7 +11,7 @@ const IntroLayout = () => {
             <Helmet>
                 <title>서비스 소개 - UpDay</title>
             </Helmet>
-            <main className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto h-screen -mt-12 scrollbar-none snap-y snap-mandatory'>
+            <main className='w-[90%] md:w-[80%] md:max-w-[1344px] mx-auto h-screen min-h-[720px] -mt-12 scrollbar-none snap-y snap-mandatory'>
                 <IntroSection1 />
                 <IntroSection2 />
                 <IntroSection3 />

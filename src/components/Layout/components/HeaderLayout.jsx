@@ -29,17 +29,7 @@ const HeaderLayout = () => {
         }
     };
 
-    // 특정 페이지에만 z-index 높게 설정
-    const isHighZIndexPage =
-        [
-            '/challenges',
-            '/',
-            '/main',
-            '/mypage',
-            '/login',
-            '/challenges/:id',
-        ].includes(location.pathname) ||
-        /^\/challenges\/\d+$/.test(location.pathname);
+    const isLowZindexPage = ['/profile'].includes(location.pathname);
 
     useEffect(() => {
         setIsMenuOpen(false);
@@ -128,8 +118,7 @@ const HeaderLayout = () => {
 
     return (
         <div
-            className={`w-full h-12 fixed top-0
-                  ${isHighZIndexPage ? 'z-50' : isMenuOpen ? 'z-50' : 'z-0'}`}
+            className={`w-full h-12 fixed top-0 z-50 ${isMenuOpen ? '' : 'z-0'} `}
         >
             {/* 데스크톱 메뉴 */}
             <DesktopNav
