@@ -3,13 +3,17 @@ export const getChallenges = () => {
     return challenges;
 };
 
-export const getCurrentUserData = () => {
-    const usersData = localStorage.getItem('users');
-    const loggedInUserID = localStorage.getItem('loggedInUser');
+export const getAllUsers = () => {
+    const usersData = JSON.parse(localStorage.getItem('users'));
+    return usersData;
+};
 
-    if (usersData && loggedInUserID) {
-        const users = JSON.parse(usersData);
-        return users.find((user) => user.userId === loggedInUserID) || null;
+export const getCurrentUserData = () => {
+    const loggedInUserId = localStorage.getItem('loggedInUser');
+
+    if (getAllUsers() && loggedInUserId) {
+        const users = getAllUsers();
+        return users.find((user) => user.userId === loggedInUserId) || null;
     }
     return null;
 };

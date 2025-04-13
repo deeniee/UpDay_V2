@@ -128,7 +128,7 @@ export default function ChallengeDetail() {
         }
 
         setMode('view');
-        setTimeout(() => navigate('/challenges'), 100);
+        setTimeout(() => navigate(-1), 100);
     };
 
     // 글 수정 및 작성 취소하는 로직
@@ -159,9 +159,6 @@ export default function ChallengeDetail() {
         navigate('/challenges', { state: { refresh: true } }); // 페이지 이동 후 새로고침 트리거 추가
     };
 
-    useEffect(() => {
-        console.log('업데이트된 챌린지 목록', challenges);
-    }, [challenges]); // challenges가 변경될 때마다 실행
     return (
         <div className='relative md:default-size md:mt-0'>
             <main

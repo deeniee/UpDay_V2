@@ -74,6 +74,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
         dispatch(setSelectedChallenge(cardData)); // 선택한 카드의 데이터를 Redux store에 저장
         navigate(`/challenges/${id}`);
     };
+    console.log(getAuthorData());
 
     return (
         <div
@@ -134,7 +135,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
                     <img
                         src={getAuthorData(authorId).userImg}
                         alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
-                        className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full'
+                        className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full bg-neutral-200 drop-shadow-sm'
                     />
                     <p className='ml-2 sub-text'>
                         {getAuthorData(authorId).nickname}
