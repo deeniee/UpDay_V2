@@ -74,7 +74,6 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
         dispatch(setSelectedChallenge(cardData)); // 선택한 카드의 데이터를 Redux store에 저장
         navigate(`/challenges/${id}`);
     };
-    console.log(getAuthorData());
 
     return (
         <div

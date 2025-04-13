@@ -50,13 +50,7 @@ const ChallengeGridView = ({
 
         // 필터링된 결과가 없을 경우 '등록된 챌린지가 없습니다.' 메시지 표시
         setNoResults(filtered.length === 0);
-    }, [
-        challenges,
-        activeCategory,
-        searchResults,
-        sortedResults,
-        filteredChallenges,
-    ]);
+    }, [challenges, activeCategory, searchResults, sortedResults]);
 
     return (
         <>

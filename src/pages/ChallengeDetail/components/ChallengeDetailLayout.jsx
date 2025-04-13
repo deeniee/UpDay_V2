@@ -20,10 +20,7 @@ export default function ChallengeDetail() {
     const navigate = useNavigate();
     const loggedInUser = localStorage.getItem('loggedInUser');
     const { id } = useParams();
-    const { pathname } = useLocation();
-    const [mode, setMode] = useState(
-        pathname.endsWith('/create') ? 'create' : 'view'
-    );
+    const [mode, setMode] = useState('');
     const isCreateMode = mode === 'create';
     const isEditMode = mode === 'edit';
     const selectedChallenge = useSelector(
@@ -185,7 +182,11 @@ export default function ChallengeDetail() {
                             onEdit={handleEditClick}
                             onDelete={() => handleDelete(selectedChallenge?.id)}
                         />
-                        <ChallengeComments postData={postData} />
+                        <ChallengeComments
+                            postData={postData}
+                            onEdit={handleEditClick}
+                            onDelete={() => handleDelete(selectedChallenge?.id)}
+                        />
                     </>
                 ) : (
                     <p>챌린지를 찾을 수 없습니다.</p>
