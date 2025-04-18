@@ -2,10 +2,10 @@ import React from 'react';
 import { FaPenToSquare } from 'react-icons/fa6';
 import { TiDelete } from 'react-icons/ti';
 
-const ChangeAction = ({ isMine, onEdit, onDelete }) => {
+const ChangeAction = ({ onEdit, onDelete, isEditing }) => {
     return (
         <div
-            className={`${isMine ? '' : 'hidden'} flex items-center md:mr-1 gap-1.5 md:gap-2 main-text`}
+            className={`${isEditing ? 'hidden' : ''} flex items-center md:mr-1 gap-1.5 md:gap-2 main-text`}
         >
             <button
                 className='flex items-center gap-0.5 md:gap-1 transition text-neutral-500 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100'

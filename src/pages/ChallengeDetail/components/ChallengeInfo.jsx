@@ -4,6 +4,7 @@ import { getAuthorData } from '../../../utils/getUserData';
 
 import ChallengeHeader from './ChallengeHeader';
 import ChallengeActions from './ChallengeActions';
+import GeminiComment from './GeminiComment';
 
 const ChallengeInfo = ({
     postData,
@@ -85,7 +86,10 @@ const ChallengeInfo = ({
                         )}
                     </div>
                 </div>
-
+                {/* <GeminiComment
+                    title={postData.title}
+                    content={postData.content}
+                /> */}
                 <ChallengeActions
                     participants={postData?.participants}
                     scrapCount={postData?.scrapCount}
