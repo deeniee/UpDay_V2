@@ -18,6 +18,7 @@ const GeminiComment = ({ title, content }) => {
         };
 
         fetchComment();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetched, title, content]); // generateRecommendation 제외
 
     if (loading) return <p className='sub-text text-neutral-300'>로딩 중...</p>;
