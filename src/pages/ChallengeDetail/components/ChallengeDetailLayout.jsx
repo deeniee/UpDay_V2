@@ -64,14 +64,10 @@ export default function ChallengeDetail() {
 
     useEffect(() => {
         dispatch(getJoinedChallenge()); // 컴포넌트가 처음 렌더링될 때 참여한 챌린지 가져오기
-    }, [dispatch]); // 의존성 배열에서 dispatch를 넣어주면 컴포넌트가 처음 렌더링될 때만 실행됨
+    }, [dispatch]);
 
     // 글 수정하는 로직
     const handleEditClick = () => {
-        // if (!selectedChallenge) {
-        //     alert('수정할 챌린지가 존재하지 않습니다.');
-        //     return;
-        // }
         setMode('edit');
         setFormData({
             title: selectedChallenge.title,

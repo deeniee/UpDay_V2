@@ -91,6 +91,7 @@ const ChallengeInfo = ({
                     content={postData.content}
                 /> */}
                 <ChallengeActions
+                    id={postData?.id}
                     participants={postData?.participants}
                     scrapCount={postData?.scrapCount}
                     likesCount={postData?.likesCount}
