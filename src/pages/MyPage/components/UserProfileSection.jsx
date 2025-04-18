@@ -56,25 +56,11 @@ const UserProfile = () => {
             <div className='card flex flex-col gap-3 md:gap-4 p-3 md:p-4'>
                 <div className='flex flex-row items-center'>
                     <div className='w-[25%] md:w-[30%] rounded-full ring-1 ring-neutral-400 aspect-square shrink-0 bg-neutral-100 overflow-hidden'>
-                        {loggedInUser.userImg ? (
-                            <img
-                                alt='프로필 이미지'
-                                src={loggedInUser.userImg}
-                                className='w-full h-full object-cover'
-                            />
-                        ) : (
-                            <img
-                                alt='기본 프로필 이미지'
-                                src={
-                                    defaultImgs[
-                                        Math.floor(
-                                            Math.random() * defaultImgs.length
-                                        )
-                                    ]
-                                }
-                                className='w-full h-full object-cover'
-                            />
-                        )}
+                        <img
+                            alt='프로필 이미지'
+                            src={loggedInUser.userImg}
+                            className='w-full h-full object-cover bg-neutral-200'
+                        />
                     </div>
                     <div className='ml-3 flex flex-col gap-3 items-center'>
                         <div className='w-full h-full flex justify-start gap-3 md:gap-4 md:flex-col'>

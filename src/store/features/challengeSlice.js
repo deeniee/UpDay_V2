@@ -44,11 +44,8 @@ const challengeSlice = createSlice({
 
         // 새로운 챌린지 생성하는 액션
         addChallenge: (state, action) => {
-            // 불변성 유지하며 새로운 상태 업데이트
-            state.list = [...state.list, action.payload];
-
-            // 로컬스토리지에 새로운 챌린지 반영
             const updatedChallenges = [...state.list, action.payload];
+            state.list = updatedChallenges;
             saveChallengeToLocalStorage(updatedChallenges);
         },
 

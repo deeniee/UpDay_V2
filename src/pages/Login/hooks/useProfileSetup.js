@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserNickname } from '../../../store/features/userSlice';
+import { setUserNickname, setUserImg } from '../../../store/features/userSlice';
 import { useNavigate } from 'react-router-dom';
-import img1 from '../../../assets/images/backgrounds/pic_1.svg';
-import img2 from '../../../assets/images/backgrounds/pic_2.svg';
-import img3 from '../../../assets/images/backgrounds/pic_3.svg';
-import img4 from '../../../assets/images/backgrounds/pic_4.svg';
+import img1 from '../../../assets/images/icons/icon_habit.svg';
+import img2 from '../../../assets/images/icons/icon_etc.svg';
+import img3 from '../../../assets/images/icons/icon_health.svg';
+import img4 from '../../../assets/images/icons/icon_study.svg';
 
 const useProfileSetup = () => {
     const [nickname, setNicknameState] = useState('');
@@ -49,13 +49,14 @@ const useProfileSetup = () => {
             defaultImages[Math.floor(Math.random() * defaultImages.length)];
 
         // Redux 상태 업데이트
+        dispatch(setUserImg(randomImage));
         dispatch(setUserNickname(nickname));
 
         const newUser = {
             userId,
             password,
             nickname,
-            userImg: userImg || randomImage, // 기본이미지 설정정
+            userImg: userImg || randomImage,
             signupDate: new Date().toISOString().slice(0, 19),
         };
 

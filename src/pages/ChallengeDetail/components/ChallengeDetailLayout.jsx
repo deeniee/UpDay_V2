@@ -20,10 +20,7 @@ export default function ChallengeDetail() {
     const navigate = useNavigate();
     const loggedInUser = localStorage.getItem('loggedInUser');
     const { id } = useParams();
-    const { pathname } = useLocation();
-    const [mode, setMode] = useState(
-        pathname.endsWith('/create') ? 'create' : 'view'
-    );
+    const [mode, setMode] = useState('');
     const isCreateMode = mode === 'create';
     const isEditMode = mode === 'edit';
     const selectedChallenge = useSelector(
@@ -128,7 +125,7 @@ export default function ChallengeDetail() {
         }
 
         setMode('view');
-        setTimeout(() => navigate('/challenges'), 100);
+        setTimeout(() => navigate(-1), 100);
     };
 
     // 글 수정 및 작성 취소하는 로직
@@ -159,9 +156,6 @@ export default function ChallengeDetail() {
         navigate('/challenges', { state: { refresh: true } }); // 페이지 이동 후 새로고침 트리거 추가
     };
 
-    useEffect(() => {
-        console.log('업데이트된 챌린지 목록', challenges);
-    }, [challenges]); // challenges가 변경될 때마다 실행
     return (
         <div className='relative md:default-size md:mt-0'>
             <main
@@ -188,7 +182,11 @@ export default function ChallengeDetail() {
                             onEdit={handleEditClick}
                             onDelete={() => handleDelete(selectedChallenge?.id)}
                         />
-                        <ChallengeComments postData={postData} />
+                        <ChallengeComments
+                            postData={postData}
+                            onEdit={handleEditClick}
+                            onDelete={() => handleDelete(selectedChallenge?.id)}
+                        />
                     </>
                 ) : (
                     <p>챌린지를 찾을 수 없습니다.</p>

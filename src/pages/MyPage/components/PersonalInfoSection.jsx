@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import img1 from '../../../assets/images/icons/pic_etc.svg';
-import img2 from '../../../assets/images/icons/pic_habit.svg';
-import img3 from '../../../assets/images/icons/pic_health.svg';
-import img4 from '../../../assets/images/icons/pic_study.svg';
+import img1 from '../../../assets/images/icons/icon_habit.svg';
+import img2 from '../../../assets/images/icons/icon_etc.svg';
+import img3 from '../../../assets/images/icons/icon_health.svg';
+import img4 from '../../../assets/images/icons/icon_study.svg';
 import { validatePassword, validateNickname } from '../../../utils/validation';
+import { getAllUsers, getCurrentUserData } from '../../../utils/localStorage';
 
 export default function PersonalInfo() {
     const handleRefresh = () => {
@@ -11,15 +12,8 @@ export default function PersonalInfo() {
     };
 
     const loggedInUserId = localStorage.getItem('loggedInUser');
-
-    const [users, setUsers] = useState(() => {
-        try {
-            return JSON.parse(localStorage.getItem('users')) || [];
-        } catch (error) {
-            return [];
-        }
-    });
-    const loggedInUser = users.find((user) => user.userId === loggedInUserId);
+    const [users, setUsers] = useState(getAllUsers());
+    const currentUserData = getCurrentUserData();
 
     const [userInfo, setUserInfo] = useState({
         userId: '',
@@ -35,12 +29,13 @@ export default function PersonalInfo() {
     const [nicknameError, setNicknameError] = useState('');
     const [editMode, setEditMode] = useState(false);
     const defaultImgs = useMemo(() => [img1, img2, img3, img4], []);
-    const uploadPhotoInput = useRef(null);
+    const [tempUserImg, setTempUserImg] = useState(null); // 임시 이미지
+    const uploadPhotoInput = useRef(tempUserImg);
 
     useEffect(() => {
-        if (loggedInUser) {
+        if (currentUserData) {
             setUserInfo((prev) => {
-                let initialUserImg = loggedInUser.userImg;
+                let initialUserImg = currentUserData.userImg;
 
                 // 프로필 이미지가 없는 경우 랜덤 이미지 설정
                 if (!initialUserImg) {
@@ -52,12 +47,12 @@ export default function PersonalInfo() {
 
                 const updatedInfo = {
                     ...prev,
-                    userId: loggedInUser.userId || '',
+                    userId: currentUserData.userId || '',
                     password: '',
-                    nickname: loggedInUser.nickname || '',
-                    signupDate: loggedInUser.signupDate || '',
+                    nickname: currentUserData.nickname || '',
+                    signupDate: currentUserData.signupDate || '',
                     userImg: initialUserImg,
-                    userIntroduction: loggedInUser.userIntroduction || '',
+                    userIntroduction: currentUserData.userIntroduction || '',
                 };
                 if (JSON.stringify(prev) === JSON.stringify(updatedInfo)) {
                     return prev;
@@ -65,24 +60,24 @@ export default function PersonalInfo() {
                 return updatedInfo;
             });
         }
-    }, [loggedInUser, defaultImgs]);
+    }, [currentUserData, defaultImgs]);
 
     const handleChange = (e) => {
         e.preventDefault();
-        const { item, value } = e.target;
-        setUserInfo((prev) => ({ ...prev, [item]: value }));
+        const { name, value } = e.target;
+        setUserInfo((prev) => ({ ...prev, [name]: value }));
 
-        if (item === 'nickname') {
+        if (name === 'nickname') {
             const error = validateNickname(value);
             setNicknameError(error || '');
         }
 
-        if (item === 'password') {
+        if (name === 'password') {
             const error = validatePassword(value);
             setPasswordError(error || '');
         }
 
-        if (item === 'confirmPassword') {
+        if (name === 'confirmPassword') {
             if (value !== userInfo.password) {
                 setPasswordError('비밀번호가 일치하지 않습니다.');
             } else {
@@ -130,6 +125,7 @@ export default function PersonalInfo() {
                 // 압축하여 JPEG 저장 (품질 70%)
                 const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
 
+                setTempUserImg(compressedDataUrl); // 미리보기 용
                 setUserInfo((prev) => ({
                     ...prev,
                     userImg: compressedDataUrl,
@@ -139,20 +135,13 @@ export default function PersonalInfo() {
     };
 
     const handleImageDelete = () => {
-        // 랜덤 이미지 선택
         const randomImage =
             defaultImgs[Math.floor(Math.random() * defaultImgs.length)];
-
-        // userInfo 상태 업데이트 및 localStorage 업데이트
-        setUserInfo((prev) => ({ ...prev, userImg: randomImage }));
-
-        const updatedUsers = users.map((user) =>
-            user.userId === loggedInUserId
-                ? { ...user, userImg: randomImage }
-                : user
-        );
-        localStorage.setItem('users', JSON.stringify(updatedUsers));
-        setUsers(updatedUsers);
+        setTempUserImg(randomImage); // 미리보기용 상태만 변경
+        setUserInfo((prev) => ({
+            ...prev,
+            userImg: randomImage,
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -173,9 +162,10 @@ export default function PersonalInfo() {
 
         // 기존 유저 정보 유지하면서 업데이트할 부분만 덮어쓰기
         const updatedUser = {
-            ...loggedInUser, // 기존 정보 유지
+            ...currentUserData, // 기존 정보 유지
             ...userInfo, // 새로 입력한 정보 적용
-            password: userInfo.password || loggedInUser.password, // 비밀번호 유지
+            password: userInfo.password || currentUserData.password, // 비밀번호 유지
+            userImg: tempUserImg || userInfo.userImg, // 임시 이미지 우선 적용
         };
 
         // 유저 목록 업데이트
@@ -204,9 +194,10 @@ export default function PersonalInfo() {
         // 화면 갱신 및 수정 모드 종료
         handleRefresh();
         setEditMode(false);
+        setTempUserImg(null);
     };
 
-    if (!loggedInUser) {
+    if (!currentUserData) {
         return (
             <div className='w-full h-[756px] rounded-r-3xl rounded-bl-3xl bg-neutral-100 p-[36px]'>
                 <p className='text-center text-gray-500'>
@@ -230,28 +221,11 @@ export default function PersonalInfo() {
                         프로필 사진
                     </label>
                     <div className='mt-2 flex items-center gap-x-3'>
-                        <div className='w-[25%] md:w-[30%] shrink-0 ring-1 ring-neutral-400 aspect-square overflow-hidden rounded-full bg-neutral-100'>
-                            {userInfo.userImg ? (
-                                <img
-                                    src={userInfo.userImg}
-                                    alt='프로필'
-                                    className='w-full h-full object-cover'
-                                />
-                            ) : (
-                                <img
-                                    src={
-                                        defaultImgs[
-                                            Math.floor(
-                                                Math.random() *
-                                                    defaultImgs.length
-                                            )
-                                        ]
-                                    }
-                                    alt='기본 프로필'
-                                    className='w-full h-full object-cover'
-                                />
-                            )}
-                        </div>
+                        <img
+                            src={tempUserImg || userInfo.userImg}
+                            alt='프로필'
+                            className='w-[25%] md:w-[30%] shrink-0 ring-1 ring-neutral-400 aspect-square object-cover bg-neutral-200 overflow-hidden rounded-full bg-neutral-100'
+                        />
 
                         <input
                             type='file'
@@ -264,7 +238,7 @@ export default function PersonalInfo() {
                         />
                         <label
                             htmlFor='upload-photo'
-                            className={`btn px-3 text-center whitespace-nowrap ${editMode ? 'btn-primary' : 'opacity-0 cursor-default'} `}
+                            className={`btn px-3 text-center whitespace-nowrap ${editMode ? 'btn-primary' : 'hidden'} `}
                         >
                             사진 올리기
                         </label>
@@ -277,12 +251,7 @@ export default function PersonalInfo() {
                         />
                         <label
                             htmlFor='delete-photo'
-                            className={`btn px-3 text-center whitespace-nowrap
-                                            ${
-                                                editMode
-                                                    ? 'btn-negative '
-                                                    : 'opacity-0 cursor-default'
-                                            } `}
+                            className={`btn px-3 text-center whitespace-nowrap ${editMode ? 'btn-negative' : 'hidden'} `}
                         >
                             삭제하기
                         </label>

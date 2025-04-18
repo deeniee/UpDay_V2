@@ -4,7 +4,14 @@ import { getChallenges } from '../../utils/localStorage';
 
 // 챌린지 데이터를 localStorage에 저장
 const saveChallengeToLocalStorage = (challenges) => {
-    localStorage.setItem('clgList', JSON.stringify(challenges));
+    // 같은 id를 가진 챌린지가 중복으로 존재하지 않도록 필터링
+    const uniqueChallenges = challenges.reduce((acc, cur) => {
+        if (!acc.find((item) => item.id === cur.id)) {
+            acc.push(cur);
+        }
+        return acc;
+    }, []);
+    localStorage.setItem('clgList', JSON.stringify(uniqueChallenges));
 };
 
 const getInitialList = () => {

@@ -55,20 +55,6 @@ const allChallenges = [
     },
     {
         id: 3,
-        category: '기타',
-        duration: '1개월',
-        title: '매일 한 문장 글쓰기',
-        content:
-            '하루 한 문장씩 글을 쓰며 표현력을 길러보세요. 한 문장이 한 문단이 되고, 한 문단이 한 권의 책이 될지도 몰라요 :) 한 문장은 우리의 기억을 기록하는 첫걸음이며, 일상의 사소한 순간들에서 영감을 받을 수도 있습니다. 작게 시작해 큰 결과를 만들어보세요. 처음엔 단순한 일상 기록일지라도, 시간이 지나면 이는 여러분의 이야기로 이어지고, 자신만의 고유한 작품이 될 수 있습니다. 지금 바로 한 문장을 써보는 것으로, 새로운 도전을 시작해보세요!',
-        authorId: 'beawriter@gmail.com',
-        postDate: '2024-11-30T19:00:00',
-        postClicked: 75,
-        scrapCount: 48,
-        likesCount: 62,
-        participants: getRandomParticipants(dummyUsers, 22),
-    },
-    {
-        id: 4,
         category: '습관',
         duration: '3개월',
         title: '매일 10분 청소하기',
@@ -81,22 +67,9 @@ const allChallenges = [
         likesCount: 36,
         participants: getRandomParticipants(dummyUsers, 25),
     },
+
     {
-        id: 5,
-        category: '건강',
-        duration: '6개월',
-        title: '하루 30초 플랭크 챌린지',
-        content:
-            '처음에는 30초부터 시작해서 익숙해지면 점점 시간을 늘려봅시다! 플랭크는 특별한 장비 없이도 어디서든 할 수 있는 효과적인 운동입니다. 💪 하루 30초씩 꾸준히 하면 코어 근육이 단련되고, 허리 건강에도 도움이 돼요. 익숙해지면 10초씩 늘려 도전해보세요. 작은 노력이 모이면 큰 변화를 만들 수 있습니다. 건강한 습관을 만드는 첫걸음, 자신을 위해 딱 30초만 투자하세요 :)',
-        authorId: 'corecore@gmail.com',
-        postDate: '2024-12-01T09:00:00',
-        postClicked: 194,
-        scrapCount: 32,
-        likesCount: 45,
-        participants: getRandomParticipants(dummyUsers, 10),
-    },
-    {
-        id: 6,
+        id: 4,
         category: '기타',
         duration: '3개월',
         title: '매일 아침 5분간 명상하기',
@@ -119,7 +92,7 @@ const allChallenges = [
         ],
     },
     {
-        id: 7,
+        id: 5,
         category: '학습',
         duration: '3개월',
         title: '경제 뉴스 한 줄 요약하기',
@@ -142,21 +115,7 @@ const allChallenges = [
         ],
     },
     {
-        id: 8,
-        category: '기타',
-        duration: '1개월',
-        title: '사진으로 하루 기록하기',
-        content:
-            '우리는 하루에도 수많은 순간을 지나가지만, 기록하지 않으면 금방 잊혀지곤 해요. 하루에 한 장씩 사진을 찍어보세요! 풍경, 음식, 일상적인 순간까지 무엇이든 좋아요.📸 나중에 사진을 돌이켜보면 그날의 감정과 분위기까지 생생하게 떠오를 거예요. 꾸준히 기록하다 보면 자연스럽게 나만의 포토 다이어리가 만들어질 거예요. 1장, 2장, 3장, 기록하다 보면 어느새 30장! 1년 중 소중한 추억을 만들어봐요.',
-        authorId: 'sugarfr22@kakao.com',
-        postDate: '2024-12-02T21:00:00',
-        postClicked: 252,
-        scrapCount: 105,
-        likesCount: 53,
-        participants: getRandomParticipants(dummyUsers, 14),
-    },
-    {
-        id: 9,
+        id: 6,
         category: '기타',
         duration: '3개월',
         title: '플라스틱 줄이기 실천',
@@ -170,35 +129,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 16),
     },
     {
-        id: 10,
-        category: '기타',
-        duration: '3개월',
-        title: '블로그 글 쓰기',
-        content:
-            '초등학교 때 방학 일기 밀려쓰던 사람? 그 사람이 바로 저예요. 작은 일이라도 블로그에 글로 쓰며 일상을 남겨봐요! 블로그에 글을 쓰는 것은 단순한 기록을 넘어, 자신의 생각을 정리하고 발전시키는 좋은 습관이에요. 처음에는 간단한 일상 기록부터 시작해보세요. 여행 후기, 독서 감상, 취미 활동 등 무엇이든 좋아요. 꾸준히 글을 쓰다 보면 글쓰기 실력도 늘고, 과거의 자신을 돌아볼 수 있는 소중한 공간이 될 거예요. 쌓이는 글을 보면 뿌듯해진답니다 :)',
-        authorId: 'vloger@naver.com',
-        postDate: '2024-12-10T11:00:00',
-        postClicked: 211,
-        scrapCount: 95,
-        likesCount: 42,
-        participants: getRandomParticipants(dummyUsers, 25),
-    },
-    {
-        id: 11,
-        category: '습관',
-        duration: '1개월',
-        title: '하루 한 끼 집밥 해먹기',
-        content:
-            '처음엔 귀찮을 수 있지만, 내 손으로 만드는 소중한 한 끼의 가치를 알게 되면 일상의 소소한 행복을 느낄 수 있어요. 1개월이면 자연스럽게 습관이 되어 장을 보러 가는게 일상이 되고, 어쩌면 하루 세 끼를 모두 집밥을 해먹는 날이 올 거랍니다 :)',
-        authorId: '1mealathome@kakao.com',
-        postDate: '2024-12-13T10:00:00',
-        postClicked: 52,
-        scrapCount: 78,
-        likesCount: 54,
-        participants: [...getRandomParticipants(dummyUsers, 8)],
-    },
-    {
-        id: 12,
+        id: 7,
         category: '건강',
         duration: '1개월',
         title: '점심 먹고 30분 이상 산책 하기',
@@ -212,7 +143,7 @@ const allChallenges = [
         participants: [...getRandomParticipants(dummyUsers, 12)],
     },
     {
-        id: 13,
+        id: 8,
         category: '기타',
         duration: '1개월',
         title: '주말마다 디지털 디톡스하기',
@@ -226,7 +157,7 @@ const allChallenges = [
         participants: [...getRandomParticipants(dummyUsers, 24)],
     },
     {
-        id: 14,
+        id: 9,
         category: '학습',
         duration: '3개월',
         title: '하루 10쪽 독서하기',
@@ -240,7 +171,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 15),
     },
     {
-        id: 15,
+        id: 10,
         category: '건강',
         duration: '3개월',
         title: '설탕 없는 하루 보내기',
@@ -263,21 +194,7 @@ const allChallenges = [
         ],
     },
     {
-        id: 16,
-        category: '건강',
-        duration: '6개월',
-        title: '매일 10분 스트레칭',
-        content:
-            '하루 10분만 투자해서 전신을 스트레칭해 보세요. 유연성과 혈액순환을 개선할 수 있어요. 긴장된 근육을 풀어주고, 하루 종일 쌓인 피로를 해소하는 데도 도움이 됩니다. 특히 앉아 있는 시간이 많은 분들에게 필수! 스트레칭으로 몸을 가볍게 만들어 활력 있는 하루를 시작해보세요. ',
-        authorId: 'luluralra@naver.com',
-        postDate: '2025-01-07T07:00:00',
-        postClicked: 224,
-        scrapCount: 29,
-        likesCount: 32,
-        participants: getRandomParticipants(dummyUsers, 30),
-    },
-    {
-        id: 17,
+        id: 11,
         category: '기타',
         duration: '1개월',
         title: '한 달 동안 불필요한 소비 줄이기 챌린지',
@@ -292,7 +209,7 @@ const allChallenges = [
     },
 
     {
-        id: 18,
+        id: 12,
         category: '학습',
         duration: '3개월',
         title: '2주에 책 1권씩 읽기',
@@ -306,7 +223,7 @@ const allChallenges = [
         participants: [...getRandomParticipants(dummyUsers, 16)],
     },
     {
-        id: 19,
+        id: 13,
         category: '습관',
         duration: '6개월',
         title: '하루 물 2L 마시기',
@@ -329,7 +246,7 @@ const allChallenges = [
         ],
     },
     {
-        id: 20,
+        id: 14,
         category: '습관',
         duration: '3개월',
         title: '일찍 자기 챌린지',
@@ -343,7 +260,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 29),
     },
     {
-        id: 21,
+        id: 15,
         category: '기타',
         duration: '3개월',
         title: '매일 새로운 음악 듣기',
@@ -366,7 +283,7 @@ const allChallenges = [
         ],
     },
     {
-        id: 22,
+        id: 16,
         category: '학습',
         duration: '3개월',
         title: '매일 1시간씩 영어 공부 챌린지',
@@ -390,7 +307,7 @@ const allChallenges = [
     },
 
     {
-        id: 23,
+        id: 17,
         category: '건강',
         duration: '6개월',
         title: '엘레베이터 대신 계단 챌린지',
@@ -404,7 +321,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 17),
     },
     {
-        id: 24,
+        id: 18,
         category: '습관',
         duration: '1개월',
         title: '일주일에 하루 5천원으로 생활하기',
@@ -418,7 +335,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 19),
     },
     {
-        id: 25,
+        id: 19,
         category: '건강',
         duration: '2개월',
         title: '하루 10,000보 걷기',
@@ -433,7 +350,7 @@ const allChallenges = [
         participants: [...getRandomParticipants(dummyUsers, 12)],
     },
     {
-        id: 26,
+        id: 20,
         category: '학습',
         duration: '3개월',
         title: '뉴스 기사 읽기',
@@ -447,7 +364,7 @@ const allChallenges = [
         participants: getRandomParticipants(dummyUsers, 10),
     },
     {
-        id: 27,
+        id: 21,
         category: '기타',
         duration: '3개월',
         title: '일주일에 한 번 친구에게 연락하기',
@@ -468,20 +385,6 @@ const allChallenges = [
                 clgDone: true,
             },
         ],
-    },
-    {
-        id: 28,
-        category: '학습',
-        duration: '1개월',
-        title: 'AI & 기술 트렌드 배우기',
-        content:
-            'AI, 블록체인, 클라우드, IoT 등 IT 기술은 빠르게 발전하고 있어요. 최신 트렌드를 따라가며 새로운 기술이 우리 삶에 어떤 영향을 미치는지 배우는 것은 매우 중요해요. 하루에 하나의 기술 개념이나 IT 뉴스 기사를 읽고, 이를 어떻게 활용할 수 있을지 생각해보세요. 예를 들어, AI 기술이 추천 시스템에 어떻게 적용되는지, 블록체인이 금융 시스템을 어떻게 바꾸고 있는지 알아보는 것도 흥미로울 거예요. 꾸준한 학습이 미래의 경쟁력을 높이는 지름길입니다!',
-        authorId: 'detoxic@kakao.com',
-        postDate: '2025-03-08T10:00:00',
-        postClicked: 93,
-        scrapCount: 12,
-        likesCount: 5,
-        participants: getRandomParticipants(dummyUsers, 4),
     },
 ];
 

@@ -4,6 +4,7 @@ import { getAuthorData } from '../../../utils/getUserData';
 
 import ChallengeHeader from './ChallengeHeader';
 import ChallengeActions from './ChallengeActions';
+import GeminiComment from './GeminiComment';
 
 const ChallengeInfo = ({
     postData,
@@ -76,7 +77,7 @@ const ChallengeInfo = ({
                                             .userImg
                                     }
                                     alt={`${getAuthorData(postData?.authorId).nickname} 프로필 사진`}
-                                    className='w-6 md:w-7 aspect-square object-cover rounded-full'
+                                    className='w-7 md:w-8 aspect-square object-cover rounded-full bg-neutral-200 drop-shadow-sm'
                                 />
                                 <span className='main-text'>
                                     {getAuthorData(postData?.authorId).nickname}
@@ -85,7 +86,10 @@ const ChallengeInfo = ({
                         )}
                     </div>
                 </div>
-
+                {/* <GeminiComment
+                    title={postData.title}
+                    content={postData.content}
+                /> */}
                 <ChallengeActions
                     participants={postData?.participants}
                     scrapCount={postData?.scrapCount}
