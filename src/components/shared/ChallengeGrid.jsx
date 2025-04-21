@@ -60,6 +60,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
         } else {
             // 참가자를 추가하는 액션 디스패치
             dispatch(joinChallenge({ id, participant: loggedInUser }));
+            window.location.reload();
         }
     };
 

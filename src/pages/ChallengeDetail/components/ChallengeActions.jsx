@@ -1,27 +1,148 @@
-import React from 'react';
-import {
-    IoBookmarks,
-    IoBookmarksOutline,
-    IoHeart,
-    IoHeartOutline,
-    IoShareSocial,
-} from 'react-icons/io5';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { IoBookmarks, IoHeart, IoShareSocial } from 'react-icons/io5';
+import { joinChallenge } from '../../../store/features/challengeSlice';
+import ModalForShare from './ModalForShare';
 
 export default function ChallengeActions({
+    id,
     participants,
-    scrapCount,
-    likesCount,
+    scrapCount: initialScrapCount,
+    likesCount: initialLikesCount,
     onSubmit,
     onCancel,
     isCreateMode,
     isEditMode,
+    isModalOpen,
+    isFadingOut,
+    openModal,
+    closeModal,
 }) {
+    const dispatch = useDispatch();
     const loggedInUser = localStorage.getItem('loggedInUser');
+    const [userPreferred, setUserPreferred] = useState(() => {
+        const stored = localStorage.getItem('myPreferredClg');
+        return stored
+            ? JSON.parse(stored)
+            : {
+                  userId: loggedInUser,
+                  likedChallengeIds: [1, 3, 7, 16, 18],
+                  scrappedChallengeIds: [6, 8, 10],
+              };
+    });
+    const [likesCount, setLikesCount] = useState(() => {
+        const storedLikes = localStorage.getItem(`post no.${id} likesCounts`);
+        return storedLikes
+            ? (JSON.parse(storedLikes)[id] ?? initialLikesCount)
+            : initialLikesCount;
+    });
+    const [scrapCount, setScrapCount] = useState(() => {
+        const storedLikes = localStorage.getItem(`post no.${id} scrapedCounts`);
+        return storedLikes
+            ? (JSON.parse(storedLikes)[id] ?? initialScrapCount)
+            : initialScrapCount;
+    });
+    const [isLiked, setIsLiked] = useState(() =>
+        userPreferred.likedChallengeIds.includes(id)
+    );
+    const [isScrapped, setIsScrapped] = useState(() =>
+        userPreferred.scrappedChallengeIds.includes(id)
+    );
+    const [copied, setCopied] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('myPreferredClg', JSON.stringify(userPreferred));
+    }, [userPreferred]);
+
+    useEffect(() => {
+        setIsLiked(userPreferred.likedChallengeIds.includes(id));
+        setIsScrapped(userPreferred.scrappedChallengeIds.includes(id));
+    }, [userPreferred, id]);
 
     const isUserJoined = participants?.some(
         (participant) =>
             participant.userId === loggedInUser && participant.clgJoin === true
     );
+
+    // 참여하기 버튼 핸들링
+    const handleJoin = (e) => {
+        e.stopPropagation(); // 이벤트 전파 중지
+        e.preventDefault(); // 기본 동작 방지
+
+        dispatch(joinChallenge({ id, participant: loggedInUser }));
+        window.location.reload();
+    };
+
+    // 스크랩/좋아요 버튼 핸들링
+    const toggleLikedChallenge = (challengeId) => {
+        const isLiked = userPreferred.likedChallengeIds.includes(challengeId);
+
+        const updatedLikedIds = isLiked
+            ? userPreferred.likedChallengeIds.filter((id) => id !== challengeId)
+            : [...userPreferred.likedChallengeIds, challengeId];
+
+        setUserPreferred((prev) => ({
+            ...prev,
+            likedChallengeIds: updatedLikedIds,
+        }));
+
+        const newCount = isLiked ? likesCount - 1 : likesCount + 1;
+        setLikesCount(newCount);
+
+        const storedLikes =
+            JSON.parse(localStorage.getItem(`post no.${id} likesCounts`)) || {};
+        const updatedLikes = {
+            ...storedLikes,
+            [challengeId]: newCount,
+        };
+        localStorage.setItem(
+            `post no.${id} likesCounts`,
+            JSON.stringify(updatedLikes)
+        );
+    };
+
+    const toggleScrappedChallenge = (challengeId) => {
+        const isScrapped =
+            userPreferred.scrappedChallengeIds.includes(challengeId);
+
+        const updatedScrappedIds = isScrapped
+            ? userPreferred.scrappedChallengeIds.filter(
+                  (id) => id !== challengeId
+              )
+            : [...userPreferred.scrappedChallengeIds, challengeId];
+
+        setUserPreferred((prev) => ({
+            ...prev,
+            scrappedChallengeIds: updatedScrappedIds,
+        }));
+
+        const newCount = isScrapped ? scrapCount - 1 : scrapCount + 1;
+        setScrapCount(newCount);
+
+        const storedScraps =
+            JSON.parse(localStorage.getItem(`post no.${id} scrapedCounts`)) ||
+            {};
+        const updatedScraps = {
+            ...storedScraps,
+            [challengeId]: newCount,
+        };
+        localStorage.setItem(
+            `post no.${id} scrapedCounts`,
+            JSON.stringify(updatedScraps)
+        );
+    };
+
+    const handleShare = async () => {
+        openModal();
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2500); // 2초 뒤 안내 메시지 제거
+        } catch (err) {
+            console.error('클립보드 복사 실패:', err);
+        }
+    };
+
     return (
         <>
             {isCreateMode || isEditMode ? (
@@ -43,27 +164,46 @@ export default function ChallengeActions({
                 <section className='flex justify-between'>
                     <div className='flex justify-center items-center w-[30%] md:max-w-[240px]'>
                         <button
-                            className={`btn btn-primary w-full ${isUserJoined ? 'hidden' : ''}`}
+                            type='button'
+                            className={`btn btn-primary w-full ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                            onClick={handleJoin}
                         >
-                            참여하기
+                            {isUserJoined ? '참여 중' : '참여하기'}
                         </button>
                     </div>
                     <div className='flex gap-1.5 md:gap-2'>
-                        <button className='btn btn-action flex gap-1.5 md:gap-2'>
-                            <IoBookmarksOutline className='size-5' />
+                        <button
+                            onClick={() => toggleScrappedChallenge(id)}
+                            className={`btn ${isScrapped ? 'btn-action-active' : 'btn-action'} flex gap-1.5 md:gap-2`}
+                        >
+                            <IoBookmarks className='size-5' />
                             <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
                                 {scrapCount}
                             </span>
                         </button>
-                        <button className='btn btn-action flex gap-1.5 md:gap-2'>
-                            <IoHeartOutline className='size-5' />
+                        <button
+                            onClick={() => toggleLikedChallenge(id)}
+                            className={`btn ${isLiked ? 'btn-action-active' : 'btn-action'} flex gap-1.5 md:gap-2`}
+                        >
+                            <IoHeart className='size-5' />
                             <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
                                 {likesCount}
                             </span>
                         </button>
-                        <button className='btn btn-action flex'>
-                            <IoShareSocial className='size-5' />
-                        </button>
+                        <div className='relative'>
+                            <button
+                                className='btn btn-action flex'
+                                onClick={handleShare}
+                            >
+                                <IoShareSocial className='size-5' />
+                            </button>
+                            {isModalOpen && (
+                                <ModalForShare
+                                    closeModal={closeModal}
+                                    isFadingOut={isFadingOut}
+                                />
+                            )}
+                        </div>
                     </div>
                 </section>
             )}

@@ -121,10 +121,10 @@ const userChallengeSlice = createSlice({
                                       type === 'doing'
                                           ? !participant.clgDoing
                                           : false,
-                                  clgDone:
-                                      type === 'done'
-                                          ? !participant.clgDone
-                                          : participant.clgDoing,
+                                  //   clgDone:
+                                  //       type === 'done'
+                                  //           ? !participant.clgDone
+                                  //           : participant.clgDoing,
                               }
                             : participant
                     ),
