@@ -23,7 +23,6 @@ const AllChallengesLayout = () => {
 
             navigate('/challenges', { replace: true }); // 페이지 이동 후 `state` 초기화
         }
-        console.log('삭제 후 챌린지 목록', challenges);
     }, [location.state?.refresh, challenges, navigate]);
 
     // 검색 로직 (useCallback을 사용해 handleSearch 메모이제이션)
