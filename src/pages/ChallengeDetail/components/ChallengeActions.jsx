@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { IoBookmarks, IoHeart, IoShareSocial } from 'react-icons/io5';
+import { joinChallenge } from '../../../store/features/challengeSlice';
 
 export default function ChallengeActions({
     id,
@@ -11,6 +13,7 @@ export default function ChallengeActions({
     isCreateMode,
     isEditMode,
 }) {
+    const dispatch = useDispatch();
     const loggedInUser = localStorage.getItem('loggedInUser');
     const [userPreferred, setUserPreferred] = useState(() => {
         const stored = localStorage.getItem('myPreferredClg');
@@ -22,14 +25,12 @@ export default function ChallengeActions({
                   scrappedChallengeIds: [6, 8, 10],
               };
     });
-
     const [likesCount, setLikesCount] = useState(() => {
         const storedLikes = localStorage.getItem(`post no.${id} likesCounts`);
         return storedLikes
             ? (JSON.parse(storedLikes)[id] ?? initialLikesCount)
             : initialLikesCount;
     });
-
     const [scrapCount, setScrapCount] = useState(() => {
         const storedLikes = localStorage.getItem(`post no.${id} scrapedCounts`);
         return storedLikes
@@ -56,6 +57,15 @@ export default function ChallengeActions({
         (participant) =>
             participant.userId === loggedInUser && participant.clgJoin === true
     );
+
+    // 참여하기 버튼 핸들링
+    const handleJoin = (e) => {
+        e.stopPropagation(); // 이벤트 전파 중지
+        e.preventDefault(); // 기본 동작 방지
+
+        dispatch(joinChallenge({ id, participant: loggedInUser }));
+        window.location.reload();
+    };
 
     const toggleLikedChallenge = (challengeId) => {
         const isLiked = userPreferred.likedChallengeIds.includes(challengeId);
@@ -136,9 +146,11 @@ export default function ChallengeActions({
                 <section className='flex justify-between'>
                     <div className='flex justify-center items-center w-[30%] md:max-w-[240px]'>
                         <button
-                            className={`btn btn-primary w-full ${isUserJoined ? 'hidden' : ''}`}
+                            type='button'
+                            className={`btn btn-primary w-full ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                            onClick={handleJoin}
                         >
-                            참여하기
+                            {isUserJoined ? '참여 중' : '참여하기'}
                         </button>
                     </div>
                     <div className='flex gap-1.5 md:gap-2'>
