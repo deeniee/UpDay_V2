@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getCategoryIllust } from '../../../utils/categoryList';
 import { getAuthorData } from '../../../utils/getUserData';
 
@@ -16,6 +16,26 @@ const ChallengeInfo = ({
     onEdit,
     onDelete,
 }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFadingOut, setIsFadingOut] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+        setIsFadingOut(false);
+
+        setTimeout(() => {
+            setIsFadingOut(true);
+            setTimeout(() => {
+                setIsModalOpen(false); // fade out 애니메이션 완료 후 모달 닫기
+            }, 500);
+        }, 2500);
+    };
+
+    const closeModal = () => {
+        setIsFadingOut(true);
+        setTimeout(() => {
+            setIsModalOpen(false);
+        }, 500);
+    };
     return (
         <section className='relative flex flex-col md:flex-row'>
             <div className='card drop-shadow-none bg-neutral-200 dark:bg-neutral-600 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:self-start md:aspect-square m-3 md:m-4'>
@@ -98,6 +118,10 @@ const ChallengeInfo = ({
                     isCreateMode={isCreateMode}
                     isEditMode={isEditMode}
                     onSubmit={onChange}
+                    isModalOpen={isModalOpen}
+                    isFadingOut={isFadingOut}
+                    openModal={openModal}
+                    closeModal={closeModal}
                 />
             </div>
         </section>

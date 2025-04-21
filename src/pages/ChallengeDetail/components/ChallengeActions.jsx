@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { IoBookmarks, IoHeart, IoShareSocial } from 'react-icons/io5';
 import { joinChallenge } from '../../../store/features/challengeSlice';
+import ModalForShare from './ModalForShare';
 
 export default function ChallengeActions({
     id,
@@ -12,6 +13,10 @@ export default function ChallengeActions({
     onCancel,
     isCreateMode,
     isEditMode,
+    isModalOpen,
+    isFadingOut,
+    openModal,
+    closeModal,
 }) {
     const dispatch = useDispatch();
     const loggedInUser = localStorage.getItem('loggedInUser');
@@ -43,6 +48,7 @@ export default function ChallengeActions({
     const [isScrapped, setIsScrapped] = useState(() =>
         userPreferred.scrappedChallengeIds.includes(id)
     );
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('myPreferredClg', JSON.stringify(userPreferred));
@@ -67,6 +73,7 @@ export default function ChallengeActions({
         window.location.reload();
     };
 
+    // 스크랩/좋아요 버튼 핸들링
     const toggleLikedChallenge = (challengeId) => {
         const isLiked = userPreferred.likedChallengeIds.includes(challengeId);
 
@@ -125,6 +132,17 @@ export default function ChallengeActions({
         );
     };
 
+    const handleShare = async () => {
+        openModal();
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2500); // 2초 뒤 안내 메시지 제거
+        } catch (err) {
+            console.error('클립보드 복사 실패:', err);
+        }
+    };
+
     return (
         <>
             {isCreateMode || isEditMode ? (
@@ -172,9 +190,20 @@ export default function ChallengeActions({
                                 {likesCount}
                             </span>
                         </button>
-                        <button className='btn btn-action flex'>
-                            <IoShareSocial className='size-5' />
-                        </button>
+                        <div className='relative'>
+                            <button
+                                className='btn btn-action flex'
+                                onClick={handleShare}
+                            >
+                                <IoShareSocial className='size-5' />
+                            </button>
+                            {isModalOpen && (
+                                <ModalForShare
+                                    closeModal={closeModal}
+                                    isFadingOut={isFadingOut}
+                                />
+                            )}
+                        </div>
                     </div>
                 </section>
             )}
