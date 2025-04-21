@@ -34,7 +34,7 @@ const ChallengeComments = ({ postData }) => {
     useEffect(() => {
         const filtered = savedComments.filter((c) => c.postId === postData.id);
         setCommentList(filtered);
-    }, [savedComments, postData.id]);
+    }, [postData.id]);
 
     const updateAllCommentsStorage = (updatedCurrentComments) => {
         const otherComments = savedComments.filter(
