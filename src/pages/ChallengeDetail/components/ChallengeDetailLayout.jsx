@@ -15,9 +15,10 @@ import pic3 from '../../../assets/images/backgrounds/pic_3.svg';
 import pic4 from '../../../assets/images/backgrounds/pic_4.svg';
 import PostForm from './PostForm';
 
-export default function ChallengeDetail() {
+export default function ChallengeDetailLayout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const loggedInUser = localStorage.getItem('loggedInUser');
     const { id } = useParams();
     const [mode, setMode] = useState('');
@@ -43,11 +44,20 @@ export default function ChallengeDetail() {
             : 0;
 
     useEffect(() => {
-        const selectedChallenge = getChallenges().find(
+        const selected = getChallenges().find(
             (challenge) => String(challenge.id) === String(id)
         );
-        setPostData(selectedChallenge);
+        setPostData(selected);
+        setMode('view');
     }, [id]);
+
+    useEffect(() => {
+        console.log('ID 바뀜!', id);
+    }, [id]);
+
+    useEffect(() => {
+        console.log('포스트 데이터 재설정:', postData);
+    }, [postData]);
 
     useEffect(() => {
         if (isEditMode && selectedChallenge) {
@@ -153,7 +163,10 @@ export default function ChallengeDetail() {
     };
 
     return (
-        <div className='relative md:default-size md:mt-0'>
+        <div
+            key={location.pathname}
+            className='relative md:default-size md:mt-0'
+        >
             <main
                 className={`card default-size ${isCreateMode || isEditMode ? 'min-h-[100%]' : ''} md:h-full flex-col justify-start gap-3 md:gap-0`}
             >

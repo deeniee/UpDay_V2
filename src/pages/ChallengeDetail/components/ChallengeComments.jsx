@@ -34,7 +34,8 @@ const ChallengeComments = ({ postData }) => {
     useEffect(() => {
         const filtered = savedComments.filter((c) => c.postId === postData.id);
         setCommentList(filtered);
-    }, [postData.id, savedComments]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [postData.id]);
 
     const updateAllCommentsStorage = (updatedCurrentComments) => {
         const otherComments = savedComments.filter(
@@ -135,7 +136,7 @@ const ChallengeComments = ({ postData }) => {
                 <img
                     src={participant.userImg}
                     alt={`${participant.nickname} 프로필 사진`}
-                    className='w-10 h-10 md:w-11 md:w-11 aspect-square object-cover rounded-full bg-neutral-200 drop-shadow-sm'
+                    className='w-10 h-10 md:w-11 md:h-11 aspect-square object-cover rounded-full bg-neutral-200 drop-shadow-sm'
                 />
                 <div className='flex flex-col flex-1 main-text gap-1.5 md:gap-2'>
                     <span className='font-semibold'>
