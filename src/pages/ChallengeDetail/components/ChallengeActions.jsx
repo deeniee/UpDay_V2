@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { IoBookmarks, IoHeart, IoShareSocial } from 'react-icons/io5';
 import { joinChallenge } from '../../../store/features/challengeSlice';
+import {
+    toggleLike,
+    toggleScrap,
+} from '../../../store/features/userSavedSlice';
 import ModalForShare from './ModalForShare';
 
 export default function ChallengeActions({
-    id,
-    participants,
-    scrapCount: initialScrapCount,
-    likesCount: initialLikesCount,
+    postData,
     onSubmit,
     onCancel,
     isCreateMode,
@@ -18,120 +20,59 @@ export default function ChallengeActions({
     openModal,
     closeModal,
 }) {
+    const { id, likesCount, scrapCount, participants } = postData;
     const dispatch = useDispatch();
     const loggedInUser = localStorage.getItem('loggedInUser');
-    const [userPreferred, setUserPreferred] = useState(() => {
-        const stored = localStorage.getItem('myPreferredClg');
-        return stored
-            ? JSON.parse(stored)
-            : {
-                  userId: loggedInUser,
-                  likedChallengeIds: [1, 3, 7, 16, 18],
-                  scrappedChallengeIds: [6, 8, 10],
-              };
-    });
-    const [likesCount, setLikesCount] = useState(() => {
-        const storedLikes = localStorage.getItem(`post no.${id} likesCounts`);
-        return storedLikes
-            ? (JSON.parse(storedLikes)[id] ?? initialLikesCount)
-            : initialLikesCount;
-    });
-    const [scrapCount, setScrapCount] = useState(() => {
-        const storedLikes = localStorage.getItem(`post no.${id} scrapedCounts`);
-        return storedLikes
-            ? (JSON.parse(storedLikes)[id] ?? initialScrapCount)
-            : initialScrapCount;
-    });
-    const [isLiked, setIsLiked] = useState(() =>
-        userPreferred.likedChallengeIds.includes(id)
-    );
+
+    const [localLikesCount, setLocalLikesCount] = useState(likesCount);
+    const [localScrapCount, setLocalScrapCount] = useState(scrapCount);
+
+    const likedIds = useSelector((state) => state.userSaved.likedIds);
+    const [isLiked, setIsLiked] = useState(() => likedIds.includes(id));
+    const scrappedIds = useSelector((state) => state.userSaved.scrappedIds);
     const [isScrapped, setIsScrapped] = useState(() =>
-        userPreferred.scrappedChallengeIds.includes(id)
+        scrappedIds.includes(id)
     );
     const [copied, setCopied] = useState(false);
-
-    useEffect(() => {
-        localStorage.setItem('myPreferredClg', JSON.stringify(userPreferred));
-    }, [userPreferred]);
-
-    useEffect(() => {
-        setIsLiked(userPreferred.likedChallengeIds.includes(id));
-        setIsScrapped(userPreferred.scrappedChallengeIds.includes(id));
-    }, [userPreferred, id]);
 
     const isUserJoined = participants?.some(
         (participant) =>
             participant.userId === loggedInUser && participant.clgJoin === true
     );
 
+    useEffect(() => {
+        setLocalLikesCount(likesCount);
+        setLocalScrapCount(scrapCount);
+    }, [likesCount, scrapCount]);
+
     // 참여하기 버튼 핸들링
     const handleJoin = (e) => {
-        e.stopPropagation(); // 이벤트 전파 중지
-        e.preventDefault(); // 기본 동작 방지
+        if (loggedInUser) {
+            e.stopPropagation(); // 이벤트 전파 중지
+            e.preventDefault(); // 기본 동작 방지
 
-        dispatch(joinChallenge({ id, participant: loggedInUser }));
-        window.location.reload();
+            dispatch(joinChallenge({ id, participant: loggedInUser }));
+            window.location.reload();
+        }
     };
 
-    // 스크랩/좋아요 버튼 핸들링
-    const toggleLikedChallenge = (challengeId) => {
-        const isLiked = userPreferred.likedChallengeIds.includes(challengeId);
-
-        const updatedLikedIds = isLiked
-            ? userPreferred.likedChallengeIds.filter((id) => id !== challengeId)
-            : [...userPreferred.likedChallengeIds, challengeId];
-
-        setUserPreferred((prev) => ({
-            ...prev,
-            likedChallengeIds: updatedLikedIds,
-        }));
-
-        const newCount = isLiked ? likesCount - 1 : likesCount + 1;
-        setLikesCount(newCount);
-
-        const storedLikes =
-            JSON.parse(localStorage.getItem(`post no.${id} likesCounts`)) || {};
-        const updatedLikes = {
-            ...storedLikes,
-            [challengeId]: newCount,
-        };
-        localStorage.setItem(
-            `post no.${id} likesCounts`,
-            JSON.stringify(updatedLikes)
-        );
+    // 좋아요/스크랩 버튼 핸들링
+    const handleToggleLike = () => {
+        if (loggedInUser) {
+            dispatch(toggleLike({ id: id, isLiked }));
+            setIsLiked((prev) => !prev);
+            setLocalLikesCount((prev) => (isLiked ? prev - 1 : prev + 1));
+        }
+    };
+    const handleToggleScrap = () => {
+        if (loggedInUser) {
+            dispatch(toggleScrap({ id: id, isScrapped }));
+            setIsScrapped((prev) => !prev);
+            setLocalScrapCount((prev) => (isScrapped ? prev - 1 : prev + 1));
+        }
     };
 
-    const toggleScrappedChallenge = (challengeId) => {
-        const isScrapped =
-            userPreferred.scrappedChallengeIds.includes(challengeId);
-
-        const updatedScrappedIds = isScrapped
-            ? userPreferred.scrappedChallengeIds.filter(
-                  (id) => id !== challengeId
-              )
-            : [...userPreferred.scrappedChallengeIds, challengeId];
-
-        setUserPreferred((prev) => ({
-            ...prev,
-            scrappedChallengeIds: updatedScrappedIds,
-        }));
-
-        const newCount = isScrapped ? scrapCount - 1 : scrapCount + 1;
-        setScrapCount(newCount);
-
-        const storedScraps =
-            JSON.parse(localStorage.getItem(`post no.${id} scrapedCounts`)) ||
-            {};
-        const updatedScraps = {
-            ...storedScraps,
-            [challengeId]: newCount,
-        };
-        localStorage.setItem(
-            `post no.${id} scrapedCounts`,
-            JSON.stringify(updatedScraps)
-        );
-    };
-
+    // 공유 버튼 핸들링
     const handleShare = async () => {
         openModal();
         try {
@@ -173,21 +114,21 @@ export default function ChallengeActions({
                     </div>
                     <div className='flex gap-1.5 md:gap-2'>
                         <button
-                            onClick={() => toggleScrappedChallenge(id)}
+                            onClick={handleToggleScrap}
                             className={`btn ${isScrapped ? 'btn-action-active' : 'btn-action'} flex gap-1.5 md:gap-2`}
                         >
                             <IoBookmarks className='size-5' />
                             <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
-                                {scrapCount}
+                                {localScrapCount}
                             </span>
                         </button>
                         <button
-                            onClick={() => toggleLikedChallenge(id)}
+                            onClick={handleToggleLike}
                             className={`btn ${isLiked ? 'btn-action-active' : 'btn-action'} flex gap-1.5 md:gap-2`}
                         >
                             <IoHeart className='size-5' />
                             <span className='main-text text-neutral-900 dark:text-neutral-100 font-semibold'>
-                                {likesCount}
+                                {localLikesCount}
                             </span>
                         </button>
                         <div className='relative'>

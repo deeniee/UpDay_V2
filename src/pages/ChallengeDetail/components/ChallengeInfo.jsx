@@ -111,10 +111,7 @@ const ChallengeInfo = ({
                     content={postData.content}
                 /> */}
                 <ChallengeActions
-                    id={postData?.id}
-                    participants={postData?.participants}
-                    scrapCount={postData?.scrapCount}
-                    likesCount={postData?.likesCount}
+                    postData={postData}
                     isCreateMode={isCreateMode}
                     isEditMode={isEditMode}
                     onSubmit={onChange}

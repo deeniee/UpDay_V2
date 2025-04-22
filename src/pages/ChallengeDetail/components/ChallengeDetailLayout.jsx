@@ -52,14 +52,6 @@ export default function ChallengeDetailLayout() {
     }, [id]);
 
     useEffect(() => {
-        console.log('ID 바뀜!', id);
-    }, [id]);
-
-    useEffect(() => {
-        console.log('포스트 데이터 재설정:', postData);
-    }, [postData]);
-
-    useEffect(() => {
         if (isEditMode && selectedChallenge) {
             setFormData({
                 clgImg: selectedChallenge.clgImg,
