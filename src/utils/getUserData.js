@@ -6,8 +6,7 @@ export const getAuthorData = (authorId) => {
     let authorData = dummyUsers.find((user) => user.userId === authorId);
 
     if (!authorData) {
-        // userData가 없다면 dummyUsers에서 다시 가져와 반환
-        const usersData = JSON.parse(localStorage.getItem('users'));
+        const usersData = userData || '[]';
         authorData = usersData.find((user) => user.userId === authorId);
     }
 

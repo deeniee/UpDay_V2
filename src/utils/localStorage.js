@@ -1,6 +1,9 @@
 export const getChallenges = () => {
-    const challenges = JSON.parse(localStorage.getItem('clgList')) || [];
-    return challenges;
+    return JSON.parse(localStorage.getItem('clgList') || '[]');
+};
+
+export const setChallenges = (challenges) => {
+    localStorage.setItem('challenges', JSON.stringify(challenges));
 };
 
 export const getAllUsers = () => {

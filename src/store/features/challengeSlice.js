@@ -4,7 +4,7 @@ import { getChallenges } from '../../utils/localStorage';
 
 // 챌린지 데이터를 localStorage에 저장
 const saveChallengeToLocalStorage = (challenges) => {
-    localStorage.setItem('clgList', JSON.stringify(challenges));
+    localStorage.setItem('clgList', JSON.stringify(challenges) || []);
 };
 
 const getInitialList = () => {
@@ -23,7 +23,7 @@ const getInitialList = () => {
 
     const mergedChallenges = [...savedChallenges, ...newChallenges];
 
-    localStorage.setItem('clgList', JSON.stringify(mergedChallenges));
+    localStorage.setItem('clgList', JSON.stringify(mergedChallenges) || []);
     return mergedChallenges;
 };
 
@@ -132,5 +132,7 @@ export const {
     addChallenge,
     deleteChallenge,
     joinChallenge,
+    toggleLike,
+    toggleScrap,
 } = challengeSlice.actions;
 export default challengeSlice.reducer;
