@@ -1,13 +1,26 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
-const AllChallengesLayout = () => {
+export default function ChallengesLayout() {
+    const { slug } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
-    const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
-    const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
+
+    // 슬러그를 실제 카테고리 이름으로 변환
+    const categorySlugMap = {
+        all: '전체',
+        habit: '습관',
+        health: '건강',
+        study: '학습',
+        etc: '기타',
+    };
+    const displayCategory = categorySlugMap[slug] || '전체';
+    const [activeCategory, setActiveCategory] = useState(
+        displayCategory || '전체'
+    ); // 초기 카테고리 상태 설정
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
     const [challenges, setChallenges] = useState([]);
@@ -16,16 +29,16 @@ const AllChallengesLayout = () => {
         setChallenges(getChallenges());
     }, []);
 
-    // 삭제 후 최신 데이터를 불러오도록 useEffect 추가
+    // 페이지 이동 후 state 초기화
     useEffect(() => {
         if (location.state?.refresh) {
             setChallenges(getChallenges());
 
-            navigate('/challenges', { replace: true }); // 페이지 이동 후 `state` 초기화
+            navigate('/challenges', { replace: true }); //  상태 초기화
         }
     }, [location.state?.refresh, challenges, navigate]);
 
-    // 검색 로직 (useCallback을 사용해 handleSearch 메모이제이션)
+    // 검색 로직
     const handleSearch = useCallback(
         (searchTerm, category = activeCategory) => {
             if (!searchTerm.trim()) {
@@ -33,7 +46,7 @@ const AllChallengesLayout = () => {
                 return;
             }
 
-            const filteredChallenges = challenges.filter(
+            const filtered = challenges.filter(
                 (challenge) =>
                     (category === '전체' || challenge.category === category) &&
                     (challenge.title
@@ -43,24 +56,20 @@ const AllChallengesLayout = () => {
                             .toLowerCase()
                             .includes(searchTerm.toLowerCase()))
             );
-            setSearchResults(filteredChallenges);
+            setSearchResults(filtered);
         },
         [activeCategory, challenges]
     );
 
-    // 카테고리 변경 시, 검색 실행
+    // 검색 조건이 변경되었을 때만 실행 + challenges 준비되었을 때만
     useEffect(() => {
-        if (category) {
-            setActiveCategory(category); // URL로부터 카테고리 값 업데이트
-        }
-    }, [category]); // URL 카테고리 파라미터가 변경될 때마다 실행
-
-    // 카테고리나 검색어가 변경될 때만 검색을 실행
-    useEffect(() => {
-        if (searchTerm || activeCategory !== '전체') {
+        if (
+            (searchTerm || activeCategory !== '전체') &&
+            challenges.length > 0
+        ) {
             handleSearch(searchTerm, activeCategory);
         }
-    }, [activeCategory, searchTerm, handleSearch]); // 카테고리 또는 검색어 변경 시 실행
+    }, [activeCategory, searchTerm, challenges, handleSearch]);
 
     return (
         <ChallengeListContainer
@@ -74,6 +83,4 @@ const AllChallengesLayout = () => {
             challenges={challenges}
         />
     );
-};
-
-export default AllChallengesLayout;
+}

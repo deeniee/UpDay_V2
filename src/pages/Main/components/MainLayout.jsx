@@ -14,12 +14,12 @@ const MainLayout = () => {
     const challengeDays = currentUser ? calcActiveDays(currentUser) : 0;
 
     return (
-        <div className='default-size flex-col'>
+        <div className='default-size'>
             <Helmet>
                 <title>홈 - UpDay</title>
             </Helmet>
 
-            <section className='relative w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <section className='relative w-full h-full flex flex-col md:grid md:grid-cols-2 gap-6'>
                 <UserInfo
                     userName={userName}
                     challengeDays={challengeDays}

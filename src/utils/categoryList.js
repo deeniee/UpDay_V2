@@ -14,31 +14,31 @@ export const categoryList = [
         title: '전체',
         icon: IconAll,
         illust: '',
-        path: '/challengelist',
+        path: '/challenges',
     },
     {
         title: '습관',
         icon: IconHabit,
         illust: PicHabit,
-        path: '/challengelist/category/습관',
+        path: '/challenges/category/habit',
     },
     {
         title: '건강',
         icon: IconHealth,
         illust: PicHealth,
-        path: '/challengelist/category/건강',
+        path: '/challenges/category/health',
     },
     {
         title: '학습',
         icon: IconStudy,
         illust: PicStudy,
-        path: '/challengelist/category/학습',
+        path: '/challenges/category/study',
     },
     {
         title: '기타',
         icon: IconEtc,
         illust: PicEtc,
-        path: '/challengelist/category/기타',
+        path: '/challenges/category/etc',
     },
 ];
 

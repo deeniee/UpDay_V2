@@ -48,7 +48,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     };
 
     return (
-        <div className='relative w-full h-[200px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px]'>
+        <div className='relative w-full h-[190px] h-full md:min-h-[312px] md:max-h-[592px]'>
             <h2
                 className='card rounded-b-none drop-shadow-none absolute top-0 title w-full h-8 md:h-10 flex items-center
             p-3 md:p-4 gap-1 z-10 bg-main-200 text-neutral-700 dark:bg-main-500 dark:text-neutral-200'

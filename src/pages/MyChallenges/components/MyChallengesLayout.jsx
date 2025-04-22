@@ -1,81 +1,69 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getJoinedChallenge } from '../../../store/features/userChallengeSlice';
-import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
-import MyChallengesList from './MyChallengesList';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import picRecord from '../images/pic_record.svg';
+import picRecommend from '../images/pic_recommend.svg';
+import picCollect from '../images/pic_collect.svg';
+import picPreffered from '../images/pic_preferred.svg';
 
-export default function MyChallengesLayout() {
-    const { category } = useParams(); // url에서 카테고리 파라미터 읽어오기
-    const dispatch = useDispatch();
-    const [activeCategory, setActiveCategory] = useState(category || '전체'); // 초기 카테고리 상태 설정
-    const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
-    const challenges = useSelector(
-        (state) => state.userChallenge.joinedChallenges
-    );
+import MyChallengeCard from './MyChallengeCard';
 
-    // 참여한 챌린지 불러오기
-    useEffect(() => {
-        dispatch(getJoinedChallenge());
-    }, [dispatch]);
-
-    // 검색 로직 (useCallback을 사용해 handleSearch 메모이제이션)
-    const handleSearch = useCallback(
-        (searchTerm, category = activeCategory) => {
-            if (!searchTerm.trim()) {
-                setSearchResults([]);
-                return;
-            }
-
-            const filteredChallenges = challenges.filter(
-                (challenge) =>
-                    (category === '전체' || challenge.category === category) &&
-                    (challenge.title
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                        challenge.content
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()))
-            );
-            setSearchResults(filteredChallenges);
-        },
-        [activeCategory, challenges]
-    );
-
-    // 카테고리 또는 검색어 변경 시, 검색 실행
-    useEffect(() => {
-        handleSearch(searchTerm, activeCategory); // 카테고리 변경 시 검색 실행
-    }, [activeCategory, searchTerm, handleSearch]); // 카테고리 또는 검색어 변경 시 실행
-
-    // 카테고리 변경 시, activeCategory 상태 업데이트
-    useEffect(() => {
-        if (category) {
-            setActiveCategory(category);
-        }
-    }, [category]); // URL 카테고리 파라미터가 변경될 때마다 실행
-
-    const sortedChallenges = () => {};
+const MyChallengesLayout = () => {
     return (
-        // <ChallengeListContainer
-        //     activeCategory={activeCategory}
-        //     setActiveCategory={setActiveCategory}
-        //     searchTerm={searchTerm}
-        //     setSearchTerm={setSearchTerm}
-        //     searchResults={searchResults}
-        //     setSearchResults={setSearchResults}
-        //     handleSearch={handleSearch}
-        //     challenges={challenges}
-        // />
-        <MyChallengesList
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            handleSearch={handleSearch}
-            challenges={challenges}
-        />
+        <main className='default-size grid grid-cols-1 gap-6 md:grid-cols-2'>
+            <MyChallengeCard
+                title='챌린지 기록하기'
+                subtitles={[
+                    '매일의 챌린지를 확인하고',
+                    '오늘의 기록을 남겨보세요.',
+                ]}
+                imgSrc={picRecord}
+                imgAlt='챌린지 기록하기 일러스트'
+                path='note'
+            />
+            <div className='flex md:flex-col md:gap-4 w-full h-full md:min-h-[312px] md:max-h-[592px]'>
+                <div className='flex flex-col gap-3 md:gap-4 w-56 md:w-full'>
+                    <h2 className='title'> 관심있는 챌린지</h2>
+                    <div className='flex flex-col md:flex-row gap-2 md:gap-1'>
+                        <span className='sub-text -mt-2 md:-mt-3'>
+                            좋아요와 스크랩한 챌린지를
+                        </span>
+                        <span className='sub-text -mt-2 md:-mt-3'>
+                            한눈에 볼 수 있어요.
+                        </span>
+                    </div>
+                </div>
+                <Link
+                    to='saved'
+                    className='card w-full h-full flex justify-center items-center p-8 md:p-0'
+                >
+                    <img
+                        src={picPreffered}
+                        imgAlt='관심있는 챌린지 일러스트'
+                        className='h-28 md:h-32'
+                    />
+                </Link>
+            </div>
+            <MyChallengeCard
+                title='챌린지 모아보기'
+                subtitles={[
+                    '완료하거나 진행 중인 챌린지도',
+                    '여기서 확인해보세요.',
+                ]}
+                imgSrc={picCollect}
+                imgAlt='챌린지 모아보기 일러스트'
+                path='all'
+            />
+            <MyChallengeCard
+                title='추천 챌린지'
+                subtitles={[
+                    '내 관심사와 활동을 바탕으로',
+                    '새로운 챌린지를 추천해줘요.',
+                ]}
+                imgSrc={picRecommend}
+                imgAlt='추천 챌린지 일러스트'
+                path='recommend'
+            />
+        </main>
     );
-}
+};
+export default MyChallengesLayout;

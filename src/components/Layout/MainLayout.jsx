@@ -5,9 +5,9 @@ import Footer from './Footer';
 
 export default function MainLayout() {
     return (
-        <div className='min-w-[390px] min-h-screen flex flex-col scrollbar-none md:justify-between pt-12 dark:bg-neutral-700'>
+        <div className='min-w-[390px] w-screen min-h-screen h-full flex flex-col justify-between scrollbar-none dark:bg-neutral-700'>
             <Header />
-            <div className='main-content'>
+            <div className='h-full pt-12'>
                 <Outlet />
             </div>
             <Footer />

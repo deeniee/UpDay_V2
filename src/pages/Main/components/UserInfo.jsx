@@ -3,7 +3,7 @@ import UserInfoIllustBg from './UserInfoIllustBg';
 
 const UserInfo = ({ userName, challengeDays, isLoggedIn }) => {
     return (
-        <div className='relative w-full h-[120px] md:h-[42vh] md:min-h-[320px] md:max-h-[540px] flex gap-4 md:justify-between'>
+        <div className='relative w-full h-[112px] md:min-h-[312px] md:max-h-[592px] flex gap-4 md:justify-between'>
             <div className='w-full h-full text-left flex flex-col justify-end md:justify-center gap-2'>
                 <div className='space-x-1'>
                     <span className='text-xl md:text-2xl font-bold'>
