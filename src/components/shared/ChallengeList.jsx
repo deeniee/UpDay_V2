@@ -12,6 +12,7 @@ import { calcPassedDate } from '../../utils/calcDate';
 import { getAuthorData } from '../../utils/getUserData';
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
+import { FaPen } from 'react-icons/fa6';
 import { ChallengeState } from '../../pages/MyChallenges/components/ChallengeState';
 
 const ChallengeList = ({ cardData, viewMode }) => {
@@ -76,7 +77,7 @@ const ChallengeList = ({ cardData, viewMode }) => {
 
     return (
         <div
-            className='card p-2 pr-3 md:p-3 md:pr-4 flex gap-2 md:gap-3 hover:scale-[102%] transition'
+            className='card p-2 pr-3 md:p-3 md:pr-4 flex gap-2 md:gap-3 hover:scale-[101%] transition duration-300'
             onClick={handleCardClick}
         >
             {/* 기본 제공 이미지 */}
@@ -104,9 +105,17 @@ const ChallengeList = ({ cardData, viewMode }) => {
                     <span className='main-text font-normal text-neutral-600 dark:text-neutral-300 whitespace-nowrap mr-1.5 md:mr-2 '>
                         {duration}
                     </span>
+
                     <p className='flex-1 h-auto main-text font-semibold overflow-hidden text-ellipsis whitespace-nowrap'>
                         {title}
                     </p>
+                    {isMyChallengesPage && (
+                        <ChallengeState
+                            loggedInUser={loggedInUser}
+                            participants={participants}
+                            viewMode={viewMode}
+                        />
+                    )}
                     <div className='sub-text flex justify-end items-center gap-1 md:gap-1.5 ml-1 md:ml-2'>
                         <span>{calcPassedDate(postDate)}</span>
                         <BsDot className='-mx-0.5' />
@@ -146,17 +155,15 @@ const ChallengeList = ({ cardData, viewMode }) => {
                     </div>
                     {/* 참여버튼 */}
                     {isMyChallengesPage ? (
-                        <ChallengeState
-                            loggedInUser={loggedInUser}
-                            participants={participants}
-                            viewMode={viewMode}
-                        />
+                        <button className='h-[30px] md:h-[34px]'>
+                            <FaPen className='text-neutral-700 dark:text-neutral-200' />
+                        </button>
                     ) : (
                         <>
                             {isLoggedIn && (
                                 <button
                                     type='button'
-                                    className={`btn w-[18%] md:w-[15%] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
+                                    className={`btn min-w-[56px] w-[20%] md:w-[16%] max-w-[108px] ${isUserJoined ? 'btn-secondary' : 'btn-primary'}`}
                                     onClick={handleJoin}
                                 >
                                     {isUserJoined ? '참여 중' : '참여하기'}

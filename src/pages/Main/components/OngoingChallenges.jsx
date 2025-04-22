@@ -48,7 +48,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
     };
 
     return (
-        <div className='relative w-full h-[190px] h-full md:min-h-[312px] md:max-h-[592px]'>
+        <div className='relative w-full h-[190px] md:h-full md:min-h-[312px] md:max-h-[592px]'>
             <h2
                 className='card rounded-b-none drop-shadow-none absolute top-0 title w-full h-8 md:h-10 flex items-center
             p-3 md:p-4 gap-1 z-10 bg-main-200 text-neutral-700 dark:bg-main-500 dark:text-neutral-200'
@@ -58,12 +58,12 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
             </h2>
             {isLoggedIn ? (
                 filteredChallenges.length > 0 ? (
-                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card dark:bg-neutral-300 overflow-scroll scrollbar-none'>
+                    <ul className='w-full h-full pt-8 md:pt-10 flex flex-col card dark:bg-neutral-800 overflow-scroll scrollbar-none'>
                         {filteredChallenges.map((challenge, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[20.1%] flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
+                                    className={`flex-shrink-0 w-full h-[33.6%] md:h-[25.1%] flex justify-between px-3 md:px-4 border-b border-neutral-300 ${
                                         filteredChallenges.length >= 5 &&
                                         index === filteredChallenges.length - 1
                                             ? 'border-neutral-300/0'
@@ -74,7 +74,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                     {challenge ? (
                                         <>
                                             <div className='w-full flex flex-col justify-evenly items-start overflow-hidden'>
-                                                <div className='w-full flex items-center gap-1 text-neutral-700 whitespace-nowrap'>
+                                                <div className='w-full flex items-center gap-1.5 text-neutral-700 dark:text-neutral-400 whitespace-nowrap'>
                                                     <div className='flex items-center gap-1'>
                                                         <div className='w-4 md:w-6 h-4 md:h-6'>
                                                             <img
@@ -128,7 +128,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                         })}
                         {filteredChallenges.length > 0 &&
                             filteredChallenges.length < 5 && (
-                                <div className='w-full h-full min-h-[33.6%] md:min-h-[20.1%] flex justify-center items-center main-text text-neutral-500'>
+                                <div className='w-full h-full min-h-[33.6%] md:min-h-[20.1%] flex justify-center items-center main-text text-neutral-500 dark:text-neutral-300'>
                                     다른 챌린지에도 도전해보는 건 어때요?
                                 </div>
                             )}
