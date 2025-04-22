@@ -67,10 +67,10 @@ const PopularChallenges = () => {
     if (currentChallenges.length < 3) return null;
 
     return (
-        <div className='relative w-full flex flex-col space-y-2'>
-            <h2 className='title pl-3 md:pl-0'>인기 있는 챌린지</h2>
+        <div className='relative w-full h-full md:min-h-[312px] md:max-h-[592px] flex flex-col gap-2'>
+            <h2 className='title pl-1 md:pl-0'>인기 있는 챌린지</h2>
 
-            <ul className='w-full h-full flex flex-col gap-2'>
+            <ul className='w-full h-full flex flex-col gap-3 md:gap-4'>
                 {[0, 1, 2, 3, 4].map((offset) => {
                     const index = offset; // 1~5번 위치 고정
                     const challenge = currentChallenges[index];
@@ -79,9 +79,8 @@ const PopularChallenges = () => {
                     return (
                         <li
                             key={index}
-                            className={`card w-full h-10 md:h-[5.4vh] md:min-h-[37px] md:max-h-[69px] px-4 py-2 drop-shadow-sm
-                                flex items-center justify-between transition duration-500 ease-in-out
-                                ${isHighlighted ? 'scale-100' : 'scale-95'}`}
+                            className={`card w-full h-10 md:h-full px-4 py-2 drop-shadow-sm flex items-center justify-between
+                                transition duration-500 ease-in-out ${isHighlighted ? 'scale-[102%]' : 'scale-[100%]'}`}
                             onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>
@@ -89,7 +88,8 @@ const PopularChallenges = () => {
                                     {index + 1}.
                                 </span>
                                 <div
-                                    className={`flex items-center gap-1 ${isHighlighted ? 'opacity-100' : 'opacity-60'}`}
+                                    className={`flex items-center gap-1 transition duration-500 ease-in-out
+                                        transition duration-500 ease-in-out ${isHighlighted ? 'opacity-100' : 'opacity-60'}`}
                                 >
                                     <div className='w-4 md:w-6 h-4 md:h-6'>
                                         <img
@@ -110,7 +110,7 @@ const PopularChallenges = () => {
                                 </span>
                             </div>
                             <div
-                                className={`sub-text flex items-end gap-2 whitespace-nowrap ${isHighlighted ? 'text-neutral-700 dark:text-neutral-200' : 'text-neutral-500'}`}
+                                className={`sub-text flex items-end gap-2 whitespace-nowrap transition duration-500 ease-in-out ${isHighlighted ? 'text-neutral-700 dark:text-neutral-200' : 'text-neutral-500'}`}
                             >
                                 <div className='flex items-center gap-0.5'>
                                     <FaMousePointer />

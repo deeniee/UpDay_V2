@@ -9,9 +9,9 @@ import {
 
 export default function ChallengeCategory() {
     return (
-        <div className='relative w-full flex flex-col space-y-2 pb-4 md:pb-0'>
-            <h2 className='title pl-3 md:pl-0'>카테고리별 챌린지</h2>
-            <div className='h-full grid grid-cols-4 md:grid-cols-2 gap-4'>
+        <div className='relative w-full h-full md:min-h-[312px] md:max-h-[592px] flex flex-col gap-2'>
+            <h2 className='title pl-1 md:pl-0'>카테고리별 챌린지</h2>
+            <div className='h-full grid grid-cols-4 md:grid-cols-2 gap-3 md:gap-4'>
                 {categoryList
                     .filter((category) => category.title !== '전체') // '전체' 제외
                     .map((category, index) => (

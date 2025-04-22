@@ -90,7 +90,7 @@
     }
 
     .default-size {
-        @apply w-[90vw] min-w-[336px] md:w-[80vw] md:max-w-[1344px] min-h-screen md:min-h-[606px] flex gap-6 md:gap-0 md:justify-between mx-auto mt-3 md:mt-2;
+        @apply w-[90vw] min-w-[336px] md:w-[80vw] md:max-w-[1344px] h-full md:min-h-[640px] flex gap-6 md:gap-0 md:justify-between mx-auto mt-3 md:mt-2;
     }
 
     .header {
