@@ -80,7 +80,7 @@ const PopularChallenges = () => {
                         <li
                             key={index}
                             className={`card w-full h-10 md:h-full px-4 py-2 drop-shadow-sm flex items-center justify-between
-                                transition duration-500 ease-in-out ${isHighlighted ? 'scale-[102%]' : 'scale-[100%]'}`}
+                                transition duration-500 ease-in-out ${isHighlighted ? 'scale-[101%]' : ''}`}
                             onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                         >
                             <div className='flex justify-start w-full items-center gap-2 overflow-hidden'>

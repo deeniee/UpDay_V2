@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import picRecord from '../images/pic_record.svg';
 import picRecommend from '../images/pic_recommend.svg';
 import picCollect from '../images/pic_collect.svg';
 import picPreffered from '../images/pic_preferred.svg';
 
 import MyChallengeCard from './MyChallengeCard';
+import Modal from '../../../components/ui/Modal';
 
 const MyChallengesLayout = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true); // 모달창 열기
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <main className='default-size grid grid-cols-1 gap-6 md:grid-cols-2'>
             <MyChallengeCard
@@ -53,16 +66,25 @@ const MyChallengesLayout = () => {
                 imgAlt='챌린지 모아보기 일러스트'
                 path='all'
             />
-            <MyChallengeCard
-                title='추천 챌린지'
-                subtitles={[
-                    '내 관심사와 활동을 바탕으로',
-                    '새로운 챌린지를 추천해줘요.',
-                ]}
-                imgSrc={picRecommend}
-                imgAlt='추천 챌린지 일러스트'
-                path='recommend'
-            />
+            <button onClick={openModal}>
+                <MyChallengeCard
+                    title='추천 챌린지'
+                    subtitles={[
+                        '내 관심사와 활동을 바탕으로',
+                        '새로운 챌린지를 추천해줘요.',
+                    ]}
+                    imgSrc={picRecommend}
+                    imgAlt='추천 챌린지 일러스트'
+                />
+            </button>
+            {isModalOpen && (
+                <Modal
+                    main='개발 중인 페이지입니다'
+                    disc='해당 기능이 추가되면 알려드릴게요!'
+                    button='다른 기능 둘러보기'
+                    onClick={closeModal}
+                />
+            )}
         </main>
     );
 };
