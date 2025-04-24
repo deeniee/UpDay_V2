@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { BsGridFill, BsDot } from 'react-icons/bs';
 import { FaList } from 'react-icons/fa';
 import { HiFire, HiDocumentCheck } from 'react-icons/hi2';
+import { IoBookmarks, IoHeart } from 'react-icons/io5';
 import { FaChevronDown } from 'react-icons/fa6';
 import ChallengeGridView from './ChallengeGridView';
 import ChallengeListView from './ChallengeListView';
@@ -19,8 +21,17 @@ export default function ChallengeSortSection({
     const [isMyPost, setIsMyPost] = useState('');
     const [isDoingClg, setIsDoingClg] = useState('');
     const [isDoneClg, setIsDoneClg] = useState('');
+
+    const [isScrapped, setIsScrapped] = useState('');
+    const [isLiked, setIsLiked] = useState('');
+    const likedIds = useSelector((state) => state.userSaved.likedIds);
+    const scrappedIds = useSelector((state) => state.userSaved.scrappedIds);
+
     const loggedInUser = localStorage.getItem('loggedInUser');
-    const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
+    const isAllMyChallenges = location.pathname.includes('/my-challenges/all');
+    const isSMySavedChallenges = location.pathname.includes(
+        '/my-challenges/saved'
+    );
 
     useEffect(() => {
         // 필터링 처리
@@ -54,6 +65,16 @@ export default function ChallengeSortSection({
                 )
             );
         }
+        if (isScrapped) {
+            filteredChallenges = filteredChallenges.filter((clg) =>
+                scrappedIds.includes(clg.id)
+            );
+        }
+        if (isLiked) {
+            filteredChallenges = filteredChallenges.filter((clg) =>
+                likedIds.includes(clg.id)
+            );
+        }
 
         // 검색 결과가 있다면, 필터링된 결과에 대해 검색 결과 적용
         const challengesToSort =
@@ -71,6 +92,10 @@ export default function ChallengeSortSection({
         isMyPost,
         isDoingClg,
         isDoneClg,
+        isScrapped,
+        scrappedIds,
+        isLiked,
+        likedIds,
         searchResults,
         challenges,
         sortOption,
@@ -119,46 +144,81 @@ export default function ChallengeSortSection({
         setIsDoneClg((prev) => !prev);
     };
 
+    const handleIsScrapped = () => {
+        setIsScrapped((prev) => !prev);
+        setIsLiked();
+    };
+    const handleIsLiked = () => {
+        setIsScrapped();
+        setIsLiked((prev) => !prev);
+    };
+
     return (
         <>
             <section className='w-full flex justify-end items-center gap-3 md:gap-4 mb-3 md:mb-4'>
-                <div
-                    className={`w-full flex gap-2 justify-start ${isMyChallengesPage ? '' : 'hidden'}`}
-                >
-                    <div
-                        className={`flex gap-0.5 pl-0.5 pr-2 rounded-[10px] items-center`}
-                        onClick={handleIsMyPost}
-                    >
-                        <BsDot className='text-base text-point-400' />
-                        <button
-                            className={`main-text ${isMyPost ? 'font-semibold' : ''}`}
+                {isAllMyChallenges && (
+                    <div className='w-full flex gap-2 justify-start'>
+                        <div
+                            className={`flex gap-0.5 pl-0.5 pr-2 rounded-[10px] items-center`}
+                            onClick={handleIsMyPost}
                         >
-                            내가 만든
-                        </button>
-                    </div>
-                    <div
-                        className={`flex gap-1 pl-1 pr-1.5 rounded-[10px] items-center text-sm`}
-                        onClick={handleIsDoingClg}
-                    >
-                        <HiFire className='text-sm text-pink-500' />
-                        <button
-                            className={`main-text ${isDoingClg ? 'font-semibold' : ''}`}
+                            <BsDot className='text-base text-point-400' />
+                            <button
+                                className={`main-text ${isMyPost ? 'font-semibold' : ''}`}
+                            >
+                                내가 만든
+                            </button>
+                        </div>
+                        <div
+                            className={`flex gap-1 pl-1 pr-1.5 rounded-[10px] items-center text-sm`}
+                            onClick={handleIsDoingClg}
                         >
-                            진행 중
-                        </button>
-                    </div>
-                    <div
-                        className={`flex gap-1 pl-1 pr-1.5 rounded-[10px] items-center text-sm`}
-                        onClick={handleIsDoneClg}
-                    >
-                        <HiDocumentCheck className='text-sm text-blue-300' />
-                        <button
-                            className={`main-text ${isDoneClg ? 'font-semibold' : ''}`}
+                            <HiFire className='text-sm text-pink-500' />
+                            <button
+                                className={`main-text ${isDoingClg ? 'font-semibold' : ''}`}
+                            >
+                                진행 중
+                            </button>
+                        </div>
+                        <div
+                            className={`flex gap-1 pl-1 pr-1.5 rounded-[10px] items-center text-sm`}
+                            onClick={handleIsDoneClg}
                         >
-                            완료
-                        </button>
+                            <HiDocumentCheck className='text-sm text-blue-300' />
+                            <button
+                                className={`main-text ${isDoneClg ? 'font-semibold' : ''}`}
+                            >
+                                완료
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
+                {isSMySavedChallenges && (
+                    <div className='w-full flex gap-2 justify-start'>
+                        <div
+                            className={`flex gap-1 pl-1 pr-1.5 items-center`}
+                            onClick={handleIsScrapped}
+                        >
+                            <IoBookmarks className='text-sm text-point-600 dark:text-point-400' />
+                            <button
+                                className={`main-text ${isScrapped ? 'font-semibold' : ''}`}
+                            >
+                                스크랩
+                            </button>
+                        </div>
+                        <div
+                            className={`flex gap-1 pl-1 pr-1.5 items-center`}
+                            onClick={handleIsLiked}
+                        >
+                            <IoHeart className='text-sm text-point-600 dark:text-point-400' />
+                            <button
+                                className={`main-text ${isLiked ? 'font-semibold' : ''}`}
+                            >
+                                좋아요
+                            </button>
+                        </div>
+                    </div>
+                )}
                 <div className='flex justify-center items-center gap-1'>
                     <select
                         id='sort'

@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
-export default function ChallengesLayout() {
+// 슬러그를 실제 카테고리 이름으로 변환
+const categorySlugMap = {
+    all: '전체',
+    habit: '습관',
+    health: '건강',
+    study: '학습',
+    etc: '기타',
+};
+
+export default function SavedMyChallengesLayout() {
     const { slug } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
 
-    // 슬러그를 실제 카테고리 이름으로 변환
-    const categorySlugMap = {
-        all: '전체',
-        habit: '습관',
-        health: '건강',
-        study: '학습',
-        etc: '기타',
-    };
     const displayCategory = categorySlugMap[slug] || '전체';
     const [activeCategory, setActiveCategory] = useState(
         displayCategory || '전체'
@@ -28,6 +30,15 @@ export default function ChallengesLayout() {
         setChallenges(getChallenges());
     }, []);
 
+    const likedIds = useSelector((state) => state.userSaved.likedIds);
+    const scrappedIds = useSelector((state) => state.userSaved.scrappedIds);
+
+    const savedChallenges = useMemo(() => {
+        return challenges.filter(
+            (clg) => likedIds.includes(clg.id) || scrappedIds.includes(clg.id)
+        );
+    }, [challenges, likedIds, scrappedIds]);
+
     // 페이지 이동 후 state 초기화
     useEffect(() => {
         if (location.state?.refresh) {
@@ -35,7 +46,7 @@ export default function ChallengesLayout() {
 
             navigate('/challenges', { replace: true }); //  상태 초기화
         }
-    }, [location.state?.refresh, challenges, navigate]);
+    }, [location.state?.refresh, navigate]);
 
     // 검색 로직
     const handleSearch = useCallback(
@@ -45,7 +56,7 @@ export default function ChallengesLayout() {
                 return;
             }
 
-            const filtered = challenges.filter(
+            const filtered = savedChallenges.filter(
                 (challenge) =>
                     (category === '전체' || challenge.category === category) &&
                     (challenge.title
@@ -57,7 +68,7 @@ export default function ChallengesLayout() {
             );
             setSearchResults(filtered);
         },
-        [activeCategory, challenges]
+        [activeCategory, savedChallenges]
     );
 
     // 검색 조건이 변경되었을 때만 실행 + challenges 준비되었을 때만
@@ -79,7 +90,7 @@ export default function ChallengesLayout() {
             searchResults={searchResults}
             setSearchResults={setSearchResults}
             handleSearch={handleSearch}
-            challenges={challenges}
+            challenges={savedChallenges}
         />
     );
 }

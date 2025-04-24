@@ -46,7 +46,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
             participant.userId === loggedInUser && participant.clgJoin === true
     );
 
-    const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
+    const isMyChallengesPage = location.pathname.includes('/my-challenges/all'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
 
     const getNewText =
         postDate.split('T')[0] === new Date().toISOString().split('T')[0];

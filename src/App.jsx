@@ -16,6 +16,7 @@ import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 import { useThemeManager } from './hooks/useThemeManager';
 import AllMyChallenges from './pages/AllMyChallenges/AllMyChallenges';
+import SavedMyChallenges from './pages/SavedMyChallenges/SavedMyChallenges';
 
 function App() {
     useThemeManager();
@@ -27,12 +28,18 @@ function App() {
                 <Route path='about-upday' element={<Intro />} />
                 <Route path='main' element={<Main />} />
                 <Route path='challenges' element={<Challenges />}>
-                    <Route path='category/:slug' element={null} />
+                    <Route path=':slug' element={null} />
                 </Route>
                 <Route path='challenges/create' element={<ChallengeDetail />} />
                 <Route path='challenges/:id' element={<ChallengeDetail />} />
                 <Route path='my-challenges' element={<MyChallenges />} />
                 <Route path='my-challenges/all' element={<AllMyChallenges />}>
+                    <Route path=':slug' element={null} />
+                </Route>
+                <Route
+                    path='my-challenges/saved'
+                    element={<SavedMyChallenges />}
+                >
                     <Route path='category/:slug' element={null} />
                 </Route>
                 <Route path='mypage' element={<MyPage />} />

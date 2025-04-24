@@ -9,8 +9,10 @@ const ChallengeCategorySection = ({
 }) => {
     const navigate = useNavigate();
     const location = useLocation(); // 현재 URL 경로 가져오기
-    const isMyChallengesPage = location.pathname.includes('/my-challenges'); // 현재 페이지가 '내 챌린지'인지 확인하는 함수
-
+    const isAllMyChallenges = location.pathname.includes('/my-challenges/all');
+    const isSMySavedChallenges = location.pathname.includes(
+        '/my-challenges/saved'
+    );
     const handleCategoryClick = (category) => {
         const categoryToSlug = {
             전체: 'all',
@@ -21,10 +23,12 @@ const ChallengeCategorySection = ({
         };
 
         const slug = categoryToSlug[category];
-        if (isMyChallengesPage) {
-            navigate(`/my-challenges/category/${slug}`);
+        if (isAllMyChallenges) {
+            navigate(`/my-challenges/all/${slug}`);
+        } else if (isSMySavedChallenges) {
+            navigate(`/my-challenges/saved/${slug}`);
         } else {
-            navigate(`/challenges/category/${slug}`);
+            navigate(`/challenges/${slug}`);
         }
         setActiveCategory(category); // 부모 컴포넌트에 선택한 카테고리 전달
         setSearchResults(null); // 카테고리 변경시 검색 결과 초기화
