@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const MyChallengeCard = ({ title, subtitles, imgSrc, imgAlt, path }) => {
     return (
-        <div className='flex md:flex-col md:gap-4 w-full h-full md:min-h-[312px] md:max-h-[592px]'>
+        <div className='flex md:flex-col md:gap-4 w-full h-full md:min-h-[312px] md:max-h-[592px] text-left'>
             <div className='flex flex-col gap-3 md:gap-4 w-56 md:w-full'>
                 <h2 className='title'> {title}</h2>
                 <div className='flex flex-col md:flex-row gap-2.5 md:gap-1'>

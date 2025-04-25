@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ChallengeList from './ChallengeList';
 
 const ChallengeListView = ({
@@ -10,6 +11,11 @@ const ChallengeListView = ({
 }) => {
     const [filteredChallenges, setFilteredChallenges] = useState([]);
     const [noResults, setNoResults] = useState(false); // 결과가 없을 때 메시지 처리 상태
+    const location = useLocation();
+    const isAllMyChallenges = location.pathname.includes('/my-challenges/all');
+    const isSMySavedChallenges = location.pathname.includes(
+        '/my-challenges/saved'
+    );
 
     useEffect(() => {
         const storedChallenges = challenges;
@@ -53,8 +59,8 @@ const ChallengeListView = ({
     return (
         <>
             {noResults ? (
-                <p className='w-full py-2 main-text text-center'>
-                    등록된 챌린지가 없습니다.
+                <p className='w-full py-6 main-text text-center text-neutral-500 dark:text-neutral-300'>
+                    {`${(isAllMyChallenges && '참여한') || (isSMySavedChallenges && '저장한')} 챌린지가 없습니다.`}
                 </p>
             ) : (
                 <section className='flex flex-col gap-3 md:gap-4'>
