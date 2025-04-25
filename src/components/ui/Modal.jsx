@@ -1,22 +1,26 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 const Modal = ({ main, point, disc, button, onClick }) => {
-    return (
-        <div className='fixed top-0 left-0 w-[100vw] h-[100vh] scroll-none flex items-center justify-center bg-neutral-900/30 backdrop-blur-sm z-50'>
-            <div className='relative card flex flex-col justify-between items-center w-96 p-6 pt-9 h-56 md:p-6'>
-                <div className='title font-bold mt-4'>
-                    <span className='font-extrabold'>{point}</span>
+    return ReactDOM.createPortal(
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/30 backdrop-blur-sm'>
+            <div className='relative bg-white rounded-2xl shadow-lg flex flex-col justify-between items-center w-96 h-56 p-6 pt-9'>
+                <div className='font-bold text-center'>
+                    <span className='font-extrabold text-primary'>{point}</span>
                     {main}
                 </div>
-                <div className='main-text'>{disc}</div>
+                <div className='text-sm text-center text-neutral-600'>
+                    {disc}
+                </div>
                 <button
                     onClick={onClick}
-                    className='btn btn-point w-auto mx-auto px-3 md:px-4 h-10'
+                    className='btn btn-point w-auto px-4 h-10'
                 >
                     {button}
                 </button>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

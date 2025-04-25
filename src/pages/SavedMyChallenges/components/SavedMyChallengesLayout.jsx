@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { getChallenges } from '../../../utils/localStorage';
+import { getUserSavedData } from '../../../utils/getUserData';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
 
 // 슬러그를 실제 카테고리 이름으로 변환
@@ -25,19 +26,25 @@ export default function SavedMyChallengesLayout() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 관리
     const [challenges, setChallenges] = useState([]);
+    const [savedData, setSavedData] = useState({
+        likedIds: [],
+        scrappedIds: [],
+    });
 
     useEffect(() => {
         setChallenges(getChallenges());
     }, []);
-
-    const likedIds = useSelector((state) => state.userSaved.likedIds);
-    const scrappedIds = useSelector((state) => state.userSaved.scrappedIds);
+    useEffect(() => {
+        setSavedData(getUserSavedData());
+    }, []);
 
     const savedChallenges = useMemo(() => {
         return challenges.filter(
-            (clg) => likedIds.includes(clg.id) || scrappedIds.includes(clg.id)
+            (clg) =>
+                savedData.likedIds.includes(clg.id) ||
+                savedData.scrappedIds.includes(clg.id)
         );
-    }, [challenges, likedIds, scrappedIds]);
+    }, [challenges, savedData]);
 
     // 페이지 이동 후 state 초기화
     useEffect(() => {
