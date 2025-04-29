@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { IoBookmarks, IoHeart, IoShareSocial } from 'react-icons/io5';
-import { joinChallenge } from '../../../store/features/challengeSlice';
+import {
+    joinChallenge,
+    addChallenge,
+} from '../../../store/features/challengeSlice';
 import {
     toggleLike,
     toggleScrap,
@@ -10,7 +13,7 @@ import {
 import ModalForShare from './ModalForShare';
 
 export default function ChallengeActions({
-    postData,
+    postData = {},
     onSubmit,
     onCancel,
     isCreateMode,

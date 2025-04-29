@@ -36,6 +36,7 @@ const ChallengeInfo = ({
             setIsModalOpen(false);
         }, 500);
     };
+
     return (
         <section className='relative flex flex-col md:flex-row'>
             <div className='card drop-shadow-none bg-neutral-200 dark:bg-neutral-600 w-auto aspect-[5/3] md:w-[40%] md:max-w-[420px] md:self-start md:aspect-square m-3 md:m-4'>

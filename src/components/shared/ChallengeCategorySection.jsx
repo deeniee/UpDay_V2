@@ -28,7 +28,7 @@ const ChallengeCategorySection = ({
         } else if (isSMySavedChallenges) {
             navigate(`/my-challenges/saved/${slug}`);
         } else {
-            navigate(`/challenges/${slug}`);
+            navigate(`/challenges/category/${slug}`);
         }
         setActiveCategory(category); // 부모 컴포넌트에 선택한 카테고리 전달
         setSearchResults(null); // 카테고리 변경시 검색 결과 초기화

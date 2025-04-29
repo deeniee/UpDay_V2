@@ -1,4 +1,3 @@
-import { userData } from '../assets/data/userData';
 import { dummyUsers } from '../assets/data/dummyUsers';
 import { dummyChallenges } from '../assets/data/dummyChallenges';
 
@@ -6,7 +5,7 @@ export const getAuthorData = (authorId) => {
     let authorData = dummyUsers.find((user) => user.userId === authorId);
 
     if (!authorData) {
-        const usersData = userData || '[]';
+        const usersData = JSON.parse(localStorage.getItem('users'));
         authorData = usersData.find((user) => user.userId === authorId);
     }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { getChallenges } from '../../../utils/localStorage';
 import ChallengeListContainer from '../../../components/shared/ChallengeContainer';
+import { FaPlus } from 'react-icons/fa6';
 
 export default function ChallengesLayout() {
     const { slug } = useParams();
@@ -70,16 +71,29 @@ export default function ChallengesLayout() {
         }
     }, [activeCategory, searchTerm, challenges, handleSearch]);
 
+    // 클릭시 글 생성하는 모달로 이동하는 로직
+    const handleCreateClick = () => {
+        navigate('create');
+    };
     return (
-        <ChallengeListContainer
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            handleSearch={handleSearch}
-            challenges={challenges}
-        />
+        <>
+            <ChallengeListContainer
+                activeCategory={activeCategory}
+                setActiveCategory={setActiveCategory}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                handleSearch={handleSearch}
+                challenges={challenges}
+            />
+            <button
+                className='flex items-center justify-center text-neutral-100 rounded-full bg-point-400 drop-shadow-md
+        fixed bottom-[11%] right-[6%] md:right-[11%] w-12 md:w-14 h-12 md:h-14 text-2xl md:text-3xl'
+                onClick={handleCreateClick}
+            >
+                <FaPlus />
+            </button>
+        </>
     );
 }
