@@ -44,12 +44,23 @@ export default function ChallengeDetailLayout() {
             : 0;
 
     useEffect(() => {
-        const selected = getChallenges().find(
-            (challenge) => String(challenge.id) === String(id)
-        );
-        setPostData(selected);
-        setMode('view');
-    }, [id]);
+        if (mode === 'view') {
+            const selected = getChallenges().find(
+                (challenge) => String(challenge.id) === String(id)
+            );
+            setPostData(selected);
+        }
+    }, [id, mode]);
+
+    useEffect(() => {
+        if (location.pathname.includes('/create')) {
+            setMode('create');
+        } else if (location.pathname.includes('/edit')) {
+            setMode('edit');
+        } else {
+            setMode('view');
+        }
+    }, [location.pathname]);
 
     useEffect(() => {
         if (isEditMode && selectedChallenge) {
