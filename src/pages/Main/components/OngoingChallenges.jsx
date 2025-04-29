@@ -134,7 +134,7 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                             )}
                     </ul>
                 ) : (
-                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card main-text text-neutral-500'>
+                    <div className='w-full h-[166px] md:h-[39vh] md:min-h-[280px] flex flex-col justify-center items-center card main-text text-neutral-500 dark:text-neutral-300'>
                         진행 중인 챌린지가 없습니다.
                     </div>
                 )

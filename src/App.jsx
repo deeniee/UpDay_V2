@@ -28,7 +28,7 @@ function App() {
                 <Route path='about-upday' element={<Intro />} />
                 <Route path='main' element={<Main />} />
                 <Route path='challenges' element={<Challenges />}>
-                    <Route path=':slug' element={null} />
+                    <Route path='category/:slug' element={null} />
                 </Route>
                 <Route path='challenges/create' element={<ChallengeDetail />} />
                 <Route path='challenges/:id' element={<ChallengeDetail />} />
