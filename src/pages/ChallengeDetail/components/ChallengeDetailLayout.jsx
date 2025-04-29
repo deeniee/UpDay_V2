@@ -193,22 +193,21 @@ export default function ChallengeDetailLayout() {
                     <p>챌린지를 찾을 수 없습니다.</p>
                 )}
             </main>
-            {isCreateMode || isEditMode ? (
-                <div className='absolute -bottom-12 flex justify-between w-full'>
-                    <img
-                        src={pic4}
-                        alt='bg_illust_pic4'
-                        className='hidden md:block md:w-44'
-                    />
-                    <img
-                        src={pic3}
-                        alt='bg_illust_pic3'
-                        className='hidden md:block md:w-40'
-                    />
-                </div>
-            ) : (
-                <></>
-            )}
+            {isCreateMode ||
+                (isEditMode && (
+                    <div className='absolute -bottom-12 flex justify-between w-full'>
+                        <img
+                            src={pic4}
+                            alt='bg_illust_pic4'
+                            className='hidden md:block md:w-44'
+                        />
+                        <img
+                            src={pic3}
+                            alt='bg_illust_pic3'
+                            className='hidden md:block md:w-40'
+                        />
+                    </div>
+                ))}
         </div>
     );
 }
