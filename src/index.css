@@ -137,10 +137,10 @@
     }
 
     .input-field {
-        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400 focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-300 focus:border-point-400 focus:outline-none dark:bg-neutral-500 dark:border-neutral-600 dark:focus:border-point-400 dark:placeholder-neutral-200;
     }
     .textarea-field {
-        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-400  focus:outline-point-400 dark:text-neutral-900;
+        @apply block w-full rounded-xl md:rounded-[13px] bg-neutral-100 px-2 py-1.5 text-xs md:text-sm border border-neutral-300 focus:border-point-400 focus:outline-none dark:bg-neutral-500 dark:border-neutral-600 dark:focus:border-point-400 dark:placeholder-neutral-200;
     }
 
     .tap-onclick {
@@ -175,6 +175,29 @@
     .over-off {
         @apply w-5 h-5 md:w-6 md:h-6 flex justify-center items-center rounded-full bg-neutral-200 text-neutral-300 dark:bg-neutral-300 dark:text-neutral-200;
     }
+
+    .custom-calendar .react-calendar__navigation {
+        @apply flex h-6 md:h-8 title justify-center items-center px-3 md:px-4;
+    }
+    .custom-calendar .react-calendar__navigation__arrow {
+        @apply text-[24px];
+    }
+    .custom-calendar .react-calendar__month-view__weekdays {
+        @apply text-neutral-500 dark:text-neutral-300 h-8 md:h-12 flex title justify-center items-center text-center;
+    }
+    .custom-calendar .react-calendar__month-view__weekdays__weekday--weekend {
+        @apply text-red-300;
+    }
+
+    .custom-calendar .react-calendar__tile {
+        @apply relative main-text h-16 md:h-20 rounded-xl md:rounded-[14px] flex justify-center p-1.5 md:p-2 transition hover:bg-main-100 active:bg-main-200 dark:hover:bg-main-400 dark:active:bg-main-300;
+    }
+    .custom-calendar .react-calendar__tile--now {
+        @apply font-bold bg-main-200 text-main-600 hover:bg-main-300 dark:bg-main-500 dark:text-main-200 dark:hover:bg-main-400;
+    }
+    .custom-calendar .react-calendar__month-view__days__day--neighboringMonth {
+        @apply text-neutral-300 hover:bg-neutral-200/50 dark:text-neutral-600 dark:hover:bg-neutral-500/50;
+    }
     /* 
     .check-on {
         @apply w-6 h-6 flex justify-center items-center rounded-full bg-green-400 text-neutral-100;
@@ -189,7 +212,6 @@
         @apply flex justify-center items-center text-neutral-400 text-sm;
     } */
 }
-
 html,
 body {
     transition:
@@ -236,4 +258,8 @@ Link {
 .hide-nav {
     transform: translateY(-100%); /* 네비게이션 바를 위로 숨김 */
     transition: transform 0.4s ease; /* 부드러운 전환 효과 */
+}
+
+abbr {
+    text-decoration: none;
 }
