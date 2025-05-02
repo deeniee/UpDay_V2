@@ -6,6 +6,7 @@ import { BsDot } from 'react-icons/bs';
 import { HiFire, HiDocumentCheck, HiOutlineDocument } from 'react-icons/hi2';
 import { getCategoryIcon } from '../../../utils/categoryList';
 import { calcDays } from '../../../utils/calcDate';
+import { parseDurationToDays } from '../../../store/features/userChallengeSlice';
 
 const NoteWithCalender = () => {
     const currentUserId = localStorage.getItem('loggedInUser');
@@ -61,19 +62,8 @@ const NoteWithCalender = () => {
             const start = moment(participant.joinDate);
             const durationStr = challenge.duration;
 
-            let end;
-            if (durationStr.includes('개월')) {
-                const monthCount = parseInt(
-                    durationStr.replace('개월', ''),
-                    10
-                );
-                end = start.clone().add(monthCount, 'months');
-            } else if (durationStr.includes('일')) {
-                const dayCount = parseInt(durationStr.replace('일', ''), 10);
-                end = start.clone().add(dayCount, 'days');
-            } else {
-                end = start.clone().add(30, 'days');
-            }
+            const durationInDays = parseDurationToDays(durationStr);
+            const end = start.clone().add(durationInDays - 1, 'days');
 
             const days = end.diff(start, 'days');
 
@@ -82,9 +72,10 @@ const NoteWithCalender = () => {
                     .clone()
                     .add(i, 'days')
                     .format('YYYY-MM-DD');
+
                 if (!dToCMap[dateStr]) dToCMap[dateStr] = [];
                 dToCMap[dateStr].push(challenge.id);
-                // 고정된 맵을 통해 색상 부여
+                // 고정된 맵으로 색상 부여
                 if (!dToColorMap[dateStr]) dToColorMap[dateStr] = {};
                 dToColorMap[dateStr][challenge.id] =
                     challengeIdToColorMap[challenge.id];
@@ -100,7 +91,7 @@ const NoteWithCalender = () => {
 
         if (challengeIds && challengeIds.length > 0) {
             return (
-                <div className='absolute top-0 left-0 w-full h-full flex flex-col pt-6 md:pt-7 gap-0.5'>
+                <div className='absolute top-0 left-0 w-full h-full flex flex-col pt-5 md:pt-6 gap-0.5'>
                     {challengeIds.map((id) => {
                         const colorClass =
                             dateToColorMap[dateStr]?.[id] ||
@@ -127,6 +118,8 @@ const NoteWithCalender = () => {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const activeDate = moment(selectedDate).format('YYYY-MM-DD');
+    const activeDateForShow = moment(activeDate).format('YYYY.MM.DD');
+
     const activeDateChallengeIds = dateToChallengeMap[activeDate] || [];
     const activeDateChallenges = userOngoing
         .filter((challenge) => activeDateChallengeIds.includes(challenge.id))
@@ -176,13 +169,15 @@ const NoteWithCalender = () => {
                     onClickDay={addClassName}
                 />
             </div>
-            <div className='card p-3 md:p-4 flex flex-col justify-between'>
-                <div className='flex flex-col gap-3 md:gap-4'>
+            <div className='card lg:h-[476px] p-3 md:p-4 flex flex-col justify-between'>
+                <div
+                    className={`flex flex-col gap-3 md:gap-4 ${unavailableDate && 'pb-1.5 md:pb-2'}`}
+                >
                     <div className='flex flex-row gap-3 md:gap-4 justify-start items-center'>
                         <h2 className='title'>오늘의 기록</h2>
-                        <span className='main-text'>{activeDate}</span>
+                        <span className='main-text'>{activeDateForShow}</span>
                     </div>
-                    <div className='flex flex-col gap-5 md:gap-6 overflow-y-scroll'>
+                    <div className='flex flex-col gap-5 md:gap-6 md:h-[346px] overflow-y-scroll scrollbar-none'>
                         {activeDateChallenges.map((challenge) => {
                             const participant = challenge.participants.find(
                                 (p) => p.userId === currentUserId

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { dummyChallenges } from '../../assets/data/dummyChallenges';
 import { getChallenges } from '../../utils/localStorage';
+import moment from 'moment';
 
 // 챌린지 데이터를 localStorage에 저장
 const saveChallengeToLocalStorage = (challenges) => {
@@ -60,6 +61,47 @@ const { joined, ongoing } = getCurrentUserChallenges(
     loggedInUser
 );
 
+// 챌린지 기간 문자열을 일 단위 숫자로 변환
+export const parseDurationToDays = (durationStr) => {
+    if (durationStr.includes('개월')) {
+        return parseInt(durationStr.replace('개월', ''), 10) * 30;
+    } else if (durationStr.includes('일')) {
+        return parseInt(durationStr.replace('일', ''), 10);
+    } else {
+        return 30;
+    }
+};
+
+// 시작일과 오늘 사이의 경과 일수 계산
+export const calcDays = (startDate, endDate = new Date()) => {
+    return moment(endDate).diff(moment(startDate), 'days');
+};
+
+// 특정 사용자 기준으로 clgDoing/clgDone 상태 업데이트된 챌린지 배열 반환
+export const updateParticipantStatus = (challenges, userId) => {
+    return challenges.map((challenge) => {
+        const durationInDays = parseDurationToDays(challenge.duration);
+
+        const updatedParticipants = challenge.participants.map((p) => {
+            if (p.userId !== userId) return p;
+
+            const passedDays = calcDays(p.joinDate);
+            const isDone = passedDays >= durationInDays;
+
+            return {
+                ...p,
+                clgDoing: !isDone,
+                clgDone: isDone,
+            };
+        });
+
+        return {
+            ...challenge,
+            participants: updatedParticipants,
+        };
+    });
+};
+
 const userChallengeSlice = createSlice({
     name: 'userChallenge',
     initialState: {
@@ -80,20 +122,46 @@ const userChallengeSlice = createSlice({
         // 참여 중인 챌린지 가져오는 액션
         getOngoingChallenge: (state) => {
             const currentUserId = localStorage.getItem('loggedInUser');
-            const updatedChallenges = getChallenges() || []; // localStorage에서 최신 데이터 가져오기
+            const originalChallenges = getChallenges() || [];
+
+            // 상태 갱신
+            const updatedChallenges = updateParticipantStatus(
+                originalChallenges,
+                currentUserId
+            );
+
+            localStorage.setItem(
+                'challenges',
+                JSON.stringify(updatedChallenges)
+            );
+
+            // clgDoing이 true인 챌린지만 저장
             state.ongoingChallenges = updatedChallenges.filter((challenge) =>
-                challenge.participants?.some(
+                challenge.participants.some(
                     (participant) =>
                         participant.userId === currentUserId &&
                         participant.clgDoing
                 )
             );
         },
+
         // 참여한 챌린지 가져오는 액션
         getJoinedChallenge: (state) => {
             const currentUserId = localStorage.getItem('loggedInUser');
-            const updatedChallenges = getChallenges() || []; // localStorage에서 최신 데이터 가져오기
+            const originalChallenges = getChallenges() || [];
 
+            // 상태 갱신
+            const updatedChallenges = updateParticipantStatus(
+                originalChallenges,
+                currentUserId
+            );
+
+            localStorage.setItem(
+                'challenges',
+                JSON.stringify(updatedChallenges)
+            );
+
+            // clgJoin이 true인 챌린지만 저장
             state.joinedChallenges = updatedChallenges.filter((challenge) =>
                 challenge.participants?.some(
                     (participant) =>
