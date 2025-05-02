@@ -190,10 +190,13 @@
     }
 
     .custom-calendar .react-calendar__tile {
-        @apply relative  main-text h-20 md:h-24 rounded-xl md:rounded-[14px] flex justify-start p-2 transition hover:bg-main-100 active:bg-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;
+        @apply relative main-text h-20 md:h-24 rounded-[6px] md:rounded-lg flex justify-start p-2 transition hover:bg-main-100 active:bg-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;
     }
     .custom-calendar .react-calendar__tile--now {
         @apply font-extrabold text-main-600 bg-main-200/50 hover:bg-main-100 active:bg-main-200 dark:bg-neutral-700 dark:text-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;
+    }
+    .custom-calendar .react-calendar__tile--active {
+        @apply bg-main-500 text-neutral-100 hover:bg-main-500/80 dark:bg-neutral-200/80 dark:text-neutral-900 dark:hover:bg-neutral-200;
     }
     .custom-calendar .react-calendar__month-view__days__day--neighboringMonth {
         @apply opacity-40 hover:bg-neutral-200 dark:hover:bg-neutral-500;
