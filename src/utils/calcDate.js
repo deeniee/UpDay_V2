@@ -22,7 +22,7 @@ export const calcDays = (joinDate, selectedDate) => {
     const start = new Date(joinDate);
     const selectDate = new Date(selectedDate);
     const diffTime = Math.abs(selectDate - start);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
 };
 
@@ -36,13 +36,6 @@ export const calcPassedDate = (postDate) => {
     const formattedStartHour = Math.abs(format(start, 'hh'));
     const formattedNowHour = Math.abs(format(now, 'hh'));
     const diffSecond = formattedStartHour - formattedNowHour;
-
-    // console.log(formattedStartHour);
-    // console.log(formattedNowHour);
-    // console.log(diffSecond);
-    // if (diffSecond < 24 && diffDays <= 1) {
-    //     return `${diffSecond}시간 전`;
-    // }
 
     if (diffDays <= 1) return '오늘';
     if (diffDays < 8) return `${diffDays}일 전`;

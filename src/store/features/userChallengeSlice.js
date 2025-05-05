@@ -130,10 +130,7 @@ const userChallengeSlice = createSlice({
                 currentUserId
             );
 
-            localStorage.setItem(
-                'challenges',
-                JSON.stringify(updatedChallenges)
-            );
+            localStorage.setItem('clgList', JSON.stringify(updatedChallenges));
 
             // clgDoing이 true인 챌린지만 저장
             state.ongoingChallenges = updatedChallenges.filter((challenge) =>
@@ -156,10 +153,7 @@ const userChallengeSlice = createSlice({
                 currentUserId
             );
 
-            localStorage.setItem(
-                'challenges',
-                JSON.stringify(updatedChallenges)
-            );
+            localStorage.setItem('clgList', JSON.stringify(updatedChallenges));
 
             // clgJoin이 true인 챌린지만 저장
             state.joinedChallenges = updatedChallenges.filter((challenge) =>
