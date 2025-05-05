@@ -2,16 +2,27 @@ import { dummyUsers } from '../assets/data/dummyUsers';
 import { dummyChallenges } from '../assets/data/dummyChallenges';
 
 export const getAuthorData = (authorId) => {
-    let authorData = dummyUsers.find((user) => user.userId === authorId);
+    if (!authorId) return null;
+
+    let authorData = dummyUsers?.find((user) => user.userId === authorId);
 
     if (!authorData) {
-        const usersData = JSON.parse(localStorage.getItem('users'));
-        authorData = usersData.find((user) => user.userId === authorId);
+        const usersDataRaw = localStorage.getItem('users');
+        if (!usersDataRaw) return null;
+
+        try {
+            const usersData = JSON.parse(usersDataRaw);
+            if (!Array.isArray(usersData)) return null;
+
+            authorData = usersData.find((user) => user.userId === authorId);
+        } catch (err) {
+            console.error('getAuthorData JSON parse error:', err);
+            return null;
+        }
     }
 
-    return authorData;
+    return authorData || null;
 };
-
 export const getParticipantDatas = () => {
     const participantIds = dummyChallenges.flatMap((item) =>
         item.participants.map((participant) => participant.userId)
@@ -74,4 +85,16 @@ export const getUserSavedData = () => {
     }
 
     return savedData[userId] || { likedIds: [], scrappedIds: [] };
+};
+
+export const getUserRecordData = () => {
+    const userId = localStorage.getItem('loggedInUser');
+    const rawData = localStorage.getItem('myClgRecord');
+
+    if (!userId) return {};
+
+    const parsed = rawData ? JSON.parse(rawData) : {};
+
+    // 해당 유저의 기록만 반환
+    return parsed[userId] || {};
 };

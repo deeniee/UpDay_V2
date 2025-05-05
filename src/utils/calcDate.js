@@ -22,7 +22,7 @@ export const calcDays = (joinDate, selectedDate) => {
     const start = new Date(joinDate);
     const selectDate = new Date(selectedDate);
     const diffTime = Math.abs(selectDate - start);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
     return diffDays;
 };
 

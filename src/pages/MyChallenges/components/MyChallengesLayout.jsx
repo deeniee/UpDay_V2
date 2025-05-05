@@ -9,7 +9,7 @@ import picPreffered from '../images/pic_preferred.svg';
 import MyChallengeCard from './MyChallengeCard';
 import Modal from '../../../components/ui/Modal';
 
-import NoteWithCalender from './NoteWithCalender';
+import RecordWithCalender from './RecordWithCalender';
 
 const MyChallengesLayout = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +25,7 @@ const MyChallengesLayout = () => {
 
     return (
         <main className='default-size gap-6 grid grid-cols-1 lg:grid-cols-2'>
-            <NoteWithCalender />
+            <RecordWithCalender />
             <div className='flex flex-col justify-start gap-6'>
                 <MyChallengeCard
                     title='관심있는 챌린지'

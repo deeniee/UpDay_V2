@@ -2,6 +2,8 @@ import react, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { userData } from './assets/data/userData';
+import { useThemeManager } from './hooks/useThemeManager';
 
 import MainLayout from './components/Layout/MainLayout';
 import Intro from './pages/Intro/Intro';
@@ -14,13 +16,18 @@ import Signup from './pages/Login/Signup';
 import ProfileSetup from './pages/Login/ProfileSetup';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
-import { useThemeManager } from './hooks/useThemeManager';
 import AllMyChallenges from './pages/AllMyChallenges/AllMyChallenges';
 import SavedMyChallenges from './pages/SavedMyChallenges/SavedMyChallenges';
 
 function App() {
     useThemeManager();
 
+    // 최초 유저 데이터 저장
+    useEffect(() => {
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify(userData));
+        }
+    }, []);
     return (
         <Routes>
             <Route path='/' element={<MainLayout />}>

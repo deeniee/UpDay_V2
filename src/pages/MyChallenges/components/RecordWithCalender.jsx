@@ -4,9 +4,9 @@ import Calendar from 'react-calendar';
 import moment from 'moment';
 import { parseDurationToDays } from '../../../store/features/userChallengeSlice';
 import { BsDot } from 'react-icons/bs';
-import { NoteMyChallenges } from './NoteMyChallenges';
+import { RecordMyChallenges } from './RecordMyChallenges';
 
-const NoteWithCalender = () => {
+const RecordWithCalender = () => {
     const currentUserId = localStorage.getItem('loggedInUser');
     const userJoined = useSelector(
         (state) => state.userChallenge.joinedChallenges
@@ -81,6 +81,7 @@ const NoteWithCalender = () => {
         });
 
         return { dateToChallengeMap: dToCMap, dateToColorMap: dToColorMap };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userJoined, currentUserId]);
 
     const addContent = ({ date }) => {
@@ -118,8 +119,8 @@ const NoteWithCalender = () => {
     const activeDate = moment(selectedDate).format('YYYY-MM-DD');
 
     return (
-        <div className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-3 md:gap-4 w-full'>
+        <section className='flex flex-col h-full min-h-0 lg:h-[1092px] gap-4'>
+            <div className='flex flex-col gap-3 md:gap-4 w-full shrink-0'>
                 <h1 className='title'>챌린지 기록하기</h1>
                 <div className='flex flex-col md:flex-row gap-2.5 md:gap-1'>
                     <span className='sub-text -mt-2 md:-mt-3'>
@@ -130,30 +131,33 @@ const NoteWithCalender = () => {
                     </span>
                 </div>
             </div>
-            <div className='card p-3 md:p-4 mb-2'>
-                <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    formatDay={(locale, date) => moment(date).format('D')} // 숫자 뒤 '일' 제외
-                    className='custom-calendar'
-                    calendarType='gregory'
-                    view='month'
-                    tileContent={addContent}
-                    prev2Label={null}
-                    next2Label={null}
-                    showNeighboringMonth={true}
-                    onClickDay={addClassName}
+            <div className='card grow overflow-hidden scrollbar-none'>
+                <div className='sticky top-0 p-3 md:p-4 border-b border-neutral-300 dark:border-neutral-700'>
+                    <Calendar
+                        onChange={setSelectedDate}
+                        value={selectedDate}
+                        formatDay={(locale, date) => moment(date).format('D')} // 숫자 뒤 '일' 제외
+                        className='custom-calendar'
+                        calendarType='gregory'
+                        view='month'
+                        tileContent={addContent}
+                        prev2Label={null}
+                        next2Label={null}
+                        showNeighboringMonth={true}
+                        onClickDay={addClassName}
+                    />
+                </div>
+
+                <RecordMyChallenges
+                    userJoined={userJoined}
+                    currentUserId={currentUserId}
+                    activeDate={activeDate}
+                    dateToChallengeMap={dateToChallengeMap}
+                    dateToColorMap={dateToColorMap}
                 />
             </div>
-            <NoteMyChallenges
-                userJoined={userJoined}
-                currentUserId={currentUserId}
-                activeDate={activeDate}
-                dateToChallengeMap={dateToChallengeMap}
-                dateToColorMap={dateToColorMap}
-            />
-        </div>
+        </section>
     );
 };
 
-export default NoteWithCalender;
+export default RecordWithCalender;

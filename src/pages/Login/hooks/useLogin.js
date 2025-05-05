@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { setUser } from '../../../store/features/userSlice';
-import { userData } from '../../../assets/data/userData';
 
 const useLogin = () => {
     const dispatch = useDispatch();
@@ -30,13 +29,6 @@ const useLogin = () => {
             navigate('/main');
         }
     }, [navigate]);
-
-    // 최초 유저 데이터 저장
-    useEffect(() => {
-        if (!localStorage.getItem('users')) {
-            localStorage.setItem('users', JSON.stringify(userData));
-        }
-    }, []);
 
     const handleBeforeInput = (e) => {
         // 한글 범위에 해당하는 문자가 입력될 때, 이를 방지
