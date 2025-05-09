@@ -1,16 +1,20 @@
 import React, { useState, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Calendar from 'react-calendar';
 import moment from 'moment';
 import { parseDurationToDays } from '../../../store/features/userChallengeSlice';
 import { BsDot } from 'react-icons/bs';
 import { RecordMyChallenges } from './RecordMyChallenges';
+import { toggleClgRecord } from '../../../store/features/userRecordSlice';
 
 const RecordWithCalender = () => {
+    const dispatch = useDispatch();
     const currentUserId = localStorage.getItem('loggedInUser');
     const userJoined = useSelector(
         (state) => state.userChallenge.joinedChallenges
     );
+
     const sequentialColors = [
         'bg-red-200 dark:bg-red-600',
         'bg-orange-200 dark:bg-orange-900',
@@ -95,10 +99,11 @@ const RecordWithCalender = () => {
                         const colorClass =
                             dateToColorMap[dateStr]?.[id] ||
                             'bg-neutral-300 dark:bg-neutral-600';
+                        const checked = 'opacity-50';
                         return (
                             <div
                                 key={id}
-                                className={`w-full h-1.5 ${colorClass}`}
+                                className={`w-full h-1.5 ${colorClass} ${checked}`}
                             />
                         );
                     })}

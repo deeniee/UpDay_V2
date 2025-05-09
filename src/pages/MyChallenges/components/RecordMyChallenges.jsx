@@ -4,7 +4,10 @@ import moment from 'moment';
 import { calcDays } from '../../../utils/calcDate';
 import { HiFire } from 'react-icons/hi2';
 import { getCategoryIcon } from '../../../utils/categoryList';
-import { setClgRecord } from '../../../store/features/userRecordSlice';
+import {
+    setClgRecord,
+    toggleClgRecord,
+} from '../../../store/features/userRecordSlice';
 
 const formatDate = (dateStr) => moment(dateStr).format('YYYY.MM.DD');
 
@@ -69,7 +72,35 @@ export const RecordMyChallenges = ({
         } // eslint-disable-next-line
     }, [currentUserId, activeDate, activeDateChallenges]);
 
-    const getClgDoingClass = (doing) => (doing ? 'doing-on' : 'doing-off');
+    const handleToggleDone = (challengeId) => {
+        dispatch(
+            toggleClgRecord({
+                date: activeDate,
+                challengeId,
+            })
+        );
+
+        setUserNote((prev) => {
+            const prevChallenge = prev?.records?.[activeDate]?.[challengeId];
+            if (!prevChallenge) return prev;
+
+            return {
+                ...prev,
+                records: {
+                    ...prev.records,
+                    [activeDate]: {
+                        ...prev.records[activeDate],
+                        [challengeId]: {
+                            ...prevChallenge,
+                            done: !prevChallenge.done,
+                        },
+                    },
+                },
+            };
+        });
+    };
+
+    const getDoneClass = (doing) => (doing ? 'doing-on' : 'doing-off');
 
     const handleChange = (e, challengeId) => {
         const { value } = e.target;
@@ -103,33 +134,49 @@ export const RecordMyChallenges = ({
         const saved = JSON.parse(localStorage.getItem('myClgRecord')) || {};
         const userData = saved[currentUserId] || {};
 
-        const updatedForDate = { ...(userNote?.records?.[activeDate] || {}) };
+        const updatedForDate = {
+            ...(userData[activeDate] || {}),
+            ...(userNote?.records?.[activeDate] || {}),
+        };
 
+        // 기존 사용자 데이터에 새로운 날짜 데이터 병합
         saved[currentUserId] = {
             ...userData,
             [activeDate]: updatedForDate,
         };
 
+        // 반드시 전체 saved 객체를 다시 저장
         localStorage.setItem('myClgRecord', JSON.stringify(saved));
 
+        // Redux 업데이트
         activeDateChallenges.forEach((challenge) => {
+            const record = updatedForDate[challenge.id] || {
+                done: false,
+                note: '',
+            };
             dispatch(
                 setClgRecord({
                     userId: currentUserId,
                     date: activeDate,
                     challengeId: challenge.id,
-                    done: true,
-                    note:
-                        userNote?.records?.[activeDate]?.[challenge.id]?.note ||
-                        '',
+                    done: record.done,
+                    note: record.note,
                 })
             );
         });
+
+        setUserNote((prev) => ({
+            ...prev,
+            records: {
+                ...prev.records,
+                [activeDate]: updatedForDate,
+            },
+        }));
     };
 
     return (
         <div
-            className={`flex flex-col justify-between overflow-scroll scrollbar-none  ${unavailableDate ? '' : 'h-[280px] md:h-[344px]'} lg:h-[486px]`}
+            className={`flex flex-col justify-between overflow-scroll scrollbar-none  ${unavailableDate ? '' : 'h-[288px] md:h-[358px]'} lg:h-[448px]`}
         >
             <div className='flex flex-col'>
                 <div className='flex flex-row gap-3 md:gap-4 p-3 pb-2 md:p-4 md:pb-3 justify-start items-center sticky top-0 bg-neutral-100 z-10'>
@@ -137,7 +184,7 @@ export const RecordMyChallenges = ({
                     <span className='main-text'>{formatDate(activeDate)}</span>
                 </div>
                 <div
-                    className={`flex flex-col p-3 pt-0 md:p-4 md:pt-0 ${unavailableDate ? 'gap-1.5 md:gap-2' : 'gap-5 md:gap-6'}`}
+                    className={`flex flex-col px-3 md:px-4 ${unavailableDate ? 'pb-2 md:pb-3 gap-1.5 md:gap-2' : 'pb-12 md:pb-16 gap-5 md:gap-6'} lg:pb-4`}
                 >
                     {activeDateChallenges.map((challenge) => {
                         const participant = challenge.participants.find(
@@ -147,7 +194,7 @@ export const RecordMyChallenges = ({
                         return (
                             <div
                                 key={challenge.id}
-                                className='main-text flex flex-col gap-1.5 md:gap-2 pt-2 md:pt-3'
+                                className='main-text flex flex-col gap-2 md:gap-3'
                             >
                                 <div className='flex justify-between items-center'>
                                     <div className='flex gap-0.5 md:gap-1 items-center'>
@@ -178,6 +225,14 @@ export const RecordMyChallenges = ({
                                             일 째
                                         </p>
                                     </div>
+                                    <button
+                                        className={`md:text-lg aspect-square ${unavailableDate && 'hidden'} ${getDoneClass(userNote?.records?.[activeDate]?.[challenge.id]?.done)}`}
+                                        onClick={() =>
+                                            handleToggleDone(challenge.id)
+                                        }
+                                    >
+                                        <HiFire />
+                                    </button>
                                 </div>
                                 <div className='flex gap-3 md:gap-4'>
                                     <textarea
@@ -195,24 +250,18 @@ export const RecordMyChallenges = ({
                                         className={`textarea-field sub-text w-full overflow-scroll scrollbar-none ${unavailableDate && 'hidden'}`}
                                         readOnly={unavailableDate}
                                     />
-
-                                    <div className='flex flex-col justify-between items-end'>
-                                        <button
-                                            className={`md:text-lg aspect-square ${unavailableDate && 'hidden'} ${getClgDoingClass()}`}
-                                        >
-                                            <HiFire />
-                                        </button>
-                                        <button
-                                            className={`btn btn-primary w-24 mx-auto mt-5 md:mt-6 ${unavailableDate && 'hidden'}`}
-                                            onClick={handleSave}
-                                        >
-                                            저장하기
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         );
                     })}
+                </div>{' '}
+                <div className='w-full bg-neutral-100 fixed bottom-0 pb-3 md:pb-4'>
+                    <button
+                        className={`btn btn-primary w-24 mx-auto ${unavailableDate && 'hidden'}`}
+                        onClick={handleSave}
+                    >
+                        저장하기
+                    </button>
                 </div>
             </div>
         </div>
