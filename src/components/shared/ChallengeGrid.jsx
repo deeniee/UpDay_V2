@@ -13,7 +13,7 @@ import { getAuthorData } from '../../utils/getUserData';
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
 import { FaPen } from 'react-icons/fa6';
-import { ChallengeState } from '../../pages/MyChallenges/components/ChallengeState';
+import { ChallengeState } from '../../pages/AllMyChallenges/components/ChallengeState';
 
 const ChallengeGrid = ({ cardData, viewMode }) => {
     const {
@@ -34,6 +34,7 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const authorData = getAuthorData(authorId);
     const location = useLocation();
     const loggedInUser = localStorage.getItem('loggedInUser');
 
@@ -139,15 +140,26 @@ const ChallengeGrid = ({ cardData, viewMode }) => {
 
             {/* 유저 닉네임 & 사진 */}
             <div className='flex justify-between'>
-                <div className='flex justify-start items-center'>
-                    <img
-                        src={getAuthorData(authorId).userImg}
-                        alt={`${getAuthorData(authorId).nickname} 프로필 사진`}
-                        className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full bg-neutral-200 drop-shadow-sm'
-                    />
-                    <p className='ml-2 sub-text'>
-                        {getAuthorData(authorId).nickname}
-                    </p>
+                <div className='flex items-center'>
+                    {authorData ? (
+                        <>
+                            <img
+                                src={authorData.userImg}
+                                alt={`${authorData.nickname} 프로필 사진`}
+                                className='w-5 h-5 md:w-6 md:h-6 object-cover rounded-full bg-neutral-200 drop-shadow-sm'
+                            />
+                            <p className='ml-2 sub-text'>
+                                {authorData.nickname}
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <div className='w-5 h-5 md:w-6 md:h-6 rounded-full bg-neutral-300 dark:bg-neutral-600' />
+                            <p className='ml-2 sub-text text-neutral-400'>
+                                알 수 없음
+                            </p>
+                        </>
+                    )}
                 </div>
                 {/* 참여버튼 */}
                 {isMyChallengesPage ? (

@@ -46,6 +46,10 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
         // 해당 카드의 상세 모달 페이지로 이동
         navigate(`/challenges/${challenge.id}`);
     };
+    const handleNoteClick = () => {
+        // 내 챌린지로 이동
+        navigate('/my-challenges');
+    };
 
     return (
         <div className='relative w-full h-[190px] md:h-full md:min-h-[312px] md:max-h-[592px]'>
@@ -69,7 +73,6 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                             ? 'border-neutral-300/0'
                                             : 'border-neutral-300 dark:border-neutral-700'
                                     }`}
-                                    onClick={() => handleCardClick(challenge)} // 클릭 시 해당 challenge를 전달
                                 >
                                     {challenge ? (
                                         <>
@@ -104,7 +107,14 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                     </p>
                                                 </div>
 
-                                                <span className='main-text w-full overflow-hidden text-ellipsis whitespace-nowrap'>
+                                                <span
+                                                    className='main-text w-full overflow-hidden text-ellipsis whitespace-nowrap'
+                                                    onClick={() =>
+                                                        handleCardClick(
+                                                            challenge
+                                                        )
+                                                    }
+                                                >
                                                     {challenge.title}
                                                 </span>
                                             </div>
@@ -119,7 +129,10 @@ const OngoingChallenges = ({ userName, isLoggedIn }) => {
                                                     )
                                                 }
                                             >
-                                                <FaPen className='text-sm' />
+                                                <FaPen
+                                                    className='text-sm'
+                                                    onClick={handleNoteClick}
+                                                />
                                             </button>
                                         </>
                                     ) : null}

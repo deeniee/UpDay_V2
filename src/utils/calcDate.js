@@ -37,13 +37,6 @@ export const calcPassedDate = (postDate) => {
     const formattedNowHour = Math.abs(format(now, 'hh'));
     const diffSecond = formattedStartHour - formattedNowHour;
 
-    // console.log(formattedStartHour);
-    // console.log(formattedNowHour);
-    // console.log(diffSecond);
-    // if (diffSecond < 24 && diffDays <= 1) {
-    //     return `${diffSecond}시간 전`;
-    // }
-
     if (diffDays <= 1) return '오늘';
     if (diffDays < 8) return `${diffDays}일 전`;
     if (diffDays < 14) return '2주 전';

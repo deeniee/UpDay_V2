@@ -190,7 +190,7 @@
     }
 
     .custom-calendar .react-calendar__tile {
-        @apply relative main-text h-20 md:h-24 rounded-[6px] md:rounded-lg flex justify-start p-2 transition hover:bg-main-100 active:bg-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;
+        @apply relative main-text h-20 md:h-[84px] rounded-[6px] md:rounded-lg flex justify-start pt-1 pl-2 transition hover:bg-main-100 active:bg-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;
     }
     .custom-calendar .react-calendar__tile--now {
         @apply font-extrabold text-main-600 bg-main-200/50 hover:bg-main-100 active:bg-main-200 dark:bg-neutral-700 dark:text-main-200 dark:hover:bg-neutral-600 dark:active:bg-neutral-500;

@@ -13,7 +13,7 @@ import { getAuthorData } from '../../utils/getUserData';
 import { BsDot } from 'react-icons/bs';
 import { IoBookmarks, IoHeart } from 'react-icons/io5';
 import { FaPen } from 'react-icons/fa6';
-import { ChallengeState } from '../../pages/MyChallenges/components/ChallengeState';
+import { ChallengeState } from '../../pages/AllMyChallenges/components/ChallengeState';
 
 const ChallengeList = ({ cardData, viewMode }) => {
     const {

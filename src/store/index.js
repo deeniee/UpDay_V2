@@ -3,7 +3,8 @@ import userReducer from './features/userSlice';
 import challengeReducer from './features/challengeSlice';
 import userChallengeReducer from './features/userChallengeSlice';
 import themeSlice from './features/themeSlice';
-import userSavedreducer from './features/userSavedSlice';
+import userSavedReducer from './features/userSavedSlice';
+import userRecordReducer from './features/userRecordSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         userChallenge: userChallengeReducer,
         challenge: challengeReducer,
         theme: themeSlice,
-        userSaved: userSavedreducer,
+        userSaved: userSavedReducer,
+        userRecord: userRecordReducer,
     },
 });
