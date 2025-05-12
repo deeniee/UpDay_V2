@@ -1,17 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserRecordData } from '../../utils/getUserData';
 
-// mySavedClg를 로드
+// 모든 사용자의 mySavedClg를 불러옴
 const loadRecordedData = () => {
-    const savedData = JSON.parse(localStorage.getItem('myClgRecord')) || {};
-    return savedData;
+    try {
+        const rawData = localStorage.getItem('myClgRecord');
+        const parsed = rawData ? JSON.parse(rawData) : {};
+        return typeof parsed === 'object' && parsed !== null ? parsed : {};
+    } catch (error) {
+        console.error('Failed to load recorded data:', error);
+        return {};
+    }
 };
+
 // mySavedClg 저장
 const saveRecordedData = (data) => {
-    localStorage.setItem('myClgRecord', JSON.stringify(data));
+    try {
+        const serialized = JSON.stringify(data);
+        localStorage.setItem('myClgRecord', serialized);
+    } catch (error) {
+        console.error('Failed to save recorded data:', error);
+    }
 };
 
-const initialState = getUserRecordData();
+const initialState = loadRecordedData();
 
 const userRecordSlice = createSlice({
     name: 'userRecord',

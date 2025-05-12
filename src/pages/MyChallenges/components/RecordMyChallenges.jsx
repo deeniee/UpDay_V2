@@ -132,23 +132,34 @@ export const RecordMyChallenges = ({
 
     const handleSave = () => {
         const saved = JSON.parse(localStorage.getItem('myClgRecord')) || {};
-        const userData = saved[currentUserId] || {};
+        const userData =
+            typeof saved[currentUserId] === 'object' &&
+            saved[currentUserId] !== null
+                ? saved[currentUserId]
+                : {};
 
+        // 해당 날짜의 기존 기록과 새 기록 병합
         const updatedForDate = {
             ...(userData[activeDate] || {}),
             ...(userNote?.records?.[activeDate] || {}),
         };
 
-        // 기존 사용자 데이터에 새로운 날짜 데이터 병합
-        saved[currentUserId] = {
+        // 사용자 데이터에 날짜별 기록 병합
+        const updatedUserData = {
             ...userData,
             [activeDate]: updatedForDate,
         };
 
-        // 반드시 전체 saved 객체를 다시 저장
-        localStorage.setItem('myClgRecord', JSON.stringify(saved));
+        // 전체 저장 객체에 사용자 데이터 병합
+        const updatedSaved = {
+            ...saved,
+            [currentUserId]: updatedUserData,
+        };
 
-        // Redux 업데이트
+        // 저장
+        localStorage.setItem('myClgRecord', JSON.stringify(updatedSaved));
+
+        // Redux 상태 업데이트
         activeDateChallenges.forEach((challenge) => {
             const record = updatedForDate[challenge.id] || {
                 done: false,
@@ -165,6 +176,7 @@ export const RecordMyChallenges = ({
             );
         });
 
+        // local 상태 동기화 (선택 사항)
         setUserNote((prev) => ({
             ...prev,
             records: {
@@ -172,6 +184,7 @@ export const RecordMyChallenges = ({
                 [activeDate]: updatedForDate,
             },
         }));
+        window.location.reload();
     };
 
     return (

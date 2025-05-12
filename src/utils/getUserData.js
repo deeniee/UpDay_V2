@@ -86,15 +86,3 @@ export const getUserSavedData = () => {
 
     return savedData[userId] || { likedIds: [], scrappedIds: [] };
 };
-
-export const getUserRecordData = () => {
-    const userId = localStorage.getItem('loggedInUser');
-    const rawData = localStorage.getItem('myClgRecord');
-
-    if (!userId) return {};
-
-    const parsed = rawData ? JSON.parse(rawData) : {};
-
-    // 해당 유저의 기록만 반환
-    return parsed[userId] || {};
-};
